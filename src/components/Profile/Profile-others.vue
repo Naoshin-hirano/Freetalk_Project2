@@ -1,0 +1,102 @@
+<template>
+  <v-row justify="center" >
+    <v-dialog v-model="editDialog" persistent width="900px">
+        <template v-slot:activator="{ on, attrs }">
+            <v-btn
+            height="70px"
+            fab accent
+            v-bind="attrs"
+            v-on="on">
+                <v-avatar size="100" >
+                    <v-img
+                    v-if="freetalk.photoURL"
+                    :src="freetalk.photoURL"
+                    alt="John">
+                    </v-img>
+                    <v-img
+                    v-else
+                    src="https://soma-engineering.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                    alt="John">
+                    </v-img>
+                </v-avatar>
+            </v-btn>
+        </template>
+        <v-card>
+            <v-container>
+                <v-layout>
+                    <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+                        <v-card>
+                            <v-card-actions class="text-right">
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-card-actions>
+                                    <v-btn @click="editDialog=false"
+                                           fab accent 
+                                           class="blue--text darken-1">
+                                           <v-icon>mdi-window-close</v-icon>
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card-actions>
+                            <v-container>
+                                <v-layout class="text-center">
+                                    <v-flex>
+                                        <v-avatar size="180">
+                                            <img
+                                            v-if="freetalk.photoURL"
+                                            :src="freetalk.photoURL"
+                                            alt="John">
+                                            <img
+                                            v-else
+                                            src="https://soma-engineering.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                                            alt="John">
+                                        </v-avatar>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout class="text-center" mt-1 mb-10>
+                                    <v-flex >
+                                        <h3>{{ freetalk.userName }}</h3>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout>
+                                    <v-flex class="text-right">
+                                        <!-- <good-btn></good-btn> -->
+                                    </v-flex>
+                                    <v-flex class="text-left">
+                                        <!-- コメント機能 -->
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout class="text-center" mt-12>
+                                    <v-flex>
+                                        <v-card>
+                                            <v-card-title>Self-introduction</v-card-title>
+                                        <v-card-text>{{ freetalk.introduction }}</v-card-text>
+                                        </v-card>
+                                    </v-flex>
+                                </v-layout>
+                            </v-container>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-card>
+    </v-dialog>
+  </v-row>
+</template>
+
+<script>
+  export default {
+    props: ["freetalk"],
+    data () {
+      return {
+        editDialog: false
+      }
+    }
+  }
+</script>
