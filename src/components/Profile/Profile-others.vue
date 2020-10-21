@@ -9,8 +9,8 @@
             v-on="on">
                 <v-avatar size="100" >
                     <v-img
-                    v-if="freetalk.photoURL"
-                    :src="freetalk.photoURL"
+                    v-if="user.photoURL"
+                    :src="user.photoURL"
                     alt="John">
                     </v-img>
                     <v-img
@@ -49,8 +49,8 @@
                                     <v-flex>
                                         <v-avatar size="180">
                                             <img
-                                            v-if="freetalk.photoURL"
-                                            :src="freetalk.photoURL"
+                                            v-if="user.photoURL"
+                                            :src="user.photoURL"
                                             alt="John">
                                             <img
                                             v-else
@@ -61,7 +61,7 @@
                                 </v-layout>
                                 <v-layout class="text-center" mt-1 mb-10>
                                     <v-flex >
-                                        <h3>{{ freetalk.userName }}</h3>
+                                        <h3>{{ user.displayName }}</h3>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout>
@@ -76,7 +76,7 @@
                                     <v-flex>
                                         <v-card>
                                             <v-card-title>Self-introduction</v-card-title>
-                                        <v-card-text>{{ freetalk.introduction }}</v-card-text>
+                                        <v-card-text>{{ user.introduction }}</v-card-text>
                                         </v-card>
                                     </v-flex>
                                 </v-layout>
@@ -91,12 +91,29 @@
 </template>
 
 <script>
+  import firebase from 'firebase/app'
+  import db from 'firebase'
   export default {
     props: ["freetalk"],
-    data () {
+    data(){
       return {
-        editDialog: false
+        editDialog: false,
+        user: {
+          displayName: "",
+          id: "",
+          introduction: "",
+          photoURL: ""
+        }
       }
-    }
+    },
+    created(){
+        const uid = this.freetalk.createrId
+        db.database().ref("/users/" + uid).once("value").then(data =>{
+            console.log(data.val())
+        })
+        .catch(error =>{
+            console.log(error)
+        })
+    } 
   }
 </script>

@@ -153,9 +153,10 @@ export default new Vuex.Store({
     },
     //Registerのユーザー情報を取り出す
     fetchUserData({commit, getters}){
-      firebase.database().ref("/users/" + getters.user.id + "/registrations/").once("value")
+      firebase.database().ref("/users/" + getters.user.id).once("value")
        .then(data=>{
-         const dataPairs = data.val()
+         const userData = data.val()
+         const dataPairs = data.val().registrations
          let registeredFreetalks = []
          let swappedPairs = {}
          for(let key in dataPairs){
@@ -163,10 +164,10 @@ export default new Vuex.Store({
            swappedPairs[dataPairs[key]] = key
          }
          const updateUser = {
-          id: getters.user.id,
-          photoURL: getters.user.photoURL,
-          displayName: getters.user.displayName,
-          introduction: getters.user.introduction,
+          id: userData.id,
+          photoURL: userData.photoURL,
+          displayName: userData.displayName,
+          introduction: userData.introduction,
           registeredFreetalks: registeredFreetalks,
           fbKeys: swappedPairs
         }
@@ -176,28 +177,6 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    // fetchUserProfileData({commit, getters}){
-    //   firebase.database().ref("/profile/" + getters.user.id).once("value")
-    //    .then(data=>{
-    //     const profileData = []
-    //     const obj = data.val()
-    //     for(let key in obj){
-    //       profileData.push({
-    //         id: key,
-    //         photoURL: obj[key].photoURL,
-    //         displayName: obj[key].displayName,
-    //         introduction: obj[key].introduction,
-    //         registeredFreetalks: [],
-    //         fbKeys: {},
-    //         likesKeys: {}
-    //       })
-    //     }
-    //     commit("setLoginUser", profileData)
-    //    })
-    //     .catch(error=>{
-    //       console.log(error)
-    //     })
-    // },
     loadedFreeTalks({commit}){
       commit("setLoading", true)
       firebase.database().ref("freetalks").once("value")

@@ -158,7 +158,7 @@ export default {
         date: this.submittableDateTime
       }
       this.$store.dispatch("createTalk", talkData)//awaite
-    //   this.$router.push("/freetalks")
+      this.$router.push("/freetalks")
     }
   }
 }
