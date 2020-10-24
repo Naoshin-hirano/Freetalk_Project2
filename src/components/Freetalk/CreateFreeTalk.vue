@@ -146,7 +146,7 @@ export default {
         fileReader.readAsDataURL(files[0])
         this.image = files[0]
      },
-    onCreateTalk(){//submit押した時のmethods
+    async onCreateTalk(){//submit押した時のmethods
         if(!this.formIsValid){
            return
         }
@@ -157,7 +157,7 @@ export default {
         description: this.description,
         date: this.submittableDateTime
       }
-      this.$store.dispatch("createTalk", talkData)//awaite
+      await this.$store.dispatch("createTalk", talkData)//awaite
       this.$router.push("/freetalks")
     }
   }

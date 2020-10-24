@@ -91,7 +91,6 @@
 </template>
 
 <script>
-  import firebase from 'firebase/app'
   import db from 'firebase'
   export default {
     props: ["freetalk"],
@@ -110,6 +109,10 @@
         const uid = this.freetalk.createrId
         db.database().ref("/users/" + uid).once("value").then(data =>{
             console.log(data.val())
+            this.user.displayName = data.val().displayName,
+            this.user.id = data.val().id,
+            this.user.introduction = data.val().introduction,
+            this.user.photoURL = data.val().photoURL
         })
         .catch(error =>{
             console.log(error)
