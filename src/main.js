@@ -13,6 +13,7 @@ import GoodFreetalk from './components/Freetalk/Good-Freetalk.vue'
 // import Comment from './components/Profile/Comment.vue'
 import RegisterDialog from './components/Freetalk/RegisterDialog.vue'
 import DeleteFreeTalk from './components/Freetalk/DeleteFreeTalk.vue'
+import DeleteUserAccount from './components/User/Delete-user.vue'
 import AppAlert from './components/Shared/Alert.vue'
 import Paginate from 'vuejs-paginate'
 import EditProfile from './components/Profile/EditProfile'
@@ -26,6 +27,7 @@ Vue.component("edit-date", EditDate)
 Vue.component("edit-time", EditTime)
 Vue.component("register-dialog", RegisterDialog)
 Vue.component("delete-free-talk", DeleteFreeTalk)
+Vue.component("delete-user-account", DeleteUserAccount)
 Vue.component("app-alert", AppAlert)
 Vue.component('paginate', Paginate)
 Vue.component('good-freetalk', GoodFreetalk)
@@ -51,7 +53,6 @@ new Vue({
     firebase.auth().onAuthStateChanged(user =>{
       if(user){
         this.$store.dispatch("setLoginUser",user)
-        // this.$store.dispatch("fetchUserProfileData")
         this.$store.dispatch("fetchUserData")
         this.$router.push({name: 'Home'})
       }else{

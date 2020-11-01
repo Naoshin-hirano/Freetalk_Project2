@@ -157,8 +157,8 @@ export default {
         description: this.description,
         date: this.submittableDateTime
       }
-      await this.$store.dispatch("createTalk", talkData)//awaite
-      this.$router.push("/freetalks")
+      this.$store.dispatch("createTalk", talkData)//awaite
+      this.$router.push({name: 'FreeTalks'})
     }
   }
 }

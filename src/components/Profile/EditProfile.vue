@@ -35,13 +35,31 @@
                             required>
                         </v-textarea>
                      </v-card-text>
+                     <v-card-text>
+                         <v-text-field
+                            label="Select Image"
+                            @click="pickFile"
+                            v-model="imageName"
+                            >
+                        </v-text-field>
+                        <input 
+                            type="file"
+                            style="display : none"
+                            ref="image"
+                            accept="image/*"
+                            @change="onFilePicked">
+                        <v-avatar size="150" >
+                            <v-img :src="photoURL">
+                            </v-img>
+                        </v-avatar>
+                     </v-card-text>
                  </v-flex>
              </v-layout>
              <v-divider></v-divider>
              <v-layout>
                  <v-flex>
                      <v-card-actions>
-                         <v-btn @click="editDialog=false" text class="blue--text darken-1">Close</v-btn>
+                         <v-btn @click="close" text class="blue--text darken-1">Close</v-btn>
                          <v-btn @click="onSaveProfile" text class="blue--text darken-1">Save</v-btn>
                      </v-card-actions>
                  </v-flex>
@@ -60,18 +78,48 @@
         userName: this.$store.getters.userName,
         photoURL: this.$store.getters.photoURL,
         introduction: this.$store.getters.introduction,
+        imageName: "",
+        imageFile: ""
       }
     },
     methods: {
+      pickFile(){
+        this.$refs.image.click()
+      },
+      onFilePicked(e){
+        const files = e.target.files
+        if(files[0] !== undefined){
+          this.imageName = files[0].name
+          if(this.imageName.lastIndexOf(".") <= 0){
+            return
+          }
+          const fr = new FileReader()
+          fr.readAsDataURL(files[0])
+          fr.addEventListener("load", ()=>{
+            this.photoURL = fr.result
+            this.imageFile = files[0]
+          })
+        }else{
+          this.imageName = ""
+          this.imageFile = ""
+          this.photoURL = ""
+        }
+      },
       onSaveProfile(){
         this.$store.dispatch("updateProfile",{
           id: this.$store.getters.user.id,
           displayName: this.userName,
           photoURL: this.photoURL,
+          image: this.imageFile,
           introduction: this.introduction
         })
         this.editDialog = false
-      }
+      },
+      close(){
+        this.editDialog = false
+        this.imageName = ""
+        this.photoURL = this.$store.getters.photoURL
+      },
     }
   }
 </script>

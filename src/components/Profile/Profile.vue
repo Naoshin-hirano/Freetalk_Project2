@@ -3,7 +3,7 @@
         <v-layout>
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card>
-                    <v-card-actions class="text-right">
+                    <v-card-actions>
                          <v-spacer></v-spacer>
                          <v-spacer></v-spacer>
                          <v-spacer></v-spacer>
@@ -13,6 +13,8 @@
                          <v-spacer></v-spacer>
                          <v-spacer></v-spacer>
                          <v-spacer></v-spacer>
+                         <v-spacer></v-spacer>
+                         <delete-user-account></delete-user-account>
                          <edit-profile></edit-profile>
                     </v-card-actions>
                     <v-container>

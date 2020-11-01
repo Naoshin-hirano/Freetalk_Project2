@@ -110,18 +110,26 @@ export default new Vuex.Store({
        })
     },
     updateProfile({commit,getters}, payload){
+      const userData = {
+        id: payload.id,
+        image: payload.image,
+        photoURL: payload.photoURL,
+        displayName: payload.displayName,
+        introduction: payload.introduction,
+        registeredFreetalks: [],
+        fbKeys: {},
+        likesKeys: {}
+      }
       const user = getters.user
-      firebase.database().ref("/users/" + user.id)
-       .set(payload)
-         commit("setLoginUser",{
-          id: payload.id,
-          photoURL: payload.photoURL,
-          displayName: payload.displayName,
-          introduction: payload.introduction,
-          registeredFreetalks: [],
-          fbKeys: {},
-          likesKeys: {}
+      firebase.database().ref("/users/" + user.id).set(userData)
+       .then(()=>{
+         return firebase.storage().ref('userImgs/' + user.id).put(payload.image)
        })
+       .then(()=>{
+         commit('setLoginUser',{
+           ...userData,
+         })
+       })        
     },
     //likes登録//postLikesにIDないとそれぞれに送られない
     likesForFreetalk({commit,getters}, payload){//payload:freetalkId
@@ -333,7 +341,29 @@ export default new Vuex.Store({
         .then(()=>{
           commit("deleteTalk", payload)
         })
+        .catch(error=>{
+          console.log(error)
+        })
       }
+    },
+    //Userアカウント削除
+    deleteUserAccount({commit, getters}){
+      firebase.database().ref("freetalks").orderByChild("createrId").equalTo(getters.user.id).remove()
+      console.log("アカウント作成のFreetalkも削除")
+       .then(()=>{
+        firebase.auth().currentUser.delete()
+        console.log("Authからアカウント削除成功")
+       })
+       .then(()=>{ 
+        firebase.database().ref("/users/" + getters.user.id).remove()
+        console.log("データベースからアカウント削除成功")
+       })
+       .then(()=>{
+         commit("deleteLoginUser")
+       })
+       .catch(error=>{
+         console.log(error)
+       })
     },
     clearError({commit}){
       commit("clearError")
