@@ -21,10 +21,10 @@ export default new Vuex.Store({
         location: "Paris",
         description: "Paris is Awesome !!"}
       ],
+      comments:[],
       user: null,
       error: null,
-      loading: false,
-      postLikes: []
+      loading: false
 
   },
   mutations: {
@@ -38,12 +38,12 @@ export default new Vuex.Store({
       state.user.fbKeys[id] = payload.fbKey
     },
     likesForFreetalk(state, payload){
-      const id = payload.id
-      if(state.postLikes.find(freetalk => freetalk.id === id)>=0){
+      const uid = payload.userId
+      if(state.user.likes.find(user => user.userId === uid)>=0){
         return
       }
-      state.postLikes.user.push(id)
-      state.postLikes.user.likesKeys[id] = payload.likesKey 
+      state.user.likes.push(uid)
+      state.user.likeKeys[uid] = payload.likeKey
     },
     //unregister.mutation
     unregisterUserFromFreetalk(state, payload){
@@ -54,6 +54,9 @@ export default new Vuex.Store({
     //freetalks取り出し
     setLoadedFreetalks(state, payload){
       state.loadedFreeTalks = payload
+    },
+    setLoadedComments(state, payload){
+      state.comments = payload
     },
     setLoginUser(state, payload){
       state.user = payload
@@ -69,6 +72,9 @@ export default new Vuex.Store({
     },
     deleteLoginUser(state){
       state.user = null
+    },
+    createChat(state, payload){
+      state.comments.push(payload)
     },
     createTalk(state, payload){
       state.loadedFreeTalks.push(payload)
@@ -109,6 +115,18 @@ export default new Vuex.Store({
          console.log(error)
        })
     },
+    //likes登録//postLikesにIDないとそれぞれに送られない
+    likesForFreetalk({commit,getters}, payload){//payload:freetalkId
+      const user = getters.user
+      firebase.database().ref("users" + user.id).child("likes")
+       .push(payload)
+       .then(data=>{
+         commit("likesForFreetalk", {userId: payload, likeKey: data.key})
+       })
+       .catch(error=>{
+         console.log(error)
+       })
+    },
     updateProfile({commit,getters}, payload){
       const userData = {
         id: payload.id,
@@ -118,7 +136,7 @@ export default new Vuex.Store({
         introduction: payload.introduction,
         registeredFreetalks: [],
         fbKeys: {},
-        likesKeys: {}
+        likeKeys: {}
       }
       const user = getters.user
       firebase.database().ref("/users/" + user.id).set(userData)
@@ -130,18 +148,6 @@ export default new Vuex.Store({
            ...userData,
          })
        })        
-    },
-    //likes登録//postLikesにIDないとそれぞれに送られない
-    likesForFreetalk({commit,getters}, payload){//payload:freetalkId
-      const user = getters.user
-      firebase.database().ref("postLikes").child(user.id)
-       .set(payload)
-       .then(data=>{
-         commit("likesForFreetalk", {id: payload, likesKey: data.key})
-       })
-       .catch(error=>{
-         console.log(error)
-       })
     },
     unregisterUserFromFreetalk({commit, getters}, payload){//payload:freetalkId
       const user = getters.user
@@ -164,12 +170,20 @@ export default new Vuex.Store({
       firebase.database().ref("/users/" + getters.user.id).once("value")
        .then(data=>{
          const userData = data.val()
+
          const dataPairs = data.val().registrations
+         const likePairs = data.val().likes
          let registeredFreetalks = []
          let swappedPairs = {}
+         let likes = []
+         let swappedLikePairs = {}
          for(let key in dataPairs){
            registeredFreetalks.push(dataPairs[key])
            swappedPairs[dataPairs[key]] = key
+         }
+         for(let key in likePairs){
+           likes.push(likePairs[key])
+           swappedLikePairs[likePairs[key]] = key
          }
          const updateUser = {
           id: userData.id,
@@ -177,7 +191,9 @@ export default new Vuex.Store({
           displayName: userData.displayName,
           introduction: userData.introduction,
           registeredFreetalks: registeredFreetalks,
-          fbKeys: swappedPairs
+          fbKeys: swappedPairs,
+          likes: likes,
+          likeKey: swappedLikePairs
         }
         commit("setLoginUser", updateUser)
        })
@@ -211,76 +227,25 @@ export default new Vuex.Store({
          console.log(error)
        })
     },
-    //googleログイン
-    login(){
-      const google_auth_provider = new firebase.auth.GoogleAuthProvider()
-      firebase.auth().signInWithRedirect(google_auth_provider)
-    },
-    //facebookログイン
-    loginF(){
-      const provider = new firebase.auth.FacebookAuthProvider()
-      firebase.auth().signInWithRedirect(provider)
-    },
-    //signUp
-    signUserUp({commit}, payload){
-      commit("clearError")
-      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-       .then(
-         user => {
-          const newUser = {
-            id: user.uid,
-            registeredFreetalks: [],
-            fbKeys: {},
-            likesKeys: {}
-           }
-           commit("setLoginUser", newUser)
+    loadedComments({commit}){
+      firebase.database().ref("/comments/").once("value")
+       .then(data=>{
+         const comments = []
+         const obj = data.val()
+         for(let key in obj){
+           comments.push({
+             roomUserId: obj[key].roomUserId,
+             name: obj[key].name,
+             image: obj[key].image,
+             message: obj[key].message
+           })
          }
-       )
-       .catch(
-         error => {
-           commit("setError", error)
-           console.log(error)
-         }
-       )
+         commit("setLoadedComments", comments)
+       })
+        .catch((error)=>{
+          console.log(error)
+        })
     },
-    //メールアドレスによるログイン
-    signUserIn({commit}, payload){
-      commit("clearError")
-      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
-       .then(
-         user => {
-           const newUser = {
-            id: user.uid,
-            registeredFreetalks: [],
-            fbKeys: {}
-           }   
-           commit("setLoginUser", newUser)
-         }
-       )
-       .catch(
-         error =>{
-           commit("setError", error)
-           console.log(error)
-         }
-       )
-    },
-    logout(){
-       firebase.auth().signOut()
-    },
-    deleteLoginUser({commit}){
-      commit("deleteLoginUser")
-    },
-    setLoginUser({commit}, payload){
-      commit("setLoginUser", {
-        id: payload.uid,
-        photoURL: payload.photoURL,
-        displayName: payload.displayName,
-        introduction: payload.introduction,
-        registeredFreetalks: [],
-        fbKeys: {},
-        likesKeys: {}
-      })
-    },    
     createTalk({commit, getters}, payload){
       const freetalk = {
         title: payload.title,
@@ -316,6 +281,18 @@ export default new Vuex.Store({
          console.log(error)
        })
     },
+    createChat({commit}, payload){
+      const chatData = {
+        roomUserId: payload.id,
+        name: payload.name,
+        message: payload.message,
+        image: payload.image
+      }
+      firebase.database().ref("/comments/").push(chatData)
+       .then(()=>{
+         commit('createChat',chatData)
+       })
+    },
     updateFreetalkData({commit}, payload){
       const updateObj = {}//引き渡されてきた1つ1つのデータ(titleなど)をオブジェクトにまとめる
       if(payload.title){
@@ -347,8 +324,11 @@ export default new Vuex.Store({
       }
     },
     //Userアカウント削除
-    deleteUserAccount({commit, getters}){
-      firebase.database().ref("freetalks").orderByChild("createrId").equalTo(getters.user.id).remove()
+    deleteUserAccount({getters,commit}){
+      var ref = firebase.database().ref("freetalks")
+        ref.orderByChild("createrId").equalTo(getters.user.id).on('child_added',(snapshot)=>{
+        snapshot.ref.remove()
+      })
       console.log("アカウント作成のFreetalkも削除")
        .then(()=>{
         firebase.auth().currentUser.delete()
@@ -369,6 +349,76 @@ export default new Vuex.Store({
       commit("clearError")
     }
   },
+  //googleログイン
+  login(){
+    const google_auth_provider = new firebase.auth.GoogleAuthProvider()
+    firebase.auth().signInWithRedirect(google_auth_provider)
+  },
+  //facebookログイン
+  loginF(){
+    const provider = new firebase.auth.FacebookAuthProvider()
+    firebase.auth().signInWithRedirect(provider)
+  },
+  //signUp
+  signUserUp({commit}, payload){
+    commit("clearError")
+    firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+     .then(
+       user => {
+        const newUser = {
+          id: user.uid,
+          registeredFreetalks: [],
+          fbKeys: {},
+          likeKeys: {}
+         }
+         commit("setLoginUser", newUser)
+       }
+     )
+     .catch(
+       error => {
+         commit("setError", error)
+         console.log(error)
+       }
+     )
+  },
+  //メールアドレスによるログイン
+  signUserIn({commit}, payload){
+    commit("clearError")
+    firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+     .then(
+       user => {
+         const newUser = {
+          id: user.uid,
+          registeredFreetalks: [],
+          fbKeys: {}
+         }   
+         commit("setLoginUser", newUser)
+       }
+     )
+     .catch(
+       error =>{
+         commit("setError", error)
+         console.log(error)
+       }
+     )
+  },
+  logout(){
+     firebase.auth().signOut()
+  },
+  deleteLoginUser({commit}){
+    commit("deleteLoginUser")
+  },
+  setLoginUser({commit}, payload){
+    commit("setLoginUser", {
+      id: payload.uid,
+      photoURL: payload.photoURL,
+      displayName: payload.displayName,
+      introduction: payload.introduction,
+      registeredFreetalks: [],
+      fbKeys: {},
+      likeKeys: {}
+    })
+  },    
   getters: {
     loadedFreeTalks (state){
       return state.loadedFreeTalks.sort((freetalkA, freetalkB)=>{
@@ -385,6 +435,13 @@ export default new Vuex.Store({
         })
       }
     },
+    // loadedComments(state){
+    //  return (createrId)=>{
+    //    return state.comments.filter((comment)=>{
+    //      return comment.createrId === createrId
+    //    })
+    //  }
+    // },
     user(state){
       return state.user
     },

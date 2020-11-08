@@ -69,7 +69,14 @@
                                         <!-- <good-btn></good-btn> -->
                                     </v-flex>
                                     <v-flex class="text-left">
-                                        <!-- コメント機能 -->
+                                        <div>
+                                            <v-btn icon 
+                                                color="green"
+                                                :to="'/comment/' + freetalk.createrId">
+                                                <v-icon left>mdi-comment-multiple-outline</v-icon>
+                                            </v-btn>
+                                            <span>{{ comments.length }} COMMENTS</span>
+                                        </div>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout class="text-center" mt-12>
@@ -104,6 +111,14 @@
           photoURL: ""
         }
       }
+    },
+    computed:{
+       comments(){
+        const comments = this.$store.state.comments
+        return comments.filter((comment)=>{
+          return comment.roomUserId.match(this.freetalk.createrId)
+         })
+       }
     },
     created(){
         const uid = this.freetalk.createrId

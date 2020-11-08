@@ -39,10 +39,17 @@
                         </v-layout>
                          <v-layout>
                             <v-flex class="text-right">
-                                <!-- <good-btn></good-btn> -->
+                                <like-user></like-user>
                             </v-flex>
                             <v-flex class="text-left">
-                                <!-- コメント機能 -->
+                                <div>
+                                    <v-btn icon 
+                                           color="green"
+                                           :to="'/comment/' + user.id">
+                                        <v-icon left>mdi-comment-multiple-outline</v-icon>
+                                    </v-btn>
+                                    <span>{{ comments.length }} COMMENTS</span>
+                                </div>
                             </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-12>
@@ -65,10 +72,14 @@
   export default {
     data () {
       return {
-        editDialog: false
+        editDialog: false,
+        id: location.href.split("/"),
       }
     },
     computed: {
+       user(){
+         return this.$store.getters.user
+       },
        userName(){
          return this.$store.getters.userName
        },
@@ -77,7 +88,13 @@
        },
        introduction(){
          return this.$store.getters.introduction
-       }
+       },
+       comments(){
+        const comments = this.$store.state.comments
+        return comments.filter((comment)=>{
+          return comment.roomUserId.match(this.id[this.id.length - 1])
+        })
+     },
     }
   }
 </script>

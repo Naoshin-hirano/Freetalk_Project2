@@ -8,6 +8,7 @@ import Login from '../components/User/Login.vue'
 import Signup from '../components/User/Signup.vue'
 import Profile from '../components/Profile/Profile.vue'
 import OtherProfile from '../components/Profile/Profile-others.vue'
+import Comment from '../components/Profile/Comment.vue'
 
 
 Vue.use(VueRouter)
@@ -55,6 +56,11 @@ Vue.use(VueRouter)
     name: 'OthersProfile',
     props: true,
     component: OtherProfile
+  },
+  {
+    path: '/comment/:userId',
+    name: 'Comment',
+    component: Comment
   }
 ]
 

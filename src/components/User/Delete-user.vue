@@ -39,9 +39,17 @@
         deleteDialog: false
       }
     },
+    // computed: {
+    //   freetalks(){
+    //     const talks = this.$store.getters.loadedFreeTalks
+    //     return talks.filter((talk)=>{
+    //       return talk.createrId.match(this.user.id)
+    //     })
+    //   }
+    // },
     methods: {
-      async deleteConfirm(){
-         await this.$store.dispatch("deleteUserAccount")
+      deleteConfirm(){
+         this.$store.dispatch("deleteUserAccount")
          this.$router.push({name: 'FreeTalks'})
       }
     }

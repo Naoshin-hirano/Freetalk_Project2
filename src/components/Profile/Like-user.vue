@@ -14,29 +14,26 @@
   export default {
     data(){
       return {
-        registerDialog: false
+        registerDialog: false,
+        uid: this.$store.getters.user.id
       }
     },
     computed: {
-    //クリックされた人のIDを引数へ入れたい
-      uid(){
-        return this.$store.getters.user.id
-      },
       likesIsRegistered(){
-        return this.$store.getters.registeredLikes.findIndex(uid=>{
-            return uid === this.uid
+        return this.$store.state.user.likes.findIndex(key=>{
+            return key === this.uid
         }) >= 0
       },
       registeredLikes(){
-        return this.$store.getters.user.registeredLikes
+        return this.$store.state.user.likes
       }
     },
     methods: {
       favorite(){
-          this.$store.dispatch("likesForFreetalk", this.uid) 
+          this.$store.dispatch("likesForUser", this.uid) 
       },
       unfavorite(){
-          this.$store.dispatch("unlikesFromFreetalk", this.uid) 
+          this.$store.dispatch("unlikesForUser", this.uid) 
       }
     }
   }

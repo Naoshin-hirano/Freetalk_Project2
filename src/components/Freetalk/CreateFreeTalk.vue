@@ -146,7 +146,7 @@ export default {
         fileReader.readAsDataURL(files[0])
         this.image = files[0]
      },
-    async onCreateTalk(){//submit押した時のmethods
+    onCreateTalk(){//submit押した時のmethods
         if(!this.formIsValid){
            return
         }

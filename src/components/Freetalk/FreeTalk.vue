@@ -15,9 +15,6 @@
                         <div  class="mr-3"> 
                            <edit-free-talk :freetalk="freetalk"></edit-free-talk>
                         </div>
-                        <div>
-                            <good-freetalk :freetalkId="freetalk.Id"></good-freetalk>
-                        </div>
                     </v-card-title>
                     <v-img
                      :src="freetalk.imageUrl"
