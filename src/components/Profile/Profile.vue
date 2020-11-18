@@ -38,9 +38,6 @@
                             </v-flex>
                         </v-layout>
                          <v-layout>
-                            <v-flex class="text-right">
-                                <like-user></like-user>
-                            </v-flex>
                             <v-flex class="text-left">
                                 <div>
                                     <v-btn icon 

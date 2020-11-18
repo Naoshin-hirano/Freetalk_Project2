@@ -9,7 +9,6 @@ import i18n from './i18n'
 import EditFreeTalk from './components/Freetalk/EditFreeTalk.vue'
 import EditDate from './components/Freetalk/EditDate.vue'
 import EditTime from './components/Freetalk/EditTime.vue'
-import LikeUser from './components/Profile/Like-user.vue'
 import Comment from './components/Profile/Comment.vue'
 import RegisterDialog from './components/Freetalk/RegisterDialog.vue'
 import DeleteFreeTalk from './components/Freetalk/DeleteFreeTalk.vue'
@@ -30,7 +29,6 @@ Vue.component("delete-free-talk", DeleteFreeTalk)
 Vue.component("delete-user-account", DeleteUserAccount)
 Vue.component("app-alert", AppAlert)
 Vue.component('paginate', Paginate)
-Vue.component('like-user', LikeUser)
 Vue.component('comment-btn', Comment)
 Vue.component('edit-profile', EditProfile)
 Vue.component('profile-others', ProfileOthers)
