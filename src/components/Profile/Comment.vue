@@ -1,55 +1,105 @@
 <template>
-      <v-card>
-        <v-container fluid>
-                <v-layout row wrap >
-                    <v-flex xs12 sm10 md8 offset-sm1 offset-md2 mb-4 >
-                        <form @submit.prevent="doSend" >
-                            <v-textarea
-                            name="input"
-                            id="input"
-                            v-model="input"
-                            required
-                            label="Post a comment"
-                            >
-                            </v-textarea>
-                            <v-btn width="100px" class="mr-5" type="submit">Send</v-btn>
-                            <v-btn width="100px" @click="commentDialog = false">Close</v-btn>
-                        </form> 
-                    </v-flex>
-                </v-layout>
-                <v-layout row wrap v-for="comment in comments" :key="comment.message" mb-3>
-                    <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                        <v-card class="lime accent-4">
-                            <v-img :src="comment.image" width="60"></v-img>
-                            <h4>{{ comment.name }}</h4>
-                            <v-card-text>
-                              {{ comment.message}}
-                            </v-card-text>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
-                <v-layout row wrap v-show="!comments.length">
-                   <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                        <v-card>
-                           <v-card-text>
-                              There is no comment. Please post yours.
-                           </v-card-text>
-                        </v-card>
-                   </v-flex>
-                </v-layout>
-         </v-container>
-       </v-card>
+    <v-container>
+        <v-layout class="text-center">
+            <v-flex xs12 sm10 md8 offset-sm3 offset-md2>
+              <v-avatar size="150">
+                  <img
+                  v-if="roomUser.roomPhotoURL"
+                  :src="roomUser.roomPhotoURL"
+                  alt="John">
+                  <img
+                  v-else
+                  src="https://soma-engineering.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                  alt="John">
+                </v-avatar>
+            </v-flex>
+        </v-layout>
+        <v-layout class="text-center">
+            <v-flex xs12 sm10 md8 offset-sm3 offset-md2>
+                <h3>{{ roomUser.roomDisplayName }}</h3>
+            </v-flex>
+        </v-layout>
+        <v-layout row wrap mb-5>
+            <v-flex xs12 sm10 md8 offset-sm3 offset-md2>
+                <form @submit.prevent="doSend" >
+                    <v-textarea
+                    name="input"
+                    id="input"
+                    v-model="input"
+                    required
+                    label="Post a comment"
+                    >
+                    </v-textarea>
+                    <v-btn @click="$router.go(-1)" text class="blue--text darken-1">
+                      <v-icon >mdi-arrow-left</v-icon>
+                      戻る
+                    </v-btn>
+                    <v-btn class="mr-5 blue--text darken-1" type="submit" text>コメントを投稿</v-btn>
+                </form>
+            </v-flex>
+        </v-layout>
+        <v-layout row wrap v-for="comment in comments" :key="comment.message" mb-3>
+            <v-flex xs12 sm10 md8 offset-sm3 offset-md2>
+                <v-card color="cyan lighten-4">
+                  <v-layout>
+                      <v-card-actions>
+                          <v-flex>
+                              <v-avatar size="80">
+                                  <v-img :src="comment.image"></v-img>
+                              </v-avatar>
+                          </v-flex>
+                          <v-card-text>
+                            <v-flex>
+                              <p>{{ comment.name }}</p>
+                            </v-flex>
+                          </v-card-text>
+                          <v-spacer></v-spacer>
+                      </v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-card-actions>
+                        <v-btn text
+                              :to="'/comment/reply/delete/' + comment.commentId">
+                            <v-icon >mdi-delete-forever</v-icon>
+                        </v-btn>
+                        <v-btn text 
+                              :to="'/comment/reply/' + comment.commentId">
+                            <v-icon >mdi-reply-circle</v-icon>
+                        </v-btn>
+                      </v-card-actions>
+                  </v-layout>
+                  <v-card-text>
+                    <h2>{{ comment.message}}</h2>
+                  </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
+  import db from "firebase"
 
   export default {
     data(){
       return {
          id: location.href.split("/"),
          commentDialog: false,
-         input: ''  // 入力したメッセージ
+         input: '',
+         roomUser: {
+           roomDisplayName: "",
+           roomPhotoURL: ""
+         }
       }
+    },
+    created(){
+        const uid = this.id[this.id.length - 1]
+        db.database().ref("/users/" + uid).once("value").then(data =>{
+            this.roomUser.roomDisplayName = data.val().displayName,
+            this.roomUser.roomPhotoURL = data.val().photoURL
+        })
+        .catch(error =>{
+            console.log(error)
+        })
     },
     computed: {
      user(){
@@ -69,6 +119,9 @@
      }
    },
    methods: {
+    counter(number){
+      this.length = number
+    },
     doSend() {
       if (this.input.length >= 0) {
         const chatData = {
@@ -77,11 +130,15 @@
           name: this.userName,
           image: this.photoURL
          }
-         console.log(chatData)
          this.$store.dispatch("createChat", chatData)
          this.input = '' // フォームを空にする 
         }
-      }
+      },
+      // displayMessage(replys){
+      //   console.log(replys)
+      // }
     }
   }
 </script>
+
+

@@ -7,14 +7,21 @@
                         <div class="ml-10">
                           <profile-others  :freetalk="freetalk"></profile-others>
                         </div>
-                        <h2 class="ml-15">{{ freetalk.title }}</h2>
+                        <h3 class="ml-15">{{ freetalk.title }}</h3>
                         <v-spacer></v-spacer>
-                        <div class="mr-10">
-                           <delete-free-talk :freetalk="freetalk"></delete-free-talk>
-                        </div>
-                        <div  class="mr-3"> 
-                           <edit-free-talk :freetalk="freetalk"></edit-free-talk>
-                        </div>
+                        <v-spacer></v-spacer>
+                        <v-spacer></v-spacer>
+                        <v-layout mb-7>
+                            <v-flex >
+                                <likes-btn></likes-btn>
+                            </v-flex>
+                            <v-flex>
+                                 <delete-free-talk :freetalk="freetalk"></delete-free-talk>
+                            </v-flex>
+                            <v-flex>
+                                <edit-free-talk :freetalk="freetalk"></edit-free-talk>
+                            </v-flex>
+                        </v-layout>
                     </v-card-title>
                     <v-img
                      :src="freetalk.imageUrl"
@@ -37,6 +44,7 @@
                         <div>{{ freetalk.description }}</div>
                     </v-card-text>
                     <v-card-actions >
+                        <attendance-btn></attendance-btn>
                         <v-spacer></v-spacer>
                         <v-btn class="mr-3">
                            <register-dialog  :freetalkId="freetalk.id"></register-dialog>

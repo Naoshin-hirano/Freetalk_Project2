@@ -4,8 +4,9 @@
       <template v-slot:activator="{ on, attrs }">
         <v-btn fab accent
                v-bind="attrs"
-               v-on="on" >
-            <v-icon>mdi-delete-forever</v-icon>
+               v-on="on" 
+               text>
+            <v-icon large>mdi-delete-forever</v-icon>
         </v-btn>
       </template>
       <v-card>

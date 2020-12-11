@@ -4,18 +4,20 @@
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card>
                     <v-card-actions>
-                         <v-spacer></v-spacer>
-                         <v-spacer></v-spacer>
-                         <v-spacer></v-spacer>
-                         <v-spacer></v-spacer>
-                         <v-spacer></v-spacer>
-                         <v-spacer></v-spacer>
-                         <v-spacer></v-spacer>
-                         <v-spacer></v-spacer>
-                         <v-spacer></v-spacer>
-                         <v-spacer></v-spacer>
-                         <delete-user-account></delete-user-account>
-                         <edit-profile></edit-profile>
+                      <v-spacer></v-spacer>
+                      <v-spacer></v-spacer>
+                        <v-spacer></v-spacer>
+                      <v-spacer></v-spacer>
+                        <v-spacer></v-spacer>
+                      <v-spacer></v-spacer>
+                       <v-layout>
+                         <v-flex>
+                           <delete-user-account></delete-user-account>
+                         </v-flex>
+                         <v-flex>
+                           <edit-profile></edit-profile>
+                         </v-flex>
+                       </v-layout>
                     </v-card-actions>
                     <v-container>
                         <v-layout class="text-center">
@@ -38,7 +40,7 @@
                             </v-flex>
                         </v-layout>
                          <v-layout>
-                            <v-flex class="text-left">
+                            <v-flex class="text-center">
                                 <div>
                                     <v-btn icon 
                                            color="green"
@@ -51,9 +53,11 @@
                         </v-layout>
                         <v-layout class="text-center" mt-12>
                             <v-flex>
-                                <v-card>
-                                    <v-card-title>Self-introduction</v-card-title>
-                                   <v-card-text>{{ introduction }}</v-card-text>
+                                <v-card class="cyan lighten-4">
+                                    <v-card-title>【自己紹介】</v-card-title>
+                                   <v-card-text>
+                                     <h3>{{ introduction }}</h3>
+                                   </v-card-text>
                                 </v-card>
                             </v-flex>
                         </v-layout>

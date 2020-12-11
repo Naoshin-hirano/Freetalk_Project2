@@ -1,6 +1,7 @@
 <template>
   <v-app>
      <v-navigation-drawer
+      color="cyan--text darken-1"
       app
       v-model="drawer"
       temporary>
@@ -32,14 +33,14 @@
     </v-navigation-drawer>
     <v-app-bar
       app
-      color="deep-purple accent-4"
+      color="cyan darken-1"
       dark>
         <v-app-bar-nav-icon
           @click.stop="drawer = !drawer"
           class="hidden-sm-and-up">
         </v-app-bar-nav-icon>
         <v-toolbar-title>
-           <router-link to="/" tag="span" style="cursor: pointer">FreeTalk</router-link>
+           <router-link to="/" tag="span" style="cursor: pointer">FREE TALK</router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-xs-only">
@@ -47,12 +48,12 @@
                          :key="item.title"
                          :to="item.link"
                          >
-              <v-icon left>{{ item.icon }}</v-icon>
+              <v-icon medium left>{{ item.icon }}</v-icon>
                  {{ item.title }}
             </v-btn>
             <v-btn text @click="logout" v-show="this.userIsAuthenticated" to="/">
                <v-icon left>mdi-logout</v-icon>
-                Logout
+                ログアウト
             </v-btn>    
         </v-toolbar-items>
     </v-app-bar>
@@ -73,14 +74,14 @@ export default {
   computed: {
     menuItems(){
      let menuItems = [
-       {icon: "mdi-login", title:"Login", link:"/login"},
-       {icon: "mdi-account-check", title:"Sign up", link:"/signup"},
+       {icon: "mdi-login", title:"ログイン", link:"/login"},
+       {icon: "mdi-account-check", title:"登録する", link:"/signup"},
      ]
      if(this.userIsAuthenticated){
        menuItems = [
-       {icon: "mdi-account-multiple", title:"View FreeTalk", link:"/freetalks"},
-       {icon: "mdi-google-maps", title:"Create FreeTalk", link:"/freetalk/new"},
-       {icon: "mdi-home", title:"Profile", link:"/profile/" + this.user.id}
+       {icon: "mdi-account-multiple", title:"FreeTalkを見る", link:"/freetalks"},
+       {icon: "mdi-google-maps", title:"FreeTalkを投稿", link:"/freetalk/new"},
+       {icon: "mdi-home", title:"プロフィール", link:"/profile/" + this.user.id}
         ]
       }
       return menuItems

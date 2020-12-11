@@ -5,7 +5,8 @@
         <v-btn
           v-bind="attrs"
           v-on="on"
-          fab accent>
+          fab accent
+          text>
            <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </template>

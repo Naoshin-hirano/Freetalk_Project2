@@ -7,7 +7,7 @@
             fab accent
             v-bind="attrs"
             v-on="on">
-                <v-avatar size="100" >
+                <v-avatar size="85" >
                     <v-img
                     v-if="user.photoURL"
                     :src="user.photoURL"
@@ -123,7 +123,6 @@
     created(){
         const uid = this.freetalk.createrId
         db.database().ref("/users/" + uid).once("value").then(data =>{
-            console.log(data.val())
             this.user.displayName = data.val().displayName,
             this.user.id = data.val().id,
             this.user.introduction = data.val().introduction,

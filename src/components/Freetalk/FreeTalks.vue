@@ -6,10 +6,11 @@
                     <v-card-title>
                         <v-text-field
                             append-icon="mdi-magnify"
-                            label="search title"
+                            label="検索する"
                             single-line
                             hide-details
                             v-model="search"
+                            color="cyan darken-1"
                         ></v-text-field>
                     </v-card-title>
                 </v-card>
@@ -21,7 +22,7 @@
                                     :length="getPageCount"
                                     :initial-page="4"
                                     :page-range="3"
-                                    dark color="red darken-2"
+                                    dark color="cyan darken-1"
                                     >
                                 </v-pagination>
                          </v-flex>
@@ -31,7 +32,7 @@
       </v-layout>
      <v-layout v-for="freetalk in getLists" :key="freetalk.index" mb-3>
          <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-             <v-card class="lime accent-4">
+             <v-card>
                  <v-container fluid>
                      <v-layout>
                          <v-flex v-if="loading" class="text-center" >
@@ -50,15 +51,13 @@
                          </v-flex>
                          <v-flex xs8 sm6 md4>
                              <v-card-text>
-                                <div>
-                                    <h3>{{ freetalk.title }}</h3>
+                                    <h3 class="cyan--text darken-4">{{ freetalk.title }}</h3>
                                     <p>{{ freetalk.date | date }}</p>
-                                </div>
                             </v-card-text>
                             <v-card-actions>
-                                 <v-btn text :to="'/freetalks/' + freetalk.id">
+                                 <v-btn :to="'/freetalks/' + freetalk.id">
                                      <v-icon left>mdi-arrow-right</v-icon>
-                                     Check FreeTalk
+                                     詳細を見る
                                  </v-btn>
                              </v-card-actions>
                          </v-flex>
@@ -78,7 +77,7 @@
                                     :length="getPageCount"
                                     :initial-page="4"
                                     :page-range="3"
-                                    dark color="red darken-2">
+                                    dark color="cyan darken-3">
                                 </v-pagination>
                          </v-flex>
                      </v-layout>

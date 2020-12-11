@@ -4,7 +4,8 @@
       <template v-slot:activator="{ on, attrs }">
         <v-btn fab accent
                v-bind="attrs"
-               v-on="on" >
+               v-on="on" 
+               text>
             <v-icon>mdi-delete-forever</v-icon>
         </v-btn>
       </template>
@@ -39,14 +40,6 @@
         deleteDialog: false
       }
     },
-    // computed: {
-    //   freetalks(){
-    //     const talks = this.$store.getters.loadedFreeTalks
-    //     return talks.filter((talk)=>{
-    //       return talk.createrId.match(this.user.id)
-    //     })
-    //   }
-    // },
     methods: {
       deleteConfirm(){
          this.$store.dispatch("deleteUserAccount")

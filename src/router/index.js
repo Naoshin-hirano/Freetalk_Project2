@@ -9,6 +9,8 @@ import Signup from '../components/User/Signup.vue'
 import Profile from '../components/Profile/Profile.vue'
 import OtherProfile from '../components/Profile/Profile-others.vue'
 import Comment from '../components/Profile/Comment.vue'
+import Reply from '../components/Profile/ReplyToComment.vue'
+import DeleteComment from '../components/Profile/DeleteComment.vue'
 
 
 Vue.use(VueRouter)
@@ -61,6 +63,16 @@ Vue.use(VueRouter)
     path: '/comment/:userId',
     name: 'Comment',
     component: Comment
+  },
+  {
+    path: '/comment/reply/:commentId',
+    name: 'Reply',
+    component: Reply
+  },
+  {
+    path: '/comment/reply/delete/:commentId',
+    name: 'DeleteComment',
+    component: DeleteComment
   }
 ]
 

@@ -3,10 +3,20 @@
     <v-dialog persistent width="350px" v-model="registerDialog">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-        dark color="red darken-2"
+        v-if="!userIsRegistered"
+        dark color="cyan darken-1"
         v-bind="attrs"
         v-on="on">
-        {{  userIsRegistered ? "Unregister" : "Register" }}
+        <v-icon>mdi-account-plus</v-icon>
+        参加する
+        </v-btn>
+        <v-btn
+        v-else
+        dark color="cyan darken-1"
+        v-bind="attrs"
+        v-on="on">
+        <v-icon>mdi-account-minus</v-icon>
+        参加を解除する
         </v-btn>
       </template>
       <v-card>
@@ -19,11 +29,11 @@
              <v-layout row wrap>
                  <v-card-actions>
                         <v-btn
-                        class="blue--text darken-1"
+                        class="cyan darken-1"
                         text
                         @click="registerDialog = false">Cancel</v-btn>
                         <v-btn
-                        class="blue--text darken-1"
+                        class="cyan darken-1"
                         text
                         @click="onAgree">Confirm</v-btn>
                  </v-card-actions>
@@ -47,14 +57,31 @@
         return this.$store.getters.user.registeredFreetalks.findIndex(freetalkId=>{
             return freetalkId === this.freetalkId
         }) >= 0
-      }
+      },
+      user(){
+         return this.$store.getters.user
+       },
+       userName(){
+         return this.$store.getters.userName
+       },
+       photoURL(){
+         return this.$store.getters.photoURL
+       }
     },
     methods: {
       onAgree(){
+        const userData = {
+          uid : this.user.id,
+          userName: this.userName,
+          photoURL: this.photoURL,
+          freetalkId: this.freetalkId
+        }
         if(this.userIsRegistered){
-          this.$store.dispatch("unregisterUserFromFreetalk", this.freetalkId) 
+          this.$store.dispatch("unregisterUserFromFreetalk", this.freetalkId)
+          this.$store.dispatch("removeAttendance", userData)
         }else{
-          this.$store.dispatch("registerUserForFreetalk", this.freetalkId) 
+          this.$store.dispatch("registerUserForFreetalk", this.freetalkId)
+          this.$store.dispatch("registerAttendance", userData)
         }
       }
     }

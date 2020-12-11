@@ -17,6 +17,9 @@ import AppAlert from './components/Shared/Alert.vue'
 import Paginate from 'vuejs-paginate'
 import EditProfile from './components/Profile/EditProfile'
 import ProfileOthers from './components/Profile/Profile-others.vue'
+import LikesButton from './components/Freetalk/LikesButton.vue'
+import Attendance from './components/Freetalk/Attendance.vue'
+import DeleteReply from './components/Profile/DeleteReply.vue'
 
 
 Vue.config.productionTip = false
@@ -32,6 +35,9 @@ Vue.component('paginate', Paginate)
 Vue.component('comment-btn', Comment)
 Vue.component('edit-profile', EditProfile)
 Vue.component('profile-others', ProfileOthers)
+Vue.component('likes-btn', LikesButton)
+Vue.component('attendance-btn', Attendance)
+Vue.component('delete-reply', DeleteReply)
 
 new Vue({
   router,
@@ -59,5 +65,8 @@ new Vue({
     }),
     this.$store.dispatch('loadedFreeTalks')
     this.$store.dispatch('loadedComments')
+    this.$store.dispatch('loadedReplys')
+    this.$store.dispatch('loadedAttendance')
+    this.$store.dispatch("getFavs")
   }
 }).$mount('#app')

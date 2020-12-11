@@ -21,14 +21,55 @@ export default new Vuex.Store({
         location: "Paris",
         description: "Paris is Awesome !!"}
       ],
+      attendance: [],
       comments: [],
+      replys: [],
       user: null,
       error: null,
       loading: false,
-      postLikes: []
-
+      myfavs: []
   },
   mutations: {
+    //likes mutation
+    create(state, post){
+     const user = firebase.auth().currentUser
+       firebase.database().ref("favs").push({
+        user_id: user.uid,
+        post_id: post.id
+      })
+      .then(() => {
+        console.log("お気に入り登録")
+        state.myfavs.push(post)
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+    },
+    delete(state, post){
+      const ref = firebase.database().ref("favs")
+      ref.orderByChild("post_id").equalTo(post.id).on("child_added", ele =>{
+          let remove_good_post = ele.val()
+          if(remove_good_post.post_id === post.id){
+            firebase.database().ref("favs").child(ele.key).remove()
+            .then(()=>{
+              let fav = state.myfavs.find(fav => {
+                return fav.id === remove_good_post.post_id
+               })
+               state.myfavs.splice(fav, 1)
+            })
+            .then(()=>{
+              console.log(state.myfavs)
+              console.log("削除完了")
+            })
+            .catch(error =>{
+              console.log(error)
+            })
+          }
+      })
+    },
+    getfav(state, favs_post){
+      state.myfavs = favs_post
+    },
     //register mutation
     registerUserForFreetalk(state, payload){//payload{id: payload, fbKey: data.key}
       const id = payload.id
@@ -37,14 +78,6 @@ export default new Vuex.Store({
       }
       state.user.registeredFreetalks.push(id)
       state.user.fbKeys[id] = payload.fbKey
-    },
-    likesForFreetalk(state, payload){
-      const id = payload.id
-      if(state.postLikes.find(freetalk => freetalk.id === id)>=0){
-        return
-      }
-      state.postLikes.user.push(id)
-      state.postLikes.user.likesKeys[id] = payload.likesKey 
     },
     //unregister.mutation
     unregisterUserFromFreetalk(state, payload){
@@ -56,8 +89,14 @@ export default new Vuex.Store({
     setLoadedFreetalks(state, payload){
       state.loadedFreeTalks = payload
     },
+    setAttendance(state, payload){
+      state.attendance = payload
+    },
     setLoadedComments(state, payload){
       state.comments = payload
+    },
+    setLoadedReplys(state, payload){
+      state.replys = payload
     },
     setLoginUser(state, payload){
       state.user = payload
@@ -77,8 +116,14 @@ export default new Vuex.Store({
     createTalk(state, payload){
       state.loadedFreeTalks.push(payload)
     },
+    registerAttendance(state, payload){
+      state.attendance.push(payload)
+    },
     createChat(state, payload){
       state.comments.push(payload)
+    },
+    createReply(state, payload){
+      state.replys.push(payload)
     },
     updateFreetalk(state, payload){
       const freetalk = state.loadedFreeTalks.find(freetalk =>{
@@ -99,17 +144,63 @@ export default new Vuex.Store({
         return freetalk.id === payload.id
       })
       state.loadedFreeTalks.splice(freetalk, 1)
+    },
+    deleteComment(state, payload){
+      const comment = state.comments.find(comment =>{
+        return comment.commentId === payload.commentId
+      })
+      state.comments.splice(comment, 1)
+    },
+    deleteReply(state, payload){
+      const reply = state.replys.find(reply =>{
+        return reply.commentId === payload.commentId
+      })
+      state.replys.splice(reply, 1)
     }
   },
+  //likesBtn
   actions: {
+    createFav({commit, state}, post){
+      if(state.myfavs.length){
+        state.myfavs.forEach(ele =>{
+          console.log("ele.id:" + ele.id)//OK
+          console.log("post.id:" + post.id)//OK
+          if(ele.id !== post.id){
+            commit("create", post)
+          }else{
+            commit("delete", post)
+          }
+        })
+      }else{
+        commit("create", post)
+      }
+    },
+    getFavs({commit}){
+      firebase.database().ref("favs").once("value")
+       .then(snapshot =>{
+        let get_favs = []
+        snapshot.forEach(ele =>{
+          let fav = ele.val()
+          fav.id = ele.id
+          const user = firebase.auth().currentUser
+          if(fav.user_id === user.uid){
+            firebase.database().ref("freetalks").child(fav.post_id).once("value")
+             .then(snap =>{
+              let fav_post = snap.val()
+              fav_post.id = snap.val().id
+              get_favs.push(fav_post)
+            })
+          }
+        })
+        commit("getfav", get_favs)
+      })
+    },
     //register登録
      registerUserForFreetalk({commit,getters}, payload){//payload:freetalkId
       const user = getters.user
       firebase.database().ref("/users/" + user.id).child("/registrations/")
-       .push(payload)//unregisterとの違い：registrationをはじめて作成するからここでchild使う
+       .push(payload)
        .then(data=>{
-         //payload:freetalkId
-         //fbKey:registrationId
          commit("registerUserForFreetalk", {id: payload, fbKey: data.key})
        })
        .catch(error=>{
@@ -130,18 +221,6 @@ export default new Vuex.Store({
           likesKeys: {}
        })
     },
-    //likes登録//postLikesにIDないとそれぞれに送られない
-    likesForFreetalk({commit,getters}, payload){//payload:freetalkId
-      const user = getters.user
-      firebase.database().ref("postLikes").child(user.id)
-       .set(payload)
-       .then(data=>{
-         commit("likesForFreetalk", {id: payload, likesKey: data.key})
-       })
-       .catch(error=>{
-         console.log(error)
-       })
-    },
     unregisterUserFromFreetalk({commit, getters}, payload){//payload:freetalkId
       const user = getters.user
       if(!user.fbKeys){
@@ -158,7 +237,7 @@ export default new Vuex.Store({
          console.log(error)
        })
     },
-    //Registerのユーザー情報を取り出す
+    //ユーザー情報を取り出す
     fetchUserData({commit, getters}){
       firebase.database().ref("/users/" + getters.user.id).once("value")
        .then(data=>{
@@ -210,6 +289,26 @@ export default new Vuex.Store({
          console.log(error)
        })
     },
+    loadedAttendance({commit}){
+      firebase.database().ref("attendance").once("value")
+       .then(data =>{
+         const attendance = []
+         const obj = data.val()
+         for(let key in obj){
+            attendance.push({
+              uid: obj[key].uid,
+              userName: obj[key].userName,
+              photoURL: obj[key].photoURL,
+              freetalkId: obj[key].freetalkId,
+              attendanceId: obj[key].attendanceId
+            })
+          }
+          commit("setAttendance", attendance)
+       })
+       .catch(error =>{
+         console.log(error)
+       })
+    },
     loadedComments({commit}){
       firebase.database().ref("/comments/").once("value")
        .then(data=>{
@@ -220,7 +319,9 @@ export default new Vuex.Store({
             roomUserId: obj[key].roomUserId,
             name: obj[key].name,
             image: obj[key].image,
-            message: obj[key].message
+            message: obj[key].message,
+            commentId: obj[key].commentId,
+            replys: obj[key].replys
            })
          }
          commit("setLoadedComments", comments)
@@ -228,6 +329,23 @@ export default new Vuex.Store({
         .catch(error=>{
           console.log(error)
         })
+    },
+    loadedReplys({commit}){
+      firebase.database().ref("/replys/").once("value")
+       .then(data =>{
+         const replys = []
+         const obj = data.val()
+         for(let key in obj){
+           replys.push({
+              commentId: obj[key].commentId,
+              image: obj[key].image,
+              name: obj[key].name,
+              replymessage: obj[key].replymessage,
+              replyuserid: obj[key].replyuserid
+           })
+         }
+         commit("setLoadedReplys", replys)
+       })
     },
     //googleログイン
     login(){
@@ -334,16 +452,76 @@ export default new Vuex.Store({
          console.log(error)
        })
     },
+    registerAttendance({commit}, payload){//payload:user.id,id
+      const attendData = {
+        uid: payload.uid,
+        userName: payload.userName,
+        photoURL: payload.photoURL,
+        freetalkId: payload.freetalkId,
+        attendanceId: ""
+      }
+      let key
+      firebase.database().ref("attendance").push(attendData)
+       .then((data) =>{
+         key = data.key
+         return firebase.database().ref("attendance").child(key).update({ attendanceId: key})
+       })
+       .then(() =>{
+        commit("registerAttendance", {
+          uid: payload.uid,
+          userName: payload.userName,
+          photoURL: payload.photoURL,
+          freetalkId: payload.freetalkId,
+          attendanceId: key
+         })
+       })
+       .catch(error =>{
+         console.log(error)
+       })
+    },
     createChat({commit}, payload){
       const chatData = {
         roomUserId: payload.id,
         name: payload.name,
         message: payload.message,
-        image: payload.image
+        image: payload.image,
+        commentId: "",
+        replys: {}
       }
+      let key
       firebase.database().ref("/comments/").push(chatData)
+       .then((data) =>{
+         key = data.key
+         return firebase.database().ref("/comments/").child(key).update({ commentId: key})
+       })
+       .then(() =>{
+         commit("createChat", {
+          roomUserId: payload.id,
+          name: payload.name,
+          message: payload.message,
+          image: payload.image,
+          commentId: key,
+          replys: {}
+         })
+       })
+       .catch(error=>{
+         console.log(error)
+       })
+    },
+    createReply({commit}, payload){
+      const replyData = {
+        image: payload.image,
+        replymessage: payload.replymessage,
+        name: payload.name,
+        replyuserid: payload.replyuserid,
+        commentId: payload.commentId
+      }
+      firebase.database().ref("/replys/").push(replyData)
        .then(()=>{
-         commit("createChat", chatData)
+         commit("createReply", replyData)
+       })
+       .catch(error =>{
+         console.log(error)
        })
     },
     updateFreetalkData({commit}, payload){
@@ -373,6 +551,49 @@ export default new Vuex.Store({
         })
       }
     },
+    deleteComment({commit}, payload){
+     firebase.database().ref("comments").child(payload.commentId).remove()
+      .then(() =>{
+        commit("deleteComment", payload)
+      })
+    },
+    deleteReply({commit}, payload){
+      const ref = firebase.database().ref("replys")
+      ref.orderByChild("commentId").equalTo(payload.commentId).on("child_added", snapshot =>{
+        snapshot.ref.remove()
+        commit("deleteReply", snapshot)
+        console.log("deleteReply done")
+      })
+    },
+    // removeAttendance({getters,commit}, payload){
+    //   const ref = firebase.database().ref("attendance")
+    //   ref.orderByChild("attendanceId").equalTo().on("child_added", (snapshot)=>{
+    //     if(snapshot.ref){
+
+    //     }
+    //   })
+    // },
+    deleteUserAccount({getters,commit}){
+     const ref = firebase.database().ref("freetalks")
+     ref.orderByChild("createrId").equalTo(getters.user.id).on("child_added", (snapshot)=>{
+       snapshot.ref.remove()
+       console.log("同ユーザーのFreetalkも削除")
+     })
+      .then(()=>{
+        firebase.auth().currentUser.delete()
+        console.log("Authからユーザー削除")
+      })
+      .then(()=>{
+        firebase.database().ref("/users/" + getters.user.id).remove()
+        console.log("データベースからユーザー削除")
+      })
+      .then(()=>{
+        commit("deleteLoginUser")
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+    },
     clearError({commit}){
       commit("clearError")
     }
@@ -393,6 +614,21 @@ export default new Vuex.Store({
         })
       }
     },
+    favFilter(state){
+      return (freetalkId)=>{
+        return state.myfavs.filter((post) =>{
+          return post.id === freetalkId
+        })
+      }
+    },
+    filterAttendance(state){
+      return (freetalkId)=>{
+        return state.attendance.filter((data) =>{
+          return data.freetalkId === freetalkId
+        })
+      }
+    },
+
     user(state){
       return state.user
     },

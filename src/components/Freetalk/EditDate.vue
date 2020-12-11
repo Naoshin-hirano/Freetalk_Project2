@@ -18,14 +18,14 @@
              <v-divider></v-divider>
              <v-layout row wrap>
                  <v-card-text>
-                    <v-date-picker v-model="editableDate" style="width :100%">
+                    <v-date-picker color="cyan darken-1" v-model="editableDate" style="width :100%">
                     <template >
                         <v-btn
-                        class="blue--text darken-1"
+                        class="cyan--text darken-1"
                         text
                         @click.native="editDialog = false">Close</v-btn>
                         <v-btn
-                        class="blue--text darken-1"
+                        class="cyan--text darken-1"
                         text
                         @click.native="onSaveChanges">Save</v-btn>
                     </template>

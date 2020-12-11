@@ -1,4 +1,4 @@
-<template>
+ <template>
   <v-row>
     <v-dialog persistent width="350px" v-model="editDialog">
       <template v-slot:activator="{ on, attrs }">
@@ -13,19 +13,19 @@
              <v-layout row wrap>
                  <v-flex xs12>
                      <v-card-title>Edit Freetalk Time</v-card-title>
-                 </v-flex>
+                 </v-flex> 
              </v-layout>
              <v-divider></v-divider>
              <v-layout row wrap>
                  <v-card-text>
-                    <v-time-picker v-model="editableTime" style="..." actions format="24hr">
+                    <v-time-picker color="cyan darken-1" v-model="editableTime" style="..." actions format="24hr">
                         <template >
                             <v-btn
-                            class="blue--text darken-1"
+                            class="cyan--text darken-1"
                             text
                             @click.native="editDialog = false">Close</v-btn>
                             <v-btn
-                            class="blue--text darken-1"
+                            class="cyan--text darken-1"
                             text
                             @click.native="onSaveChanges">Save</v-btn>
                         </template>

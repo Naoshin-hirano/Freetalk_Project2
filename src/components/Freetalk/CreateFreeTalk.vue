@@ -32,7 +32,7 @@
                     </v-layout>
                     <v-layout row>
                        <v-flex>
-                           <v-btn raised class="primary" @click="onPickFile">Upload Image</v-btn>
+                           <v-btn raised class="white--text cyan darken-1" @click="onPickFile">Upload Image</v-btn>
                            <input type="file" 
                                   style="display: none" 
                                   ref="fileInput"
@@ -64,6 +64,7 @@
                     <v-layout mb-4>
                         <v-flex>
                             <v-date-picker
+                            color="cyan darken-1"
                             elevation="15"
                             v-model="date"
                             ></v-date-picker>
@@ -72,6 +73,7 @@
                     <v-layout mb-4>
                         <v-flex>
                             <v-time-picker
+                            color="cyan darken-1"
                             format="24hr"
                             scrollable
                             elevation="15"
