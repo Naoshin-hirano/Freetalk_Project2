@@ -10,14 +10,14 @@
                             single-line
                             hide-details
                             v-model="search"
-                            color="cyan darken-1">
+                            color="indigo accent-3">
                         </v-text-field>
                     </v-card-title>
                 </v-card>
                 <v-pagination
                       v-model="currentPage"
                       :length="getPageCount"
-                      dark color="cyan darken-1"
+                      dark color="indigo accent-3"
                       class="mt-4"
                       >
                 </v-pagination>
@@ -44,11 +44,13 @@
                          </v-flex>
                          <v-flex xs8 sm8 md8>
                              <v-card-text>
-                                    <h3 class="cyan--text darken-1">【{{ freetalk.language }}】{{ freetalk.title }}</h3>
+                                    <h3 >【{{ freetalk.language }}】{{ freetalk.title }}</h3>
                                     <p>{{ freetalk.date | date }}</p>
                             </v-card-text>
                             <v-card-actions>
-                                 <v-btn :to="'/freetalks/' + freetalk.id">
+                                 <v-btn :to="'/freetalks/' + freetalk.id" 
+                                        text
+                                        color="blue">
                                      <v-icon left>mdi-arrow-right</v-icon>
                                      詳細を見る
                                  </v-btn>
@@ -66,7 +68,7 @@
                     :length="getPageCount"
                     :initial-page="4"
                     :page-range="3"
-                    dark color="cyan darken-1">
+                    dark color="indigo accent-3">
               </v-pagination>
           </v-flex>
       </v-layout>

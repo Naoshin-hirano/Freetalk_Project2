@@ -1,7 +1,6 @@
 <template>
   <v-app>
      <v-navigation-drawer
-      color="cyan--text darken-1"
       app
       v-model="drawer"
       temporary>
@@ -33,7 +32,7 @@
     </v-navigation-drawer>
     <v-app-bar
       app
-      color="cyan darken-1"
+      color="indigo accent-3"
       dark>
         <v-app-bar-nav-icon
           @click.stop="drawer = !drawer"

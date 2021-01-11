@@ -52,7 +52,7 @@
                 <v-pagination
                       v-model="currentPage"
                       :length="getPageCount"
-                      dark color="cyan darken-1"
+                      dark color="indigo accent-3"
                       class="mb-3">
                 </v-pagination>
           </v-flex>

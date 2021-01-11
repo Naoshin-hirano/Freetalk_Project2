@@ -41,8 +41,8 @@
        </v-layout>
        <v-layout row wrap mt-3>
            <v-flex style="text">
-               <v-card max-width="1000" class="mx-auto">
-                 <p>FreeTalk is awesome !!</p>
+               <v-card max-width="1000" class="mx-auto pt-5 pb-5">
+                 <h2>FreeTalk is ...  みんなで無料語学研修を投稿・メンバー募集・開催しよう！</h2>
                </v-card>
            </v-flex>
        </v-layout>

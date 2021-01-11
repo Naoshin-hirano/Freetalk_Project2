@@ -49,7 +49,7 @@
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex>
-                                        <v-btn raised class="white--text cyan darken-1 ml-3" @click="onPickFile">画像アップロード</v-btn>
+                                        <v-btn raised class="white--text indigo accent-3 ml-3" @click="onPickFile">画像アップロード</v-btn>
                                         <input type="file" 
                                                 style="display: none" 
                                                 ref="fileInput"
@@ -81,7 +81,7 @@
                                 <v-layout mb-4>
                                     <v-flex xs10 sm12 offset-xs2 offset-sm1>
                                         <v-date-picker
-                                        color="cyan darken-1"
+                                        color="indigo accent-3"
                                         elevation="15"
                                         v-model="date"
                                         ></v-date-picker>
@@ -90,7 +90,7 @@
                                 <v-layout mb-4>
                                     <v-flex xs10 sm12 offset-xs2 offset-sm1 mb-4>
                                         <v-time-picker
-                                        color="cyan darken-1"
+                                        color="indigo accent-3"
                                         format="24hr"
                                         scrollable
                                         elevation="15"
