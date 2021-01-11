@@ -132,7 +132,7 @@
             this.user.introduction = data.val().introduction,
             this.user.photoURL = data.val().photoURL
         })
-        .catch(error =>{
+        .catch(error =>{ 
             console.log(error)
         })
     } 

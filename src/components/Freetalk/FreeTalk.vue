@@ -28,7 +28,8 @@
                      height="500"
                     ></v-img>
                     <v-card-text>
-                        <p class="primary--text">{{ freetalk.date | date }} - {{ freetalk.location}}</p>
+                        <p class="primary--text mb-0">{{ freetalk.date | date }} - {{ freetalk.location}}</p>
+                        <p class="mt-0">Language: {{ freetalk.language }}</p>
                         <v-chip-group column class="ml-3">
                            <div class="mr-10">
                                <edit-date

@@ -386,6 +386,7 @@ export default new Vuex.Store({
          for(let key in obj){
            freetalks.push({
              id: key,
+             language: obj[key].language,
              title: obj[key].title,
              description: obj[key].description,
              imageUrl: obj[key].imageUrl,
@@ -549,6 +550,7 @@ export default new Vuex.Store({
     },    
     createTalk({commit, getters}, payload){
       const freetalk = {
+        language: payload.language,
         title: payload.title,
         location: payload.location,
         description: payload.description,

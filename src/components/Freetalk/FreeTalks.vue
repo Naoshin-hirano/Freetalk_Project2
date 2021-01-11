@@ -6,7 +6,7 @@
                     <v-card-title>
                         <v-text-field
                             append-icon="mdi-magnify"
-                            label="検索する"
+                            label="言語・タイトル・年月日で検索する"
                             single-line
                             hide-details
                             v-model="search"
@@ -44,7 +44,7 @@
                          </v-flex>
                          <v-flex xs8 sm8 md8>
                              <v-card-text>
-                                    <h3 class="cyan--text darken-1">{{ freetalk.title }}</h3>
+                                    <h3 class="cyan--text darken-1">【{{ freetalk.language }}】{{ freetalk.title }}</h3>
                                     <p>{{ freetalk.date | date }}</p>
                             </v-card-text>
                             <v-card-actions>
@@ -86,7 +86,7 @@ export default {
     freetalks(){
       const talks = this.$store.getters.loadedFreeTalks
       return talks.filter((talk)=>{
-        return talk.title.match(this.search) || talk.date.match(this.search)
+        return talk.title.match(this.search) || talk.date.match(this.search) || talk.language.match(this.search)
       })
     },
     getLists(){
