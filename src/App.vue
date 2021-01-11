@@ -57,7 +57,7 @@
             </v-btn>    
         </v-toolbar-items>
     </v-app-bar>
-    <v-main>
+    <v-main class="grey lighten-3 ma-2">
       <router-view/>
     </v-main>
   </v-app>

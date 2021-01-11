@@ -50,26 +50,6 @@
                                       :rules="[comparePassword]"></v-text-field>
                                   </v-flex>
                                 </v-layout>
-                                <!-- <v-layout>
-                                   <v-flex>
-                                       <v-text-field
-                                        label="Select Image"
-                                        @click="pickFile"
-                                        v-model="imageName"
-                                        >
-                                      </v-text-field>
-                                      <input
-                                        type="file"
-                                        style="display: none"
-                                        ref="image"
-                                        accept="image/*"
-                                        @change="onFilePicked"/>
-                                      <v-avatar size="150" >
-                                         <v-img :src="imageUrl">
-                                         </v-img>
-                                      </v-avatar>
-                                   </v-flex>
-                                </v-layout> -->
                                 <v-layout>
                                     <v-flex class="mt-3">
                                         <v-btn type="submit" color="lime accent-4" style="width:100%;">
@@ -87,20 +67,12 @@
 </template>
 
 <script>
-// import firebase from "firebase"
 export default {
   data(){
       return{
       email: "",
       password: "",
-      confirmPassword: "",
-      //Image Upload
-      photo: null,
-      photo_url: null,
-      dialog: false,
-      imageName: "",
-      imageUrl: "",
-      imageFile: ""
+      confirmPassword: ""
     }
   },
   computed: {
@@ -124,45 +96,11 @@ export default {
   methods: {
     onSignup(){  
       this.$store.dispatch("signUserUp", {email: this.email, password: this.password})
-      // this.upload()
     },
     onDismissed(){
       console.log("Dismissed Alert !")
       this.$store.dispatch("clearError")
-    },
-    //imageUpload
-    // pickFile(){
-    //   this.$refs.image.click()
-    // },
-    // onFilePicked(e){
-    //   const files = e.target.files
-    //   if(files[0] !== undefined){
-    //     this.imageName = files[0].name
-    //     if(this.imageName.lastIndexOf(".") <= 0){
-    //       return 
-    //     }
-    //     const fr = new FileReader()
-    //     fr.readAsDataURL(files[0])
-    //     fr.addEventListener("load", ()=>{
-    //       this.imageUrl = fr.result
-    //       this.imageFile = files[0]
-    //     })
-    //   }else{
-    //     this.imageName = ""
-    //     this.imageFile = ""
-    //     this.imageUrl = ""
-    //   }
-    // },
-    //画像アップロード
-    // upload(){
-    //   firebase.storage().ref('freetalks/').put(this.imageFile).then(snapshot=>{
-    //     snapshot.ref.getDownloadURL().then(downloadURL =>{
-    //       this.imageUrl = downloadURL
-    //       const user = firebase.auth().currentUser
-    //       firebase.ref("/users/" + user.id).add(downloadURL)
-    //     })
-    //   })
-    // }
+    }
   }
 }
 </script>

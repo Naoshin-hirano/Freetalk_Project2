@@ -1,61 +1,61 @@
 <template>
-  <v-row>
-    <v-dialog persistent width="600px" v-model="dialog">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-        dark color="green darken-2"
-        v-bind="attrs"
-        v-on="on">
-        {{ filterAttendance.length }}人の出席者
-        </v-btn>
-      </template>
+    <v-container>
       <v-card>
-         <v-container>
-             <v-layout row wrap v-for="member in filterAttendance" :key="member.userName" mb-3>
-                    <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                        <v-card class="lime accent-4">
-                            <v-img :src="member.photoURL" width="60"></v-img>
-                            <h4>{{ member.userName }}</h4>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
-                <v-layout row wrap v-show="!filterAttendance.length">
-                   <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                        <v-card>
-                           <v-card-text>No attendees
-                           </v-card-text>
-                        </v-card>
-                   </v-flex>
-                </v-layout>
-             <v-divider></v-divider>
-             <v-layout row wrap>
-                 <v-card-actions>
-                        <v-btn
-                        class="blue--text darken-1"
-                        text
-                        @click="dialog = false">閉じる</v-btn>
-                 </v-card-actions>
-             </v-layout>
-         </v-container>
-      </v-card>
-    </v-dialog>
-  </v-row>
+          <v-layout row wrap class="mb-5 pt-5">
+              <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+                    <v-container>
+                        <v-layout row wrap>
+                            <h3>出席者リスト</h3>
+                        </v-layout>
+                    </v-container>
+              </v-flex>
+          </v-layout>
+          <v-layout row wrap v-for="member in filterAttendance" :key="member.userName" mb-1>
+            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+                <v-card class="grey lighten-3">
+                  <v-container>
+                    <v-layout>
+                        <v-flex xs4 sm3 md3>
+                              <v-avatar size="80" class="ml-8">
+                                <profile-for-attendace :member="member"></profile-for-attendace>
+                              </v-avatar>
+                        </v-flex>
+                        <v-flex xs5 sm5 md4>
+                              <h3 class="pt-4">{{ member.userName }}</h3>
+                              <p>{{ member.datetime | date}}</p>
+                        </v-flex>
+                    </v-layout>
+                  </v-container>
+              </v-card>
+            </v-flex>
+          </v-layout>
+          <v-layout row wrap>
+              <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+                    <v-container>
+                        <v-layout row wrap>
+                              <v-card-actions>
+                                <v-btn 
+                                @click="$router.go(-1)" 
+                                text 
+                                class="blue--text darken-1">
+                                  <v-icon large>mdi-chevron-left</v-icon>
+                                  戻る
+                                </v-btn>
+                              </v-card-actions>
+                        </v-layout>
+                    </v-container>
+              </v-flex>
+          </v-layout>
+       </v-card>
+    </v-container>
 </template>
 
 <script>
   export default {
-    data(){
-        return {
-          dialog: false
-        }
-      },
     computed: {
       filterAttendance(){
         return this.$store.getters.filterAttendance(this.$route.params.id)
       }
-    },
-    created(){
-      console.log(this.filterAttendance)
     }
   }
 </script>

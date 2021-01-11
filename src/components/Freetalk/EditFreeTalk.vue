@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" >
-    <v-dialog v-model="editDialog" persistent width="350px">
+    <v-dialog v-model="editDialog" persistent width="800px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           v-bind="attrs"
@@ -14,7 +14,7 @@
          <v-container>
              <v-layout row wrap>
                  <v-flex xs12>
-                     <v-card-title>Edit Freetalk</v-card-title>
+                     <v-card-title>FREETALK を編集</v-card-title>
                  </v-flex>
              </v-layout>
              <v-divider></v-divider>
@@ -23,14 +23,14 @@
                      <v-card-text>
                         <v-text-field
                             name="title"
-                            label="Title"
+                            label="タイトル・言語"
                             id="title"
                             v-model="editedTitle"
                             required>
                         </v-text-field>
                         <v-textarea
                             name="description"
-                            label="Description"
+                            label="説明・概要"
                             id="description"
                             v-model="editedDescription"
                             required>
@@ -42,8 +42,8 @@
              <v-layout>
                  <v-flex>
                      <v-card-actions>
-                         <v-btn @click="editDialog=false" text class="blue--text darken-1">Close</v-btn>
-                         <v-btn @click="onSaveChanges" text class="blue--text darken-1">Save</v-btn>
+                         <v-btn @click="editDialog=false" text class="blue--text darken-1">閉じる</v-btn>
+                         <v-btn @click="onSaveChanges" text class="blue--text darken-1">変更</v-btn>
                      </v-card-actions>
                  </v-flex>
              </v-layout>

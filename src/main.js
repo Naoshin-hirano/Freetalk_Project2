@@ -18,8 +18,10 @@ import Paginate from 'vuejs-paginate'
 import EditProfile from './components/Profile/EditProfile'
 import ProfileOthers from './components/Profile/Profile-others.vue'
 import LikesButton from './components/Freetalk/LikesButton.vue'
-import Attendance from './components/Freetalk/Attendance.vue'
+import ShowAttendees from './components/Freetalk/ShowAttendees.vue'
 import DeleteReply from './components/Profile/DeleteReply.vue'
+import FollowUser from './components/User/FollowUser.vue'
+import ProfileForAttendace from './components/Freetalk/ProfileForAttendace.vue'
 
 
 Vue.config.productionTip = false
@@ -36,8 +38,10 @@ Vue.component('comment-btn', Comment)
 Vue.component('edit-profile', EditProfile)
 Vue.component('profile-others', ProfileOthers)
 Vue.component('likes-btn', LikesButton)
-Vue.component('attendance-btn', Attendance)
+Vue.component('show-attendees', ShowAttendees)
 Vue.component('delete-reply', DeleteReply)
+Vue.component('follow-user', FollowUser)
+Vue.component('profile-for-attendace', ProfileForAttendace)
 
 new Vue({
   router,
@@ -58,6 +62,9 @@ new Vue({
       if(user){
         this.$store.dispatch("setLoginUser",user)
         this.$store.dispatch("fetchUserData")
+        this.$store.commit('onAuthStatusChanged', user.uid ? true : false)
+        this.$store.dispatch('myfollows')
+        this.$store.dispatch('myfollowers')
         this.$router.push({name: 'Home'})
       }else{
         this.$store.dispatch("deleteLoginUser")

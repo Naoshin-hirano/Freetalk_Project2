@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-layout class="text-center">
-            <v-flex xs12 sm10 md8 offset-sm3 offset-md2>
+            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
               <v-avatar size="150">
                   <img
                   v-if="roomUser.roomPhotoURL"
@@ -15,60 +15,78 @@
             </v-flex>
         </v-layout>
         <v-layout class="text-center">
-            <v-flex xs12 sm10 md8 offset-sm3 offset-md2>
+            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <h3>{{ roomUser.roomDisplayName }}</h3>
             </v-flex>
         </v-layout>
         <v-layout row wrap mb-5>
-            <v-flex xs12 sm10 md8 offset-sm3 offset-md2>
+            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+              <v-card class="pl-3 pr-3 pb-3">
                 <form @submit.prevent="doSend" >
                     <v-textarea
                     name="input"
                     id="input"
                     v-model="input"
                     required
-                    label="Post a comment"
+                    label="コメントを入力"
                     >
                     </v-textarea>
-                    <v-btn @click="$router.go(-1)" text class="blue--text darken-1">
-                      <v-icon >mdi-arrow-left</v-icon>
+                    <v-btn 
+                    @click="$router.go(-1)" 
+                    text 
+                    class="blue--text darken-1">
+                      <v-icon >mdi-chevron-left</v-icon>
                       戻る
                     </v-btn>
-                    <v-btn class="mr-5 blue--text darken-1" type="submit" text>コメントを投稿</v-btn>
+                    <v-btn 
+                    class="mr-5 blue--text darken-1"
+                    type="submit"
+                    text>
+                    投稿する</v-btn>
                 </form>
+              </v-card>
             </v-flex>
         </v-layout>
-        <v-layout row wrap v-for="comment in comments" :key="comment.message" mb-3>
-            <v-flex xs12 sm10 md8 offset-sm3 offset-md2>
-                <v-card color="cyan lighten-4">
+        <v-layout>
+            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+                <v-pagination
+                      v-model="currentPage"
+                      :length="getPageCount"
+                      dark color="cyan darken-1"
+                      class="mb-3">
+                </v-pagination>
+          </v-flex>
+        </v-layout>
+        <v-layout row wrap v-for="comment in getLists" :key="comment.message" mb-3>
+            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+                <v-card>
                   <v-layout>
                       <v-card-actions>
-                          <v-flex>
-                              <v-avatar size="80">
-                                  <v-img :src="comment.image"></v-img>
-                              </v-avatar>
-                          </v-flex>
+                          <v-avatar size="80">
+                              <v-img :src="comment.image"></v-img>
+                          </v-avatar>
                           <v-card-text>
-                            <v-flex>
-                              <p>{{ comment.name }}</p>
-                            </v-flex>
+                              <p>{{ comment.datetime | date }}</p>
+                              <h4>{{ comment.name }}</h4>
                           </v-card-text>
                           <v-spacer></v-spacer>
                       </v-card-actions>
                       <v-spacer></v-spacer>
                       <v-card-actions>
-                        <v-btn text
+                        <!-- <v-btn text
                               :to="'/comment/reply/delete/' + comment.commentId">
                             <v-icon >mdi-delete-forever</v-icon>
-                        </v-btn>
+                        </v-btn> -->
                         <v-btn text 
                               :to="'/comment/reply/' + comment.commentId">
-                            <v-icon >mdi-reply-circle</v-icon>
+                            <v-icon 
+                            large 
+                            class="blue-grey--text lighten-5">mdi-dots-horizontal</v-icon>
                         </v-btn>
                       </v-card-actions>
                   </v-layout>
                   <v-card-text>
-                    <h2>{{ comment.message}}</h2>
+                    <h3>{{ comment.message}}</h3>
                   </v-card-text>
                 </v-card>
             </v-flex>
@@ -85,6 +103,9 @@
          id: location.href.split("/"),
          commentDialog: false,
          input: '',
+         time: new Date(),
+         parPage:3,
+         currentPage:1,
          roomUser: {
            roomDisplayName: "",
            roomPhotoURL: ""
@@ -93,7 +114,8 @@
     },
     created(){
         const uid = this.id[this.id.length - 1]
-        db.database().ref("/users/" + uid).once("value").then(data =>{
+        db.database().ref("/users/" + uid).once("value")
+        .then(data =>{
             this.roomUser.roomDisplayName = data.val().displayName,
             this.roomUser.roomPhotoURL = data.val().photoURL
         })
@@ -116,19 +138,35 @@
      },
      photoURL(){
        return this.$store.getters.photoURL
+     },
+    submittableDateTime(){
+      const date = new Date()
+      const str = date.getFullYear()
+      + '/' + ('0' + (date.getMonth() + 1)).slice(-2)
+      + '/' + ('0' + date.getDate()).slice(-2)
+      + ' ' + ('0' + date.getHours()).slice(-2)
+      + ':' + ('0' + date.getMinutes()).slice(-2)
+      return str
+    },
+    getLists(){
+      let current = this.currentPage * this.parPage//freetalkの合計数
+      let start = current - this.parPage//1ページ目の３つのfreetalkが最初
+      return this.comments.slice(start, current)//現存する全てのfreetalkを取り出す
+     },
+     getPageCount(){
+         //引数として与えた数以上の最小の整数を返します。
+       return Math.ceil(this.comments.length / this.parPage)
      }
    },
    methods: {
-    counter(number){
-      this.length = number
-    },
     doSend() {
       if (this.input.length >= 0) {
         const chatData = {
           id: this.id[this.id.length - 1],
           message: this.input,
           name: this.userName,
-          image: this.photoURL
+          image: this.photoURL,
+          datetime: this.submittableDateTime
          }
          this.$store.dispatch("createChat", chatData)
          this.input = '' // フォームを空にする 

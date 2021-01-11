@@ -12,7 +12,7 @@
       <v-card>
          <v-container>
              <v-layout row wrap>
-                <v-card-title >Are you sure you will delete this Feetalk ?</v-card-title>
+                <v-card-title>本当にこのFeetalkを削除しますか？</v-card-title>
              </v-layout>
              <v-divider></v-divider>
              <v-layout row wrap>
@@ -20,11 +20,11 @@
                         <v-btn
                         class="blue--text darken-1"
                         text
-                        @click="deleteDialog = false">Cancel</v-btn>
+                        @click="deleteDialog = false">キャンセル</v-btn>
                         <v-btn
                         class="blue--text darken-1"
                         text
-                        @click="deleteConfirm">Confirm</v-btn>
+                        @click="deleteConfirm">削除</v-btn>
                  </v-card-actions>
              </v-layout>
          </v-container>

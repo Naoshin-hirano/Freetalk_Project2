@@ -1,25 +1,30 @@
 <template>
   <v-row>
-    <v-dialog persistent width="350px" v-model="editDialog">
+    <v-dialog persistent width="350" v-model="editDialog">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+        text
         v-bind="attrs"
         v-on="on">
-        Edit Date
+          <v-icon large>mdi-calendar-range</v-icon>
         </v-btn>
       </template>
       <v-card>
          <v-container>
              <v-layout row wrap>
                  <v-flex xs12>
-                     <v-card-title>Edit Freetalk Date</v-card-title>
+                     <v-card-title>日にちを編集</v-card-title>
                  </v-flex>
              </v-layout>
              <v-divider></v-divider>
              <v-layout row wrap>
                  <v-card-text>
-                    <v-date-picker color="cyan darken-1" v-model="editableDate" style="width :100%">
-                    <template >
+                    <v-date-picker 
+                    color="cyan darken-1" 
+                    v-model="editableDate"
+                    elevation="15"
+                    style="width :100%">
+                    <template>
                         <v-btn
                         class="cyan--text darken-1"
                         text
@@ -43,7 +48,7 @@
     props: ["freetalk"],
     data(){
       return {
-        editableDate: null,
+        editableDate: undefined,
         editDialog: false
       }
     },
@@ -63,7 +68,7 @@
       },
       created(){
          this.editableDate = new Date(this.freetalk.date)
-      }
+      },
     }
   }
 </script>

@@ -2,7 +2,7 @@
          <v-container>
              <v-layout v-for="comment in comments" :key="comment.message" row wrap mb-3>
                     <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                        <v-card class="cyan lighten-4">
+                        <v-card>
                             <v-card-actions>
                               <v-avatar size="60">
                                  <v-img :src="comment.image"></v-img>

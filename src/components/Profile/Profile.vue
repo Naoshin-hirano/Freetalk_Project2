@@ -6,7 +6,7 @@
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-spacer></v-spacer>
-                        <v-spacer></v-spacer>
+                      <v-spacer></v-spacer>
                       <v-spacer></v-spacer>
                         <v-spacer></v-spacer>
                       <v-spacer></v-spacer>
@@ -40,21 +40,22 @@
                             </v-flex>
                         </v-layout>
                          <v-layout>
-                            <v-flex class="text-center">
-                                <div>
-                                    <v-btn icon 
-                                           color="green"
-                                           :to="'/comment/' + user.id">
-                                        <v-icon left>mdi-comment-multiple-outline</v-icon>
-                                    </v-btn>
-                                    <span>{{ comments.length }} COMMENTS</span>
-                                </div>
+                            <v-flex xs12 sm10 md8 offset-xs2 offset-sm3 offset-md3>
+                              <v-btn icon
+                                    class="mt-3 ml-5"
+                                    :to="'/comment/' + user.id">
+                                  <v-icon color="green" large left>mdi-comment-multiple-outline</v-icon>
+                                  <span>{{ comments.length }}</span>
+                              </v-btn>
+                            </v-flex>
+                            <v-flex xs12 sm10 md8 offset-sm3 offset-md3> 
+                                <follow-user></follow-user>
                             </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-12>
                             <v-flex>
-                                <v-card class="cyan lighten-4">
-                                    <v-card-title>【自己紹介】</v-card-title>
+                                <v-card class="grey lighten-3 ma-2">
+                                    <v-card-title>自己紹介</v-card-title>
                                    <v-card-text>
                                      <h3>{{ introduction }}</h3>
                                    </v-card-text>

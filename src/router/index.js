@@ -11,6 +11,7 @@ import OtherProfile from '../components/Profile/Profile-others.vue'
 import Comment from '../components/Profile/Comment.vue'
 import Reply from '../components/Profile/ReplyToComment.vue'
 import DeleteComment from '../components/Profile/DeleteComment.vue'
+import Attendance from '../components/Freetalk/Attendance.vue'
 
 
 Vue.use(VueRouter)
@@ -36,6 +37,12 @@ Vue.use(VueRouter)
     name: 'FreeTalk',
     props: true,
     component: FreeTalk
+  },
+  {
+    path: '/freetalks/:id/attendance',
+    name: 'Attendance',
+    props: true,
+    component: Attendance
   },
   {
     path: '/login',

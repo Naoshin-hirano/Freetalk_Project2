@@ -2,10 +2,10 @@
     <v-container class="container">
        <v-layout mt-5 row wrap v-if="$store.state.user">
            <v-flex >
-               <v-btn to="/freetalks" dark color="red darken-2">Explore FreeTalks</v-btn>
+               <v-btn to="/freetalks" dark color="red darken-2">FREETALKを検索してみる</v-btn>
            </v-flex>
            <v-flex >
-               <v-btn to="/freetalk/new" dark color="red darken-2">Create FreeTalk</v-btn>
+               <v-btn to="/freetalk/new" dark color="red darken-2">FREETALKを作成してメンバー募集</v-btn>
            </v-flex>
        </v-layout>
        <v-layout mt-5 row wrap v-else>

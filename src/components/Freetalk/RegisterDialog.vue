@@ -22,20 +22,24 @@
       <v-card>
          <v-container>
              <v-layout row wrap>
-                <v-card-title v-if="userIsRegistered">Unregister from this Freetalk ?</v-card-title>
-                <v-card-title v-else>Register for this Freetalk ?</v-card-title>
+                <v-card-title v-if="userIsRegistered">このFREETALKの参加を解除しますか?</v-card-title>
+                <v-card-title v-else>このFREETALKに参加しますか?</v-card-title>
              </v-layout>
              <v-divider></v-divider>
              <v-layout row wrap>
                  <v-card-actions>
                         <v-btn
-                        class="cyan darken-1"
+                        class="cyan--text darken-1"
                         text
-                        @click="registerDialog = false">Cancel</v-btn>
+                        @click="registerDialog = false">
+                        <h3>キャンセル</h3>
+                        </v-btn>
                         <v-btn
-                        class="cyan darken-1"
+                        class="cyan--text darken-1"
                         text
-                        @click="onAgree">Confirm</v-btn>
+                        @click="onAgree">
+                        <h3>はい</h3>
+                        </v-btn>
                  </v-card-actions>
              </v-layout>
          </v-container>
@@ -46,7 +50,7 @@
 
 <script>
   export default {
-    props: ["freetalkId"],
+    props: ["freetalkId"],//id
     data(){
       return {
         registerDialog: false
@@ -58,6 +62,15 @@
             return freetalkId === this.freetalkId
         }) >= 0
       },
+      submittableDateTime(){
+      const date = new Date()
+      const str = date.getFullYear()
+      + '/' + ('0' + (date.getMonth() + 1)).slice(-2)
+      + '/' + ('0' + date.getDate()).slice(-2)
+      + ' ' + ('0' + date.getHours()).slice(-2)
+      + ':' + ('0' + date.getMinutes()).slice(-2)
+      return str
+      },
       user(){
          return this.$store.getters.user
        },
@@ -66,6 +79,9 @@
        },
        photoURL(){
          return this.$store.getters.photoURL
+       },
+       attendance(){
+         return this.$store.state.attendance.attendanceId
        }
     },
     methods: {
@@ -74,14 +90,17 @@
           uid : this.user.id,
           userName: this.userName,
           photoURL: this.photoURL,
-          freetalkId: this.freetalkId
+          freetalkId: this.freetalkId,
+          datetime: this.submittableDateTime
         }
         if(this.userIsRegistered){
           this.$store.dispatch("unregisterUserFromFreetalk", this.freetalkId)
           this.$store.dispatch("removeAttendance", userData)
+          this.registerDialog=false
         }else{
           this.$store.dispatch("registerUserForFreetalk", this.freetalkId)
           this.$store.dispatch("registerAttendance", userData)
+          this.registerDialog=false
         }
       }
     }

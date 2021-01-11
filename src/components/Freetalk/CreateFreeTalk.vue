@@ -1,117 +1,150 @@
 <template>
     <v-container>
         <v-layout>
-            <v-flex xs12 sm6 offset-sm3 mb-4>
-                <h2>Create FreeTalk</h2>
-            </v-flex>
-        </v-layout>
-        <v-layout>
-            <v-flex xs12 sm6 offset-sm3>
-                <form @submit.prevent="onCreateTalk">
-                    <v-layout>
-                        <v-flex>
-                            <v-text-field
-                                label="Title"
-                                name="title"
-                                id="title"
-                                v-model="title"
-                                required
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout>
-                        <v-flex>
-                            <v-text-field
-                                label="Location"
-                                name="location"
-                                id="location"
-                                v-model="location"
-                                required
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout row>
-                       <v-flex>
-                           <v-btn raised class="white--text cyan darken-1" @click="onPickFile">Upload Image</v-btn>
-                           <input type="file" 
-                                  style="display: none" 
-                                  ref="fileInput"
-                                  accept="image/*"
-                                  @change="onFilePicked">
-                       </v-flex>
-                   </v-layout>
-                   <v-layout row>
-                       <v-flex>
-                           <img :src="imageUrl" height="150">
-                       </v-flex>
-                   </v-layout>
-                    <v-layout>
-                        <v-flex>
-                            <v-textarea
-                                label="Description"
-                                name="description"
-                                id="description"
-                                v-model="description"
-                                required>
-                            </v-textarea>
-                        </v-flex>
-                    </v-layout>
-                     <v-layout mb-3>
-                        <v-flex>
-                            <h2>Choose Date and Time</h2>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout mb-4>
-                        <v-flex>
-                            <v-date-picker
-                            color="cyan darken-1"
-                            elevation="15"
-                            v-model="date"
-                            ></v-date-picker>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout mb-4>
-                        <v-flex>
-                            <v-time-picker
-                            color="cyan darken-1"
-                            format="24hr"
-                            scrollable
-                            elevation="15"
-                            v-model="time"
-                            ></v-time-picker>
-                        </v-flex>
-                    </v-layout>
+            <v-flex xs12 sm12 md10 offset-sm0 offset-md1>
+                <v-card>
                     <v-layout>
                         <v-flex xs12 sm6 offset-sm3 mb-4>
-                            <v-btn :disabled="!formIsValid" 
-                                dark 
-                                color="red darken-2"
-                                type="submit">Create Freetalk               
-                            </v-btn>
+                            <h2 class="mt-5">FREETALK を投稿</h2>
                         </v-flex>
                     </v-layout>
-                </form>
-            </v-flex>
-        </v-layout>    
-    </v-container>
+                    <v-layout>
+                        <v-flex xs12 sm6 offset-sm3>
+                            <form @submit.prevent="onCreateTalk">
+                                <v-layout>
+                                    <v-flex>
+                                        <v-select
+                                            label="言語"
+                                            name="language"
+                                            id="language"
+                                            v-model="language"
+                                            required
+                                            :items="items"
+                                            filled
+                                            dense
+                                        ></v-select>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout>
+                                    <v-flex>
+                                        <v-text-field
+                                            label="タイトル"
+                                            name="title"
+                                            id="title"
+                                            v-model="title"
+                                            required
+                                        ></v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout>
+                                    <v-flex>
+                                        <v-text-field
+                                            label="開催場所"
+                                            name="location"
+                                            id="location"
+                                            v-model="location"
+                                            required
+                                        ></v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout row>
+                                    <v-flex>
+                                        <v-btn raised class="white--text cyan darken-1 ml-3" @click="onPickFile">画像アップロード</v-btn>
+                                        <input type="file" 
+                                                style="display: none" 
+                                                ref="fileInput"
+                                                accept="image/*"
+                                                @change="onFilePicked">
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout row>
+                                    <v-flex>
+                                        <img :src="imageUrl" height="150" class="ml-3 mt-3 mb-4">
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout>
+                                    <v-flex>
+                                        <v-textarea
+                                            label="説明・概要"
+                                            name="description"
+                                            id="description"
+                                            v-model="description"
+                                            required>
+                                        </v-textarea>
+                                    </v-flex>
+                                </v-layout>
+                                    <v-layout mb-3>
+                                    <v-flex xs10 sm12 offset-xs2 offset-sm1>
+                                        <h2>開催日時を指定</h2>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout mb-4>
+                                    <v-flex xs10 sm12 offset-xs2 offset-sm1>
+                                        <v-date-picker
+                                        color="cyan darken-1"
+                                        elevation="15"
+                                        v-model="date"
+                                        ></v-date-picker>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout mb-4>
+                                    <v-flex xs10 sm12 offset-xs2 offset-sm1 mb-4>
+                                        <v-time-picker
+                                        color="cyan darken-1"
+                                        format="24hr"
+                                        scrollable
+                                        elevation="15"
+                                        v-model="time"
+                                        ></v-time-picker>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout>
+                                    <v-flex xs10 sm12 offset-xs1 offset-sm1 mb-4>
+                                        <v-btn :disabled="!formIsValid"
+                                            width="100%"
+                                            height="50" 
+                                            dark 
+                                            color="red darken-2"
+                                            type="submit">Create Freetalk               
+                                        </v-btn>
+                                        <v-alert
+                                        v-show="!formIsValid"
+                                        dense
+                                        outlined
+                                        type="error"
+                                        >
+                                        <p>全項目を入力してください</p>
+                                        </v-alert>
+                                    </v-flex>
+                                </v-layout>
+                            </form>
+                        </v-flex>
+                    </v-layout>  
+            </v-card>
+        </v-flex>
+    </v-layout>
+</v-container>
 </template>
 
 <script>
 export default {
     data(){
       return {
+        language: "",
         title: "",
         location: "",
         imageUrl: "",
         description: "",
         date: "",
         time: new Date(),
-        image: null
+        image: null,
+        items: ['English', 'Japanese', 'Spanish', "French"],
       }
     },
     computed: {
       formIsValid(){
-       return this.title !== "" &&
+       return this.language !== "" &&
+        this.title !== "" &&
         this.location !== "" && 
         this.imageUrl !== "" && 
         this.description !== ""
@@ -153,6 +186,7 @@ export default {
            return
         }
        const talkData = {
+        language: this.language,
         title: this.title,
         location: this.location,
         image: this.image,

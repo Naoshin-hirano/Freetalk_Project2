@@ -5,7 +5,7 @@
                 <v-card max-width="1000" class="mx-auto">
                     <v-card-title>
                         <div class="ml-10">
-                          <profile-others  :freetalk="freetalk"></profile-others>
+                            <profile-others  :freetalk="freetalk"></profile-others>
                         </div>
                         <h3 class="ml-15">{{ freetalk.title }}</h3>
                         <v-spacer></v-spacer>
@@ -16,7 +16,7 @@
                                 <likes-btn></likes-btn>
                             </v-flex>
                             <v-flex>
-                                 <delete-free-talk :freetalk="freetalk"></delete-free-talk>
+                                 <delete-free-talk :freetalk="freetalk" width="500"></delete-free-talk>
                             </v-flex>
                             <v-flex>
                                 <edit-free-talk :freetalk="freetalk"></edit-free-talk>
@@ -29,26 +29,39 @@
                     ></v-img>
                     <v-card-text>
                         <p class="primary--text">{{ freetalk.date | date }} - {{ freetalk.location}}</p>
-                        <v-chip-group column>
+                        <v-chip-group column class="ml-3">
                            <div class="mr-10">
                                <edit-date
                                 :freetalk="freetalk"
                                 ></edit-date>
                             </div>
-                            <div>
+                            <div class="ml-5">
                                 <edit-time
                                 :freetalk="freetalk"
                                 ></edit-time>
                             </div>
                         </v-chip-group>
-                        <div>{{ freetalk.description }}</div>
+                        <div class="mt-5 mb-5">{{ freetalk.description }}</div>
                     </v-card-text>
-                    <v-card-actions >
-                        <attendance-btn></attendance-btn>
+                    <v-layout>
+                        <v-flex xs3 sm3 md3>
+                            <h3 class="ml-5">出席者Pick Up</h3>
+                        </v-flex>
+                        <v-flex xs3 sm3 md3>
+                             <v-btn
+                            :to="'/freetalks/' + freetalk.id + '/attendance/'"
+                            text
+                            class="blue--text"
+                            v-show="filterAttendance.length">
+                            <v-icon large color="blue">mdi-chevron-left</v-icon>
+                            <h3>全出席者({{ filterAttendance.length }})を見る</h3>
+                            </v-btn>
+                        </v-flex>
+                    </v-layout>
+                    <v-card-actions>
+                        <show-attendees></show-attendees>
                         <v-spacer></v-spacer>
-                        <v-btn class="mr-3">
-                           <register-dialog  :freetalkId="freetalk.id"></register-dialog>
-                        </v-btn>
+                        <register-dialog class="mr-2 mt-10" :freetalkId="freetalk.id"></register-dialog>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -65,7 +78,10 @@ export default {
      },
      user(){
       return this.$store.getters.user
-     }
+     },
+     filterAttendance(){
+        return this.$store.getters.filterAttendance(this.$route.params.id)
+      }
    }
 }
 </script>

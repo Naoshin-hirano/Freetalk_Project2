@@ -14,7 +14,7 @@
          <v-container>
              <v-layout row wrap>
                  <v-flex xs12>
-                     <v-card-title>Edit Profile</v-card-title>
+                     <v-card-title>プロフィールの編集</v-card-title>
                  </v-flex>
              </v-layout>
              <v-divider></v-divider>
@@ -23,14 +23,14 @@
                      <v-card-text>
                         <v-text-field
                             name="userName"
-                            label="UserName"
+                            label="ユーザーネーム"
                             id="userName"
                             v-model="userName"
                             required>
                         </v-text-field>
                         <v-textarea
                             name="introduction"
-                            label="Introduction"
+                            label="自己紹介"
                             id="introduction"
                             v-model="introduction"
                             required>
@@ -38,7 +38,7 @@
                      </v-card-text>
                      <v-card-text>
                          <v-text-field
-                            label="Select Image"
+                            label="イメージを選ぶ"
                             @click="pickFile"
                             v-model="imageName"
                             >
@@ -60,8 +60,8 @@
              <v-layout>
                  <v-flex>
                      <v-card-actions>
-                         <v-btn @click="close" text class="blue--text darken-1">Close</v-btn>
-                         <v-btn @click="onSaveProfile" text class="blue--text darken-1">Save</v-btn>
+                         <v-btn @click="close" text class="blue--text darken-1">閉じる</v-btn>
+                         <v-btn @click="onSaveProfile" text class="blue--text darken-1">保存する</v-btn>
                      </v-card-actions>
                  </v-flex>
              </v-layout>

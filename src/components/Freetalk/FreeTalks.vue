@@ -10,24 +10,17 @@
                             single-line
                             hide-details
                             v-model="search"
-                            color="cyan darken-1"
-                        ></v-text-field>
+                            color="cyan darken-1">
+                        </v-text-field>
                     </v-card-title>
                 </v-card>
-                <v-card>
-                     <v-layout>
-                         <v-flex>
-                              <v-pagination
-                                    v-model="currentPage"
-                                    :length="getPageCount"
-                                    :initial-page="4"
-                                    :page-range="3"
-                                    dark color="cyan darken-1"
-                                    >
-                                </v-pagination>
-                         </v-flex>
-                     </v-layout>
-              </v-card>
+                <v-pagination
+                      v-model="currentPage"
+                      :length="getPageCount"
+                      dark color="cyan darken-1"
+                      class="mt-4"
+                      >
+                </v-pagination>
           </v-flex>
       </v-layout>
      <v-layout v-for="freetalk in getLists" :key="freetalk.index" mb-3>
@@ -49,9 +42,9 @@
                                 :src="freetalk.imageUrl"
                             ></v-img>
                          </v-flex>
-                         <v-flex xs8 sm6 md4>
+                         <v-flex xs8 sm8 md8>
                              <v-card-text>
-                                    <h3 class="cyan--text darken-4">{{ freetalk.title }}</h3>
+                                    <h3 class="cyan--text darken-1">{{ freetalk.title }}</h3>
                                     <p>{{ freetalk.date | date }}</p>
                             </v-card-text>
                             <v-card-actions>
@@ -68,21 +61,13 @@
      </v-layout>
      <v-layout>
           <v-flex xs12 sm10 md8 offset-sm1 offset-md2 mt-5>
-              <v-card>
-                 <v-container>
-                     <v-layout>
-                         <v-flex>
-                              <v-pagination
-                                    v-model="currentPage"
-                                    :length="getPageCount"
-                                    :initial-page="4"
-                                    :page-range="3"
-                                    dark color="cyan darken-3">
-                                </v-pagination>
-                         </v-flex>
-                     </v-layout>
-                 </v-container>
-              </v-card>
+              <v-pagination
+                    v-model="currentPage"
+                    :length="getPageCount"
+                    :initial-page="4"
+                    :page-range="3"
+                    dark color="cyan darken-1">
+              </v-pagination>
           </v-flex>
       </v-layout>
   </v-container>
@@ -101,7 +86,7 @@ export default {
     freetalks(){
       const talks = this.$store.getters.loadedFreeTalks
       return talks.filter((talk)=>{
-        return talk.title.match(this.search)
+        return talk.title.match(this.search) || talk.date.match(this.search)
       })
     },
     getLists(){
