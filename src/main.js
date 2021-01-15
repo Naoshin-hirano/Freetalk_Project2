@@ -72,7 +72,7 @@ new Vue({
     }),
     this.$store.dispatch('loadedFreeTalks')
     this.$store.dispatch('loadedComments')
-    this.$store.dispatch('loadedReplys')
+    // this.$store.dispatch('loadedReplys')
     this.$store.dispatch('loadedAttendance')
     this.$store.dispatch("getFavs")
   }

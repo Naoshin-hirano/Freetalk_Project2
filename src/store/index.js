@@ -308,6 +308,9 @@ export default new Vuex.Store({
         })
         commit("getfav", get_favs)
       })
+      .catch(error =>{
+        console.log(error)
+      })
     },
     //register登録
      registerUserForFreetalk({commit,getters}, payload){//payload:freetalkId
@@ -458,24 +461,24 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    loadedReplys(){
-      firebase.database().ref("/comments/").once("value")
-       .then(data =>{
-         console.log(data.val().replys)//NG
-        //  const replys = []
-        //  const obj = data.val()
-        //  for(let key in obj){
-        //    replys.push({
-        //       commentId: obj[key].commentId,
-        //       image: obj[key].image,
-        //       name: obj[key].name,
-        //       replymessage: obj[key].replymessage,
-        //       replyuserid: obj[key].replyuserid
-        //    })
-        //  }
-        //  commit("setLoadedReplys", replys)
-       })
-    },
+    // loadedReplys(){
+    //   firebase.database().ref("/comments/").once("value")
+    //    .then(data =>{
+    //      console.log(data.val().replys)//NG
+    //      const replys = []
+    //      const obj = data.val()
+    //      for(let key in obj){
+    //        replys.push({
+    //           commentId: obj[key].commentId,
+    //           image: obj[key].image,
+    //           name: obj[key].name,
+    //           replymessage: obj[key].replymessage,
+    //           replyuserid: obj[key].replyuserid
+    //        })
+    //      }
+    //      commit("setLoadedReplys", replys)
+    //    })
+    // },
     //googleログイン
     login(){
       const google_auth_provider = new firebase.auth.GoogleAuthProvider()
@@ -556,7 +559,8 @@ export default new Vuex.Store({
         description: payload.description,
         date: payload.date.toISOString(),
         createrId: getters.user.id,
-        photoURL: getters.photoURL
+        photoURL: getters.photoURL,
+        id:""
       }
       let imageUrl
       let key
@@ -572,7 +576,10 @@ export default new Vuex.Store({
         })
         .then(url=>{
           return firebase.database().ref('freetalks/').child(key).update({ imageUrl: url })
-        })      
+        })
+        .then(()=>{
+          firebase.database().ref('freetalks/').child(key).update({id: key})
+        })
         .then(() => {
           commit('createTalk', {
             ...freetalk,
