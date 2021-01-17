@@ -139,14 +139,14 @@ export default new Vuex.Store({
     setLoadedFreetalks(state, payload){
       state.loadedFreeTalks = payload
     },
+    setLoadedReplys(state, payload){
+      state.replys = payload
+    },
     setAttendance(state, payload){
       state.attendance = payload
     },
     setLoadedComments(state, payload){
       state.comments = payload
-    },
-    setLoadedReplys(state, payload){
-      state.replys = payload
     },
     setLoginUser(state, payload){
       state.user = payload
@@ -202,9 +202,9 @@ export default new Vuex.Store({
       // console.log(attend)
       state.attendance.splice(attend, 1)//ユーザーのフィルターがかかっていない
     },
-    deleteComment(state, payload){
+    deleteComment(state, payload){//payload=paramsId
       const comment = state.comments.find(comment =>{
-        return comment.commentId === payload.commentId
+        return comment.commentId === payload
       })
       state.comments.splice(comment, 1)
     },
@@ -433,8 +433,6 @@ export default new Vuex.Store({
        .then(data=>{
          const comments = []
          const obj = data.val()
-         const replys = []
-         var obj2 = data.child("replys").val()
          for(let key in obj){
            comments.push({
             roomUserId: obj[key].roomUserId,
@@ -445,15 +443,6 @@ export default new Vuex.Store({
             datetime: obj[key].datetime,
             replys: obj[key].replys
            })
-           for(let key2 in obj2){
-             replys.push({
-               commentId: obj2[key2].commentId,
-               image: obj2[key2].image,
-               name: obj2[key2].name,
-               replymessage: obj2[key2].replymessage,
-               replyuserid: obj2[key2].replyuserid
-             })
-           }
          }
          commit("setLoadedComments", comments)
        })
@@ -461,24 +450,39 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    // loadedReplys(){
-    //   firebase.database().ref("/comments/").once("value")
-    //    .then(data =>{
-    //      console.log(data.val().replys)//NG
-    //      const replys = []
-    //      const obj = data.val()
-    //      for(let key in obj){
-    //        replys.push({
-    //           commentId: obj[key].commentId,
-    //           image: obj[key].image,
-    //           name: obj[key].name,
-    //           replymessage: obj[key].replymessage,
-    //           replyuserid: obj[key].replyuserid
-    //        })
-    //      }
-    //      commit("setLoadedReplys", replys)
-    //    })
-    // },
+    loadedReplys({commit}){
+      firebase.database().ref("/comments/").once("value")
+       .then(data=>{
+         const comments = []
+         const replys = []
+         const obj = data.val()
+         for(let key in obj){
+           comments.push({
+            roomUserId: obj[key].roomUserId,
+            name: obj[key].name,
+            image: obj[key].image,
+            message: obj[key].message,
+            commentId: obj[key].commentId,
+            datetime: obj[key].datetime,
+            replys: obj[key].replys
+           })
+           const obj2 = obj[key].replys
+           for(let key2 in obj2){//
+             replys.push({
+               commentId: obj2[key2].commentId,
+               image: obj2[key2].image,
+               name: obj2[key2].name,
+               replymessage: obj2[key2].replymessage,
+               replyuserid: obj2[key2].replyuserid
+             })
+           }//
+         }
+         commit("setLoadedReplys", replys)
+       })
+        .catch(error=>{
+          console.log(error)
+        })
+    },
     //googleログイン
     login(){
       const google_auth_provider = new firebase.auth.GoogleAuthProvider()
@@ -621,8 +625,8 @@ export default new Vuex.Store({
        })
     },
     removeAttendance({commit,getters}, payload){
-       const ref = firebase.database().ref("attendance")
-       ref.orderByChild("uid").equalTo(getters.user.id).on("child_added", (snap) =>{
+       const attendRef = firebase.database().ref("attendance")
+       attendRef.orderByChild("uid").equalTo(getters.user.id).on("child_added", (snap) =>{
          if(snap.val().freetalkId === payload.freetalkId){
            snap.ref.remove()//
            commit("removeAttendance", snap)
@@ -703,8 +707,8 @@ export default new Vuex.Store({
         })
       }
     },
-    deleteComment({commit}, payload){
-     firebase.database().ref("comments").child(payload.commentId).remove()
+    deleteComment({commit}, payload){//paramsId
+     firebase.database().ref("comments").child(payload).remove()
       .then(() =>{
         commit("deleteComment", payload)
       })
@@ -765,12 +769,15 @@ export default new Vuex.Store({
         })
       }
     },
-    filterAttendance(state){
-      return (freetalkId)=>{
-        return state.attendance.filter((data) =>{
-          return data.freetalkId === freetalkId
-        })
-      }
+    // filterAttendance(state){
+    //   return (freetalkId)=>{
+    //     return state.attendance.filter((data) =>{
+    //       return data.freetalkId === freetalkId
+    //     })
+    //   }
+    // },
+    attendance(state){
+     return state.attendance
     },
     user(state){
       return state.user

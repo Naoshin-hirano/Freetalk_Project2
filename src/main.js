@@ -19,6 +19,7 @@ import EditProfile from './components/Profile/EditProfile'
 import ProfileOthers from './components/Profile/Profile-others.vue'
 import LikesButton from './components/Freetalk/LikesButton.vue'
 import ShowAttendees from './components/Freetalk/ShowAttendees.vue'
+import DeleteComment from './components/Profile/DeleteComment.vue'
 import DeleteReply from './components/Profile/DeleteReply.vue'
 import FollowUser from './components/User/FollowUser.vue'
 import ProfileForAttendace from './components/Freetalk/ProfileForAttendace.vue'
@@ -39,6 +40,7 @@ Vue.component('edit-profile', EditProfile)
 Vue.component('profile-others', ProfileOthers)
 Vue.component('likes-btn', LikesButton)
 Vue.component('show-attendees', ShowAttendees)
+Vue.component('delete-comment', DeleteComment)
 Vue.component('delete-reply', DeleteReply)
 Vue.component('follow-user', FollowUser)
 Vue.component('profile-for-attendace', ProfileForAttendace)
@@ -72,7 +74,7 @@ new Vue({
     }),
     this.$store.dispatch('loadedFreeTalks')
     this.$store.dispatch('loadedComments')
-    // this.$store.dispatch('loadedReplys')
+    this.$store.dispatch('loadedReplys')
     this.$store.dispatch('loadedAttendance')
     this.$store.dispatch("getFavs")
   }

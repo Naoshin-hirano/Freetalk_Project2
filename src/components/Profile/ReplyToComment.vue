@@ -2,12 +2,13 @@
          <v-container>
              <v-layout v-for="(comment, index) in comments" :key="`first-${index}`" row wrap mb-3>
                     <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                        <v-card class="cyan lighten-4">
+                        <v-card>
                             <v-card-actions>
                               <v-avatar size="60">
                                  <v-img :src="comment.image"></v-img>
                               </v-avatar>
                               <v-card-text>
+                                 <p>{{ comment.datetime | date }}</p>
                                  <p>{{ comment.name }}</p>
                               </v-card-text>
                             </v-card-actions>
@@ -35,10 +36,11 @@
                  <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                      <v-card-actions>
                          <v-btn @click="$router.go(-1)" text class="blue--text darken-1">
-                           <v-icon>mdi-arrow-left</v-icon>
+                           <v-icon>mdi-chevron-left</v-icon>
                            戻る
                          </v-btn>
-                         <v-btn @click="updateReplyData" text class="blue--text darken-1">投稿</v-btn>
+                         <v-btn @click="updateReplyData" text class="blue--text darken-1 mr-5">投稿</v-btn>
+                         <delete-comment :paramsId="paramsId"></delete-comment>
                      </v-card-actions>
                  </v-flex>
              </v-layout>
@@ -54,7 +56,7 @@
                                  <p>{{ reply.name }}</p>
                               </v-card-text>
                               <v-spacer></v-spacer>
-                              <delete-reply></delete-reply>
+                              <delete-reply @click="logme($event)"></delete-reply>
                             </v-card-actions>
                             <v-card-text>
                               <h2>{{ reply.replymessage }}</h2>
@@ -75,16 +77,19 @@
       }
     },
     computed: {
+        paramsId(){
+          return this.id[this.id.length - 1]
+        },
         comments(){
         const comments = this.$store.state.comments
         return comments.filter((comment)=>{
-          return comment.commentId.match(this.id[this.id.length - 1])
+          return comment.commentId.match(this.paramsId)
          })
        },
         replys(){
         const replys = this.$store.state.replys
         return replys.filter((reply)=>{
-          return reply.commentId.match(this.id[this.id.length - 1])
+          return reply.commentId.match(this.paramsId)
           })
         },
        user(){
@@ -105,11 +110,14 @@
               replymessage: this.replymessage,
               name: this.userName,
               replyuserid: this.user.id,
-              commentId: this.id[this.id.length - 1]
+              commentId: this.paramsId
             })
             this.replymessage = ""
         }
-      }
+      },
+      logme(event) { // a regular event object is passed by $event in template
+         console.log(event.target.parentElement) // parent element
+       }
     }
   }
 </script>

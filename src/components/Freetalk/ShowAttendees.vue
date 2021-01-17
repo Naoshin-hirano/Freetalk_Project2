@@ -30,9 +30,14 @@
 
 <script>
   export default {
+    created(){
+      console.log(this.$store.getters.attendance)
+    },
     computed: {
       filterAttendance(){
-        return this.$store.getters.filterAttendance(this.$route.params.id)
+        return this.$store.getters.attendance.filter((data) =>{
+          return data.freetalkId === this.$route.params.id
+        })
       },
       showThreeAttendees(){
         return this.filterAttendance.slice(0, 3)

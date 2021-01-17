@@ -1,98 +1,59 @@
 <template>
+  <v-row>
+    <v-dialog persistent width="380" v-model="registerDialog">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+        text
+        color="red"
+        v-bind="attrs"
+        v-on="on">
+        削除
+        </v-btn>
+      </template>
+      <v-card>
          <v-container>
-             <v-layout v-for="comment in comments" :key="comment.message" row wrap mb-3>
-                    <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                        <v-card>
-                            <v-card-actions>
-                              <v-avatar size="60">
-                                 <v-img :src="comment.image"></v-img>
-                              </v-avatar>
-                              <v-card-text>
-                                 <p>{{ comment.name }}</p>
-                              </v-card-text>
-                            </v-card-actions>
-                            <v-card-text>
-                              <h2>{{ comment.message}}</h2>
-                            </v-card-text>
-                        </v-card>
-                    </v-flex>
-            </v-layout>
+             <v-layout row wrap>
+                <v-card-title>このコメントと返信を削除しますか?</v-card-title>
+             </v-layout>
              <v-divider></v-divider>
              <v-layout row wrap>
-                 <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                     <v-alert
-                        border="bottom"
-                        colored-border
-                        type="warning"
-                        elevation="2">
-                       本当にこのコメントを削除してもよろしいですか？
-                     </v-alert>
-                 </v-flex>
+                 <v-card-actions>
+                        <v-btn
+                        class="cyan--text darken-1"
+                        text
+                        @click="registerDialog = false">
+                        <h3>キャンセル</h3>
+                        </v-btn>
+                        <v-btn
+                        class="cyan--text darken-1"
+                        text
+                        >
+                        <h3 @click="deleteComment">削除</h3>
+                        </v-btn>
+                 </v-card-actions>
              </v-layout>
-             <v-layout>
-                 <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                     <v-card-actions>
-                         <v-btn @click="$router.go(-1)" text class="blue--text darken-1">
-                           <v-icon>mdi-arrow-left</v-icon>
-                           キャンセル
-                         </v-btn>
-                         <v-btn @click="deleteComment" text class="blue--text darken-1">削除</v-btn>
-                     </v-card-actions>
-                 </v-flex>
-             </v-layout>
-             <v-divider></v-divider>
          </v-container>
+      </v-card>
+    </v-dialog>
+  </v-row>
 </template>
 
 <script>
   export default {
-    data () {
-      return {
-        id: location.href.split("/"),
-        replymessage: ""
-      }
-    },
+    props: ["paramsId"],
     created(){
-        console.log(this.id)
+      console.log(this.paramsId)
     },
-    computed: {
-        comments(){
-        const comments = this.$store.state.comments
-        return comments.filter((comment)=>{
-          return comment.commentId.match(this.id[this.id.length - 1])
-         })
-       },
-        replys(){
-        const replys = this.$store.state.replys
-        return replys.filter((reply)=>{
-          return reply.commentId.match(this.id[this.id.length - 1])
-          })
-        },
-       user(){
-        return this.$store.getters.user
-        },
-        userName(){
-        return this.$store.getters.userName
-        },
-        photoURL(){
-        return this.$store.getters.photoURL
-        }
+    data(){
+      return {
+        registerDialog: false
+      }
     },
     methods: {
       deleteComment(){
-        if(this.replymessage.length >= 0){
-            this.$store.dispatch("deleteComment",{
-                image: this.photoURL,
-                replymessage: this.replymessage,
-                name: this.userName,
-                replyuserid: this.user.id,
-                commentId: this.id[this.id.length - 1]
-            })
-            this.$store.dispatch("deleteReply",{
-                commentId: this.id[this.id.length - 1]
-            })
+        this.$store.dispatch("deleteComment", this.paramsId)
+        this.$router.push({name: 'Comment'})
         }
       }
     }
-  }
 </script>

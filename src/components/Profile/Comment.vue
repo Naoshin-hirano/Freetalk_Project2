@@ -57,7 +57,7 @@
                 </v-pagination>
           </v-flex>
         </v-layout>
-        <v-layout row wrap v-for="comment in getLists" :key="comment.message" mb-3>
+        <v-layout row wrap v-for="comment in getLists" :key="comment.commentId" mb-3>
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card>
                   <v-layout>
