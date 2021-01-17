@@ -22,3 +22,9 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+アプリURL
+https://freetalk1.web.app/freetalks
+
+Qiita URL
+https://qiita.com/Naoshin-hirano/private
