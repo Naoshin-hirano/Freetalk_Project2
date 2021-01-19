@@ -21,9 +21,6 @@
 
 <script>
 export default{
-    created(){
-      console.log(this.favLength.length)
-    },
     methods: {
       favorite(post){
         this.$store.dispatch("createFav", post)
