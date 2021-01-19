@@ -50,7 +50,9 @@
                             accept="image/*"
                             @change="onFilePicked">
                         <v-avatar size="150" >
-                            <v-img :src="photoURL">
+                            <v-img v-if="photoURL" :src="photoURL">
+                            </v-img>
+                            <v-img v-else :src="initalPhotoUrl">
                             </v-img>
                         </v-avatar>
                      </v-card-text>
@@ -82,6 +84,11 @@
         imageName: "",
         imageFile: ""
       }
+    },
+    computed: {
+      initalPhotoUrl(){
+         return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
+       }
     },
     methods: {
       pickFile(){

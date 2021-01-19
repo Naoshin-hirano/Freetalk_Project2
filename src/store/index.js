@@ -408,26 +408,6 @@ export default new Vuex.Store({
          console.log(error)
        })
     },
-    loadedAttendance({commit}){
-      firebase.database().ref("attendance").once("value")
-       .then(data =>{
-         const attendance = []
-         const obj = data.val()
-         for(let key in obj){
-            attendance.push({
-              uid: obj[key].uid,
-              userName: obj[key].userName,
-              photoURL: obj[key].photoURL,
-              freetalkId: obj[key].freetalkId,
-              datetime: obj[key].datetime
-            })
-          }
-          commit("setAttendance", attendance)
-       })
-       .catch(error =>{
-         console.log(error)
-       })
-    },
     loadedComments({commit}){
       firebase.database().ref("/comments/").once("value")
        .then(data=>{
@@ -611,6 +591,26 @@ export default new Vuex.Store({
         commit("registerAttendance", {
           ...attendData
          })
+       })
+       .catch(error =>{
+         console.log(error)
+       })
+    },
+    loadedAttendance({commit}){
+      firebase.database().ref("attendance").once("value")
+       .then(data =>{
+         const attendance = []
+         const obj = data.val()
+         for(let key in obj){
+            attendance.push({
+              uid: obj[key].uid,
+              userName: obj[key].userName,
+              photoURL: obj[key].photoURL,
+              freetalkId: obj[key].freetalkId,
+              datetime: obj[key].datetime
+            })
+          }
+          commit("setAttendance", attendance)
        })
        .catch(error =>{
          console.log(error)
