@@ -27,15 +27,16 @@ export default new Vuex.Store({
       user: null,
       error: null,
       loading: false,
+      //いいね機能
       myfavs: [],
-      //userFollow
+      //フォロー機能
       status: false,
       detail_user: {},
       myfollows_users: [],
       myfollowers_users: []
   },
   mutations: {
-    // userFollow
+    //フォロー機能
     onAuthStatusChanged(state, status) {
       state.status = status
     },
@@ -81,7 +82,7 @@ export default new Vuex.Store({
     myfollowers(state, users) {
       state.myfollowers_users = users
     },
-    //likes mutation
+    //いいね機能
     create(state, post){
      const user = firebase.auth().currentUser
        firebase.database().ref("favs").push({
@@ -196,7 +197,7 @@ export default new Vuex.Store({
       state.loadedFreeTalks.splice(freetalk, 1)
     },
     removeAttendance(state, payload){//freetalkId,uid
-      const attend= state.attendance.find(attend =>{
+      const attend= state.attendance.findIndex(attend =>{
         return attend.freetalkId === payload.val().freetalkId && attend.uid ===payload.val().uid
       })
       // console.log(attend)
@@ -216,7 +217,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    //userFollow
+    //フォロー機能
     getUser({commit}, id) {
       firebase.database().ref('users').once("value")
        .then(users => {
@@ -273,7 +274,7 @@ export default new Vuex.Store({
         commit('myfollowers', my_followers_users)
       })
     },
-    //likesButton
+    //いいね機能
     createFav({commit, state}, post){
       if(state.myfavs.length){
         state.myfavs.forEach(ele =>{
@@ -418,8 +419,7 @@ export default new Vuex.Store({
               userName: obj[key].userName,
               photoURL: obj[key].photoURL,
               freetalkId: obj[key].freetalkId,
-              datetime: obj[key].datetime,
-              attendanceId: obj[key].attendanceId
+              datetime: obj[key].datetime
             })
           }
           commit("setAttendance", attendance)
@@ -601,23 +601,12 @@ export default new Vuex.Store({
         userName: payload.userName,
         photoURL: payload.photoURL,
         freetalkId: payload.freetalkId,
-        datetime: payload.datetime,
-        attendanceId: ""
+        datetime: payload.datetime
       }
-      let key
       firebase.database().ref("attendance").push(attendData)
-       .then((data) =>{
-         key = data.key
-         return firebase.database().ref("attendance").child(key).update({ attendanceId: key})
-       })
        .then(() =>{
         commit("registerAttendance", {
-          uid: payload.uid,
-          userName: payload.userName,
-          photoURL: payload.photoURL,
-          freetalkId: payload.freetalkId,
-          datetime: payload.datetime,
-          attendanceId: key
+          ...attendData
          })
        })
        .catch(error =>{
@@ -769,13 +758,13 @@ export default new Vuex.Store({
         })
       }
     },
-    // filterAttendance(state){
-    //   return (freetalkId)=>{
-    //     return state.attendance.filter((data) =>{
-    //       return data.freetalkId === freetalkId
-    //     })
-    //   }
-    // },
+    filterAttendance(state){
+      return (freetalkId)=>{
+        return state.attendance.filter((data) =>{
+          return data.freetalkId === freetalkId
+        })
+      }
+    },
     attendance(state){
      return state.attendance
     },
