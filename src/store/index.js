@@ -579,6 +579,9 @@ export default new Vuex.Store({
           return uploadTaskSnapshot.ref.getDownloadURL()
         })
         .then(url=>{
+          imageUrl = url
+          console.log("imageUrlは")
+          console.log(imageUrl)
           return firebase.database().ref('freetalks/').child(key).update({ imageUrl: url })
         })
         .then(()=>{

@@ -53,6 +53,9 @@
         editDialog: false
       }
     },
+    created(){
+      this.editableTime = new Date(this.freetalk.date)
+      },
     methods: {
       onSaveChanges(){
         const newDate = new Date(this.freetalk.date)
@@ -64,9 +67,6 @@
           id: this.freetalk.id,
           date: newDate
         })
-      },
-     created(){
-      this.editableTime = new Date(this.freetalk.date).toTimeString()
       }
     }
   }
