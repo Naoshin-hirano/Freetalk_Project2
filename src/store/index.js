@@ -191,7 +191,7 @@ export default new Vuex.Store({
       }
     },
     deleteTalk(state, payload){//payload=id
-      const freetalk = state.loadedFreeTalks.find(freetalk =>{
+      const freetalk = state.loadedFreeTalks.findIndex(freetalk =>{
         return freetalk.id === payload.id
       })
       state.loadedFreeTalks.splice(freetalk, 1)
