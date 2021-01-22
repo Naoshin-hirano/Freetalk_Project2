@@ -127,7 +127,6 @@
         const uid = this.member.uid
         db.database().ref("/users/" + uid).once("value")
         .then(data =>{
-            console.log(data.val())
             this.user.displayName = data.val().displayName,
             this.user.id = data.val().id,
             this.user.introduction = data.val().introduction,

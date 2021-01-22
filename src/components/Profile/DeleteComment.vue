@@ -39,11 +39,9 @@
 </template>
 
 <script>
+
   export default {
-    props: ["paramsId"],
-    created(){
-      console.log(this.paramsId)
-    },
+    props: ["paramsId"],//commentId
     data(){
       return {
         registerDialog: false
