@@ -301,7 +301,7 @@ export default new Vuex.Store({
           let fav = ele.val()
           fav.id = ele.id
           const user = firebase.auth().currentUser
-          if(fav.id === user.uid){
+          if(fav.user_id === user.uid){
             firebase.database().ref("freetalks").child(fav.post_id).once("value")
              .then(snap =>{
               let fav_post = snap.val()
