@@ -36,14 +36,16 @@ export default new Vuex.Store({
       myfollowers_users: []
   },
   mutations: {
-    //フォロー機能
+    //フォロー機能（データ取り出し）
     onAuthStatusChanged(state, status) {
       state.status = status
     },
     get(state, user) {
       state.detail_user = user
     },
+    //フォロー機能（投稿）
     following(state, {detail_user, user}) {
+      console.log(detail_user)
       firebase.database().ref('follows').push({
         following_id: user.uid,//OK
         follwed_id: detail_user.user_id//NG
@@ -57,6 +59,7 @@ export default new Vuex.Store({
         console.log(err)
       })
     },
+    //フォロー機能（削除）
     remove_follow(state, {detail_user, user}) {
       firebase.database().ref('follows').orderByChild('following_id').equalTo(user.uid).on("child_added", user=>{
         let h = user.ref
@@ -217,7 +220,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    //フォロー機能
+    //フォロー機能（データ取り出し）
     getUser({commit}, id) {
       firebase.database().ref('users').once("value")
        .then(users => {
@@ -231,20 +234,6 @@ export default new Vuex.Store({
         })
         commit('get', obj_user)
       })
-    },
-    follow({commit, state}, detail_user) {
-      const user = firebase.auth().currentUser
-      if(state.myfollows_users.length) {
-        state.myfollows_users.forEach(ele => {
-          if(detail_user.user_id !== ele.user_id ) {//detail_user
-            commit('following', {detail_user: detail_user, user: user})
-          } else {
-            commit('remove_follow', {detail_user: detail_user, user: user})
-          }
-        })
-      } else {
-        commit('following', {detail_user: detail_user, user: user})
-      } 
     },
     myfollows({commit}) {
       const user = firebase.auth().currentUser
@@ -273,6 +262,21 @@ export default new Vuex.Store({
           })
         commit('myfollowers', my_followers_users)
       })
+    },
+    //フォロー機能（投稿）
+    follow({commit, state}, detail_user) {
+      const user = firebase.auth().currentUser
+      if(state.myfollows_users.length) {
+        state.myfollows_users.forEach(ele => {
+          if(detail_user.user_id !== ele.user_id ) {//detail_user
+            commit('following', {detail_user: detail_user, user: user})
+          } else {
+            commit('remove_follow', {detail_user: detail_user, user: user})
+          }
+        })
+      } else {
+        commit('following', {detail_user: detail_user, user: user})
+      } 
     },
     //いいね機能
     createFav({commit, state}, post){

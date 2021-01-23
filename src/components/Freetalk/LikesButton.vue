@@ -31,10 +31,9 @@ export default{
         return this.$store.getters.favFilter(this.$route.params.id)
       },
       post(){
-        let array = this.$store.state.myfavs
+        let array = this.$store.state.myfavs//いいねした投稿一覧
         let publicPost = []
-        this.$store.state.loadedFreeTalks.forEach(element =>{//loadedFreeTalks.forEach
-
+        this.$store.state.loadedFreeTalks.forEach(element =>{//投稿一覧
          function checkAlreadyFavs(arr, id){
            return arr.some(function(value){
              return id === value.id

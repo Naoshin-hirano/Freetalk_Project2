@@ -81,6 +81,9 @@
                                             <span>{{ comments.length }} COMMENTS</span>
                                         </div>
                                     </v-flex>
+                                    <v-flex xs12 sm10 md8 offset-sm3 offset-md3> 
+                                        <follow-user></follow-user>
+                                    </v-flex>
                                 </v-layout>
                                 <v-layout class="text-center" mt-12>
                                     <v-flex>

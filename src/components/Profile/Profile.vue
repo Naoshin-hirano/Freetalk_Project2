@@ -78,9 +78,6 @@
         id: location.href.split("/"),
       }
     },
-    created(){
-      console.log(this.$store.getters.user)
-    },
     computed: {
        user(){
          return this.$store.getters.user
