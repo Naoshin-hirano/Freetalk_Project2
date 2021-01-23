@@ -16,9 +16,25 @@
                   <v-container>
                     <v-layout>
                         <v-flex xs4 sm3 md3>
-                              <v-avatar size="80" class="ml-8">
-                                <profile-for-attendace :member="member"></profile-for-attendace>
-                              </v-avatar>
+                               <v-btn
+                                class="ml-3"
+                                text
+                                height="80px"
+                                fab accent
+                                :to="'/profileforothers/' + member.uid">
+                                    <v-avatar size="70" >
+                                        <v-img
+                                        v-if="member.photoURL"
+                                        :src="member.photoURL"
+                                        alt="John">
+                                        </v-img>
+                                        <v-img
+                                        v-else
+                                        :src="initalPhotoUrl"
+                                        alt="John">
+                                        </v-img>
+                                    </v-avatar>
+                                </v-btn>
                         </v-flex>
                         <v-flex xs5 sm5 md4>
                               <h3 class="pt-4">{{ member.userName }}</h3>

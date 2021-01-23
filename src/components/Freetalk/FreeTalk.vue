@@ -5,7 +5,23 @@
                 <v-card max-width="1000" class="mx-auto">
                     <v-card-title>
                         <div class="ml-10">
-                            <profile-others  :freetalk="freetalk"></profile-others>
+                            <v-btn
+                            height="70px"
+                            fab accent
+                            :to="'/profileforothers/' + creater.id">
+                                <v-avatar size="85" >
+                                    <v-img
+                                    v-if="creater.photoURL"
+                                    :src="creater.photoURL"
+                                    alt="John">
+                                    </v-img>
+                                    <v-img
+                                    v-else
+                                    :src="initalPhotoUrl"
+                                    alt="John">
+                                    </v-img>
+                                </v-avatar>
+                            </v-btn>
                         </div>
                         <h3 class="ml-15">{{ freetalk.title }}</h3>
                         <v-spacer></v-spacer>
@@ -71,8 +87,23 @@
 </template>
 
 <script>
+import db from "firebase"
 export default {
    props: ["id"],
+   data () {
+      return {
+        creater: {
+          id: "",
+          photoURL: ""
+        }
+      }
+    },
+   created(){
+        db.database().ref("/users/" + this.createrId).once("value").then(data =>{
+            this.creater.id = data.val().id,
+            this.creater.photoURL = data.val().photoURL
+        })
+    },
    computed: {
      freetalk(){
       return this.$store.getters.loadedFreeTalk(this.id) 
@@ -80,11 +111,17 @@ export default {
      user(){
       return this.$store.getters.user
      },
+    createrId(){
+      return this.freetalk.createrId
+    },
     filterAttendance(){
         return this.$store.getters.attendance.filter((data) =>{
           return data.freetalkId === this.$route.params.id
         })
       },
+    initalPhotoUrl(){
+         return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
+       },
    }
 }
 </script>

@@ -5,9 +5,24 @@
                 <v-card class="grey lighten-3 ma-2" width="150" height="150">
                     <v-layout class="text-center">
                         <v-flex>
-                            <v-avatar size="70">
-                            <profile-for-attendace :member="member"></profile-for-attendace>
-                            </v-avatar>
+                            <v-btn
+                            text
+                            height="80px"
+                            fab accent
+                            :to="'/profileforothers/' + member.uid">
+                                <v-avatar size="70" >
+                                    <v-img
+                                    v-if="member.photoURL"
+                                    :src="member.photoURL"
+                                    alt="John">
+                                    </v-img>
+                                    <v-img
+                                    v-else
+                                    :src="initalPhotoUrl"
+                                    alt="John">
+                                    </v-img>
+                                </v-avatar>
+                            </v-btn>
                         </v-flex>
                     </v-layout>
                     <v-layout class="text-center">
@@ -30,9 +45,6 @@
 
 <script>
   export default {
-    created(){
-      console.log(this.$store.getters.attendance)
-    },
     computed: {
       filterAttendance(){
         return this.$store.getters.attendance.filter((data) =>{
@@ -41,7 +53,10 @@
       },
       showThreeAttendees(){
         return this.filterAttendance.slice(0, 3)
-      }
+      },
+      initalPhotoUrl(){
+         return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
+       },
     }
   }
 </script>

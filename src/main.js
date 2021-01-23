@@ -16,7 +16,6 @@ import DeleteUserAccount from './components/User/Delete-user.vue'
 import AppAlert from './components/Shared/Alert.vue'
 import Paginate from 'vuejs-paginate'
 import EditProfile from './components/Profile/EditProfile'
-import ProfileOthers from './components/Profile/Profile-others.vue'
 import LikesButton from './components/Freetalk/LikesButton.vue'
 import ShowAttendees from './components/Freetalk/ShowAttendees.vue'
 import DeleteComment from './components/Profile/DeleteComment.vue'
@@ -37,7 +36,6 @@ Vue.component("app-alert", AppAlert)
 Vue.component('paginate', Paginate)
 Vue.component('comment-btn', Comment)
 Vue.component('edit-profile', EditProfile)
-Vue.component('profile-others', ProfileOthers)
 Vue.component('likes-btn', LikesButton)
 Vue.component('show-attendees', ShowAttendees)
 Vue.component('delete-comment', DeleteComment)

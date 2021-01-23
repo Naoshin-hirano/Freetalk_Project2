@@ -9,7 +9,7 @@
                   alt="John">
                   <img
                   v-else
-                  src="https://soma-engineering.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                  :src="initalPhotoUrl"
                   alt="John">
                 </v-avatar>
             </v-flex>
@@ -62,9 +62,24 @@
                 <v-card>
                   <v-layout>
                       <v-card-actions>
-                          <v-avatar size="80">
-                              <v-img :src="comment.image"></v-img>
-                          </v-avatar>
+                           <v-btn
+                            class="ml-3"
+                            height="70px"
+                            fab accent
+                            :to="'/profileforothers/' + comment.uid">
+                                <v-avatar size="70" >
+                                    <v-img
+                                    v-if="comment.image"
+                                    :src="comment.image"
+                                    alt="John">
+                                    </v-img>
+                                    <v-img
+                                    v-else
+                                    :src="initalPhotoUrl"
+                                    alt="John">
+                                    </v-img>
+                                </v-avatar>
+                            </v-btn>
                           <v-card-text>
                               <p>{{ comment.datetime | date }}</p>
                               <h4>{{ comment.name }}</h4>
@@ -73,10 +88,6 @@
                       </v-card-actions>
                       <v-spacer></v-spacer>
                       <v-card-actions>
-                        <!-- <v-btn text
-                              :to="'/comment/reply/delete/' + comment.commentId">
-                            <v-icon >mdi-delete-forever</v-icon>
-                        </v-btn> -->
                         <v-btn text 
                               :to="'/comment/reply/' + comment.commentId">
                             <v-icon 
@@ -156,25 +167,26 @@
      getPageCount(){
          //引数として与えた数以上の最小の整数を返します。
        return Math.ceil(this.comments.length / this.parPage)
-     }
+     },
+     initalPhotoUrl(){
+         return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
+       },
    },
    methods: {
     doSend() {
       if (this.input.length >= 0) {
-        const chatData = {
+        const commentData = {
           id: this.id[this.id.length - 1],
+          uid: this.user.id,
           message: this.input,
           name: this.userName,
           image: this.photoURL,
           datetime: this.submittableDateTime
          }
-         this.$store.dispatch("createChat", chatData)
+         this.$store.dispatch("createComment", commentData)
          this.input = '' // フォームを空にする 
         }
-      },
-      // displayMessage(replys){
-      //   console.log(replys)
-      // }
+      }
     }
   }
 </script>

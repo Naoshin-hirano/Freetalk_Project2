@@ -7,7 +7,7 @@ import FreeTalk from '../components/Freetalk/FreeTalk.vue'
 import Login from '../components/User/Login.vue'
 import Signup from '../components/User/Signup.vue'
 import Profile from '../components/Profile/Profile.vue'
-import OtherProfile from '../components/Profile/Profile-others.vue'
+import ProfileForOthers from '../components/Profile/ProfileForOthers.vue'
 import Comment from '../components/Profile/Comment.vue'
 import Reply from '../components/Profile/ReplyToComment.vue'
 import DeleteComment from '../components/Profile/DeleteComment.vue'
@@ -61,10 +61,10 @@ Vue.use(VueRouter)
     component: Profile,
   },
   {
-    path: '/profile/others/:userId',
-    name: 'OthersProfile',
+    path: '/profileforothers/:userId',
+    name: 'ProfileForOthers',
     props: true,
-    component: OtherProfile
+    component: ProfileForOthers
   },
   {
     path: '/comment/:userId',

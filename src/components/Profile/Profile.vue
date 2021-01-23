@@ -42,20 +42,21 @@
                          <v-layout>
                             <v-flex xs12 sm10 md8 offset-xs2 offset-sm3 offset-md3>
                               <v-btn icon
-                                    class="mt-3 ml-5"
+                                    class="ml-4"
                                     :to="'/comment/' + user.id">
                                   <v-icon color="green" large left>mdi-comment-multiple-outline</v-icon>
                                   <span>{{ comments.length }}</span>
                               </v-btn>
                             </v-flex>
-                            <v-flex xs12 sm10 md8 offset-sm3 offset-md3> 
-                                <follow-user></follow-user>
+                            <v-flex xs12 sm10 md8 offset-xs2 offset-sm3 offset-md3> 
+                                <v-icon large color="pink darken-1">mdi-heart</v-icon>
+                                34
                             </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-12>
                             <v-flex>
                                 <v-card class="grey lighten-3 ma-2">
-                                    <v-card-title>自己紹介</v-card-title>
+                                    <h3>自己紹介</h3>
                                    <v-card-text>
                                      <h3>{{ introduction }}</h3>
                                    </v-card-text>

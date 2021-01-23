@@ -170,7 +170,7 @@ export default new Vuex.Store({
     registerAttendance(state, payload){
       state.attendance.push(payload)
     },
-    createChat(state, payload){
+    createComment(state, payload){
       state.comments.push(payload)
     },
     createReply(state, payload){
@@ -575,8 +575,6 @@ export default new Vuex.Store({
         })
         .then(url=>{
           imageUrl = url
-          console.log("imageUrlは")
-          console.log(imageUrl)
           return firebase.database().ref('freetalks/').child(key).update({ imageUrl: url })
         })
         .then(()=>{
@@ -640,31 +638,26 @@ export default new Vuex.Store({
          }
        })
     },
-    createChat({commit}, payload){
-      const chatData = {
+    createComment({commit}, payload){
+      const commentData = {
         roomUserId: payload.id,
+        uid: payload.uid,
         name: payload.name,
         message: payload.message,
         image: payload.image,
         datetime: payload.datetime,
-        commentId: "",
         replys: {}
       }
-      let key
-      firebase.database().ref("/comments/").push(chatData)
+      let commentId
+      firebase.database().ref("/comments/").push(commentData)
        .then((data) =>{
-         key = data.key
-         return firebase.database().ref("/comments/").child(key).update({ commentId: key})
+         commentId = data.key
+         return firebase.database().ref("/comments/").child(commentId).update({ commentId: data.key})
        })
        .then(() =>{
-         commit("createChat", {
-          roomUserId: payload.id,
-          name: payload.name,
-          message: payload.message,
-          image: payload.image,
-          datetime: payload.datetime,
-          commentId: key,
-          replys: {}
+         commit("createComment", {
+           ...commentData,
+           commentId: commentId
          })
        })
        .catch(error=>{
