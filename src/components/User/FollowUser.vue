@@ -35,22 +35,22 @@ data () {
  },
  computed: {
    detailUser() {
-     let array = this.$store.state.myfollows_users
-     let check_user = this.$store.state.detail_user
+     let array = this.$store.state.user.myfollows_users
+     let check_user = this.$store.state.user.detail_user
 
      function checkAlreadyFollows(arr, id) {
        return arr.some(function(value) {
-         return id === value.user_id
+         return id === value.id
        })
      }
-     if(checkAlreadyFollows(array, check_user.user_id)) {
+     if(checkAlreadyFollows(array, check_user.id)) {
        check_user.follow_status = true
      } else {
        check_user.follow_status = false
      }
      
-     this.$store.state.myfollowers_users.forEach(user => {
-       if(user.user_id === check_user.user_id) {
+     this.$store.state.user.myfollowers_users.forEach(user => {
+       if(user.id === check_user.id) {
          check_user.followed_status = true
          Object.assign(check_user, check_user)
        }

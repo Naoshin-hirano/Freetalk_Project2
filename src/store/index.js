@@ -31,9 +31,6 @@ export default new Vuex.Store({
       myfavs: [],
       //フォロー機能
       status: false,
-      detail_user: {},
-      myfollows_users: [],
-      myfollowers_users: []
   },
   mutations: {
     //フォロー機能（データ取り出し）
@@ -41,18 +38,18 @@ export default new Vuex.Store({
       state.status = status
     },
     get(state, user) {
-      state.detail_user = user
+      state.user.detail_user = user
     },
     //フォロー機能（投稿）
     following(state, {detail_user, user}) {
       console.log(detail_user)
       firebase.database().ref('follows').push({
         following_id: user.uid,//OK
-        follwed_id: detail_user.user_id//NG
+        follwed_id: detail_user.id//NG
       })
       .then(() => {
-        state.myfollows_users.push(user.uid)
-        state.myfollowers_users.push(detail_user.user_id)
+        state.user.myfollows_users.push(user.uid)
+        state.user.myfollowers_users.push(detail_user.id)
         console.log('フォロー完了')
       })
       .catch(err => {
@@ -64,13 +61,13 @@ export default new Vuex.Store({
       firebase.database().ref('follows').orderByChild('following_id').equalTo(user.uid).on("child_added", user=>{
         let h = user.ref
         h.id = user.ref.key
-        if(h.follwed_id === detail_user.user_id){
+        if(h.follwed_id === detail_user.id){
           firebase.database().ref('follows').child(h.id).remove()
           .then(() => {
-            let myfollows_user = state.myfollows_users.filter(user =>{
+            let myfollows_user = state.user.myfollows_users.filter(user =>{
               return user.id !== h.id
             })
-            state.myfollowers_users.splice(myfollows_user, 1)
+            state.user.myfollowers_users.splice(myfollows_user, 1)
             console.log('フォロー解除')
           })
           .catch(error =>{
@@ -80,10 +77,10 @@ export default new Vuex.Store({
       })
     },
     myfollows(state, users) {
-      state.myfollows_users = users
+      state.user.myfollows_users = users
     },
     myfollowers(state, users) {
-      state.myfollowers_users = users
+      state.user.myfollowers_users = users
     },
     //いいね機能
     create(state, post){
@@ -228,7 +225,7 @@ export default new Vuex.Store({
         users.forEach(user => {
           let detail_user = user.val()
           detail_user.id = user.id
-          if(detail_user.user_id === id) {
+          if(detail_user.id === id) {//detail_user.idなのでは？
             Object.assign(obj_user, detail_user)
           }
         })
@@ -266,9 +263,11 @@ export default new Vuex.Store({
     //フォロー機能（投稿）
     follow({commit, state}, detail_user) {
       const user = firebase.auth().currentUser
-      if(state.myfollows_users.length) {
-        state.myfollows_users.forEach(ele => {
-          if(detail_user.user_id !== ele.user_id ) {//detail_user
+      if(state.user.myfollows_users.length) {
+        state.user.myfollows_users.forEach(ele => {
+          if(detail_user.id !== ele.id ) {//detail_user
+            console.log("detail_userのidは")
+            console.log(detail_user.id)
             commit('following', {detail_user: detail_user, user: user})
           } else {
             commit('remove_follow', {detail_user: detail_user, user: user})
@@ -302,7 +301,7 @@ export default new Vuex.Store({
           let fav = ele.val()
           fav.id = ele.id
           const user = firebase.auth().currentUser
-          if(fav.user_id === user.uid){
+          if(fav.id === user.uid){
             firebase.database().ref("freetalks").child(fav.post_id).once("value")
              .then(snap =>{
               let fav_post = snap.val()
@@ -340,7 +339,10 @@ export default new Vuex.Store({
           introduction: payload.introduction,
           registeredFreetalks: [],
           fbKeys: {},
-          likesKeys: {}
+          likesKeys: {},
+          detail_user: {},
+          myfollows_users: [],
+          myfollowers_users: []
        })
     },
     unregisterUserFromFreetalk({commit, getters}, payload){//payload:freetalkId
@@ -486,6 +488,9 @@ export default new Vuex.Store({
           const newUser = {
             id: user.uid,
             registeredFreetalks: [],
+            detail_user: {},
+            myfollows_users: [],
+            myfollowers_users: [],
             fbKeys: {},
             likesKeys: {}
            }
@@ -506,6 +511,9 @@ export default new Vuex.Store({
            const newUser = {
             id: user.uid,
             registeredFreetalks: [],
+            detail_user: {},
+            myfollows_users: [],
+            myfollowers_users: [],
             fbKeys: {}
            }   
            commit("setLoginUser", newUser)
@@ -535,6 +543,9 @@ export default new Vuex.Store({
         displayName: payload.displayName,
         introduction: payload.introduction,
         registeredFreetalks: [],
+        detail_user: {},
+        myfollows_users: [],
+        myfollowers_users: [],
         fbKeys: {},
         likesKeys: {}
       })
