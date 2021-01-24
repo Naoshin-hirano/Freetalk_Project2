@@ -4,9 +4,25 @@
                     <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                         <v-card>
                             <v-card-actions>
-                              <v-avatar size="60">
-                                 <v-img :src="comment.image"></v-img>
-                              </v-avatar>
+                               <v-btn
+                                class="ml-3"
+                                text
+                                height="70px"
+                                fab accent
+                                :to="'/profileforothers/' + comment.uid">
+                                    <v-avatar size="70">
+                                        <v-img
+                                        v-if="comment.image"
+                                        :src="comment.image"
+                                        alt="John">
+                                        </v-img>
+                                        <v-img
+                                        v-else
+                                        :src="initalPhotoUrl"
+                                        alt="John">
+                                        </v-img>
+                                    </v-avatar>
+                                </v-btn>
                               <v-card-text>
                                  <p>{{ comment.datetime | date }}</p>
                                  <p>{{ comment.name }}</p>
@@ -49,9 +65,25 @@
                    <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                         <v-card>
                             <v-card-actions>
-                              <v-avatar size="60">
-                                 <v-img :src="reply.image"></v-img>
-                              </v-avatar>
+                              <v-btn
+                                class="ml-3"
+                                text
+                                height="60px"
+                                fab accent
+                                :to="'/profileforothers/' + reply.replyuserid">
+                                    <v-avatar size="70">
+                                        <v-img
+                                        v-if="reply.image"
+                                        :src="reply.image"
+                                        alt="John">
+                                        </v-img>
+                                        <v-img
+                                        v-else
+                                        :src="initalPhotoUrl"
+                                        alt="John">
+                                        </v-img>
+                                    </v-avatar>
+                                </v-btn>
                               <v-card-text>
                                  <p>{{ reply.name }}</p>
                               </v-card-text>
@@ -100,7 +132,10 @@
         },
         photoURL(){
         return this.$store.getters.photoURL
-        }
+        },
+        initalPhotoUrl(){
+         return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
+       }
     },
     methods: {
       updateReplyData(){
@@ -114,10 +149,7 @@
             })
             this.replymessage = ""
         }
-      },
-      logme(event) { // a regular event object is passed by $event in template
-         console.log(event.target.parentElement) // parent element
-       }
+      }
     }
   }
 </script>

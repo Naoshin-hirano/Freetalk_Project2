@@ -39,7 +39,6 @@
 </template>
 
 <script>
-
   export default {
     props: ["paramsId"],//commentId
     data(){
@@ -50,7 +49,7 @@
     methods: {
       deleteComment(){
         this.$store.dispatch("deleteComment", this.paramsId)
-        this.$router.push({name: 'Comment'})
+        this.$router.go(-1)
         }
       }
     }
