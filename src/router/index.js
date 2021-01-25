@@ -20,7 +20,8 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {title: "freetalk"}
   },
   {
     path: '/freetalk/new',
