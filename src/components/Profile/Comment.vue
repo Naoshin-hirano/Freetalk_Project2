@@ -67,7 +67,7 @@
                             height="70px"
                             fab accent
                             :to="'/profileforothers/' + comment.uid">
-                                <v-avatar size="70" >
+                                <v-avatar size="70">
                                     <v-img
                                     v-if="comment.image"
                                     :src="comment.image"

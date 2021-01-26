@@ -28,98 +28,21 @@ export default new Vuex.Store({
       error: null,
       loading: false,
       //いいね機能
-      myfavs: [],
-      //フォロー機能
-      status: false,
+      favs: []
   },
   mutations: {
-//フォロー機能（投稿）
-    following(state, {detail_user, user}) {
-      console.log(detail_user)
-      firebase.database().ref('follows').push({
-        following_id: user.uid,//OK
-        follwed_id: detail_user.id//NG
-      })
-      .then(() => {
-        state.user.myfollows_users.push(user.uid)
-        state.user.myfollowers_users.push(detail_user.id)
-        console.log('フォロー完了')
-      })
-      .catch(err => {
-        console.log(err)
-      })
+//いいね機能の投稿・削除・取り出し
+    createFavs(state, payload){
+      state.favs.push(payload)
     },
-//フォロー機能（削除）
-    remove_follow(state, {detail_user, user}) {
-      firebase.database().ref('follows').orderByChild('following_id').equalTo(user.uid).on("child_added", user=>{
-        let h = user.ref
-        h.id = user.ref.key
-        if(h.follwed_id === detail_user.id){
-          firebase.database().ref('follows').child(h.id).remove()
-          .then(() => {
-            let myfollows_user = state.user.myfollows_users.filter(user =>{
-              return user.id !== h.id
-            })
-            state.user.myfollowers_users.splice(myfollows_user, 1)
-            console.log('フォロー解除')
-          })
-          .catch(error =>{
-            console.log(error)
-          })
-        }
+    deleteFavs(state, payload){//payload={freetalkId + favKey}
+      const fav = state.favs.findIndex(fav =>{
+        return fav.favKey === payload.favKey
       })
+      state.favs.splice(fav, 1)
     },
-//フォロー機能（データ取り出し）
-    onAuthStatusChanged(state, status) {
-      state.status = status
-    },
-    get(state, user) {
-      state.user.detail_user = user
-    },
-    myfollows(state, users) {
-      state.user.myfollows_users = users
-    },
-    myfollowers(state, users) {
-      state.user.myfollowers_users = users
-    },
-//いいね機能
-    create(state, post){
-     const user = firebase.auth().currentUser
-       firebase.database().ref("favs").push({
-        user_id: user.uid,
-        post_id: post.id
-      })
-      .then(() => {
-        console.log("お気に入り登録")
-        state.myfavs.push(post)
-      })
-      .catch(error=>{
-        console.log(error)
-      })
-    },
-    delete(state, post){
-      const ref = firebase.database().ref("favs")
-      ref.orderByChild("post_id").equalTo(post.id).on("child_added", ele =>{
-          let remove_good_post = ele.val()
-          if(remove_good_post.post_id === post.id){
-            firebase.database().ref("favs").child(ele.key).remove()
-            .then(()=>{
-              let fav = state.myfavs.find(fav => {
-                return fav.id === remove_good_post.post_id
-               })
-               state.myfavs.splice(fav, 1)
-            })
-            .then(()=>{
-              console.log("削除完了")
-            })
-            .catch(error =>{
-              console.log(error)
-            })
-          }
-      })
-    },
-    getfav(state, favs_post){
-      state.myfavs = favs_post
+    setLoadedFavs(state, payload){
+      state.favs = payload
     },
 //参加ボタンのtrue/false
     registerUserForFreetalk(state, payload){//payload{id: payload, fbKey: data.key}
@@ -221,107 +144,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-//フォロー機能（投稿・削除）
-follow({commit, state}, detail_user) {
-  const user = firebase.auth().currentUser
-  if(state.user.myfollows_users.length) {
-    state.user.myfollows_users.forEach(ele => {
-      if(detail_user.id !== ele.id ) {//detail_user
-        console.log("detail_userのidは")
-        console.log(detail_user.id)
-        commit('following', {detail_user: detail_user, user: user})
-      } else {
-        commit('remove_follow', {detail_user: detail_user, user: user})
-      }
-    })
-  } else {
-    commit('following', {detail_user: detail_user, user: user})
-  } 
-},
-//フォロー機能（データ取り出し）
-    getUser({commit}, id) {
-      firebase.database().ref('users').once("value")
-       .then(users => {
-        let obj_user = {}
-        users.forEach(user => {
-          let detail_user = user.val()
-          detail_user.id = user.id
-          if(detail_user.id === id) {//detail_user.idなのでは？
-            Object.assign(obj_user, detail_user)
-          }
-        })
-        commit('get', obj_user)
-      })
-    },
-    myfollows({commit}) {
-      const user = firebase.auth().currentUser
-      firebase.database().ref('follows').orderByChild('following_id').equalTo(user.uid).on("child_added", element => {
-          let my_follows_users = []
-          const record = element.val()
-          firebase.database().ref("/users/" + record.follwed_id).once("value")
-          .then(user =>{
-            let obj_user = user.ref
-            obj_user.id = user.ref.key
-            my_follows_users.push(obj_user)
-          })
-        commit('myfollows', my_follows_users)
-      })
-    },
-    myfollowers({commit}) {
-      const user = firebase.auth().currentUser
-      firebase.database().ref('follows').orderByChild('follwed_id').equalTo(user.uid).on("child_added", element => {
-          let my_followers_users = []
-          const record = element.val()
-          firebase.database().ref("/users/" + record.following_id).once("value")
-          .then(user =>{
-            let obj_user = user.ref
-            obj_user.id = user.ref.key
-            my_followers_users.push(obj_user)
-          })
-        commit('myfollowers', my_followers_users)
-      })
-    },
-//いいね機能（投稿・削除）
-    createFav({commit, state}, post){
-      if(state.myfavs.length){
-        state.myfavs.forEach(ele =>{
-          // console.log("ele.id:" + ele.id)//OK
-          // console.log("post.id:" + post.id)//OK
-          if(ele.id !== post.id){
-            commit("create", post)
-          }else{
-            commit("delete", post)
-          }
-        })
-      }else{
-        commit("create", post)
-      }
-    },
-//いいね機能（データ取り出し）
-    getFavs({commit}){
-      firebase.database().ref("favs").once("value")
-       .then(snapshot =>{
-        let get_favs = []
-        snapshot.forEach(ele =>{
-          let fav = ele.val()
-          fav.id = ele.id
-          const user = firebase.auth().currentUser
-          if(fav.user_id === user.uid){
-            firebase.database().ref("freetalks").child(fav.post_id).once("value")
-             .then(snap =>{
-              let fav_post = snap.val()
-              fav_post.id = snap.val().id
-              get_favs.push(fav_post)
-            })
-          }
-        })
-        commit("getfav", get_favs)
-      })
-      .catch(error =>{
-        console.log(error)
-      })
-    },
-
 //参加ボタンのtrue/false
      registerUserForFreetalk({commit,getters}, payload){//payload:freetalkId
       const user = getters.user
@@ -513,6 +335,7 @@ follow({commit, state}, detail_user) {
         date: payload.date.toISOString(),
         createrId: getters.user.id,
         photoURL: getters.photoURL,
+        favs: {},
         id:""
       }
       let imageUrl
@@ -569,7 +392,8 @@ follow({commit, state}, detail_user) {
              location: obj[key].location,
              date: obj[key].date,
              createrId: obj[key].createrId,
-             photoURL: obj[key].photoURL
+             photoURL: obj[key].photoURL,
+             favs: obj[key].favs
            })
          }
          commit("setLoadedFreetalks", freetalks)
@@ -596,6 +420,70 @@ follow({commit, state}, detail_user) {
          commit("updateFreetalk", payload)
        })
        .catch(error=>{
+         console.log(error)
+       })
+    },
+//いいね機能の投稿・削除・取り出し
+    createFavs({commit}, payload){//payload={uid + freetalkId}
+      const favData = {
+        uid: payload.uid,
+        freetalkId: payload.freetalkId
+      }
+      let favKey
+      firebase.database().ref("/freetalks/" + payload.freetalkId).child("/favs/").push(favData)
+       .then((data) =>{
+         favKey = data.key
+         return firebase.database().ref("/freetalks/" + payload.freetalkId).child("/favs/" + favKey).update({favKey: data.key})
+       })
+       .then(() =>{
+         commit("createFavs", {
+           ...favData,
+           favKey: favKey
+         })
+       })
+       .catch(error =>{
+         console.log(error)
+       })
+    },
+    deleteFavs({commit}, payload){//payload={uid + favKey + freetalkId}
+    console.log("favKey取得？")
+    console.log(payload.favKey)
+      firebase.database().ref("/freetalks/" + payload.freetalkId).child("/favs/" + payload.favKey).remove()
+       .then(() =>{
+         commit("deleteFavs", payload)
+       })
+    },
+    loadedFav({commit}){
+      firebase.database().ref("freetalks").once("value")
+       .then((data) =>{
+         const freetalks = []
+         const favs = []
+         const obj = data.val()
+         for(let key in obj){
+           freetalks.push({
+             id: key,
+             language: obj[key].language,
+             title: obj[key].title,
+             description: obj[key].description,
+             imageUrl: obj[key].imageUrl,
+             location: obj[key].location,
+             date: obj[key].date,
+             createrId: obj[key].createrId,
+             photoURL: obj[key].photoURL,
+             favs: obj[key].favs
+           })
+           const obj2 = obj[key].favs
+           for(let key2 in obj2){
+             favs.push({
+               uid: obj2[key2].uid,
+               freetalkId: obj2[key2].freetalkId,
+               favKey: obj2[key2].favKey
+             })
+           }
+         }
+         commit("setLoadedFavs", favs)
+       })
+       .catch((error)=>{
          console.log(error)
        })
     },

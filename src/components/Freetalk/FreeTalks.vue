@@ -84,9 +84,6 @@ export default {
        currentPage:1
     }
   },
-  created(){
-    console.log(this.$store.getters.attendance)
-  },
   computed:{
     freetalks(){
       const talks = this.$store.getters.loadedFreeTalks

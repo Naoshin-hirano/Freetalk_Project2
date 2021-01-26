@@ -20,7 +20,7 @@ import LikesButton from './components/Freetalk/LikesButton.vue'
 import ShowAttendees from './components/Freetalk/ShowAttendees.vue'
 import DeleteComment from './components/Profile/DeleteComment.vue'
 import DeleteReply from './components/Profile/DeleteReply.vue'
-import FollowUser from './components/User/FollowUser.vue'
+// import FollowUser from './components/User/FollowUser.vue'
 import ProfileForAttendace from './components/Freetalk/ProfileForAttendace.vue'
 
 
@@ -40,7 +40,7 @@ Vue.component('likes-btn', LikesButton)
 Vue.component('show-attendees', ShowAttendees)
 Vue.component('delete-comment', DeleteComment)
 Vue.component('delete-reply', DeleteReply)
-Vue.component('follow-user', FollowUser)
+// Vue.component('follow-user', FollowUser)
 Vue.component('profile-for-attendace', ProfileForAttendace)
 
 new Vue({
@@ -63,8 +63,8 @@ new Vue({
         this.$store.dispatch("setLoginUser",user)
         this.$store.dispatch("fetchUserData")
         // this.$store.commit('onAuthStatusChanged', user.uid ? true : false)
-        this.$store.dispatch('myfollows')
-        this.$store.dispatch('myfollowers')
+        // this.$store.dispatch('myfollows')
+        // this.$store.dispatch('myfollowers')
         this.$router.push({name: 'Home'})
       }else{
         this.$store.dispatch("deleteLoginUser")
@@ -74,6 +74,6 @@ new Vue({
     this.$store.dispatch('loadedComments')
     this.$store.dispatch('loadedReplys')
     this.$store.dispatch('loadedAttendance')
-    this.$store.dispatch("getFavs")
+    this.$store.dispatch("loadedFav")
   }
 }).$mount('#app')

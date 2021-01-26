@@ -3,61 +3,70 @@
         <v-btn
         fab accent
         text
-        v-if="!post.fav_status"
-        @click.prevent="favorite(post)">
+        v-if="!fav_status"
+        @click.prevent="favorite">
          <v-icon large color="pink darken-1">mdi-heart-outline</v-icon>
-         {{ favLength.length }}
+         {{ counter.length }}
         </v-btn>
         <v-btn
         fab accent
         text
         v-else
-        @click.prevent="favorite(post)">
+        @click.prevent="unfavorite">
          <v-icon large color="pink darken-1">mdi-cards-heart</v-icon>
-         {{ favLength.length }}
+         {{ counter.length }}
         </v-btn>
     </div>
 </template>
 
 <script>
 export default{
-    methods: {
-      favorite(post){
-        this.$store.dispatch("createFav", post)
+    data(){
+      return {
+        id: location.href.split("/")
       }
     },
     computed: {
-      favLength(){
-        return this.$store.getters.favFilter(this.$route.params.id)
+      user(){
+        return this.$store.getters.user
       },
-      post(){
-        let array = this.$store.state.myfavs//いいねした投稿一覧
-        let publicPost = []
-        this.$store.state.loadedFreeTalks.forEach(element =>{//投稿一覧
-         function checkAlreadyFavs(arr, id){
-           return arr.some(function(value){
-             return id === value.id
-            })
-          }
-
-         if(checkAlreadyFavs(array, element.id)){
-           element.fav_status = true  
-         }else{
-           element.fav_status = false
-         }
-         publicPost.push(element)
-        })//loadedFreeTalks.forEach
-
-        let detailpost = {}
-        publicPost.forEach(ele =>{
-          let id = this.$route.params.id
-          let detail_post = {}
-          if(ele.id === id){
-            detail_post = ele
-          }
-          Object.assign(detailpost, detail_post)//1に２をコピー
+      fav_status(){
+        const favs = this.$store.state.favs
+        return favs.some((fav) =>{
+          return fav.freetalkId.match(this.id[this.id.length - 1])
+          && fav.uid.match(this.user.id)
         })
-        return detailpost
+      },
+      getFavs(){
+        const favs = this.$store.state.favs
+        return favs.filter((fav) =>{
+          return fav.freetalkId.match(this.id[this.id.length - 1])
+          && fav.uid.match(this.user.id)
+        })
+      },
+      getKey(){
+        return this.getFavs.map(obj =>obj.favKey)
+      },
+      counter(){
+        const favs = this.$store.state.favs
+        return favs.filter((fav) =>{
+          return fav.freetalkId.match(this.id[this.id.length - 1])
+        })
+      }
+    },
+    methods: {
+      favorite(){
+        this.$store.dispatch("createFavs", {
+          uid: this.user.id,
+          freetalkId: this.id[this.id.length - 1]
+        })
+      },
+      unfavorite(){
+        this.$store.dispatch("deleteFavs",{
+          uid: this.user.id,
+          freetalkId: this.id[this.id.length - 1],
+          favKey: this.getKey
+        })
       }
     }
 }
