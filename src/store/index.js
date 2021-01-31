@@ -60,7 +60,7 @@ export default new Vuex.Store({
       Reflect.deleteProperty(state.user.followingKeys, payload)
       console.log("following削除")
     },
-    deleteFollowing(state, payload){//uid(他ユーザ)
+    deleteFollowers(state, payload){//uid(他ユーザ)
       const followers = state.otherUser.followers
       followers.splice(followers.findIndex(uid => uid === payload), 1)
       Reflect.deleteProperty(state.otherUser.followerKeys, payload)
@@ -579,7 +579,7 @@ export default new Vuex.Store({
       firebase.database().ref("/users/" + payload + "/followers/").child(followerKey)
       .remove()
       .then(() =>{
-        commit("deleteFollowing", user.id)
+        commit("deleteFollowers", user.id)
       })
       .catch(error =>{
         console.log(error)

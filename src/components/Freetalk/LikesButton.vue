@@ -26,12 +26,12 @@ export default{
       user(){
         return this.$store.getters.user
       },
+
       fav_status(){
-        const favs = this.$store.getters.favs
-        return favs.some((fav) =>{
-          return fav.freetalkId.match(this.freetalk.id)
-          && fav.uid.match(this.user.id)
-        })
+        return this.$store.getters.favs.findIndex(fav =>{
+          return fav.freetalkId === this.freetalk.id 
+          && fav.uid === this.user.id
+        })>= 0
       },
       getFavs(){
         const favs = this.$store.getters.favs

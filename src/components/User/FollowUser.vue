@@ -30,11 +30,11 @@ export default{
        this.$store.dispatch("fetchOtherUserData", this.id[this.id.length - 1])
   },
   computed: {
-      highly_rated(){//ture/falseになってた
-             return this.$store.getters.user.following.findIndex(uid =>{
-            return uid === this.id[this.id.length - 1]
-          }) >= 0
-        },
+      highly_rated(){
+                return this.$store.getters.user.following.findIndex(uid =>{
+              return uid === this.id[this.id.length - 1]
+            }) >= 0
+          },
       otherUser(){
           return this.$store.getters.otherUser 
       },
@@ -44,12 +44,10 @@ export default{
   },
   methods: {
     follow(){
-      this.highly_rated = !this.highly_rated
       this.$store.dispatch("getFollowing", this.id[this.id.length - 1])
       this.$store.dispatch("getFollowers", this.id[this.id.length - 1])
     },
     unFollow(){
-      this.highly_rated = !this.highly_rated
       this.$store.dispatch("deleteFollowing", this.id[this.id.length - 1])
       this.$store.dispatch("deleteFollowers", this.id[this.id.length - 1])
     }
