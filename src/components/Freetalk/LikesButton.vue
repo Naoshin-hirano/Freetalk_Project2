@@ -21,26 +21,22 @@
 
 <script>
 export default{
-    data(){
-      return {
-        id: location.href.split("/")
-      }
-    },
+  props: ["freetalk"],
     computed: {
       user(){
         return this.$store.getters.user
       },
       fav_status(){
-        const favs = this.$store.state.favs
+        const favs = this.$store.getters.favs
         return favs.some((fav) =>{
-          return fav.freetalkId.match(this.id[this.id.length - 1])
+          return fav.freetalkId.match(this.freetalk.id)
           && fav.uid.match(this.user.id)
         })
       },
       getFavs(){
-        const favs = this.$store.state.favs
+        const favs = this.$store.getters.favs
         return favs.filter((fav) =>{
-          return fav.freetalkId.match(this.id[this.id.length - 1])
+          return fav.freetalkId.match(this.freetalk.id)
           && fav.uid.match(this.user.id)
         })
       },
@@ -48,23 +44,23 @@ export default{
         return this.getFavs.map(obj =>obj.favKey)
       },
       counter(){
-        const favs = this.$store.state.favs
+        const favs = this.$store.getters.favs
         return favs.filter((fav) =>{
-          return fav.freetalkId.match(this.id[this.id.length - 1])
+          return fav.freetalkId.match(this.freetalk.id)
         })
-      }
+      },
     },
     methods: {
       favorite(){
         this.$store.dispatch("createFavs", {
           uid: this.user.id,
-          freetalkId: this.id[this.id.length - 1]
+          freetalkId: this.freetalk.id
         })
       },
       unfavorite(){
         this.$store.dispatch("deleteFavs",{
           uid: this.user.id,
-          freetalkId: this.id[this.id.length - 1],
+          freetalkId: this.freetalk.id,
           favKey: this.getKey
         })
       }

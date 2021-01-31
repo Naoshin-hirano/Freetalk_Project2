@@ -29,7 +29,7 @@
                                     class="mt-3 ml-5"
                                     :to="'/comment/' + user.id">
                                   <v-icon color="green" large left>mdi-comment-multiple-outline</v-icon>
-                                  <span>{{ comments.length }}</span>
+                                  <span>{{ comments.length }} コメントを見る</span>
                               </v-btn>
                             </v-flex>
                             <v-flex xs12 sm10 md8 offset-sm3 offset-md3> 

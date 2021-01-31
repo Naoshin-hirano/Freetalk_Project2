@@ -12,10 +12,10 @@
                       <v-spacer></v-spacer>
                        <v-layout>
                          <v-flex>
-                           <delete-user-account></delete-user-account>
+                           <edit-profile></edit-profile>
                          </v-flex>
                          <v-flex>
-                           <edit-profile></edit-profile>
+                           <delete-user-account></delete-user-account>
                          </v-flex>
                        </v-layout>
                     </v-card-actions>
@@ -39,18 +39,18 @@
                                 <h3>{{ userName }}</h3>
                             </v-flex>
                         </v-layout>
-                         <v-layout>
+                         <v-layout mr-15>
                             <v-flex xs12 sm10 md8 offset-xs2 offset-sm3 offset-md3>
                               <v-btn icon
                                     class="ml-4"
                                     :to="'/comment/' + user.id">
-                                  <v-icon color="green" large left>mdi-comment-multiple-outline</v-icon>
-                                  <span>{{ comments.length }}</span>
+                                  <v-icon left color="green">mdi-comment-multiple-outline</v-icon>
+                                  <span>{{ comments.length }} コメントを見る</span>
                               </v-btn>
                             </v-flex>
-                            <v-flex xs12 sm10 md8 offset-xs2 offset-sm3 offset-md3> 
-                                <v-icon large color="pink darken-1">mdi-heart</v-icon>
-                                34
+                            <v-flex xs12 sm10 md8 offset-xs2 offset-sm3 offset-md3 class="mt-1">
+                                <v-icon left color="orange darken-2">mdi-star</v-icon>
+                                <span>{{ followers ? followers.length : 0 }} つの高評価</span>
                             </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-12>
@@ -76,13 +76,19 @@
     data () {
       return {
         editDialog: false,
-        id: location.href.split("/"),
+        id: location.href.split("/")
       }
+    },
+    created(){
+      this.$store.dispatch("fetchUserData")
     },
     computed: {
        user(){
          return this.$store.getters.user
        },
+       followers(){
+          return this.user ? this.$store.getters.user.followers : null
+      },
        userName(){
          return this.$store.getters.userName
        },

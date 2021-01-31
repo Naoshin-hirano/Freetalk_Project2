@@ -29,7 +29,7 @@
                         <v-spacer></v-spacer>
                         <v-layout mb-7>
                             <v-flex >
-                                <likes-btn></likes-btn>
+                                <likes-btn :freetalk="freetalk"></likes-btn>
                             </v-flex>
                             <v-flex>
                                  <delete-free-talk :freetalk="freetalk" width="500"></delete-free-talk>
@@ -99,6 +99,7 @@ export default {
       }
     },
    created(){
+       console.log(this.$store.state.user.registeredFreetalks)
         db.database().ref("/users/" + this.createrId).once("value").then(data =>{
             this.creater.id = data.val().id,
             this.creater.photoURL = data.val().photoURL

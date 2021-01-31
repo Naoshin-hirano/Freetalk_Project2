@@ -20,7 +20,7 @@ import LikesButton from './components/Freetalk/LikesButton.vue'
 import ShowAttendees from './components/Freetalk/ShowAttendees.vue'
 import DeleteComment from './components/Profile/DeleteComment.vue'
 import DeleteReply from './components/Profile/DeleteReply.vue'
-// import FollowUser from './components/User/FollowUser.vue'
+import FollowUser from './components/User/FollowUser.vue'
 import ProfileForAttendace from './components/Freetalk/ProfileForAttendace.vue'
 
 
@@ -40,7 +40,7 @@ Vue.component('likes-btn', LikesButton)
 Vue.component('show-attendees', ShowAttendees)
 Vue.component('delete-comment', DeleteComment)
 Vue.component('delete-reply', DeleteReply)
-// Vue.component('follow-user', FollowUser)
+Vue.component('follow-user', FollowUser)
 Vue.component('profile-for-attendace', ProfileForAttendace)
 
 new Vue({

@@ -25,14 +25,59 @@ export default new Vuex.Store({
       comments: [],
       replys: [],
       user: null,
+      otherUser: null,
       error: null,
       loading: false,
       //いいね機能
       favs: []
   },
   mutations: {
+//ユーザーフォロー機能の投稿・削除
+    following(state, payload){//payload.id:paramsID
+      const id = payload.id
+      if(state.user.following.findIndex(user => user.id === id)>=0){
+        return
+      }
+      state.user.following.push(id)
+      state.user.followingKeys[id] = payload.followingKey
+      console.log("followginのstateは")
+      console.log(state.user.following)
+    },
+    followers(state, payload){//payload.id:getters.user.id
+      const id = payload.id
+      if(state.otherUser.followers.findIndex(user => user.id === id)>=0){
+        return
+      }
+      state.otherUser.followers.push(id)
+      state.otherUser.followerKeys[id] = payload.followerKey
+      console.log("followersのstateは")
+      console.log(state.otherUser.followers)
+    },
+
+    deleteFollowing(state, payload){//paramsId(他ユーザ)
+      const following = state.user.following
+      following.splice(following.findIndex(uid => uid === payload), 1)
+      Reflect.deleteProperty(state.user.followingKeys, payload)
+      console.log("following削除")
+    },
+    deleteFollowing(state, payload){//uid(他ユーザ)
+      const followers = state.otherUser.followers
+      followers.splice(followers.findIndex(uid => uid === payload), 1)
+      Reflect.deleteProperty(state.otherUser.followerKeys, payload)
+      console.log("followers削除")
+    },
+
+    //他ユーザーアカウントを参照
+    setLoginOtherUser(state, payload){
+      state.otherUser = payload
+    },
 //いいね機能の投稿・削除・取り出し
     createFavs(state, payload){
+      const id = payload.freetalkId
+      const uid = payload.uid
+      if(state.favs.findIndex(fav => fav.freetalkId === id && fav.uid === uid)>=0){
+        return
+      }
       state.favs.push(payload)
     },
     deleteFavs(state, payload){//payload={freetalkId + favKey}
@@ -48,12 +93,12 @@ export default new Vuex.Store({
     registerUserForFreetalk(state, payload){//payload{id: payload, fbKey: data.key}
       const id = payload.id
       if(state.user.registeredFreetalks.findIndex(freetalk => freetalk.id === id)>=0){
-        return 
+        return
       }
       state.user.registeredFreetalks.push(id)
       state.user.fbKeys[id] = payload.fbKey
     },
-    unregisterUserFromFreetalk(state, payload){
+    unregisterUserFromFreetalk(state, payload){//freetalkId
       const registeredFreetalks = state.user.registeredFreetalks
       registeredFreetalks.splice(registeredFreetalks.findIndex(freetalk=> freetalk.id === payload), 1)
       Reflect.deleteProperty(state.user.fbKeys, payload)
@@ -184,32 +229,54 @@ export default new Vuex.Store({
           introduction: payload.introduction,
           registeredFreetalks: [],
           fbKeys: {},
-          likesKeys: {},
           //フォロー機能（データ取り出し）
-          detail_user: {},
-          myfollows_users: [],
-          myfollowers_users: []
+          following: [],
+          followingKeys: {},
+          followers: [],
+          followersKeys: {}
        })
     },
 //ユーザー情報の取り出し
     fetchUserData({commit, getters}){
       firebase.database().ref("/users/" + getters.user.id).once("value")
-       .then(data=>{
-         const userData = data.val()
-         const dataPairs = data.val().registrations
-         let registeredFreetalks = []
-         let swappedPairs = {}
-         for(let key in dataPairs){
-           registeredFreetalks.push(dataPairs[key])
-           swappedPairs[dataPairs[key]] = key
-         }
-         const updateUser = {
+      .then(data =>{
+        const userData = data.val()
+        //参加登録のデータ
+        const dataPairs = data.val().registrations
+        let registeredFreetalks = []
+        let swappedPairs = {}
+        for(let key in dataPairs){
+         registeredFreetalks.push(dataPairs[key])
+         swappedPairs[dataPairs[key]] = key
+       }
+        //フォローのデータ
+        const followingPairs = data.val().following
+        let registeredFollowing = []
+        let followingKey = {}
+        for(let key in followingPairs){
+          registeredFollowing.push(followingPairs[key])
+          followingKey[followingPairs[key]] = key
+        }
+        //フォロワーのデータ
+        const followerPairs = data.val().followers
+        let registeredFollowers = []
+        let followerKey = {}
+        for(let key in followerPairs){
+          registeredFollowers.push(followerPairs[key])
+          followerKey[followerPairs[key]] = key
+        }
+
+        const updateUser = {
           id: userData.id,
           photoURL: userData.photoURL,
           displayName: userData.displayName,
           introduction: userData.introduction,
           registeredFreetalks: registeredFreetalks,
-          fbKeys: swappedPairs
+          fbKeys: swappedPairs,
+          following: registeredFollowing,
+          followingKeys: followingKey,
+          followers: registeredFollowers,
+          followerKeys: followerKey
         }
         commit("setLoginUser", updateUser)
        })
@@ -217,7 +284,51 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
+//自分が見ているユーザー情報の取り出し
+    fetchOtherUserData({commit}, userParamsId){
+      firebase.database().ref("/users/" + userParamsId).once("value")
+       .then(data =>{
+         const userData = data.val()
+         //参加登録のデータ
+         const dataPairs = data.val().registrations
+         let registeredFreetalks = []
+         let swappedPairs = {}
+         for(let key in dataPairs){
+          registeredFreetalks.push(dataPairs[key])
+          swappedPairs[dataPairs[key]] = key
+        }
+         //フォローのデータ
+         const followingPairs = data.val().following
+         let registeredFollowing = []
+         let followingKey = {}
+         for(let key in followingPairs){
+           registeredFollowing.push(followingPairs[key])
+           followingKey[followingPairs[key]] = key
+         }
+         //フォロワーのデータ
+         const followerPairs = data.val().followers
+         let registeredFollowers = []
+         let followerKey = {}
+         for(let key in followerPairs){
+           registeredFollowers.push(followerPairs[key])
+           followerKey[followerPairs[key]] = key
+         }
 
+         const updateUser = {
+           id: userData.id,
+           photoURL: userData.photoURL,
+           displayName: userData.displayName,
+           introduction: userData.introduction,
+           registeredFreetalks: registeredFreetalks,
+           fbKeys: swappedPairs,
+           following: registeredFollowing,
+           followingKeys: followingKey,
+           followers: registeredFollowers,
+           followerKeys: followerKey
+         }
+         commit("setLoginOtherUser", updateUser)
+       })
+    },
 //googleログイン・ログアウト
     login(){
       const google_auth_provider = new firebase.auth.GoogleAuthProvider()
@@ -241,11 +352,11 @@ export default new Vuex.Store({
         introduction: payload.introduction,
         registeredFreetalks: [],
         fbKeys: {},
-        likesKeys: {},
         //フォロー機能（データ取り出し）
-        detail_user: {},
-        myfollows_users: [],
-        myfollowers_users: []
+        following: [],
+        followingKeys: {},
+        followers: [],
+        followersKeys: {}
       })
     },
     deleteLoginUser({commit}){
@@ -266,11 +377,11 @@ export default new Vuex.Store({
             id: user.uid,
             registeredFreetalks: [],
             fbKeys: {},
-            likesKeys: {},
             //フォロー機能（データ取り出し）
-            detail_user: {},
-            myfollows_users: [],
-            myfollowers_users: []
+            following: [],
+            followingKeys: {},
+            followers: [],
+            followersKeys: {}
            }
            commit("setLoginUser", newUser)
          })
@@ -291,9 +402,10 @@ export default new Vuex.Store({
             registeredFreetalks: [],
             fbKeys: {},
             //フォロー機能（データ取り出し）
-            detail_user: {},
-            myfollows_users: [],
-            myfollowers_users: []
+            following: [],
+            followingKeys: {},
+            followers: [],
+            followersKeys: {}
            }   
            commit("setLoginUser", newUser)
          })
@@ -423,6 +535,56 @@ export default new Vuex.Store({
          console.log(error)
        })
     },
+//ユーザーフォロー機能の投稿・削除
+    getFollowing({commit, getters}, payload){//params.id(クリックされる)
+      firebase.database().ref("/users/" + getters.user.id).child("/following/").push(payload)
+      .then(data =>{
+        commit("following", {id: payload, followingKey: data.key})
+      })
+      .catch(error =>{
+        console.log(error)
+      })
+    },
+    deleteFollowing({commit, getters}, payload){//params.id(クリックされる)
+      const user = getters.user
+      if(!user.followingKeys){
+        return 
+      }
+      const followingKey = user.followingKeys[payload]
+      firebase.database().ref("/users/" + user.id + "/following/").child(followingKey)
+      .remove()
+      .then(() =>{
+        commit("deleteFollowing", payload)
+      })
+      .catch(error =>{
+        console.log(error)
+      })
+    },
+    getFollowers({commit, getters}, payload){
+      firebase.database().ref("/users/" + payload).child("/followers/").push(getters.user.id)
+      .then(data =>{
+        commit("followers", {id: getters.user.id, followerKey: data.key})
+      })
+      .catch(error =>{
+        console.log(error)
+      })
+    },
+    deleteFollowers({commit, getters}, payload){
+      const otherUser = getters.otherUser
+      const user = getters.user
+      if(!otherUser.followerKeys){
+        return 
+      }
+      const followerKey = otherUser.followerKeys[user.id]
+      firebase.database().ref("/users/" + payload + "/followers/").child(followerKey)
+      .remove()
+      .then(() =>{
+        commit("deleteFollowing", user.id)
+      })
+      .catch(error =>{
+        console.log(error)
+      })
+    },
 //いいね機能の投稿・削除・取り出し
     createFavs({commit}, payload){//payload={uid + freetalkId}
       const favData = {
@@ -446,11 +608,12 @@ export default new Vuex.Store({
        })
     },
     deleteFavs({commit}, payload){//payload={uid + favKey + freetalkId}
-    console.log("favKey取得？")
-    console.log(payload.favKey)
       firebase.database().ref("/freetalks/" + payload.freetalkId).child("/favs/" + payload.favKey).remove()
        .then(() =>{
          commit("deleteFavs", payload)
+       })
+       .catch(error =>{
+         console.log(error)
        })
     },
     loadedFav({commit}){
@@ -669,13 +832,9 @@ export default new Vuex.Store({
         })
       }
     },
-    favFilter(state){
-      return (freetalkId)=>{
-        return state.myfavs.filter((post) =>{
-          return post.id === freetalkId
-        })
-      }
-    },
+   favs(state){
+     return state.favs
+   },
     filterAttendance(state){
       return (freetalkId)=>{
         return state.attendance.filter((data) =>{
@@ -688,6 +847,9 @@ export default new Vuex.Store({
     },
     user(state){
       return state.user
+    },
+    otherUser(state){
+      return state.otherUser
     },
     userName(state){
       return state.user ? state.user.displayName : ""
