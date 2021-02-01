@@ -40,8 +40,12 @@ export default new Vuex.Store({
       }
       state.user.following.push(id)
       state.user.followingKeys[id] = payload.followingKey
-      console.log("followginのstateは")
-      console.log(state.user.following)
+    },
+    deleteFollowing(state, payload){//paramsId(他ユーザ)
+      const following = state.user.following
+      following.splice(following.findIndex(uid => uid === payload), 1)
+      Reflect.deleteProperty(state.user.followingKeys, payload)
+      console.log("following削除")
     },
     followers(state, payload){//payload.id:getters.user.id
       const id = payload.id
@@ -53,20 +57,12 @@ export default new Vuex.Store({
       console.log("followersのstateは")
       console.log(state.otherUser.followers)
     },
-
-    deleteFollowing(state, payload){//paramsId(他ユーザ)
-      const following = state.user.following
-      following.splice(following.findIndex(uid => uid === payload), 1)
-      Reflect.deleteProperty(state.user.followingKeys, payload)
-      console.log("following削除")
-    },
     deleteFollowers(state, payload){//uid(他ユーザ)
       const followers = state.otherUser.followers
       followers.splice(followers.findIndex(uid => uid === payload), 1)
       Reflect.deleteProperty(state.otherUser.followerKeys, payload)
       console.log("followers削除")
     },
-
     //他ユーザーアカウントを参照
     setLoginOtherUser(state, payload){
       state.otherUser = payload
@@ -134,12 +130,11 @@ export default new Vuex.Store({
     registerAttendance(state, payload){
       state.attendance.push(payload)
     },
-    removeAttendance(state, payload){//freetalkId,uid
+    removeAttendance(state, payload){
       const attend= state.attendance.findIndex(attend =>{
-        return attend.freetalkId === payload.val().freetalkId && attend.uid ===payload.val().uid
+        return attend.attendKey === payload.attendKey
       })
-      // console.log(attend)
-      state.attendance.splice(attend, 1)//ユーザーのフィルターがかかっていない
+      state.attendance.splice(attend, 1)
     },
     setAttendance(state, payload){
       state.attendance = payload
@@ -505,7 +500,8 @@ export default new Vuex.Store({
              date: obj[key].date,
              createrId: obj[key].createrId,
              photoURL: obj[key].photoURL,
-             favs: obj[key].favs
+             favs: obj[key].favs,
+             attendance: obj[key].attendance
            })
          }
          commit("setLoadedFreetalks", freetalks)
@@ -659,42 +655,68 @@ export default new Vuex.Store({
         freetalkId: payload.freetalkId,
         datetime: payload.datetime
       }
-      firebase.database().ref("attendance").push(attendData)
+      let attendKey
+      firebase.database().ref("/freetalks/" + payload.freetalkId).child("attendance").push(attendData)
+       .then((data) =>{
+         attendKey = data.key
+         return firebase.database().ref("/freetalks/" + payload.freetalkId).child("/attendance/" + attendKey).update({attendKey: data.key})
+       })
        .then(() =>{
         commit("registerAttendance", {
-          ...attendData
+          ...attendData,
+          attendKey: attendKey
          })
        })
        .catch(error =>{
          console.log(error)
        })
     },
-    removeAttendance({commit,getters}, payload){
-      const attendRef = firebase.database().ref("attendance")
-      attendRef.orderByChild("uid").equalTo(getters.user.id).on("child_added", (snap) =>{
-        if(snap.val().freetalkId === payload.freetalkId){
-          snap.ref.remove()//
-          commit("removeAttendance", snap)
-        }
-      })
-   },
-    loadedAttendance({commit}){
-      firebase.database().ref("attendance").once("value")
-       .then(data =>{
-         const attendance = []
-         const obj = data.val()
-         for(let key in obj){
-            attendance.push({
-              uid: obj[key].uid,
-              userName: obj[key].userName,
-              photoURL: obj[key].photoURL,
-              freetalkId: obj[key].freetalkId,
-              datetime: obj[key].datetime
-            })
-          }
-          commit("setAttendance", attendance)
+    removeAttendance({commit}, payload){
+      firebase.database().ref("/freetalks/" + payload.freetalkId).child("/attendance/" + payload.attendKey).remove()
+       .then(() =>{
+         commit("removeAttendance", payload)
        })
        .catch(error =>{
+         console.log(error)
+       })
+    },
+    loadedAttendance({commit}){
+      commit("setLoading", true)
+      firebase.database().ref("freetalks").once("value")
+       .then((data) =>{
+         const freetalks = []
+         const atteddance = []
+         const obj = data.val()
+         for(let key in obj){
+           freetalks.push({
+             id: key,
+             language: obj[key].language,
+             title: obj[key].title,
+             description: obj[key].description,
+             imageUrl: obj[key].imageUrl,
+             location: obj[key].location,
+             date: obj[key].date,
+             createrId: obj[key].createrId,
+             photoURL: obj[key].photoURL,
+             favs: obj[key].favs,
+             attendance: obj[key].attendance
+           })
+           const obj2 = obj[key].attendance
+           for(let key2 in obj2){
+            atteddance.push({
+              uid: obj2[key2].uid,
+              userName: obj2[key2].userName,
+              photoURL: obj2[key2].photoURL,
+              freetalkId: obj2[key2].freetalkId,
+              datetime: obj2[key2].datetime
+            })
+           }
+         }
+         commit("setAttendance", atteddance)
+         commit("setLoading", false)
+       })
+       .catch((error)=>{
+         commit("setLoading", false)
          console.log(error)
        })
     },

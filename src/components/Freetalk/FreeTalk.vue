@@ -99,7 +99,6 @@ export default {
       }
     },
    created(){
-       console.log(this.$store.state.user.registeredFreetalks)
         db.database().ref("/users/" + this.createrId).once("value").then(data =>{
             this.creater.id = data.val().id,
             this.creater.photoURL = data.val().photoURL

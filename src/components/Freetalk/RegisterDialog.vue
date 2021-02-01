@@ -82,7 +82,17 @@
        },
        attendance(){
          return this.$store.state.attendance.attendanceId
-       }
+       },
+       getAttendance(){
+        const attendance = this.$store.getters.attendance
+        return attendance.filter((attend) =>{
+          return attend.freetalkId.match(this.freetalkId)
+          && attend.uid.match(this.user.id)
+        })
+      },
+      getKey(){
+        return this.getAttendance.map(obj =>obj.attendKey)
+      },
     },
     methods: {
       onAgree(){
@@ -95,7 +105,14 @@
         }
         if(this.userIsRegistered){
           this.$store.dispatch("unregisterUserFromFreetalk", this.freetalkId)
-          this.$store.dispatch("removeAttendance", userData)
+          this.$store.dispatch("removeAttendance", {
+            uid : this.user.id,
+            userName: this.userName,
+            photoURL: this.photoURL,
+            freetalkId: this.freetalkId,
+            datetime: this.submittableDateTime,
+            attendKey: this.getKey
+          })
           this.registerDialog=false
         }else{
           this.$store.dispatch("registerUserForFreetalk", this.freetalkId)
