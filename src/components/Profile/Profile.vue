@@ -76,11 +76,12 @@
     data () {
       return {
         editDialog: false,
-        id: location.href.split("/")
+        id: ""
       }
     },
     created(){
       this.$store.dispatch("fetchUserData")
+      this.id = location.href.split("/")
     },
     computed: {
        user(){
@@ -102,7 +103,7 @@
          return this.$store.getters.introduction
        },
        comments(){
-        const comments = this.$store.state.comments
+        const comments = this.$store.getters.user.comments
         return comments.filter((comment)=>{
           return comment.roomUserId.match(this.id[this.id.length - 1])
         })

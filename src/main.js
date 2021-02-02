@@ -62,17 +62,12 @@ new Vue({
       if(user){
         this.$store.dispatch("setLoginUser",user)
         this.$store.dispatch("fetchUserData")
-        // this.$store.commit('onAuthStatusChanged', user.uid ? true : false)
-        // this.$store.dispatch('myfollows')
-        // this.$store.dispatch('myfollowers')
         this.$router.push({name: 'Home'})
       }else{
         this.$store.dispatch("deleteLoginUser")
       }
     }),
     this.$store.dispatch('loadedFreeTalks')
-    this.$store.dispatch('loadedComments')
-    this.$store.dispatch('loadedReplys')
     this.$store.dispatch('loadedAttendance')
     this.$store.dispatch("loadedFav")
   }

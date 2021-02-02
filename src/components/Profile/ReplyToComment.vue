@@ -113,13 +113,13 @@
           return this.id[this.id.length - 1]
         },
         comments(){
-        const comments = this.$store.state.comments
+        const comments = this.$store.getters.user.comments
         return comments.filter((comment)=>{
           return comment.commentId.match(this.paramsId)
          })
        },
         replys(){
-        const replys = this.$store.state.replys
+        const replys = this.$store.getters.user.replys
         return replys.filter((reply)=>{
           return reply.commentId.match(this.paramsId)
           })

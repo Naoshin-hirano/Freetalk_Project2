@@ -93,7 +93,7 @@ import db from "firebase"
          return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
        },
        comments(){
-        const comments = this.$store.state.comments
+        const comments = this.$store.getters.user.comments
         return comments.filter((comment)=>{
           return comment.roomUserId.match(this.url[this.url.length - 1])
         })

@@ -139,7 +139,7 @@
         return this.$store.getters.user
      },
      comments(){
-        const comments = this.$store.state.comments
+        const comments = this.$store.getters.user.comments
         return comments.filter((comment)=>{
           return comment.roomUserId.match(this.id[this.id.length - 1])
         })
@@ -176,8 +176,8 @@
     doSend() {
       if (this.input.length >= 0) {
         const commentData = {
-          id: this.id[this.id.length - 1],
-          uid: this.user.id,
+          roomUserId: this.id[this.id.length - 1],
+          createrId: this.user.id,
           message: this.input,
           name: this.userName,
           image: this.photoURL,

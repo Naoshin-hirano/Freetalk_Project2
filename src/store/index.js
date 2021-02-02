@@ -22,8 +22,6 @@ export default new Vuex.Store({
         description: "Paris is Awesome !!"}
       ],
       attendance: [],
-      comments: [],
-      replys: [],
       user: null,
       otherUser: null,
       error: null,
@@ -141,16 +139,13 @@ export default new Vuex.Store({
     },
 //コメント機能の投稿・削除・取り出し
     createComment(state, payload){
-      state.comments.push(payload)
-    },
-    setLoadedComments(state, payload){
-      state.comments = payload
+      state.user.comments.push(payload)
     },
     deleteComment(state, payload){//payload=paramsId
-      const comment = state.comments.findIndex(comment =>{
+      const comment = state.user.comments.findIndex(comment =>{
         return comment.commentId === payload
       })
-      state.comments.splice(comment, 1)
+      state.user.comments.splice(comment, 1)
     },
 //リプライ機能の投稿・削除・取り出し
     createReply(state, payload){
@@ -224,6 +219,10 @@ export default new Vuex.Store({
           introduction: payload.introduction,
           registeredFreetalks: [],
           fbKeys: {},
+          //コメント機能
+          comments: [],
+          //リプライ機能
+          replys: [],
           //フォロー機能（データ取り出し）
           following: [],
           followingKeys: {},
@@ -260,6 +259,33 @@ export default new Vuex.Store({
           registeredFollowers.push(followerPairs[key])
           followerKey[followerPairs[key]] = key
         }
+        //コメントのデータ
+        const commentsObj = data.val().comments
+        let comments = []
+        let replys = []
+        for(let key in commentsObj){
+          comments.push({
+            createrId: commentsObj[key].createrId,
+            roomUserId: commentsObj[key].roomUserId,
+            name: commentsObj[key].name,
+            image: commentsObj[key].image,
+            message: commentsObj[key].message,
+            commentId: commentsObj[key].commentId,
+            datetime: commentsObj[key].datetime,
+            replys: commentsObj[key].replys
+          })
+          //リプライデータ
+          const obj2 = commentsObj[key].replys
+          for(let key2 in obj2){
+            replys.push({
+               commentId: obj2[key2].commentId,
+               image: obj2[key2].image,
+               name: obj2[key2].name,
+               replymessage: obj2[key2].replymessage,
+               replyuserid: obj2[key2].replyuserid
+            })
+          }
+        }
 
         const updateUser = {
           id: userData.id,
@@ -268,6 +294,8 @@ export default new Vuex.Store({
           introduction: userData.introduction,
           registeredFreetalks: registeredFreetalks,
           fbKeys: swappedPairs,
+          comments: comments,
+          replys: replys,
           following: registeredFollowing,
           followingKeys: followingKey,
           followers: registeredFollowers,
@@ -308,6 +336,21 @@ export default new Vuex.Store({
            registeredFollowers.push(followerPairs[key])
            followerKey[followerPairs[key]] = key
          }
+         //コメントのデータ
+        const commentsObj = data.val().comments
+        let comments = []
+        for(let key in commentsObj){
+          comments.push({
+            createrId: commentsObj[key].createrId,
+            roomUserId: commentsObj[key].roomUserId,
+            name: commentsObj[key].name,
+            image: commentsObj[key].image,
+            message: commentsObj[key].message,
+            commentId: commentsObj[key].commentId,
+            datetime: commentsObj[key].datetime,
+            replys: commentsObj[key].replys
+          })
+        }
 
          const updateUser = {
            id: userData.id,
@@ -316,6 +359,7 @@ export default new Vuex.Store({
            introduction: userData.introduction,
            registeredFreetalks: registeredFreetalks,
            fbKeys: swappedPairs,
+           comments: comments,
            following: registeredFollowing,
            followingKeys: followingKey,
            followers: registeredFollowers,
@@ -347,6 +391,10 @@ export default new Vuex.Store({
         introduction: payload.introduction,
         registeredFreetalks: [],
         fbKeys: {},
+        //コメント機能
+        comments: [],
+         //リプライ機能
+         replys: [],
         //フォロー機能（データ取り出し）
         following: [],
         followingKeys: {},
@@ -372,6 +420,10 @@ export default new Vuex.Store({
             id: user.uid,
             registeredFreetalks: [],
             fbKeys: {},
+            //コメント機能
+            comments: [],
+             //リプライ機能
+             replys: [],
             //フォロー機能（データ取り出し）
             following: [],
             followingKeys: {},
@@ -396,6 +448,10 @@ export default new Vuex.Store({
             id: user.uid,
             registeredFreetalks: [],
             fbKeys: {},
+            //コメント機能
+            comments: [],
+             //リプライ機能
+             replys: [],
             //フォロー機能（データ取り出し）
             following: [],
             followingKeys: {},
@@ -721,10 +777,10 @@ export default new Vuex.Store({
        })
     },
 //コメント機能の投稿・削除・取り出し
-    createComment({commit}, payload){
+    createComment({commit, getters}, payload){
       const commentData = {
-        roomUserId: payload.id,
-        uid: payload.uid,
+        roomUserId: payload.roomUserId,
+        createrId: payload.createrId,
         name: payload.name,
         message: payload.message,
         image: payload.image,
@@ -732,10 +788,10 @@ export default new Vuex.Store({
         replys: {}
       }
       let commentId
-      firebase.database().ref("/comments/").push(commentData)
+      firebase.database().ref("/users/" + getters.user.id).child("/comments/").push(commentData)
        .then((data) =>{
          commentId = data.key
-         return firebase.database().ref("/comments/").child(commentId).update({ commentId: data.key})
+         return firebase.database().ref("/users/" + getters.user.id).child("/comments/" + commentId).update({ commentId: data.key})
        })
        .then(() =>{
          commit("createComment", {
@@ -747,35 +803,15 @@ export default new Vuex.Store({
          console.log(error)
        })
     },
-    deleteComment({commit}, payload){//paramsId
-      firebase.database().ref("comments").child(payload).remove()
+    deleteComment({commit, getters}, payload){//paramsId
+      firebase.database().ref("/users/" + getters.user.id).child("/comments/" + payload).remove()
        .then(() =>{
          commit("deleteComment", payload)
        })
-     },
-    loadedComments({commit}){
-      firebase.database().ref("/comments/").once("value")
-       .then(data=>{
-         const comments = []
-         const obj = data.val()
-         for(let key in obj){
-           comments.push({
-            roomUserId: obj[key].roomUserId,
-            uid: obj[key].uid,
-            name: obj[key].name,
-            image: obj[key].image,
-            message: obj[key].message,
-            commentId: obj[key].commentId,
-            datetime: obj[key].datetime,
-            replys: obj[key].replys
-           })
-         }
-         commit("setLoadedComments", comments)
+       .catch(error =>{
+         console.log(error)
        })
-        .catch(error=>{
-          console.log(error)
-        })
-    },
+     },
 //リプライ機能の投稿・削除・取り出し
     createReply({commit}, payload){
       const replyData = {
@@ -801,42 +837,42 @@ export default new Vuex.Store({
         console.log("deleteReply done")
       })
     },
-    loadedReplys({commit}){
-      firebase.database().ref("/comments/").once("value")
-       .then(data=>{
-         const comments = []
-         const replys = []
-         const obj = data.val()
-         for(let key in obj){
-           comments.push({
-            roomUserId: obj[key].roomUserId,
-            name: obj[key].name,
-            image: obj[key].image,
-            message: obj[key].message,
-            commentId: obj[key].commentId,
-            datetime: obj[key].datetime,
-            replys: obj[key].replys
-           })
-           const obj2 = obj[key].replys
-           for(let key2 in obj2){//
-             replys.push({
-               commentId: obj2[key2].commentId,
-               image: obj2[key2].image,
-               name: obj2[key2].name,
-               replymessage: obj2[key2].replymessage,
-               replyuserid: obj2[key2].replyuserid
-             })
-           }//
-         }
-         commit("setLoadedReplys", replys)
-       })
-        .catch(error=>{
-          console.log(error)
-        })
-    },
-    clearError({commit}){
-      commit("clearError")
-    }
+    // loadedReplys({commit}){
+    //   firebase.database().ref("/comments/").once("value")
+    //    .then(data=>{
+    //      const comments = []
+    //      const replys = []
+    //      const obj = data.val()
+    //      for(let key in obj){
+    //        comments.push({
+    //         roomUserId: obj[key].roomUserId,
+    //         name: obj[key].name,
+    //         image: obj[key].image,
+    //         message: obj[key].message,
+    //         commentId: obj[key].commentId,
+    //         datetime: obj[key].datetime,
+    //         replys: obj[key].replys
+    //        })
+    //        const obj2 = obj[key].replys
+    //        for(let key2 in obj2){//
+    //          replys.push({
+    //            commentId: obj2[key2].commentId,
+    //            image: obj2[key2].image,
+    //            name: obj2[key2].name,
+    //            replymessage: obj2[key2].replymessage,
+    //            replyuserid: obj2[key2].replyuserid
+    //          })
+    //        }//
+    //      }
+    //      commit("setLoadedReplys", replys)
+    //    })
+    //     .catch(error=>{
+    //       console.log(error)
+    //     })
+    // },
+    // clearError({commit}){
+    //   commit("clearError")
+    // }
   },
   getters: {
     loadedFreeTalks (state){
