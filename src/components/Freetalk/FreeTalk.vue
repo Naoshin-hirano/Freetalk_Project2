@@ -98,7 +98,7 @@ export default {
         }
       }
     },
-   created(){
+   mounted(){
         db.database().ref("/users/" + this.createrId).once("value").then(data =>{
             this.creater.id = data.val().id,
             this.creater.photoURL = data.val().photoURL

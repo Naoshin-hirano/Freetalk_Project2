@@ -137,7 +137,7 @@ export default new Vuex.Store({
     },
 //コメント機能の投稿・削除・取り出し
     createComment(state, payload){
-      state.user.comments.push(payload)
+      state.otherUser.comments.push(payload)
     },
     deleteComment(state, payload){//payload=paramsId
       const comment = state.user.comments.findIndex(comment =>{
@@ -786,10 +786,10 @@ export default new Vuex.Store({
         replys: {}
       }
       let commentId
-      firebase.database().ref("/users/" + getters.user.id).child("/comments/").push(commentData)
+      firebase.database().ref("/users/" + payload.roomUserId).child("/comments/").push(commentData)
        .then((data) =>{
          commentId = data.key
-         return firebase.database().ref("/users/" + getters.user.id).child("/comments/" + commentId).update({ commentId: data.key})
+         return firebase.database().ref("/users/" + payload.roomUserId).child("/comments/" + commentId).update({ commentId: data.key})
        })
        .then(() =>{
          commit("createComment", {

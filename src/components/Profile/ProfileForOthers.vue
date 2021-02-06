@@ -8,8 +8,8 @@
                             <v-flex>
                                 <v-avatar size="180">
                                     <img
-                                    v-if="user.photoURL"
-                                    :src="user.photoURL"
+                                    v-if="imageForRoomUser"
+                                    :src="imageForRoomUser"
                                     alt="John">
                                     <img
                                     v-else
@@ -20,16 +20,16 @@
                         </v-layout>
                         <v-layout class="text-center" mt-1 mb-10>
                             <v-flex >
-                                <h3>{{ user.displayName }}</h3>
+                                <h3>{{ nameForRoomUser }}</h3>
                             </v-flex>
                         </v-layout>
                          <v-layout>
                             <v-flex xs12 sm10 md8 offset-xs2 offset-sm3 offset-md3>
                               <v-btn icon
                                     class="mt-3 ml-5"
-                                    :to="'/comment/' + user.id">
+                                    :to="'/comment/' + this.url[this.url.length - 1]">
                                   <v-icon color="green" large left>mdi-comment-multiple-outline</v-icon>
-                                  <span>{{ comments.length }} コメントを見る</span>
+                                  <span>{{ commentsLength }} コメントを見る</span>
                               </v-btn>
                             </v-flex>
                             <v-flex xs12 sm10 md8 offset-sm3 offset-md3> 
@@ -41,7 +41,7 @@
                                 <v-card class="grey lighten-3 ma-2">
                                     <h3>自己紹介</h3>
                                    <v-card-text>
-                                     <h3>{{ user.introduction }}</h3>
+                                     <h3>{{ introduction }}</h3>
                                    </v-card-text>
                                 </v-card>
                             </v-flex>
@@ -66,38 +66,39 @@
 
 
 <script>
-import db from "firebase"
   export default {
     data () {
       return {
         editDialog: false,
         url: location.href.split("/"),
-        user: {
-          displayName: "",
-          id: "",
-          introduction: "",
-          photoURL: ""
-        }
+        comments: null,
+        commentsLength: 0,
+        nameForRoomUser: null,
+        imageForRoomUser: null,
+        introduction: null
       }
     },
     created(){
-        db.database().ref("/users/" + this.url[this.url.length - 1]).once("value").then(data =>{
-            this.user.displayName = data.val().displayName,
-            this.user.id = data.val().id,
-            this.user.introduction = data.val().introduction,
-            this.user.photoURL = data.val().photoURL
-        })
+      this.$store.dispatch("fetchOtherUserData", this.url[this.url.length - 1])
+    },
+    watch: {
+       otherUser(value){
+           if(value !== null && value !== undefined){
+           this.comments = this.$store.getters.otherUser.comments,
+           this.commentsLength = this.$store.getters.otherUser.comments.length
+           this.nameForRoomUser = this.$store.getters.otherUser.displayName,
+           this.imageForRoomUser = this.$store.getters.otherUser.photoURL,
+           this.introduction = this.$store.getters.otherUser.introduction
+           }
+       }
     },
     computed: {
+        otherUser(){
+        return this.$store.getters.otherUser
+        },
        initalPhotoUrl(){
          return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
-       },
-       comments(){
-        const comments = this.$store.getters.user.comments
-        return comments.filter((comment)=>{
-          return comment.roomUserId.match(this.url[this.url.length - 1])
-        })
-     },
+       }
     }
   }
 </script>

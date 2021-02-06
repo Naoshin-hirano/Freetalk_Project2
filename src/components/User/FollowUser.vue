@@ -30,8 +30,11 @@ export default{
        this.$store.dispatch("fetchOtherUserData", this.id[this.id.length - 1])
   },
   computed: {
+      user(){
+        return this.$store.getters.user
+      },
       highly_rated(){
-                return this.$store.getters.user.following.findIndex(uid =>{
+                return this.user.following.findIndex(uid =>{
               return uid === this.id[this.id.length - 1]
             }) >= 0
           },
