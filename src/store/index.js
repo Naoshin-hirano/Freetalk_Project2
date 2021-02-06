@@ -139,11 +139,11 @@ export default new Vuex.Store({
     createComment(state, payload){
       state.otherUser.comments.push(payload)
     },
-    deleteComment(state, payload){//payload=paramsId
-      const comment = state.user.comments.findIndex(comment =>{
+    deleteComment(state, payload){//payload=commentId
+      const comment = state.otherUser.comments.findIndex(comment =>{
         return comment.commentId === payload
       })
-      state.user.comments.splice(comment, 1)
+      state.otherUser.comments.splice(comment, 1)
     },
 //リプライ機能の投稿・削除・取り出し
     createReply(state, payload){
@@ -775,7 +775,7 @@ export default new Vuex.Store({
        })
     },
 //コメント機能の投稿・削除・取り出し
-    createComment({commit, getters}, payload){
+    createComment({commit}, payload){
       const commentData = {
         roomUserId: payload.roomUserId,
         createrId: payload.createrId,
@@ -801,8 +801,8 @@ export default new Vuex.Store({
          console.log(error)
        })
     },
-    deleteComment({commit, getters}, payload){//paramsId
-      firebase.database().ref("/users/" + getters.user.id).child("/comments/" + payload).remove()
+    deleteComment({commit, getters}, payload){
+      firebase.database().ref("/users/" + getters.otherUser.id).child("/comments/" + payload).remove()
        .then(() =>{
          commit("deleteComment", payload)
        })

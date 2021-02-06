@@ -4,10 +4,9 @@
       <template v-slot:activator="{ on, attrs }">
         <v-btn
         text
-        color="red"
         v-bind="attrs"
         v-on="on">
-        削除
+         <v-icon>mdi-delete-forever</v-icon>
         </v-btn>
       </template>
       <v-card>
@@ -40,7 +39,7 @@
 
 <script>
   export default {
-    props: ["paramsId"],//commentId
+    props: ["commentId"],//commentId
     data(){
       return {
         registerDialog: false
@@ -48,8 +47,8 @@
     },
     methods: {
       deleteComment(){
-        this.$store.dispatch("deleteComment", this.paramsId)
-        this.$router.go(-1)
+        this.$store.dispatch("deleteComment", this.commentId)
+        this.registerDialog = false
         }
       }
     }

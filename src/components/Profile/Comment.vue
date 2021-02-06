@@ -88,12 +88,7 @@
                       </v-card-actions>
                       <v-spacer></v-spacer>
                       <v-card-actions>
-                        <v-btn text 
-                              :to="'/comment/reply/' + comment.commentId">
-                            <v-icon 
-                            large 
-                            class="blue-grey--text lighten-5">mdi-dots-horizontal</v-icon>
-                        </v-btn>
+                         <delete-comment :commentId="comment.commentId"></delete-comment>
                       </v-card-actions>
                   </v-layout>
                   <v-card-text>
