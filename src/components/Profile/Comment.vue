@@ -115,24 +115,39 @@
          time: new Date(),
          parPage:3,
          currentPage:1,
+         comments: null,
+        nameForRoomUser: null,
+        imageForRoomUser: null,
+        getLists: null,
+        getPageCount: null
       }
     },
     created(){
       this.$store.dispatch("fetchOtherUserData", this.id[this.id.length - 1])
     },
+    watch: {
+       otherUser(value){
+           if(value !== null && value !== undefined){
+           this.comments = this.$store.getters.otherUser.comments,
+           this.nameForRoomUser = this.$store.getters.otherUser.displayName,
+           this.imageForRoomUser = this.$store.getters.otherUser.photoURL
+           }
+       },
+       comments(value){
+          let current = this.currentPage * this.parPage//freetalkの合計数
+          let start = current - this.parPage//1ページ目の３つのfreetalkが最初
+          this.getLists = value.slice(start, current)//現存する全てのfreetalkを取り出す
+       },
+       getLists(value){
+         if(value !== null && value !== undefined){
+            this.getPageCount = Math.ceil(this.comments.length / this.parPage)
+         }
+       }
+    },
     computed: {
       //プロフィールユーザ
       otherUser(){
        return this.$store.getters.otherUser
-     },
-     comments(){
-       return this.$store.getters.otherUser.comments
-     },
-     nameForRoomUser(){
-       return this.$store.getters.otherUser.displayName
-     },
-     imageForRoomUser(){
-       return this.$store.getters.otherUser.photoURL
      },
      //自分のユーザー
      user(){
@@ -152,19 +167,10 @@
       + ' ' + ('0' + date.getHours()).slice(-2)
       + ':' + ('0' + date.getMinutes()).slice(-2)
       return str
-    },
-    getLists(){
-      let current = this.currentPage * this.parPage//freetalkの合計数
-      let start = current - this.parPage//1ページ目の３つのfreetalkが最初
-      return this.comments.slice(start, current)//現存する全てのfreetalkを取り出す
-     },
-     getPageCount(){
-         //引数として与えた数以上の最小の整数を返します。
-       return Math.ceil(this.comments.length / this.parPage)
-     },
+      },
      initalPhotoUrl(){
          return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
-       },
+       }
    },
    methods: {
     doSend() {
