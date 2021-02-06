@@ -4,8 +4,8 @@
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
               <v-avatar size="150">
                   <img
-                  v-if="roomUser.roomPhotoURL"
-                  :src="roomUser.roomPhotoURL"
+                  v-if="imageForRoomUser"
+                  :src="imageForRoomUser"
                   alt="John">
                   <img
                   v-else
@@ -16,7 +16,7 @@
         </v-layout>
         <v-layout class="text-center">
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                <h3>{{ roomUser.roomDisplayName }}</h3>
+                <h3>{{ nameForRoomUser }}</h3>
             </v-flex>
         </v-layout>
         <v-layout row wrap mb-5>
@@ -106,8 +106,6 @@
 </template>
 
 <script>
-  import db from "firebase"
-
   export default {
     data(){
       return {
@@ -117,32 +115,28 @@
          time: new Date(),
          parPage:3,
          currentPage:1,
-         roomUser: {
-           roomDisplayName: "",
-           roomPhotoURL: ""
-         }
       }
     },
     created(){
-        const uid = this.id[this.id.length - 1]
-        db.database().ref("/users/" + uid).once("value")
-        .then(data =>{
-            this.roomUser.roomDisplayName = data.val().displayName,
-            this.roomUser.roomPhotoURL = data.val().photoURL
-        })
-        .catch(error =>{
-            console.log(error)
-        })
+      this.$store.dispatch("fetchOtherUserData", this.id[this.id.length - 1])
     },
     computed: {
-     user(){
-        return this.$store.getters.user
+      //プロフィールユーザ
+      otherUser(){
+       return this.$store.getters.otherUser
      },
      comments(){
-        const comments = this.$store.getters.user.comments
-        return comments.filter((comment)=>{
-          return comment.roomUserId.match(this.id[this.id.length - 1])
-        })
+       return this.$store.getters.otherUser.comments
+     },
+     nameForRoomUser(){
+       return this.$store.getters.otherUser.displayName
+     },
+     imageForRoomUser(){
+       return this.$store.getters.otherUser.photoURL
+     },
+     //自分のユーザー
+     user(){
+        return this.$store.getters.user
      },
      userName(){
        return this.$store.getters.userName
