@@ -52,8 +52,6 @@ export default new Vuex.Store({
       }
       state.otherUser.followers.push(id)
       state.otherUser.followerKeys[id] = payload.followerKey
-      console.log("followersのstateは")
-      console.log(state.otherUser.followers)
     },
     deleteFollowers(state, payload){//uid(他ユーザ)
       const followers = state.otherUser.followers
