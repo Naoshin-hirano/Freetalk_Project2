@@ -11,16 +11,14 @@
             v-bind="attrs"
             v-on="on">
                 <v-avatar size="85">
-                    <v-img
+                    <img
                     v-if="user.photoURL"
                     :src="user.photoURL"
                     alt="John">
-                    </v-img>
-                    <v-img
+                    <img
                     v-else
                     src="https://soma-engineering.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
                     alt="John">
-                    </v-img>
                 </v-avatar>
             </v-btn>
         </template>

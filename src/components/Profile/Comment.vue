@@ -68,16 +68,14 @@
                             fab accent
                             :to="'/profileforothers/' + comment.uid">
                                 <v-avatar size="70">
-                                    <v-img
+                                    <img
                                     v-if="comment.image"
                                     :src="comment.image"
                                     alt="John">
-                                    </v-img>
-                                    <v-img
+                                    <img
                                     v-else
                                     :src="initalPhotoUrl"
                                     alt="John">
-                                    </v-img>
                                 </v-avatar>
                             </v-btn>
                           <v-card-text>

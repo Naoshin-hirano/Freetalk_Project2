@@ -6,13 +6,13 @@
                     <v-container>
                         <v-layout class="text-center">
                             <v-flex>
-                                <v-avatar size="180">
+                                <v-avatar v-if="imageForRoomUser" size="180">
                                     <img
-                                    v-if="imageForRoomUser"
                                     :src="imageForRoomUser"
                                     alt="John">
+                                </v-avatar>
+                                <v-avatar v-else>
                                     <img
-                                    v-else
                                     :src="initalPhotoUrl"
                                     alt="John">
                                 </v-avatar>

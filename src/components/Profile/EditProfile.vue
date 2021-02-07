@@ -50,10 +50,8 @@
                             accept="image/*"
                             @change="onFilePicked">
                         <v-avatar size="150" >
-                            <v-img v-if="photoURL" :src="photoURL">
-                            </v-img>
-                            <v-img v-else :src="initalPhotoUrl">
-                            </v-img>
+                            <img v-if="photoURL" :src="photoURL">
+                            <img v-else :src="initalPhotoUrl">
                         </v-avatar>
                      </v-card-text>
                  </v-flex>

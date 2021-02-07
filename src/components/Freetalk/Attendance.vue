@@ -23,16 +23,14 @@
                                 fab accent
                                 :to="'/profileforothers/' + member.uid">
                                     <v-avatar size="70" >
-                                        <v-img
+                                        <img
                                         v-if="member.photoURL"
                                         :src="member.photoURL"
                                         alt="John">
-                                        </v-img>
-                                        <v-img
+                                        <img
                                         v-else
                                         :src="initalPhotoUrl"
                                         alt="John">
-                                        </v-img>
                                     </v-avatar>
                                 </v-btn>
                         </v-flex>

@@ -10,16 +10,14 @@
                             fab accent
                             :to="'/profileforothers/' + creater.id">
                                 <v-avatar size="85" >
-                                    <v-img
+                                    <img
                                     v-if="creater.photoURL"
                                     :src="creater.photoURL"
                                     alt="John">
-                                    </v-img>
-                                    <v-img
+                                    <img
                                     v-else
                                     :src="initalPhotoUrl"
                                     alt="John">
-                                    </v-img>
                                 </v-avatar>
                             </v-btn>
                         </div>

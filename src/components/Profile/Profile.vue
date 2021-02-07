@@ -22,13 +22,13 @@
                     <v-container>
                         <v-layout class="text-center">
                             <v-flex>
-                                <v-avatar size="180">
+                                <v-avatar v-if="photoURL" size="180">
                                     <img
-                                    v-if="photoURL"
                                     :src="photoURL"
                                     alt="John">
-                                    <img
-                                    v-else
+                                </v-avatar>
+                                <v-avatar v-else size="180">
+                                  <img
                                     :src="initalPhotoUrl"
                                     alt="John">
                                 </v-avatar>
