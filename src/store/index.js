@@ -147,7 +147,7 @@ export default new Vuex.Store({
     },
 //リプライ機能の投稿・削除・取り出し
     createReply(state, payload){
-      state.replys.push(payload)
+      state.otherUser.replys.push(payload)
     },
     deleteReply(state, payload){
       const reply = state.replys.find(reply =>{
@@ -276,11 +276,14 @@ export default new Vuex.Store({
           const obj2 = commentsObj[key].replys
           for(let key2 in obj2){
             replys.push({
-               commentId: obj2[key2].commentId,
-               image: obj2[key2].image,
-               name: obj2[key2].name,
-               replymessage: obj2[key2].replymessage,
-               replyuserid: obj2[key2].replyuserid
+              replyId: obj2[key2].replyId,
+              commentId: obj2[key2].commentId,
+              roomUserId: obj2[key2].roomUserId,
+              createrId: obj2[key2].createrId,
+              message: obj2[key2].message,
+              name: obj2[key2].name,
+              image: obj2[key2].image,
+              datetime: obj2[key2].datetime
             })
           }
         }
@@ -337,6 +340,7 @@ export default new Vuex.Store({
          //コメントのデータ
         const commentsObj = data.val().comments
         let comments = []
+        let replys = []
         for(let key in commentsObj){
           comments.push({
             createrId: commentsObj[key].createrId,
@@ -348,7 +352,22 @@ export default new Vuex.Store({
             datetime: commentsObj[key].datetime,
             replys: commentsObj[key].replys
           })
+          //リプライデータ
+          const obj2 = commentsObj[key].replys
+          for(let key2 in obj2){
+            replys.push({
+              replyId: obj2[key2].replyId,
+              commentId: obj2[key2].commentId,
+              roomUserId: obj2[key2].roomUserId,
+              createrId: obj2[key2].createrId,
+              message: obj2[key2].message,
+              name: obj2[key2].name,
+              image: obj2[key2].image,
+              datetime: obj2[key2].datetime
+            })
+          }
         }
+        
 
          const updateUser = {
            id: userData.id,
@@ -358,6 +377,7 @@ export default new Vuex.Store({
            registeredFreetalks: registeredFreetalks,
            fbKeys: swappedPairs,
            comments: comments,
+           replys: replys,
            following: registeredFollowing,
            followingKeys: followingKey,
            followers: registeredFollowers,
@@ -811,30 +831,40 @@ export default new Vuex.Store({
        })
      },
 //リプライ機能の投稿・削除・取り出し
-    createReply({commit}, payload){
+    createReply({commit}, payload){//commentId
       const replyData = {
-        image: payload.image,
-        replymessage: payload.replymessage,
+        commentId: payload.commentId,
+        roomUserId: payload.roomUserId,
+        createrId: payload.createrId,
+        message: payload.message,
         name: payload.name,
-        replyuserid: payload.replyuserid,
-        commentId: payload.commentId
+        image: payload.image,
+        datetime: payload.datetime
       }
-      firebase.database().ref("/comments/" + payload.commentId).child("/replys/").push(replyData)
+      let replyId
+      firebase.database().ref("/users/" + payload.roomUserId).child("/comments/" + payload.commentId).child("/replys/").push(replyData)
+       .then((data) =>{
+        replyId = data.key
+        return firebase.database().ref("/users/" + payload.roomUserId).child("/comments/" + payload.commentId).child("/replys/" + replyId).update({ replyId: data.key})
+       })
        .then(()=>{
-         commit("createReply", replyData)
+         commit("createReply", {
+           ...replyData,
+           replyId: replyId
+         })
        })
        .catch(error =>{
          console.log(error)
        })
-    },
-    deleteReply({commit}, payload){
-      const ref = firebase.database().ref("replys")
-      ref.orderByChild("commentId").equalTo(payload.commentId).on("child_added", snapshot =>{
-        snapshot.ref.remove()
-        commit("deleteReply", snapshot)
-        console.log("deleteReply done")
-      })
-    },
+    }
+    // deleteReply({commit}, payload){
+    //   const ref = firebase.database().ref("replys")
+    //   ref.orderByChild("commentId").equalTo(payload.commentId).on("child_added", snapshot =>{
+    //     snapshot.ref.remove()
+    //     commit("deleteReply", snapshot)
+    //     console.log("deleteReply done")
+    //   })
+    // },
     // loadedReplys({commit}){
     //   firebase.database().ref("/comments/").once("value")
     //    .then(data=>{

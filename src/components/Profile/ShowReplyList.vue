@@ -1,0 +1,67 @@
+<template>
+    <v-container>
+        <v-layout v-for="reply in replys" :key="reply.replyId" row reverse wrap mb-3 mr-5>
+            <v-flex xs10 sm9 md7 offset-sm1 offset-md1>
+                <v-card>
+                      <v-card-actions class="pb-0">
+                           <v-btn
+                           text
+                            class="ml-3"
+                            height="50px"
+                            fab accent>
+                                <v-avatar size="50">
+                                    <img
+                                    v-if="reply.image"
+                                    :src="reply.image"
+                                    alt="John">
+                                    <img
+                                    v-else
+                                    :src="initalPhotoUrl"
+                                    alt="John">
+                                </v-avatar>
+                            </v-btn>
+                          <v-card-text>
+                              <p class="mb-0">{{ reply.datetime }}</p>
+                              <p>{{ reply.name }}</p>
+                          </v-card-text>
+                      </v-card-actions>
+                    <v-card-text class="pt-0">
+                       <h4>{{ reply.message }}</h4>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
+</template>
+
+<script>
+  export default {
+    props: ["commentId"],
+    data(){
+      return {
+         id: location.href.split("/")
+      }
+    },
+    created(){
+      this.$store.dispatch("fetchOtherUserData", this.id[this.id.length - 1])
+    },
+    computed: {
+      //プロフィールユーザ
+      otherUser(){
+       return this.$store.getters.otherUser
+     },
+      replys(){
+        const replys = this.$store.getters.otherUser.replys
+        return replys.filter((reply) =>{
+            return reply.commentId.match(this.commentId)
+        })
+      },
+     initalPhotoUrl(){
+         return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
+       }
+     }
+  }
+</script>
+
+
+

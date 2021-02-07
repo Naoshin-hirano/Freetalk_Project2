@@ -10,6 +10,8 @@ import EditFreeTalk from './components/Freetalk/EditFreeTalk.vue'
 import EditDate from './components/Freetalk/EditDate.vue'
 import EditTime from './components/Freetalk/EditTime.vue'
 import Comment from './components/Profile/Comment.vue'
+import Reply from './components/Profile/ReplyToComment.vue'
+import ShowReply from './components/Profile/ShowReplyList.vue'
 import RegisterDialog from './components/Freetalk/RegisterDialog.vue'
 import DeleteFreeTalk from './components/Freetalk/DeleteFreeTalk.vue'
 import DeleteUserAccount from './components/User/Delete-user.vue'
@@ -35,6 +37,8 @@ Vue.component("delete-user-account", DeleteUserAccount)
 Vue.component("app-alert", AppAlert)
 Vue.component('paginate', Paginate)
 Vue.component('comment-btn', Comment)
+Vue.component('reply-btn', Reply)
+Vue.component('show-reply-list', ShowReply)
 Vue.component('edit-profile', EditProfile)
 Vue.component('likes-btn', LikesButton)
 Vue.component('show-attendees', ShowAttendees)

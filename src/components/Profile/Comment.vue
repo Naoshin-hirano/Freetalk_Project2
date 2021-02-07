@@ -66,7 +66,7 @@
                             class="ml-3"
                             height="70px"
                             fab accent
-                            :to="'/profileforothers/' + comment.uid">
+                            :to="'/profileforothers/' + comment.createrId">
                                 <v-avatar size="70">
                                     <img
                                     v-if="comment.image"
@@ -86,6 +86,9 @@
                       </v-card-actions>
                       <v-spacer></v-spacer>
                       <v-card-actions>
+                        <reply-btn :commentId="comment.commentId"></reply-btn>
+                      </v-card-actions>
+                      <v-card-actions>
                          <delete-comment :commentId="comment.commentId"></delete-comment>
                       </v-card-actions>
                   </v-layout>
@@ -93,6 +96,9 @@
                     <h3>{{ comment.message}}</h3>
                   </v-card-text>
                 </v-card>
+            </v-flex>
+            <v-flex>
+               <show-reply-list :commentId="comment.commentId"></show-reply-list>
             </v-flex>
         </v-layout>
     </v-container>
