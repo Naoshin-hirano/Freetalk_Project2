@@ -3,7 +3,11 @@
         <v-layout v-for="reply in replys" :key="reply.replyId" row reverse wrap mb-3 mr-5>
             <v-flex xs10 sm9 md7 offset-sm1 offset-md1>
                 <v-card>
-                      <v-card-actions class="pb-0">
+                      <v-card-title class="grey pb-0 pt-4">
+                          <v-icon class="white--text mb-5">mdi-reply</v-icon>
+                          <p class="white--text">返信コメント</p>
+                      </v-card-title>
+                      <v-card-actions class="pb-0 pt-0">
                            <v-btn
                            text
                             class="ml-3"
@@ -22,11 +26,11 @@
                             </v-btn>
                           <v-card-text>
                               <p class="mb-0">{{ reply.datetime }}</p>
-                              <p>{{ reply.name }}</p>
+                              <h4>{{ reply.name }}</h4>
                           </v-card-text>
                       </v-card-actions>
                     <v-card-text class="pt-0">
-                       <h4>{{ reply.message }}</h4>
+                       <p>{{ reply.message }}</p>
                     </v-card-text>
                 </v-card>
             </v-flex>
