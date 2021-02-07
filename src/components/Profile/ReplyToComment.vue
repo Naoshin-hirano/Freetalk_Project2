@@ -3,10 +3,11 @@
     <v-dialog persistent width="600" v-model="registerDialog">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-        text
+        dark color="indigo accent-3"
+        class="mr-3 ml-3"
         v-bind="attrs"
         v-on="on">
-         <v-icon>mdi-reply-all-outline</v-icon>
+         返信
         </v-btn>
       </template>
       <v-card>

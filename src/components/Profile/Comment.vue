@@ -85,16 +85,16 @@
                           <v-spacer></v-spacer>
                       </v-card-actions>
                       <v-spacer></v-spacer>
+                  </v-layout>
+                  <v-layout>
+                      <v-card-text>
+                            <h3>{{ comment.message}}</h3>
+                      </v-card-text>
                       <v-card-actions>
-                        <reply-btn :commentId="comment.commentId"></reply-btn>
-                      </v-card-actions>
-                      <v-card-actions>
-                         <delete-comment :commentId="comment.commentId"></delete-comment>
+                            <delete-comment :commentId="comment.commentId"></delete-comment>
+                            <reply-btn :commentId="comment.commentId"></reply-btn>
                       </v-card-actions>
                   </v-layout>
-                  <v-card-text>
-                    <h3>{{ comment.message}}</h3>
-                  </v-card-text>
                 </v-card>
             </v-flex>
             <v-flex>

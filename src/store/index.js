@@ -865,42 +865,6 @@ export default new Vuex.Store({
     //     console.log("deleteReply done")
     //   })
     // },
-    // loadedReplys({commit}){
-    //   firebase.database().ref("/comments/").once("value")
-    //    .then(data=>{
-    //      const comments = []
-    //      const replys = []
-    //      const obj = data.val()
-    //      for(let key in obj){
-    //        comments.push({
-    //         roomUserId: obj[key].roomUserId,
-    //         name: obj[key].name,
-    //         image: obj[key].image,
-    //         message: obj[key].message,
-    //         commentId: obj[key].commentId,
-    //         datetime: obj[key].datetime,
-    //         replys: obj[key].replys
-    //        })
-    //        const obj2 = obj[key].replys
-    //        for(let key2 in obj2){//
-    //          replys.push({
-    //            commentId: obj2[key2].commentId,
-    //            image: obj2[key2].image,
-    //            name: obj2[key2].name,
-    //            replymessage: obj2[key2].replymessage,
-    //            replyuserid: obj2[key2].replyuserid
-    //          })
-    //        }//
-    //      }
-    //      commit("setLoadedReplys", replys)
-    //    })
-    //     .catch(error=>{
-    //       console.log(error)
-    //     })
-    // },
-    // clearError({commit}){
-    //   commit("clearError")
-    // }
   },
   getters: {
     loadedFreeTalks (state){

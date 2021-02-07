@@ -25,7 +25,7 @@
                                 </v-avatar>
                             </v-btn>
                           <v-card-text>
-                              <p class="mb-0">{{ reply.datetime }}</p>
+                              <p class="mb-0">{{ reply.datetime | date}}</p>
                               <h4>{{ reply.name }}</h4>
                           </v-card-text>
                       </v-card-actions>
