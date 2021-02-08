@@ -97,7 +97,7 @@
                   </v-layout>
                 </v-card>
             </v-flex>
-            <v-flex>
+            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                <show-reply-list :commentId="comment.commentId"></show-reply-list>
             </v-flex>
         </v-layout>

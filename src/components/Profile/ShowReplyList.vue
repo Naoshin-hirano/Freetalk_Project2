@@ -1,7 +1,7 @@
 <template>
-    <v-container>
-        <v-layout v-for="reply in replys" :key="reply.replyId" reverse wrap mb-3 mr-5>
-            <v-flex xs10 sm9 md7 offset-sm1 offset-md1>
+    <v-container class="pl-0 pr-0">
+        <v-layout v-for="reply in replys" :key="reply.replyId" reverse wrap mb-3>
+            <v-flex xs10 sm12 md10 offset-sm1 offset-md2>
                 <v-card>
                       <v-card-title class="grey pb-0 pt-4">
                           <v-icon class="white--text mb-5">mdi-reply</v-icon>
