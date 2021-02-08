@@ -883,13 +883,6 @@ export default new Vuex.Store({
    favs(state){
      return state.favs
    },
-    filterAttendance(state){
-      return (freetalkId)=>{
-        return state.attendance.filter((data) =>{
-          return data.freetalkId === freetalkId
-        })
-      }
-    },
     attendance(state){
      return state.attendance
     },
