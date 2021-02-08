@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-layout v-for="reply in replys" :key="reply.replyId" row reverse wrap mb-3 mr-5>
+        <v-layout v-for="reply in replys" :key="reply.replyId" reverse wrap mb-3 mr-5>
             <v-flex xs10 sm9 md7 offset-sm1 offset-md1>
                 <v-card>
                       <v-card-title class="grey pb-0 pt-4">
@@ -29,9 +29,14 @@
                               <h4>{{ reply.name }}</h4>
                           </v-card-text>
                       </v-card-actions>
-                    <v-card-text class="pt-0">
-                       <p>{{ reply.message }}</p>
-                    </v-card-text>
+                    <v-layout>
+                        <v-card-text class="pt-0">
+                            <p>{{ reply.message }}</p>
+                        </v-card-text>
+                        <v-card-actions>
+                            <delete-reply :commentId="commentId" :replyId="reply.replyId"></delete-reply>
+                        </v-card-actions>
+                    </v-layout>
                 </v-card>
             </v-flex>
         </v-layout>

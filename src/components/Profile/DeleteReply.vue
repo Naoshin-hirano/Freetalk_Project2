@@ -1,29 +1,34 @@
 <template>
   <v-row>
-    <v-dialog persistent width="350px" v-model="openDialog">
+    <v-dialog persistent width="380" v-model="registerDialog">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn text
-               v-bind="attrs"
-               v-on="on">
-            <v-icon >mdi-delete-forever</v-icon>
+        <v-btn
+        text
+        v-bind="attrs"
+        v-on="on">
+         <v-icon>mdi-delete-forever</v-icon>
         </v-btn>
       </template>
       <v-card>
          <v-container>
              <v-layout row wrap>
-                <v-card-title>返信を削除しますか？</v-card-title>
+                <v-card-title>このコメントを削除しますか?</v-card-title>
              </v-layout>
              <v-divider></v-divider>
              <v-layout row wrap>
                  <v-card-actions>
                         <v-btn
-                        class="cyan darken-1"
+                        class="cyan--text darken-1"
                         text
-                        @click="openDialog = false">Cancel</v-btn>
+                        @click="registerDialog = false">
+                        <h3>キャンセル</h3>
+                        </v-btn>
                         <v-btn
-                        class="cyan darken-1"
+                        class="cyan--text darken-1"
                         text
-                        @click="onAgree">Yes</v-btn>
+                        >
+                        <h3 @click="deleteReply">削除</h3>
+                        </v-btn>
                  </v-card-actions>
              </v-layout>
          </v-container>
@@ -34,18 +39,24 @@
 
 <script>
   export default {
+    props: ["commentId","replyId"],//commentId
     data(){
       return {
-        openDialog: false,
+        registerDialog: false,
         id: location.href.split("/")
       }
     },
+    created(){
+      this.$store.dispatch("fetchOtherUserData", this.id[this.id.length - 1])
+    },
     methods: {
-        onAgree(){
-            this.$store.dispatch("deleteReply",{
-                commentId: this.id[this.id.length - 1]
-            })
+      deleteReply(){
+        this.$store.dispatch("deleteReply", {
+          commentId: this.commentId,
+          replyId: this.replyId
+        })
+        this.registerDialog = false
         }
+      }
     }
-  }
 </script>

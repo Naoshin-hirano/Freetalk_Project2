@@ -150,13 +150,10 @@ export default new Vuex.Store({
       state.otherUser.replys.push(payload)
     },
     deleteReply(state, payload){
-      const reply = state.replys.find(reply =>{
-        return reply.commentId === payload.commentId
+      const reply = state.otherUser.replys.findIndex(reply =>{
+        return reply.replyId === payload//replyId
       })
-      state.replys.splice(reply, 1)
-    },
-    setLoadedReplys(state, payload){
-      state.replys = payload
+      state.otherUser.replys.splice(reply, 1)
     },
 //ユーザーアカウントをログイン・ログアウト
     setLoginUser(state, payload){
@@ -856,15 +853,16 @@ export default new Vuex.Store({
        .catch(error =>{
          console.log(error)
        })
-    }
-    // deleteReply({commit}, payload){
-    //   const ref = firebase.database().ref("replys")
-    //   ref.orderByChild("commentId").equalTo(payload.commentId).on("child_added", snapshot =>{
-    //     snapshot.ref.remove()
-    //     commit("deleteReply", snapshot)
-    //     console.log("deleteReply done")
-    //   })
-    // },
+    },
+    deleteReply({commit, getters}, payload){
+      firebase.database().ref("/users/" + getters.otherUser.id).child("/comments/" + payload.commentId).child("/replys/" + payload.replyId).remove()
+       .then(() =>{
+         commit("deleteReply", payload.replyId)
+       })
+       .catch(error =>{
+         console.log(error)
+       })
+    },
   },
   getters: {
     loadedFreeTalks (state){

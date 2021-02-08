@@ -98,8 +98,6 @@
             image: this.photoURL,
             datetime: this.submittableDateTime
           }
-          console.log("replyData")
-          console.log(replyData)
           this.$store.dispatch("createReply", replyData)
           this.input = ''
           this.registerDialog = false
