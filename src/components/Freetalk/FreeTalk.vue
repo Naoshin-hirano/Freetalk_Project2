@@ -96,7 +96,7 @@ export default {
         }
       }
     },
-   mounted(){
+   created(){
         db.database().ref("/users/" + this.createrId).once("value").then(data =>{
             this.creater.id = data.val().id,
             this.creater.photoURL = data.val().photoURL
@@ -104,13 +104,13 @@ export default {
     },
    computed: {
      freetalk(){
-      return this.$store.getters.loadedFreeTalk(this.id) 
+      return this.id ? this.$store.getters.loadedFreeTalk(this.id) : ""
      },
      user(){
       return this.$store.getters.user
      },
     createrId(){
-      return this.freetalk.createrId
+      return this.freetalk ? this.freetalk.createrId : ""
     },
     filterAttendance(){
         return this.$store.getters.attendance.filter((data) =>{
