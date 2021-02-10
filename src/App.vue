@@ -57,7 +57,9 @@
         </v-toolbar-items>
     </v-app-bar>
     <v-main class="grey lighten-3 ma-2">
-      <router-view/>
+      <transition>
+        <router-view/>
+      </transition>
     </v-main>
   </v-app>
 </template>
@@ -107,5 +109,4 @@ export default {
 </script>
 
 <style>
-
 </style>
