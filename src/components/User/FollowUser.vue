@@ -34,9 +34,9 @@ export default{
         return this.$store.getters.user
       },
       highly_rated(){
-                return this.user.following.findIndex(uid =>{
+            return this.user ? this.user.following.findIndex(uid =>{
               return uid === this.id[this.id.length - 1]
-            }) >= 0
+            }) >= 0 : null
           },
       otherUser(){
           return this.$store.getters.otherUser 
