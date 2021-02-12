@@ -2,15 +2,15 @@
     <v-container class="container">
        <v-layout mt-5 row wrap v-if="$store.state.user">
            <v-flex >
-               <v-btn to="/freetalks" dark color="red darken-2">FREETALKを検索してみる</v-btn>
+               <v-btn to="/freetalks" class="mb-3" width="300" dark color="red darken-2">FREETALKを検索してみる</v-btn>
            </v-flex>
            <v-flex >
-               <v-btn to="/freetalk/new" dark color="red darken-2">FREETALKを作成してメンバー募集</v-btn>
+               <v-btn to="/freetalk/new" width="300" dark color="red darken-2">FREETALKを投稿してみる</v-btn>
            </v-flex>
        </v-layout>
        <v-layout mt-5 row wrap v-else>
            <v-flex>
-              <v-btn x-large to="/login" dark color="red darken-2">Please login and enjoy your FreeTalk</v-btn> 
+              <v-btn x-large to="/login" dark color="red darken-2">ログインしてFREETALKを楽しもう！</v-btn> 
            </v-flex>
        </v-layout>
         <v-layout class="text-center">
@@ -27,7 +27,7 @@
        <v-layout row wrap mt-5  v-if="!loading">
            <v-flex >
                <v-card max-width="1000" class="mx-auto">
-                   <v-carousel >
+                   <v-carousel>
                         <v-carousel-item
                         v-for="freetalk in freetalks"
                         :key="freetalk.id"
@@ -42,7 +42,8 @@
        <v-layout row wrap mt-3>
            <v-flex style="text">
                <v-card max-width="1000" class="mx-auto pt-5 pb-5">
-                 <h2>FreeTalk is ...  みんなで無料語学研修を投稿・メンバー募集・開催しよう！</h2>
+                 <h2 class="hidden-xs-only">FreeTalk みんなで無料語学研修を投稿・メンバー募集・開催しよう！</h2>
+                 <h5 class="hidden-sm-and-up ">FreeTalk is ...  みんなで無料語学研修を投稿・メンバー募集・開催しよう！</h5>
                </v-card>
            </v-flex>
        </v-layout>

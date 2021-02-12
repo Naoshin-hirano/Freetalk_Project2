@@ -6,7 +6,8 @@
         text
         v-bind="attrs"
         v-on="on">
-          <v-icon large>mdi-calendar-range</v-icon>
+          <v-icon class="hidden-xs-only" large>mdi-calendar-range</v-icon>
+          <v-icon class="hidden-sm-and-up" >mdi-calendar-range</v-icon>
         </v-btn>
       </template>
       <v-card>

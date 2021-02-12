@@ -2,7 +2,7 @@
     <v-container>
         <v-layout row wrap>
             <v-flex xs4 sm3 md3 v-for="member in showThreeAttendees" :key="member.userName">
-                <v-card class="grey lighten-3 ma-2" width="150" height="150">
+                <v-card class="grey lighten-3 ma-2" width="70%" height="150">
                     <v-layout class="text-center">
                         <v-flex>
                             <v-btn
@@ -10,7 +10,17 @@
                             height="80px"
                             fab accent
                             :to="'/profileforothers/' + member.uid">
-                                <v-avatar size="70" >
+                                <v-avatar size="70" class="hidden-xs-only">
+                                    <img
+                                    v-if="member.photoURL"
+                                    :src="member.photoURL"
+                                    alt="John">
+                                    <img
+                                    v-else
+                                    :src="initalPhotoUrl"
+                                    alt="John">
+                                </v-avatar>
+                                <v-avatar size="40" class="hidden-sm-and-up">
                                     <img
                                     v-if="member.photoURL"
                                     :src="member.photoURL"
@@ -25,7 +35,8 @@
                     </v-layout>
                     <v-layout class="text-center">
                         <v-flex>
-                            <h4>{{ member.userName }}</h4>
+                            <h4 class="hidden-xs-only">{{ member.userName }}</h4>
+                            <span class="hidden-sm-and-up caption">{{ member.userName }}</span>
                         </v-flex>
                     </v-layout>
                 </v-card>
@@ -33,8 +44,11 @@
         </v-layout>
         <v-layout row wrap v-show="!filterAttendance.length">
             <v-flex xs8 sm8 md8>
-                <v-card class="grey lighten-3 ma-2">
+                <v-card class="grey lighten-3 ma-2 hidden-xs-only">
                     <v-card-text>出席者はいません</v-card-text>
+                </v-card>
+                <v-card class="grey lighten-3 pl-9 hidden-sm-and-up caption">
+                    <p class="mb-0">出席者はいません</p>
                 </v-card>
             </v-flex>
         </v-layout>

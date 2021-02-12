@@ -5,13 +5,25 @@
                 <v-card>
                     <v-container>
                         <v-layout class="text-center">
-                            <v-flex>
+                            <v-flex class="hidden-xs-only">
                                 <v-avatar v-if="imageForRoomUser" size="180">
                                     <img
                                     :src="imageForRoomUser"
                                     alt="John">
                                 </v-avatar>
-                                <v-avatar v-else>
+                                <v-avatar v-else size="180">
+                                    <img
+                                    :src="initalPhotoUrl"
+                                    alt="John">
+                                </v-avatar>
+                            </v-flex>
+                            <v-flex class="hidden-sm-and-up">
+                                <v-avatar v-if="imageForRoomUser" size="100">
+                                    <img
+                                    :src="imageForRoomUser"
+                                    alt="John">
+                                </v-avatar>
+                                <v-avatar v-else size="100">
                                     <img
                                     :src="initalPhotoUrl"
                                     alt="John">
@@ -28,8 +40,10 @@
                               <v-btn icon
                                     class="mt-3 ml-5"
                                     :to="'/comment/' + this.url[this.url.length - 1]">
-                                  <v-icon color="green" large left>mdi-comment-multiple-outline</v-icon>
-                                  <span>{{ otherUser ? comments.length : 0 }} コメントを見る</span>
+                                  <v-icon color="green" class="hidden-xs-only" large left>mdi-comment-multiple-outline</v-icon>
+                                  <v-icon color="green" class="hidden-sm-and-up">mdi-comment-multiple-outline</v-icon>
+                                  <span class="hidden-xs-only">{{ otherUser ? comments.length : 0 }} コメントを見る</span>
+                                  <span class="hidden-sm-and-up caption">{{ otherUser ? comments.length : 0 }} コメントを見る</span>
                               </v-btn>
                             </v-flex>
                             <v-flex xs12 sm10 md8 offset-sm3 offset-md3> 
@@ -38,10 +52,16 @@
                         </v-layout>
                         <v-layout class="text-center" mt-12>
                             <v-flex>
-                                <v-card class="grey lighten-3 ma-2">
+                                <v-card class="grey lighten-3 ma-2 hidden-xs-only">
                                     <h3>自己紹介</h3>
                                    <v-card-text>
                                      <h3>{{ introduction }}</h3>
+                                   </v-card-text>
+                                </v-card>
+                                 <v-card class="grey lighten-3 ma-2 hidden-sm-and-up">
+                                    <h5>自己紹介</h5>
+                                   <v-card-text>
+                                     <span class="caption">{{ introduction }}</span>
                                    </v-card-text>
                                 </v-card>
                             </v-flex>

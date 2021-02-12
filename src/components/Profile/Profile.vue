@@ -21,7 +21,7 @@
                     </v-card-actions>
                     <v-container>
                         <v-layout class="text-center">
-                            <v-flex>
+                            <v-flex class="hidden-xs-only">
                                 <v-avatar v-if="loggedinUserInfo" size="180">
                                     <img
                                     :src="loggedinUserInfo.photoURL"
@@ -33,10 +33,22 @@
                                     alt="John">
                                 </v-avatar>
                             </v-flex>
+                            <v-flex class="hidden-sm-and-up">
+                                <v-avatar v-if="loggedinUserInfo" size="100">
+                                    <img
+                                    :src="loggedinUserInfo.photoURL"
+                                    alt="John">
+                                </v-avatar>
+                                <v-avatar v-else size="100">
+                                  <img
+                                    :src="initalPhotoUrl"
+                                    alt="John">
+                                </v-avatar>
+                            </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-1 mb-10>
                             <v-flex >
-                                <h3 v-if="loggedinUserInfo">{{ loggedinUserInfo.userName }}</h3>
+                                <h3 v-if="loggedinUserInfo">{{ loggedinUserInfo.displayName }}</h3>
                             </v-flex>
                         </v-layout>
                          <v-layout mr-15>
@@ -45,21 +57,31 @@
                                     class="ml-4"
                                     v-if="loggedinUserInfo && loggedinUserInfo.id"
                                     :to="'/comment/' + loggedinUserInfo.id">
-                                  <v-icon left color="green">mdi-comment-multiple-outline</v-icon>
-                                  <span>{{ loggedinUserInfo ? comments.length : 0 }} コメントを見る</span>
+                                  <v-icon class="hidden-xs-only" left color="green">mdi-comment-multiple-outline</v-icon>
+                                  <v-icon class="hidden-sm-and-up" small color="green">mdi-comment-multiple-outline</v-icon>
+                                  <span class="hidden-xs-only">{{ loggedinUserInfo ? comments.length : 0 }} コメントを見る</span>
+                                  <span class="hidden-sm-and-up font-weight-bold caption">{{ loggedinUserInfo ? comments.length : 0 }} コメントを見る</span>
                               </v-btn>
                             </v-flex>
                             <v-flex xs12 sm10 md8 offset-xs2 offset-sm3 offset-md3 class="mt-1">
-                                <v-icon left color="orange darken-2">mdi-star</v-icon>
-                                <span>{{ loggedinUserInfo ? followers.length : 0 }} つの高評価</span>
+                                <v-icon class="hidden-xs-only" left color="orange darken-2">mdi-star</v-icon>
+                                <v-icon class="hidden-sm-and-up" small color="orange darken-2">mdi-star</v-icon>
+                                <span class="hidden-xs-only">{{ loggedinUserInfo ? followers.length : 0 }} つの高評価</span>
+                                <span class="hidden-sm-and-up caption">{{ loggedinUserInfo ? followers.length : 0 }} つの高評価</span>
                             </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-12>
                             <v-flex>
-                                <v-card class="grey lighten-3 ma-2">
+                                <v-card class="grey lighten-3 ma-2 hidden-xs-only">
                                     <h3>自己紹介</h3>
                                    <v-card-text>
                                      <h3 v-if="loggedinUserInfo">{{ loggedinUserInfo.introduction }}</h3>
+                                   </v-card-text>
+                                </v-card>
+                                <v-card class="grey lighten-3 ma-2 hidden-sm-and-up">
+                                    <h5>自己紹介</h5>
+                                   <v-card-text>
+                                     <span class="caption" v-if="loggedinUserInfo">{{ loggedinUserInfo.introduction }}</span>
                                    </v-card-text>
                                 </v-card>
                             </v-flex>

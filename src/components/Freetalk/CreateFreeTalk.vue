@@ -5,7 +5,7 @@
                 <v-card>
                     <v-layout>
                         <v-flex xs12 sm6 offset-sm3 mb-4>
-                            <h2 class="mt-5">FREETALK を投稿</h2>
+                            <h2 class="mt-5 ml-3">FREETALK を投稿</h2>
                         </v-flex>
                     </v-layout>
                     <v-layout>
@@ -14,6 +14,7 @@
                                 <v-layout>
                                     <v-flex>
                                         <v-select
+                                            class="ml-3 mr-3"
                                             label="言語"
                                             name="language"
                                             id="language"
@@ -33,6 +34,7 @@
                                             id="title"
                                             v-model="title"
                                             required
+                                            class="ml-3 mr-3"
                                         ></v-text-field>
                                     </v-flex>
                                 </v-layout>
@@ -44,12 +46,15 @@
                                             id="location"
                                             v-model="location"
                                             required
+                                            class="ml-3 mr-3"
                                         ></v-text-field>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex>
-                                        <v-btn raised class="white--text indigo accent-3 ml-3" @click="onPickFile">画像アップロード</v-btn>
+                                        <v-btn
+                                        raised class="white--text indigo accent-3 ml-6 mr-3" 
+                                        @click="onPickFile">画像アップロード</v-btn>
                                         <input type="file" 
                                                 style="display: none" 
                                                 ref="fileInput"
@@ -59,7 +64,7 @@
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex>
-                                        <img :src="imageUrl" height="150" class="ml-3 mt-3 mb-4">
+                                        <img :src="imageUrl" height="150" class="ml-6 mt-3 mb-4">
                                     </v-flex>
                                 </v-layout>
                                 <v-layout>
@@ -69,7 +74,8 @@
                                             name="description"
                                             id="description"
                                             v-model="description"
-                                            required>
+                                            required
+                                            class="ml-3 mr-3">
                                         </v-textarea>
                                     </v-flex>
                                 </v-layout>
@@ -79,7 +85,7 @@
                                     </v-flex>
                                 </v-layout>
                                 <v-layout mb-4>
-                                    <v-flex xs10 sm12 offset-xs2 offset-sm1>
+                                    <v-flex xs10 sm12 offset-xs1 offset-sm1>
                                         <v-date-picker
                                         color="indigo accent-3"
                                         elevation="15"
@@ -88,7 +94,7 @@
                                     </v-flex>
                                 </v-layout>
                                 <v-layout mb-4>
-                                    <v-flex xs10 sm12 offset-xs2 offset-sm1 mb-4>
+                                    <v-flex xs10 sm12 offset-xs1 offset-sm1 mb-4>
                                         <v-time-picker
                                         color="indigo accent-3"
                                         format="24hr"

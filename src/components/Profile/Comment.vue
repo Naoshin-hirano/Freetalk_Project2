@@ -2,7 +2,17 @@
     <v-container>
         <v-layout class="text-center">
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-              <v-avatar size="150">
+                <v-avatar size="150" class="hidden-xs-only">
+                  <img
+                  v-if="imageForRoomUser"
+                  :src="imageForRoomUser"
+                  alt="John">
+                  <img
+                  v-else
+                  :src="initalPhotoUrl"
+                  alt="John">
+                </v-avatar>
+                <v-avatar size="80" class="hidden-sm-and-up">
                   <img
                   v-if="imageForRoomUser"
                   :src="imageForRoomUser"
@@ -14,7 +24,7 @@
                 </v-avatar>
             </v-flex>
         </v-layout>
-        <v-layout class="text-center">
+        <v-layout wrap class="text-center">
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <h3>{{ nameForRoomUser }}</h3>
             </v-flex>
@@ -64,7 +74,6 @@
                       <v-card-actions>
                            <v-btn
                             class="ml-3"
-                            height="70px"
                             fab accent
                             :to="'/profileforothers/' + comment.createrId">
                                 <v-avatar size="70">

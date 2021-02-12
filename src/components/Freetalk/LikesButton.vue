@@ -5,7 +5,8 @@
         text
         v-if="!fav_status"
         @click.prevent="favorite">
-         <v-icon large color="pink darken-1">mdi-heart-outline</v-icon>
+         <v-icon class="hidden-xs-only" large color="pink darken-1">mdi-heart-outline</v-icon>
+         <v-icon class="hidden-sm-and-up"  color="pink darken-1">mdi-heart-outline</v-icon>
          {{ counter.length }}
         </v-btn>
         <v-btn
@@ -13,7 +14,8 @@
         text
         v-else
         @click.prevent="unfavorite">
-         <v-icon large color="pink darken-1">mdi-cards-heart</v-icon>
+         <v-icon class="hidden-xs-only" large color="pink darken-1">mdi-cards-heart</v-icon>
+         <v-icon class="hidden-sm-and-up" color="pink darken-1">mdi-cards-heart</v-icon>
          {{ counter.length }}
         </v-btn>
     </div>
@@ -26,7 +28,6 @@ export default{
       user(){
         return this.$store.getters.user
       },
-
       fav_status(){
         return this.$store.getters.favs.findIndex(fav =>{
           return fav.freetalkId === this.freetalk.id 

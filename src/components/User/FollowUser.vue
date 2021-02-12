@@ -4,17 +4,38 @@
         fab accent
         text
         v-if="!highly_rated"
-        @click.prevent="follow">
+        @click.prevent="follow"
+        class="hidden-xs-only">
          <v-icon left large color="orange darken-2">mdi-star-outline</v-icon>
-         {{ followers ? followers.length : 0 }} 高評価する
+         <span>{{ followers ? followers.length : 0 }} 高評価する</span>
         </v-btn>
         <v-btn
         fab accent
         text
-        v-else
-        @click.prevent="unFollow">
+        v-if="!highly_rated"
+        @click.prevent="follow"
+        class="hidden-sm-and-up caption">
+         <v-icon color="orange darken-2">mdi-star-outline</v-icon>
+         <span>{{ followers ? followers.length : 0 }} 高評価する</span>
+        </v-btn>
+
+        <v-btn
+        fab accent
+        text
+        v-if="highly_rated"
+        @click.prevent="unFollow"
+        class="hidden-xs-only">
          <v-icon large color="orange darken-2">mdi-star</v-icon>
-          {{ followers ? followers.length : 0 }} 高評価を解除する
+          <span>{{ followers ? followers.length : 0 }} 高評価を解除する</span>
+        </v-btn>
+        <v-btn
+        fab accent
+        text
+        v-if="highly_rated"
+        @click.prevent="unFollow"
+        class="hidden-sm-and-up caption">
+         <v-icon color="orange darken-2">mdi-star</v-icon>
+          <span>{{ followers ? followers.length : 0 }} 高評価を解除</span>
         </v-btn>
     </div>
 </template>

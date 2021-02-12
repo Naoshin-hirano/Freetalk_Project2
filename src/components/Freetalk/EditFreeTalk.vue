@@ -7,7 +7,8 @@
           v-on="on"
           fab accent
           text>
-           <v-icon large>mdi-pencil</v-icon>
+           <v-icon class="hidden-xs-only" large>mdi-pencil</v-icon>
+           <v-icon class="hidden-sm-and-up" >mdi-pencil</v-icon>
         </v-btn>
       </template>
       <v-card>

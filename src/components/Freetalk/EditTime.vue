@@ -6,7 +6,8 @@
         text
         v-bind="attrs"
         v-on="on">
-           <v-icon large>mdi-clock-time-four-outline</v-icon>
+           <v-icon class="hidden-xs-only" large>mdi-clock-time-four-outline</v-icon>
+           <v-icon class="hidden-sm-and-up">mdi-clock-time-four-outline</v-icon>
         </v-btn>
       </template>
       <v-card>

@@ -5,7 +5,7 @@
                <v-card>
                     <v-card-title>
                         <v-text-field
-                            append-icon="mdi-magnify"
+                            prepend-inner-icon="mdi-magnify"
                             label="言語・タイトル・年月日で検索する"
                             single-line
                             hide-details
@@ -36,23 +36,41 @@
                                 :size="40"
                             ></v-progress-circular>
                          </v-flex>
-                         <v-flex v-if="!loading" xs5 sm4 md3 >
+                         <v-flex v-if="!loading" xs4 sm4 md3 >
                              <v-img
+                                class="hidden-xs-only"
                                 height="130"
+                                :src="freetalk.imageUrl"
+                            ></v-img>
+                            <v-img
+                                class="hidden-sm-and-up" 
+                                height="70"
                                 :src="freetalk.imageUrl"
                             ></v-img>
                          </v-flex>
                          <v-flex xs8 sm8 md8>
-                             <v-card-text>
+                             <v-card-text class="hidden-xs-only">
                                     <h3 >【{{ freetalk.language }}】{{ freetalk.title }}</h3>
                                     <p>{{ freetalk.date | date }}</p>
                             </v-card-text>
-                            <v-card-actions>
+                            <v-card-text class="hidden-sm-and-up">
+                                    <h4>【{{ freetalk.language }}】{{ freetalk.title }}</h4>
+                                    <p class="caption mb-0">{{ freetalk.date | date }}</p>
+                            </v-card-text>
+                            <v-card-actions class="pb-0 pt-0">
                                  <v-btn :to="'/freetalks/' + freetalk.id" 
                                         text
-                                        color="blue">
+                                        color="blue"
+                                        class="hidden-xs-only">
                                      <v-icon left>mdi-arrow-right</v-icon>
                                      詳細を見る
+                                 </v-btn>
+                                 <v-btn :to="'/freetalks/' + freetalk.id" 
+                                        text
+                                        color="blue"
+                                        class="hidden-sm-and-up">
+                                     <v-icon left>mdi-arrow-right</v-icon>
+                                     <span class="caption">詳細を見る</span>
                                  </v-btn>
                              </v-card-actions>
                          </v-flex>
