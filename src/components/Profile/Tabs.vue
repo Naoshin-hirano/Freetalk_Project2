@@ -29,11 +29,7 @@
           <likesList/>
       </v-tab-item>
       <v-tab-item>
-         <v-card flat>
-          <v-card-text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </v-card-text>
-        </v-card>
+          <attendList/>
       </v-tab-item>
        <v-tab-item>
         <v-card flat>
@@ -56,8 +52,9 @@
 
 <script>
     import likesList from '../Freetalk/LikesList.vue'
+    import attendList from '../Freetalk/AttendList.vue'
     export default {
-    components: { likesList },
+    components: { likesList, attendList },
     data () {
     return {
         tabs: null

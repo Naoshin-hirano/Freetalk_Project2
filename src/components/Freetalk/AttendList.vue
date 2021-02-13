@@ -71,22 +71,22 @@ export default {
       return this.$store.getters.user
     },
     //あなたのいいねを取得
-    myfavs(){
-      let favs = this.$store.getters.favs
-      return favs.filter((fav)=>{
-        return fav.uid.match(this.user.id)
+    attendance(){
+      let attendance = this.$store.getters.attendance
+      return attendance.filter((attend)=>{
+        return attend.uid.match(this.user.id)
          })
       },
     loadedFreetalk(){
-      let favsArray = this.myfavs
+      let attendanceArray = this.attendance
       let freetalks = []
       this.$store.getters.loadedFreeTalks.forEach(element =>{
-          function checkFavs(arr, id){
+          function checkAttend(arr, id){
             return arr.some(function(value){
                 return id === value.freetalkId
             })
          }
-         if(checkFavs(favsArray, element.id)){
+         if(checkAttend(attendanceArray, element.id)){
             freetalks.push(element)
          }
       })
