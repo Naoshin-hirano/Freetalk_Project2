@@ -6,28 +6,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    loadedFreeTalks:
-      [
-        {imageUrl: "https://reloadvisor.org/wp-content/uploads/2019/10/NY-ReloAdvisor.org_.jpg", 
-        id: "akdddgela22nad", 
-        title: "FreeTalk in NewYork",
-        date: "2017-09-29",
-        location: "New York",
-        description: "New York is Awesome !!"},
-        {imageUrl: "https://yuuma7.com/wp-content/uploads/2017/01/sundown-paris-830x460.jpg", 
-        id: "akdbbraa5ffggg", 
-        title: "FreeTalk in Paris",
-        date: "2017-10-20",
-        location: "Paris",
-        description: "Paris is Awesome !!"}
-      ],
-      attendance: [],
-      user: null,
-      otherUser: null,
-      error: null,
-      loading: false,
-      //いいね機能
-      favs: []
+    loadedFreeTalks:[],
+    attendance: [],
+    user: null,
+    otherUser: null,
+    error: null,
+    loading: false,
+    //いいね機能
+    favs: []
   },
   mutations: {
 //ユーザーフォロー機能の投稿・削除
