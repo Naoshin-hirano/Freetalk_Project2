@@ -32,19 +32,7 @@
           <attendList/>
       </v-tab-item>
        <v-tab-item>
-        <v-card flat>
-          <v-card-title class="headline">
-            An even better title
-          </v-card-title>
-          <v-card-text>
-            <p>
-              Maecenas ullamcorper, dui et placerat feugiat, eros pede varius nisi, condimentum viverra felis nunc et lorem. Sed hendrerit. Maecenas malesuada. Vestibulum ullamcorper mauris at ligula. Proin faucibus arcu quis ante.
-            </p>
-            <p class="mb-0">
-              Etiam vitae tortor. Curabitur ullamcorper ultricies nisi. Sed magna purus, fermentum eu, tincidunt eu, varius ut, felis. Aliquam lobortis. Suspendisse potenti.
-            </p>
-          </v-card-text>
-        </v-card>
+          <myFreetalkList/>
       </v-tab-item>
     </v-tabs-items>
   </v-card>
@@ -53,8 +41,9 @@
 <script>
     import likesList from '../Freetalk/LikesList.vue'
     import attendList from '../Freetalk/AttendList.vue'
+    import myFreetalkList from '../Freetalk/MyFreetalkList.vue'
     export default {
-    components: { likesList, attendList },
+    components: { likesList, attendList, myFreetalkList},
     data () {
     return {
         tabs: null
