@@ -3,22 +3,32 @@
     <v-toolbar
       color="indigo accent-3"
       dark
-      flat
-      height="10"
+      
+      height="20"
       class="mt-3"
     >
       <template v-slot:extension>
         <v-tabs
           v-model="tabs"
-          fixed-tabs>
+          fixed-tabs
+          icons-and-text>
           <v-tab>
-            いいね
+                <div>
+                    <h4 class="mt-1">いいね</h4>
+                </div>
+                <v-icon>mdi-cards-heart</v-icon>
           </v-tab>
           <v-tab>
-            出席登録
+              <div>
+                  <h4 class="mt-1">出席登録</h4>
+              </div>
+              <v-icon>mdi-account-plus</v-icon>
           </v-tab>
           <v-tab>
-            My投稿
+              <div>
+                   <h4 class="mt-1">My投稿</h4>
+              </div>
+              <v-icon>mdi-google-maps</v-icon>
           </v-tab>
         </v-tabs>
       </template>
