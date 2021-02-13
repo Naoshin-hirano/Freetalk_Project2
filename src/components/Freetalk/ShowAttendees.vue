@@ -72,3 +72,9 @@
     }
   }
 </script>
+
+<style scoped>
+ span{
+  line-height: 0%;
+ }
+</style>

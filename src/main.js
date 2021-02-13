@@ -22,6 +22,7 @@ import LikesButton from './components/Freetalk/LikesButton.vue'
 import ShowAttendees from './components/Freetalk/ShowAttendees.vue'
 import DeleteComment from './components/Profile/DeleteComment.vue'
 import DeleteReply from './components/Profile/DeleteReply.vue'
+import Tabs from './components/Profile/Tabs.vue'
 import FollowUser from './components/User/FollowUser.vue'
 
 
@@ -44,6 +45,7 @@ Vue.component('show-attendees', ShowAttendees)
 Vue.component('delete-comment', DeleteComment)
 Vue.component('delete-reply', DeleteReply)
 Vue.component('follow-user', FollowUser)
+Vue.component('tabs', Tabs)
 
 new Vue({
   router,

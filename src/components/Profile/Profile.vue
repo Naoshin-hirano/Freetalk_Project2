@@ -88,6 +88,7 @@
                         </v-layout>
                     </v-container>
                 </v-card>
+                <tabs></tabs>
             </v-flex>
         </v-layout>
     </v-container>
