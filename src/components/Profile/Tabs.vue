@@ -26,10 +26,10 @@
 
      <v-tabs-items v-model="tabs">
       <v-tab-item>
-          <likesList/>
+          <myLikesList/>
       </v-tab-item>
       <v-tab-item>
-          <attendList/>
+          <myAttendList/>
       </v-tab-item>
        <v-tab-item>
           <myFreetalkList/>
@@ -39,11 +39,11 @@
 </template>
 
 <script>
-    import likesList from '../Freetalk/LikesList.vue'
-    import attendList from '../Freetalk/AttendList.vue'
+    import myLikesList from '../Freetalk/MyLikesList.vue'
+    import myAttendList from '../Freetalk/MyAttendList.vue'
     import myFreetalkList from '../Freetalk/MyFreetalkList.vue'
     export default {
-    components: { likesList, attendList, myFreetalkList},
+    components: { myLikesList, myAttendList, myFreetalkList},
     data () {
     return {
         tabs: null
