@@ -102,6 +102,14 @@
                     </v-card-text>
                 </v-card>
             </v-flex>
+            <v-flex>
+              <v-overlay v-show="loading">
+                <v-progress-circular
+                  indeterminate
+                  size="64"
+                ></v-progress-circular>
+              </v-overlay>
+            </v-flex>
         </v-layout>
     </v-container>
 </template>
@@ -120,7 +128,10 @@ export default {
     },
     error(){
       return this.$store.getters.error
-    }
+    },
+    loading(){
+       return this.$store.getters.loading
+     }
   },
   watch: {
     user(value){//signin成功したらホーム画面へ

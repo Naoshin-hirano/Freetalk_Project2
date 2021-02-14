@@ -370,9 +370,11 @@ export default new Vuex.Store({
        })
     },
 //googleログイン・ログアウト
-    login(){
+    login({commit}){
+      commit("setLoading", true)
       const google_auth_provider = new firebase.auth.GoogleAuthProvider()
       firebase.auth().signInWithRedirect(google_auth_provider)
+      commit("setLoading", false)
     },
     logout(){
       firebase.auth().signOut()
@@ -385,6 +387,7 @@ export default new Vuex.Store({
    },
 //googleユーザーセット・削除
     setLoginUser({commit}, payload){
+      commit("setLoading", true)
       commit("setLoginUser", {
         id: payload.uid,
         photoURL: payload.photoURL,
@@ -402,6 +405,7 @@ export default new Vuex.Store({
         followers: [],
         followersKeys: {}
       })
+      commit("setLoading", false)
     },
     deleteLoginUser({commit}){
       commit("deleteLoginUser")
@@ -504,6 +508,7 @@ export default new Vuex.Store({
       }
       let imageUrl
       let key
+      commit("setLoading", true)
       firebase.database().ref('freetalks').push(freetalk)
         .then((data) => {
           key = data.key
@@ -527,8 +532,10 @@ export default new Vuex.Store({
             id: key,
             imageUrl: imageUrl
           })
+          commit("setLoading", false)
         })
        .catch( error =>{
+         commit("setLoading", false)
          console.log(error)
        })
     },

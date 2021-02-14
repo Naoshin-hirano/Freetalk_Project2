@@ -73,9 +73,9 @@ export default {
     //あなたのいいねを取得
     myfavs(){
       let favs = this.$store.getters.favs
-      return favs.filter((fav)=>{
+      return this.otherUser ? favs.filter((fav)=>{
         return fav.uid.match(this.otherUser.id)
-         })
+         }) : ""
       },
     loadedFreetalk(){
       let favsArray = this.myfavs
