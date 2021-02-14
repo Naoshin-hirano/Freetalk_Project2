@@ -1,5 +1,10 @@
 <template>
   <v-container >
+    <v-layout v-show="!loadedFreetalk.length">
+       <v-flex class="text-center">
+         <p>このユーザーの投稿はありません</p>
+       </v-flex>
+    </v-layout>
      <v-layout v-for="freetalk in loadedFreetalk" :key="freetalk.index" mb-3>
          <v-flex xs12 sm10 md10 offset-sm1 offset-md1>
              <v-card>
@@ -73,9 +78,9 @@ export default {
     //あなたのいいねを取得
     loadedFreetalk(){
       let loadedFreeTalks = this.$store.getters.loadedFreeTalks
-      return loadedFreeTalks.filter((talk)=>{
+      return this.otherUser ? loadedFreeTalks.filter((talk)=>{
         return talk.createrId.match(this.otherUser.id)
-         })
+         }) : ""
       },
     loading(){
        return this.$store.getters.loading

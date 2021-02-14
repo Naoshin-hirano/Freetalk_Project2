@@ -23,7 +23,6 @@ import ShowAttendees from './components/Freetalk/ShowAttendees.vue'
 import DeleteComment from './components/Profile/DeleteComment.vue'
 import DeleteReply from './components/Profile/DeleteReply.vue'
 import MyTabs from './components/Profile/MyTabs.vue'
-import TabsForOthers from './components/Profile/TabsForOthers.vue'
 import FollowUser from './components/User/FollowUser.vue'
 
 
@@ -47,7 +46,6 @@ Vue.component('delete-comment', DeleteComment)
 Vue.component('delete-reply', DeleteReply)
 Vue.component('follow-user', FollowUser)
 Vue.component('my-tabs', MyTabs)
-Vue.component('tabs-for-others', TabsForOthers)
 
 new Vue({
   router,

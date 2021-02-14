@@ -1,6 +1,11 @@
 <template>
   <v-container >
-     <v-layout v-for="freetalk in loadedFreetalk" :key="freetalk.index" mb-3>
+    <v-layout v-if="!loadedFreetalk.length">
+       <v-flex class="text-center">
+         <p>いいね済みの投稿はありません</p>
+       </v-flex>
+    </v-layout>
+     <v-layout v-else v-for="freetalk in loadedFreetalk" :key="freetalk.index" mb-3>
          <v-flex xs12 sm10 md10 offset-sm1 offset-md1>
              <v-card>
                  <v-container fluid>
@@ -80,7 +85,7 @@ export default {
     loadedFreetalk(){
       let favsArray = this.myfavs
       let freetalks = []
-      this.$store.getters.loadedFreeTalks.forEach(element =>{
+      this.otherUser ? this.$store.getters.loadedFreeTalks.forEach(element =>{
           function checkFavs(arr, id){
             return arr.some(function(value){
                 return id === value.freetalkId
@@ -89,7 +94,7 @@ export default {
          if(checkFavs(favsArray, element.id)){
             freetalks.push(element)
          }
-      })
+      }) : ""
       return freetalks
     },
     loading(){

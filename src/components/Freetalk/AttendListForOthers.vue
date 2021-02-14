@@ -1,5 +1,10 @@
 <template>
   <v-container >
+    <v-layout v-show="!loadedFreetalk.length">
+       <v-flex class="text-center">
+         <p>出席登録はありません</p>
+       </v-flex>
+    </v-layout>
      <v-layout v-for="freetalk in loadedFreetalk" :key="freetalk.index" mb-3>
          <v-flex xs12 sm10 md10 offset-sm1 offset-md1>
              <v-card>
@@ -80,7 +85,7 @@ export default {
     loadedFreetalk(){
       let attendanceArray = this.attendance
       let freetalks = []
-      this.$store.getters.loadedFreeTalks.forEach(element =>{
+      this.otherUser ? this.$store.getters.loadedFreeTalks.forEach(element =>{
           function checkAttend(arr, id){
             return arr.some(function(value){
                 return id === value.freetalkId
@@ -89,7 +94,7 @@ export default {
          if(checkAttend(attendanceArray, element.id)){
             freetalks.push(element)
          }
-      })
+      }) : ""
       return freetalks
     },
     loading(){

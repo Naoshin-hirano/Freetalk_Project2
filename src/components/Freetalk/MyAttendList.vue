@@ -1,5 +1,10 @@
 <template>
   <v-container >
+    <v-layout v-show="!loadedFreetalk.length">
+       <v-flex class="text-center">
+         <p>出席登録はありません</p>
+       </v-flex>
+    </v-layout>
      <v-layout v-for="freetalk in loadedFreetalk" :key="freetalk.index" mb-3>
          <v-flex xs12 sm10 md10 offset-sm1 offset-md1>
              <v-card>

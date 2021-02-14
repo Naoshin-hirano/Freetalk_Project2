@@ -79,7 +79,7 @@
                         </v-layout>
                     </v-container>
                 </v-card>
-                <tabs-for-others></tabs-for-others>
+                <tabsForOthers/>
             </v-flex>
         </v-layout>
     </v-container>
@@ -87,7 +87,9 @@
 
 
 <script>
+  import tabsForOthers from '../Profile/TabsForOthers.vue'
   export default {
+    components: { tabsForOthers },
     data () {
       return {
         editDialog: false,
