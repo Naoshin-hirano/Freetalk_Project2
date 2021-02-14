@@ -3,7 +3,6 @@
     <v-toolbar
       color="indigo accent-3"
       dark
-      
       height="20"
       class="mt-3"
     >
