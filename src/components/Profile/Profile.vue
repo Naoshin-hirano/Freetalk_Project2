@@ -12,10 +12,10 @@
                       <v-spacer></v-spacer>
                        <v-layout>
                          <v-flex>
-                           <edit-profile></edit-profile>
+                           <editProfile/>
                          </v-flex>
                          <v-flex>
-                           <delete-user-account></delete-user-account>
+                           <deleteUserAccount/>
                          </v-flex>
                        </v-layout>
                     </v-card-actions>
@@ -88,7 +88,7 @@
                         </v-layout>
                     </v-container>
                 </v-card>
-                <my-tabs></my-tabs>
+                <myTabs/>
             </v-flex>
         </v-layout>
     </v-container>
@@ -97,7 +97,11 @@
 
 <script>
   import firebase from "firebase"
+  import myTabs from '../Profile/MyTabs.vue'
+  import editProfile from '../Profile/EditProfile.vue'
+  import deleteUserAccount from '../User/DeleteUser.vue'
   export default {
+    components: { myTabs, editProfile, deleteUserAccount },
     data () {
       return {
         editDialog: false,

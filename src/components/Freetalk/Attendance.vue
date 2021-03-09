@@ -87,9 +87,6 @@
 <script>
   export default {
     computed: {
-      // filterAttendance(){
-      //   return this.$store.getters.filterAttendance(this.$route.params.id)
-      // },
       filterAttendance(){
         return this.$store.getters.attendance.filter((data) =>{
           return data.freetalkId === this.$route.params.id

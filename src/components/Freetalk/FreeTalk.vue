@@ -46,13 +46,13 @@
                         <v-spacer></v-spacer>
                         <v-layout mb-7>
                             <v-flex >
-                                <likes-btn v-if="freetalk" :freetalk="freetalk"></likes-btn>
+                                <likesBtn v-if="freetalk" :freetalk="freetalk"/>
                             </v-flex>
                             <v-flex>
-                                 <delete-free-talk v-if="freetalk" :freetalk="freetalk" width="500"></delete-free-talk>
+                                 <deleteFreeTalk v-if="freetalk" :freetalk="freetalk" width="500"/>
                             </v-flex>
                             <v-flex>
-                                <edit-free-talk v-if="freetalk" :freetalk="freetalk"></edit-free-talk>
+                                <editFreeTalk v-if="freetalk" :freetalk="freetalk"/>
                             </v-flex>
                         </v-layout>
                     </v-card-title>
@@ -73,16 +73,14 @@
                         <p v-if="freetalk" class="mt-0">Language: {{ freetalk.language }}</p>
                         <v-chip-group column class="ml-3">
                            <div class="mr-10">
-                               <edit-date
+                               <editDate
                                 v-if="freetalk"
-                                :freetalk="freetalk"
-                                ></edit-date>
+                                :freetalk="freetalk"/>
                             </div>
                             <div class="ml-5">
-                                <edit-time
+                                <editTime
                                 v-if="freetalk"
-                                :freetalk="freetalk"
-                                ></edit-time>
+                                :freetalk="freetalk"/>
                             </div>
                         </v-chip-group>
                         <div v-if="freetalk" class="mt-5 mb-5">{{ freetalk.description }}</div>
@@ -106,9 +104,9 @@
                         </v-flex>
                     </v-layout>
                     <v-card-actions>
-                        <show-attendees class="pb-0"></show-attendees>
+                        <showAttendees class="pb-0"/>
                         <v-spacer></v-spacer>
-                        <register-dialog class="mr-2 mt-10" v-if="freetalk" :freetalkId="freetalk.id"></register-dialog>
+                        <registerDialog class="mr-2 mt-10" v-if="freetalk" :freetalkId="freetalk.id"/>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -117,7 +115,15 @@
 </template>
 
 <script>
+import likesBtn from '../Freetalk/LikesButton.vue'
+import deleteFreeTalk from '../Freetalk/DeleteFreeTalk.vue'
+import editFreeTalk from '../Freetalk/EditFreeTalk.vue'
+import editDate from '../Freetalk/EditDate.vue'
+import editTime from '../Freetalk/EditTime.vue'
+import showAttendees from '../Freetalk/ShowAttendees.vue'
+import registerDialog from '../Freetalk/RegisterDialog.vue'
 export default {
+   components: { likesBtn, deleteFreeTalk, editFreeTalk, editDate, editTime, showAttendees, registerDialog },
    props: ["id"],
    computed: {
      freetalk(){

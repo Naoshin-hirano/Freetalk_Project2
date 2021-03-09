@@ -47,7 +47,7 @@
                               </v-btn>
                             </v-flex>
                             <v-flex xs12 sm10 md8 offset-sm3 offset-md3> 
-                                <follow-user></follow-user>
+                                <followUser/>
                             </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-12>
@@ -88,8 +88,9 @@
 
 <script>
   import tabsForOthers from '../Profile/TabsForOthers.vue'
+  import followUser from '../User/FollowUser.vue'
   export default {
-    components: { tabsForOthers },
+    components: { tabsForOthers, followUser },
     data () {
       return {
         editDialog: false,

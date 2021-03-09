@@ -34,7 +34,7 @@
                             <p>{{ reply.message }}</p>
                         </v-card-text>
                         <v-card-actions>
-                            <delete-reply :commentId="commentId" :replyId="reply.replyId"></delete-reply>
+                            <deleteReply :commentId="commentId" :replyId="reply.replyId"/>
                         </v-card-actions>
                     </v-layout>
                 </v-card>
@@ -44,7 +44,9 @@
 </template>
 
 <script>
+  import deleteReply from '../Profile/DeleteReply.vue'
   export default {
+    components: { deleteReply },
     props: ["commentId"],
     data(){
       return {

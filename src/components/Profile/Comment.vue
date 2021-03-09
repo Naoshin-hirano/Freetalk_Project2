@@ -100,21 +100,25 @@
                             <h3>{{ comment.message}}</h3>
                       </v-card-text>
                       <v-card-actions>
-                            <delete-comment :commentId="comment.commentId"></delete-comment>
-                            <reply-btn :commentId="comment.commentId"></reply-btn>
+                            <deleteComment :commentId="comment.commentId"/>
+                            <replyBtn :commentId="comment.commentId"/>
                       </v-card-actions>
                   </v-layout>
                 </v-card>
             </v-flex>
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-               <show-reply-list :commentId="comment.commentId"></show-reply-list>
+               <showReplyList :commentId="comment.commentId"/>
             </v-flex>
         </v-layout>
     </v-container>
 </template>
 
 <script>
+  import deleteComment from '../Profile/DeleteComment.vue'
+  import replyBtn from '../Profile/ReplyToComment.vue'
+  import showReplyList from '../Profile/ShowReplyList.vue'
   export default {
+    components: { deleteComment, replyBtn, showReplyList },
     data(){
       return {
          id: location.href.split("/"),

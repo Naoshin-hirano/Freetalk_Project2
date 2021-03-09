@@ -23,7 +23,7 @@
             </v-list-item-icon>
              {{ item.title }}
         </v-list-item>
-        <v-list-item  @click="logout" v-show="this.userIsAuthenticated">
+        <v-list-item  @click="logout" v-show="this.userIsAuthenticated" to="/">
             <v-list-item-icon>
                  <v-icon>mdi-logout</v-icon>
             </v-list-item-icon>
@@ -82,7 +82,7 @@ export default {
        menuItems = [
        {icon: "mdi-account-multiple", title:"FreeTalkを見る", link:"/freetalks"},
        {icon: "mdi-google-maps", title:"FreeTalkを投稿", link:"/freetalk/new"},
-       {icon: "mdi-home", title:"プロフィール", link:"/profile/" + this.user.id}
+       {icon: "mdi-home", title:"マイページ", link:"/profile/" + this.user.id}
         ]
       }
       return menuItems
