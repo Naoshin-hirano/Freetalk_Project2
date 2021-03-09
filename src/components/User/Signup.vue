@@ -52,7 +52,7 @@
                                 </v-layout>
                                 <v-layout>
                                     <v-flex class="mt-3">
-                                        <v-btn x-large type="submit" dark color="red darken-2" style="width:100%;">
+                                        <v-btn x-large type="submit" dark color="pink darken-1" style="width:100%;">
                                             続ける
                                         </v-btn>
                                     </v-flex>

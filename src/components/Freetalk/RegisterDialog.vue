@@ -5,7 +5,7 @@
         <div class="hidden-xs-only">
             <v-btn
             v-if="!userIsRegistered"
-            dark color="cyan darken-1"
+            dark color="pink darken-1"
             v-bind="attrs"
             v-on="on">
             <v-icon>mdi-account-plus</v-icon>
@@ -23,7 +23,7 @@
         <div class="hidden-sm-and-up">
             <v-btn
             v-if="!userIsRegistered"
-            dark color="cyan darken-1"
+            dark color="pink darken-1"
             v-bind="attrs"
             v-on="on"
             width="85">

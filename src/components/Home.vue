@@ -2,15 +2,15 @@
     <v-container class="container">
        <v-layout mt-5 row wrap v-if="$store.state.user">
            <v-flex >
-               <v-btn x-large to="/freetalks" class="mb-3" width="300" dark color="red darken-2">FREETALKを検索してみる</v-btn>
+               <v-btn x-large to="/freetalks" class="mb-3" width="300" dark color="pink darken-1">FREETALKを検索してみる</v-btn>
            </v-flex>
            <v-flex >
-               <v-btn x-large to="/freetalk/new" width="300" dark color="red darken-2">FREETALKを投稿してみる</v-btn>
+               <v-btn x-large to="/freetalk/new" width="300" dark color="pink darken-1">FREETALKを投稿してみる</v-btn>
            </v-flex>
        </v-layout>
        <v-layout mt-5 row wrap v-else>
            <v-flex>
-              <v-btn x-large to="/login" dark color="red darken-2">ログインしてFREETALKを楽しもう！</v-btn> 
+              <v-btn x-large to="/login" dark color="pink darken-1">ログインしてFREETALKを楽しもう！</v-btn> 
            </v-flex>
        </v-layout>
         <v-layout class="text-center">
