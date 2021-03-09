@@ -12,7 +12,7 @@
                         <v-container>
                             <h1 class="mb-5">新規登録</h1>
                             <div class="mb-5">
-                                <router-link to="/login" tag="span" style="cursor: pointer">ログインはこちら</router-link>
+                                <router-link text class="blue--text" to="/login" tag="span" style="cursor: pointer">ログインはこちら</router-link>
                             </div>
                             <v-divider class="mb-5"></v-divider>
                             <form @submit.prevent="onSignup">
@@ -52,7 +52,7 @@
                                 </v-layout>
                                 <v-layout>
                                     <v-flex class="mt-3">
-                                        <v-btn type="submit" color="lime accent-4" style="width:100%;">
+                                        <v-btn x-large type="submit" dark color="red darken-2" style="width:100%;">
                                             続ける
                                         </v-btn>
                                     </v-flex>

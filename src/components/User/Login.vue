@@ -12,7 +12,7 @@
                         <v-container><!-- これないとくくりの中で中央寄せにならない -->
                             <h1 class="mb-5">ログイン画面</h1>
                             <div class="mb-5">
-                                <router-link to="/signup" tag="span" style="cursor: pointer">新規登録はこちら</router-link>
+                                <router-link text class="blue--text" to="/signup" tag="span" style="cursor: pointer">新規登録はこちら</router-link>
                             </div>
                             <v-divider class="mb-5"></v-divider>
                             <form @submit.prevent="onSignin">
