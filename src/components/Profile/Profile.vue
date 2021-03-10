@@ -63,11 +63,11 @@
                                   <span class="hidden-sm-and-up font-weight-bold caption">{{ loggedinUserInfo ? comments.length : 0 }} コメントを見る</span>
                               </v-btn>
                             </v-flex>
-                            <v-flex xs12 sm10 md8 offset-xs2 offset-sm3 offset-md3 class="mt-1">
+                            <v-flex xs12 sm10 md8 offset-xs2 offset-sm3 offset-md3 class="mt-1 ml-0">
                                 <v-icon class="hidden-xs-only" left color="orange darken-2">mdi-star</v-icon>
                                 <v-icon class="hidden-sm-and-up" small color="orange darken-2">mdi-star</v-icon>
-                                <span class="hidden-xs-only">{{ loggedinUserInfo ? followers.length : 0 }} つの高評価</span>
-                                <span class="hidden-sm-and-up caption">{{ loggedinUserInfo ? followers.length : 0 }} つの高評価</span>
+                                <span class="hidden-xs-only">{{ loggedinUserInfo ? followers.length : 0 }} 人から高評価</span>
+                                <span class="hidden-sm-and-up caption">{{ loggedinUserInfo ? followers.length : 0 }} 人から高評価</span>
                             </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-12>
