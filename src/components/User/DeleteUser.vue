@@ -6,8 +6,7 @@
                v-bind="attrs"
                v-on="on" 
                text>
-            <v-icon class="hidden-xs-only">mdi-delete-forever</v-icon>
-            <v-icon class="hidden-sm-and-up" small>mdi-delete-forever</v-icon>
+            <v-icon>mdi-delete-forever</v-icon>
         </v-btn>
       </template>
       <v-card>
