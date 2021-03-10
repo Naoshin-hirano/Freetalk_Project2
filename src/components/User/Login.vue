@@ -17,8 +17,8 @@
                             <v-divider class="mb-5"></v-divider>
                              <v-layout>
                                 <v-flex>
-                                    <v-btn x-large dark color="pink darken-1" style="width:100%;" >
-                                        ゲストユーザーでログイン
+                                    <v-btn @click="loginWithGestUser" x-large dark color="pink darken-1" style="width:100%;" >
+                                        ゲストユーザーとしてログイン
                                     </v-btn>
                                 </v-flex>
                             </v-layout>
@@ -149,10 +149,12 @@ export default {
     }
   },
   methods: {
+    loginWithGestUser(){
+      this.$store.dispatch("loginWithGestUser", {email: "guest@example.com", password: "guests"})
+    },
     onSigninWithEmail(){  
       this.$store.dispatch("signUserInWithEmail", {email: this.email, password: this.password})
     },
-
     loginWithGoogle(){
       this.$store.dispatch("loginWithGoogle")
   },

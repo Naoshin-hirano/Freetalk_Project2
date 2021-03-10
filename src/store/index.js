@@ -369,6 +369,34 @@ export default new Vuex.Store({
          commit("setLoginOtherUser", updateUser)
        })
     },
+//ゲストユーザーログイン
+ loginWithGestUser({commit}, payload){
+      commit("clearError")
+      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+        .then(
+          user => {
+            const guestUser = {
+            id: user.uid,
+            registeredFreetalks: [],
+            fbKeys: {},
+            //コメント機能
+            comments: [],
+              //リプライ機能
+              replys: [],
+            //フォロー機能（データ取り出し）
+            following: [],
+            followingKeys: {},
+            followers: [],
+            followersKeys: {}
+            }   
+            commit("setLoginUser", guestUser)
+          })
+        .catch(
+          error =>{
+            commit("setError", error)
+            console.log(error)
+          })
+    },
 //googleログイン・ログアウト
     loginWithGoogle({commit}){
       commit("setLoading", true)
