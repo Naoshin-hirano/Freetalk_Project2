@@ -404,9 +404,10 @@ export default new Vuex.Store({
       firebase.auth().signInWithRedirect(google_auth_provider)
       commit("setLoading", false)
     },
-    logout(){
+    logout({commit}){
       firebase.auth().signOut()
       .then(() =>{
+        commit("deleteLoginUser")
         console.log("signOut成功")
       })
       .catch(error =>{
