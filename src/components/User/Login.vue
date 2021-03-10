@@ -15,7 +15,15 @@
                                 <router-link text class="blue--text" to="/signup" tag="span" style="cursor: pointer">新規登録はこちら</router-link>
                             </div>
                             <v-divider class="mb-5"></v-divider>
-                            <form @submit.prevent="onSignin">
+                             <v-layout>
+                                <v-flex>
+                                    <v-btn x-large dark color="pink darken-1" style="width:100%;" >
+                                        ゲストユーザーでログイン
+                                    </v-btn>
+                                </v-flex>
+                            </v-layout>
+                             <v-divider class="mb-5"></v-divider>
+                            <form @submit.prevent="onSigninWithEmail">
                                 <v-layout>
                                   <v-flex xs12>
                                       <v-text-field
@@ -54,7 +62,7 @@
                                 <v-card style="background: #CCCCFF; width:100%;">
                                     <v-flex>
                                         <v-card-actions>
-                                            <v-btn @click="loginF"
+                                            <v-btn @click="loginWithFacebook"
                                                 style="
                                                     cursor:pointer;
                                                     background: #4267b2;
@@ -80,7 +88,7 @@
                                     <v-flex>
                                         <v-card-actions>
                                             <v-btn
-                                                @click="login"
+                                                @click="loginWithGoogle"
                                                 style="
                                                     cursor:pointer;
                                                     background: #ffff;
@@ -141,14 +149,15 @@ export default {
     }
   },
   methods: {
-    onSignin(){  
-      this.$store.dispatch("signUserIn", {email: this.email, password: this.password})
+    onSigninWithEmail(){  
+      this.$store.dispatch("signUserInWithEmail", {email: this.email, password: this.password})
     },
-    login(){
-      this.$store.dispatch("login")
+
+    loginWithGoogle(){
+      this.$store.dispatch("loginWithGoogle")
   },
-    loginF(){
-      this.$store.dispatch("loginF")
+    loginWithFacebook(){
+      this.$store.dispatch("loginWithFacebook")
     },
     onDismissed(){
       console.log("Dismissed Alert !")

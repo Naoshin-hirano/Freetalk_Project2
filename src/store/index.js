@@ -370,7 +370,7 @@ export default new Vuex.Store({
        })
     },
 //googleログイン・ログアウト
-    login({commit}){
+    loginWithGoogle({commit}){
       commit("setLoading", true)
       const google_auth_provider = new firebase.auth.GoogleAuthProvider()
       firebase.auth().signInWithRedirect(google_auth_provider)
@@ -411,7 +411,7 @@ export default new Vuex.Store({
       commit("deleteLoginUser")
     },
 //facebookログイン
-    loginF(){
+    loginWithFacebook(){
       const provider = new firebase.auth.FacebookAuthProvider()
       firebase.auth().signInWithRedirect(provider)
     },
@@ -444,7 +444,7 @@ export default new Vuex.Store({
          })
     },
 //メールアドレスでログイン
-    signUserIn({commit}, payload){
+   signUserInWithEmail({commit}, payload){
       commit("clearError")
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
        .then(
