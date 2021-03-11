@@ -111,11 +111,13 @@
     },
     created(){//画面を開くたびに評価数の更新
       firebase.auth().onAuthStateChanged(user =>{
-        this.uid = user.uid
-        this.$store.dispatch("fetchUserData")
-        firebase.database().ref("/users/" + user.uid).on('value', (snap)=>{
+        if(user){
+          this.uid = user.uid
+          this.$store.dispatch("fetchUserData")
+          firebase.database().ref("/users/" + user.uid).on('value', (snap)=>{
           this.loggedinUserInfo = snap.val()
-        })
+         })
+        }
       })
     },
     computed: {
