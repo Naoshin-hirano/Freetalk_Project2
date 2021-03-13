@@ -1,12 +1,12 @@
 <template>
     <v-container mt-5>
          <v-layout v-if="error">
-            <v-flex xs12 sm8 offset-sm3>
+            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <app-alert @dismissed="onDismissed" :text="error.message"></app-alert><!-- textはAlert内での呼び名 -->
             </v-flex>
         </v-layout>
         <v-layout>
-            <v-flex xs12 sm8 offset-sm3>
+            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card>
                     <v-card-text>
                         <v-container><!-- これないとくくりの中で中央寄せにならない -->
