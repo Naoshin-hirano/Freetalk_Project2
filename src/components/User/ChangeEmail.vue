@@ -88,7 +88,7 @@ import firebase from "firebase"
 export default {
   data(){
       return{
-      email: firebase.auth().currentUser.email,
+      email: firebase.auth().currentUser ? firebase.auth().currentUser.email : null,
       reAuth: "",
       validForEmail: true,
       validForReAuth: true,
