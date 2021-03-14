@@ -24,7 +24,7 @@
                                 </v-layout>
                                 <v-layout>
                                     <v-flex class="mt-3">
-                                        <Reauthentication 
+                                        <EmailReauthentication 
                                         :disabled="!validForEmail"
                                         :email="email"/>
                                     </v-flex>
@@ -58,14 +58,9 @@
                                 </v-layout>
                                 <v-layout>
                                     <v-flex>
-                                        <v-btn 
-                                        class="white--text"
+                                        <PasswordReauthentication 
                                         :disabled="!validForPass"
-                                        type="submit"
-                                        color="success"
-                                        style="width:100%;">
-                                        変更
-                                        </v-btn>
+                                        :password="password"/>
                                     </v-flex>
                                 </v-layout>
                             </v-form>
@@ -91,13 +86,12 @@
 
 <script>
 import firebase from "firebase"
-import Reauthentication from '../User/Reauthentication.vue'
+import EmailReauthentication from '../User/EmailReauthentication.vue'
+import PasswordReauthentication from '../User/PasswordReauthentication.vue'
 export default {
-  components: { Reauthentication },
+  components: { EmailReauthentication, PasswordReauthentication },
   data(){
       return{
-      validForEmail: true,
-      validForPass: true,
       email: firebase.auth().currentUser.email,
       emailRules: [
           v => !!v || 'メールアドレスは必須項目です',
@@ -114,17 +108,6 @@ export default {
           v => v !== this.password ? "変更後のパスワード（再入力）が一致しません" : true
       ]
     }
-  },
-  methods: {
-    changePassword(){
-        this.$refs.form.validate()
-        const user = firebase.auth().currentUser;
-        user.updatePassword(this.password).then(()=> {
-         console.log("Password更新完了")
-        }).catch((error)=> {
-         console.log(error)
-        })
-     }
   }
 }
 </script>
