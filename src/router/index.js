@@ -6,6 +6,7 @@ import FreeTalks from '../components/Freetalk/FreeTalks.vue'
 import FreeTalk from '../components/Freetalk/FreeTalk.vue'
 import Login from '../components/User/Login.vue'
 import Signup from '../components/User/Signup.vue'
+import UserRegisteredInfo from '../components/User/UserRegisteredInfo.vue'
 import Profile from '../components/Profile/Profile.vue'
 import ProfileForOthers from '../components/Profile/ProfileForOthers.vue'
 import Comment from '../components/Profile/Comment.vue'
@@ -60,6 +61,12 @@ Vue.use(VueRouter)
     name: 'Profile',
     props: true,
     component: Profile,
+  },
+  {
+    path: '/userRegisteredInfo',
+    name: 'UserRegisteredInfo',
+    props: true,
+    component: UserRegisteredInfo
   },
   {
     path: '/profileforothers/:userId',

@@ -15,7 +15,10 @@
                            <editProfile/>
                          </v-flex>
                          <v-flex>
-                           <deleteUserAccount/>
+                           <v-btn :to="'/userRegisteredInfo/'" text fab accent>
+                             <v-icon>mdi-cog</v-icon>
+                           </v-btn>
+                           <!-- <deleteUserAccount/> -->
                          </v-flex>
                        </v-layout>
                     </v-card-actions>
@@ -99,9 +102,9 @@
   import firebase from "firebase"
   import myTabs from '../Profile/MyTabs.vue'
   import editProfile from '../Profile/EditProfile.vue'
-  import deleteUserAccount from '../User/DeleteUser.vue'
+  // import deleteUserAccount from '../User/DeleteUser.vue'
   export default {
-    components: { myTabs, editProfile, deleteUserAccount },
+    components: { myTabs, editProfile },
     data () {
       return {
         editDialog: false,
