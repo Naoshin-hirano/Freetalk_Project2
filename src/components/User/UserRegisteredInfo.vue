@@ -1,69 +1,14 @@
 <template>
     <v-container mt-5>
-
         <v-layout>
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card>
                     <v-card-text>
                         <v-container>
                             <h2 class="text-center mb-5">登録情報</h2>
-                            <p class="mb-5"><v-icon>mdi-email-edit</v-icon>メールアドレス</p>
-                            <v-form
-                            v-model="validForEmail">
-                                <v-layout>
-                                  <v-flex xs12>
-                                      <v-text-field
-                                      name="email"
-                                      label="メールアドレス"
-                                      id="email"
-                                      v-model="email"
-                                      type="email"
-                                      required
-                                      :rules="emailRules"></v-text-field>
-                                  </v-flex>
-                                </v-layout>
-                                <v-layout>
-                                    <v-flex class="mt-3">
-                                        <EmailReauthentication 
-                                        :disabled="!validForEmail"
-                                        :email="email"/>
-                                    </v-flex>
-                                </v-layout>
-                            </v-form>
+                            <ChangeEmail/>
                             <v-divider class="mt-10 mb-9"></v-divider>
-                            <p class="mb-5"><v-icon>mdi-account-key</v-icon>パスワード</p>
-                            <v-form 
-                              @submit.prevent="changePassword"
-                              v-model="validForPass"
-                              ref="form">
-                                <v-layout>
-                                  <v-flex xs12>
-                                      <v-text-field
-                                      name="password"
-                                      label="変更後のパスワード"
-                                      id="password"
-                                      v-model="password"
-                                      type="password"
-                                      required
-                                      :rules="passwordRules"></v-text-field>
-                                      <v-text-field
-                                      name="confirmPassword"
-                                      label="変更後のパスワード(再入力)"
-                                      id="confirmPassword"
-                                      v-model="confirmPassword"
-                                      type="confirmPassword"
-                                      required
-                                      :rules="confirmPasswordRules"></v-text-field>
-                                  </v-flex>
-                                </v-layout>
-                                <v-layout>
-                                    <v-flex>
-                                        <PasswordReauthentication 
-                                        :disabled="!validForPass"
-                                        :password="password"/>
-                                    </v-flex>
-                                </v-layout>
-                            </v-form>
+                            <ChangePassword/>
                             <v-divider class="mt-8 mb-7"></v-divider>
                             <p class="mb-5"><v-icon>mdi-account-remove</v-icon>アカウントを削除する</p>
                             <v-layout>
@@ -85,30 +30,10 @@
 </template>
 
 <script>
-import firebase from "firebase"
-import EmailReauthentication from '../User/EmailReauthentication.vue'
-import PasswordReauthentication from '../User/PasswordReauthentication.vue'
+import ChangePassword from '../User/ChangePassword.vue'
+import ChangeEmail from '../User/ChangeEmail.vue'
 export default {
-  components: { EmailReauthentication, PasswordReauthentication },
-  data(){
-      return{
-      email: firebase.auth().currentUser.email,
-      emailRules: [
-          v => !!v || 'メールアドレスは必須項目です',
-          v => /.+@.+\..+/.test(v) || '有効なメールアドレスではありません'
-      ],
-      password: "",
-      passwordRules: [
-          v => !!v || 'パスワードは必須項目です',
-          v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
-      ],
-      confirmPassword: "",
-      confirmPasswordRules: [
-          v => !!v || 'パスワードは必須項目です',
-          v => v !== this.password ? "変更後のパスワード（再入力）が一致しません" : true
-      ]
-    }
-  }
+  components: { ChangePassword, ChangeEmail }
 }
 </script>
 
