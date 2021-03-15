@@ -1,40 +1,24 @@
 <template>
     <v-container>
-        <p class="mb-5"><v-icon>mdi-email-edit</v-icon>メールアドレス</p>
-        <v-form
-        v-model="validForEmail">
+           <p class="mb-5"><v-icon>mdi-account-remove</v-icon>アカウントを削除する</p>
             <v-layout>
-                <v-flex xs12>
-                    <v-text-field
-                    name="email"
-                    label="メールアドレス"
-                    id="email"
-                    v-model="email"
-                    type="email"
-                    required
-                    :rules="emailRules"></v-text-field>
-                </v-flex>
-            </v-layout>
-            <v-layout>
-                <v-flex class="mt-3">
-                   <v-row>
+                <v-flex>
+                    <v-row>
                         <v-dialog persistent width="380" v-model="registerDialog">
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
                                 v-bind="attrs"
                                 v-on="on"
-                                class="white--text" 
-                                color="success"
-                                style="width:100%;"
-                                :disabled="!validForEmail">
-                                変更
+                                color="error"
+                                style="width:100%;">
+                                削除
                                 </v-btn>
-                            </template>
-                            <v-card>
-                                <v-container>
-                                    <v-form
-                                    @submit.prevent="onReAuth"
-                                    v-model="validForReAuth">
+                        </template>
+                        <v-card>
+                            <v-container>
+                                <v-form
+                                @submit.prevent="onReAuth"
+                                v-model="validForReAuth">
                                     <v-layout>
                                         <v-flex>
                                             <v-card-title class="pt-0">再認証</v-card-title>
@@ -67,19 +51,18 @@
                                                 color="success"
                                                 style="width:100%;"
                                                 :disabled="!validForReAuth"
-                                                type="submit">
+                                                @click="onReAuth">
                                                 再認証
                                             </v-btn>
                                         </v-flex>
                                     </v-layout>
-                                    </v-form>
-                                </v-container>
-                            </v-card>
-                        </v-dialog>
+                                </v-form>
+                            </v-container>
+                        </v-card>
+                      </v-dialog>
                     </v-row>
                 </v-flex>
             </v-layout>
-        </v-form>
     </v-container>
 </template>
 
@@ -87,24 +70,19 @@
 import firebase from "firebase"
 export default {
   data(){
-      return{
-      email: firebase.auth().currentUser ? firebase.auth().currentUser.email : null,
+    return{
+      password: "",
       reAuth: "",
-      validForEmail: true,
       validForReAuth: true,
       registerDialog: false,
-      emailRules: [
-          v => !!v || 'メールアドレスは必須項目です',
-          v => /.+@.+\..+/.test(v) || '有効なメールアドレスではありません'
-      ],
       rulesForReauth: [
-          v => !!v || '現在のパスワードは必須項目です',
-          v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
-         ]
+        v => !!v || '現在のパスワードは必須項目です',
+        v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
+      ]
     }
   },
-  methods: {
-      onReAuth(){
+ methods: {
+    onReAuth(){
        const user = firebase.auth().currentUser
        const credential = firebase.auth.EmailAuthProvider.credential(user.email, this.reAuth)
         user.reauthenticateWithCredential(credential)
@@ -113,13 +91,8 @@ export default {
         // User re-authenticated.
         })
          .then(() =>{
-            const user = firebase.auth().currentUser
-            user.updateEmail(this.email).then(()=> {
-                console.log("メールアドレス更新完了")
-                this.registerDialog = false
-            }).catch((error)=> {
-                console.log(error)
-            })
+          console.log("アカウント削除")
+          this.registerDialog = false
          })
          .catch((error)=> {
             console.log(error)

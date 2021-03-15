@@ -10,17 +10,7 @@
                             <v-divider class="mt-10 mb-9"></v-divider>
                             <ChangePassword/>
                             <v-divider class="mt-8 mb-7"></v-divider>
-                            <p class="mb-5"><v-icon>mdi-account-remove</v-icon>アカウントを削除する</p>
-                            <v-layout>
-                                <v-flex>
-                                    <v-btn
-                                    type="submit"
-                                    color="error"
-                                    style="width:100%;">
-                                        削除
-                                    </v-btn>
-                                </v-flex>
-                            </v-layout>
+                            <DeleteUserAccount/>
                         </v-container>
                     </v-card-text>
                 </v-card>
@@ -32,8 +22,9 @@
 <script>
 import ChangePassword from '../User/ChangePassword.vue'
 import ChangeEmail from '../User/ChangeEmail.vue'
+import DeleteUserAccount from '../User/DeleteUserAccount.vue'
 export default {
-  components: { ChangePassword, ChangeEmail }
+  components: { ChangePassword, ChangeEmail, DeleteUserAccount }
 }
 </script>
 

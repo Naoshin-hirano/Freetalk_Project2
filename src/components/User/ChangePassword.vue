@@ -132,6 +132,7 @@ export default {
             const user = firebase.auth().currentUser;
             user.updatePassword(this.password).then(()=> {
                 console.log("Password更新完了")
+                this.registerDialog = false
             }).catch((error)=> {
                 console.log(error)
             })
