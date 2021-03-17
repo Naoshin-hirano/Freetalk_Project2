@@ -1,10 +1,10 @@
 <template>
     <v-container class="container">
        <v-layout mt-5 row wrap v-if="$store.state.user">
-           <v-flex >
+           <v-flex>
                <v-btn x-large to="/freetalks" class="mb-3" width="300" dark color="pink darken-1">FREETALKを検索してみる</v-btn>
            </v-flex>
-           <v-flex >
+           <v-flex>
                <v-btn x-large to="/freetalk/new" width="300" dark color="pink darken-1">FREETALKを投稿してみる</v-btn>
            </v-flex>
        </v-layout>
@@ -25,9 +25,9 @@
             </v-flex>
         </v-layout>
        <v-layout row wrap mt-5  v-if="!loading">
-           <v-flex >
+           <v-flex>
                <v-card max-width="1000" class="mx-auto">
-                   <v-carousel>
+                   <v-carousel v-show="user">
                         <v-carousel-item
                         v-for="freetalk in freetalks"
                         :key="freetalk.id"
@@ -36,6 +36,7 @@
                         <div class="title">{{ freetalk.title }}</div>
                         </v-carousel-item>     
                     </v-carousel>
+                    <dialogForLogin v-show="!user" :freetalks="freetalks"/>
                 </v-card>
            </v-flex>
        </v-layout>
@@ -51,8 +52,13 @@
 </template>
 
 <script>
+import dialogForLogin from './User/DialogForLogin.vue'
 export default {
+  components: { dialogForLogin },
   computed:{
+    user(){
+      return this.$store.getters.user
+    },
     freetalks(){
       return this.$store.getters.featuredFreeTalk
     },
@@ -62,7 +68,7 @@ export default {
   },
   methods: {
     loadFreeTalk(id){
-     this.$router.push("/freetalks/" + id)
+        this.$router.push("/freetalks/" + id)
     }
   }
 }

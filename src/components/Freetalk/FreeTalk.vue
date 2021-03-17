@@ -46,7 +46,7 @@
                         <v-spacer></v-spacer>
                         <v-layout mb-7>
                             <v-flex >
-                                <likesBtn v-if="freetalk" :freetalk="freetalk"/>
+                                <likesBtn v-show="freetalk" :freetalk="freetalk"/>
                             </v-flex>
                             <v-flex>
                                  <deleteFreeTalk v-if="freetalk" :freetalk="freetalk" width="500"/>

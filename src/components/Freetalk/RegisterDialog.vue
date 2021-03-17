@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-dialog persistent width="350px" v-model="registerDialog">
+    <v-dialog persistent width="450px" v-model="registerDialog">
       <template v-slot:activator="{ on, attrs }">
         <div class="hidden-xs-only">
             <v-btn
@@ -43,24 +43,30 @@
       </template>
       <v-card>
          <v-container>
-             <v-layout row wrap>
+             <v-layout class="hidden-xs-only">
                 <v-card-title v-if="userIsRegistered">このFREETALKの参加を解除しますか?</v-card-title>
                 <v-card-title v-else>このFREETALKに参加しますか?</v-card-title>
              </v-layout>
+             <v-layout class="hidden-sm-and-up">
+                <v-card-text v-if="userIsRegistered">このFREETALKの参加を解除しますか?</v-card-text>
+                <v-card-text v-else>このFREETALKに参加しますか?</v-card-text>
+             </v-layout>
              <v-divider></v-divider>
-             <v-layout row wrap>
+             <v-layout>
                  <v-card-actions>
                         <v-btn
                         class="cyan--text darken-1"
                         text
                         @click="registerDialog = false">
-                        <h3>キャンセル</h3>
+                        <h3 class="hidden-xs-only">キャンセル</h3>
+                        <span class="hidden-sm-and-up">キャンセル</span>
                         </v-btn>
                         <v-btn
                         class="cyan--text darken-1"
                         text
                         @click="onAgree">
-                        <h3>はい</h3>
+                        <h3 class="hidden-xs-only">はい</h3>
+                        <span class="hidden-sm-and-up">はい</span>
                         </v-btn>
                  </v-card-actions>
              </v-layout>
