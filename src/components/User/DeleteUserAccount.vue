@@ -91,8 +91,9 @@ export default {
         // User re-authenticated.
         })
          .then(() =>{
-          console.log("アカウント削除")
+          this.$store.dispatch("deleteUserAccount")
           this.registerDialog = false
+          this.$router.push({name: 'Home'})
          })
          .catch((error)=> {
             console.log(error)

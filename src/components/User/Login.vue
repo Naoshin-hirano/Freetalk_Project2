@@ -15,6 +15,13 @@
                                 <router-link text class="blue--text" to="/signup" tag="span" style="cursor: pointer">新規登録はこちら</router-link>
                             </div>
                             <v-divider class="mb-5"></v-divider>
+                            <!-- <v-layout>
+                                <v-flex>
+                                    <v-btn @click="signInAnonymously" x-large dark style="width:100%;" >
+                                        匿名としてログイン
+                                    </v-btn>
+                                </v-flex>
+                            </v-layout> -->
                              <v-layout>
                                 <v-flex>
                                     <v-btn @click="loginWithGestUser" x-large dark color="pink darken-1" style="width:100%;" >
@@ -123,6 +130,7 @@
 </template>
 
 <script>
+// import firebase from "firebase"
 export default {
   data(){
       return{
@@ -149,6 +157,18 @@ export default {
     }
   },
   methods: {
+  //   signInAnonymously(){
+  //     firebase.auth().signInAnonymously()
+  //     .then(() => {
+  //       // Signed in..
+  //       console.log("匿名ログイン成功")
+  //     })
+  //     .catch((error) => {
+  //       console.log("匿名ログイン失敗")
+  //       console.log(error)
+  //       // ...
+  // })
+    // },
     loginWithGestUser(){
       this.$store.dispatch("loginWithGestUser", {email: "guest@example.com", password: "guests"})
     },

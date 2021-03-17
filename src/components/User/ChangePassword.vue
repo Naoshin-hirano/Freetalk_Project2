@@ -129,7 +129,7 @@ export default {
         // User re-authenticated.
         })
          .then(() =>{
-            const user = firebase.auth().currentUser;
+            const user = firebase.auth().currentUser
             user.updatePassword(this.password).then(()=> {
                 console.log("Password更新完了")
                 this.registerDialog = false

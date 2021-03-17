@@ -501,26 +501,17 @@ export default new Vuex.Store({
          })
     },
 //ユーザーアカウント削除
-    deleteUserAccount({getters,commit}){
-      const ref = firebase.database().ref("freetalks")
-      ref.orderByChild("createrId").equalTo(getters.user.id).on("child_added", (snapshot)=>{
-        snapshot.ref.remove()
-        console.log("同ユーザーのFreetalkも削除")
-      })
-       .then(()=>{
-         firebase.auth().currentUser.delete()
+    deleteUserAccount({commit}){
+      const user = firebase.auth().currentUser
+      user.delete().then(()=>{
          console.log("Authからユーザー削除")
-       })
-       .then(()=>{
-         firebase.database().ref("/users/" + getters.user.id).remove()
+         firebase.database().ref("/users/" + user.uid).remove()
          console.log("データベースからユーザー削除")
-       })
-       .then(()=>{
          commit("deleteLoginUser")
        })
-       .catch(error=>{
+      .catch(error=>{
          console.log(error)
-       })
+      })
      },
 //Freetalkの投稿・削除・取り出し・編集
     createTalk({commit, getters}, payload){
