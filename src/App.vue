@@ -38,7 +38,7 @@
           @click.stop="drawer = !drawer"
           class="hidden-sm-and-up">
         </v-app-bar-nav-icon>
-        <v-toolbar-title>
+        <v-toolbar-title class="subheading">
            <router-link to="/" tag="span" style="cursor: pointer">FREE TALK !</router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
