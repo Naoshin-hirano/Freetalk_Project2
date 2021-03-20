@@ -33,12 +33,20 @@
                             <v-btn
                                 v-bind="attrs"
                                 v-on="on"
+                                v-show="!gestUser"
                                 class="white--text" 
                                 color="success"
                                 style="width:100%;"
                                 :disabled="!validForPass"
                                 :password="password">
                                 変更
+                            </v-btn>
+                            <v-btn
+                                v-show="gestUser"
+                                class="white--text"
+                                color="grey darken-1"
+                                style="width:100%;">
+                                変更(ゲストユーザーのため変更不可)
                                 </v-btn>
                         </template>
                         <v-card>
@@ -118,6 +126,11 @@ export default {
           v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
          ]
     }
+  },
+  computed: {
+      gestUser(){
+          return firebase.auth().currentUser ? firebase.auth().currentUser.uid === "mKSpW1jBFHgmKYjPGBpz8OenXvE3" : null
+      }
   },
   methods: {
       onReAuth(){

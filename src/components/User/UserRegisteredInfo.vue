@@ -6,11 +6,11 @@
                     <v-card-text>
                         <v-container>
                             <h2 class="text-center mb-5">登録情報</h2>
-                            <ChangeEmail/>
+                            <changeEmail/>
                             <v-divider class="mt-10 mb-9"></v-divider>
-                            <ChangePassword/>
+                            <changePassword/>
                             <v-divider class="mt-8 mb-7"></v-divider>
-                            <DeleteUserAccount/>
+                            <deleteUserAccount/>
                         </v-container>
                     </v-card-text>
                 </v-card>
@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import ChangePassword from '../User/ChangePassword.vue'
-import ChangeEmail from '../User/ChangeEmail.vue'
-import DeleteUserAccount from '../User/DeleteUserAccount.vue'
+import changePassword from '../User/ChangePassword.vue'
+import changeEmail from '../User/ChangeEmail.vue'
+import deleteUserAccount from '../User/DeleteUserAccount.vue'
 export default {
-  components: { ChangePassword, ChangeEmail, DeleteUserAccount }
+  components: { changePassword, changeEmail, deleteUserAccount }
 }
 </script>
 

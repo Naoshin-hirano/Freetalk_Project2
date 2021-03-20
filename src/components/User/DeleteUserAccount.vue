@@ -7,11 +7,19 @@
                         <v-dialog persistent width="380" v-model="registerDialog">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
+                                v-show="!gestUser"
                                 v-bind="attrs"
                                 v-on="on"
                                 color="error"
                                 style="width:100%;">
                                 削除
+                            </v-btn>
+                             <v-btn
+                                v-show="gestUser"
+                                class="white--text"
+                                color="grey darken-1"
+                                style="width:100%;">
+                                変更(ゲストユーザーのため変更不可)
                                 </v-btn>
                         </template>
                         <v-card>
@@ -81,6 +89,11 @@ export default {
       ]
     }
   },
+computed: {
+    gestUser(){
+        return firebase.auth().currentUser ? firebase.auth().currentUser.uid === "mKSpW1jBFHgmKYjPGBpz8OenXvE3" : null
+    }
+ },
  methods: {
     onReAuth(){
        const user = firebase.auth().currentUser
@@ -90,7 +103,7 @@ export default {
          console.log("再認証完了")
         // User re-authenticated.
         })
-         .then(() =>{
+         .then(() =>{ 
           this.$store.dispatch("deleteUserAccount")
           this.registerDialog = false
           this.$router.push({name: 'Home'})
