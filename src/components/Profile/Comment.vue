@@ -9,7 +9,7 @@
                   alt="John">
                   <img
                   v-else
-                  :src="initalPhotoUrl"
+                  src="@/assets/anonymous.jpg"
                   alt="John">
                 </v-avatar>
                 <v-avatar size="80" class="hidden-sm-and-up">
@@ -19,7 +19,7 @@
                   alt="John">
                   <img
                   v-else
-                  :src="initalPhotoUrl"
+                  src="@/assets/anonymous.jpg"
                   alt="John">
                 </v-avatar>
             </v-flex>
@@ -83,7 +83,7 @@
                                     alt="John">
                                     <img
                                     v-else
-                                    :src="initalPhotoUrl"
+                                    src="@/assets/anonymous.jpg"
                                     alt="John">
                                 </v-avatar>
                             </v-btn>
@@ -172,10 +172,7 @@
       + ' ' + ('0' + date.getHours()).slice(-2)
       + ':' + ('0' + date.getMinutes()).slice(-2)
       return str
-      },
-     initalPhotoUrl(){
-         return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
-       }
+      }
    },
    methods: {
     doSend() {

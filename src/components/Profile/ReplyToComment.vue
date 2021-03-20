@@ -81,10 +81,7 @@
         + ' ' + ('0' + date.getHours()).slice(-2)
         + ':' + ('0' + date.getMinutes()).slice(-2)
         return str
-        },
-      initalPhotoUrl(){
-         return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
-       }
+        }
    },
     methods: {
       replyToComment(){

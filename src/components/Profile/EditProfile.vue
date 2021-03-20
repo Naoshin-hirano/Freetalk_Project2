@@ -51,7 +51,7 @@
                             @change="onFilePicked">
                         <v-avatar size="150" >
                             <img v-if="photoURL" :src="photoURL">
-                            <img v-else :src="initalPhotoUrl">
+                            <img v-else src="@/assets/anonymous.jpg">
                         </v-avatar>
                      </v-card-text>
                  </v-flex>
@@ -70,7 +70,6 @@
     </v-dialog>
   </v-row>
 </template>
-
 <script>
   export default {
     data () {
@@ -82,11 +81,6 @@
         imageName: "",
         imageFile: ""
       }
-    },
-    computed: {
-      initalPhotoUrl(){
-         return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
-       }
     },
     methods: {
       pickFile(){

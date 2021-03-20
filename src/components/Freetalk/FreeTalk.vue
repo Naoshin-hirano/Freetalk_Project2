@@ -17,7 +17,7 @@
                                     alt="John">
                                     <img
                                     v-else
-                                    :src="initalPhotoUrl"
+                                    src="@/assets/anonymous.jpg"
                                     alt="John">
                                 </v-avatar>
                             </v-btn>
@@ -34,7 +34,7 @@
                                     alt="John">
                                     <img
                                     v-else
-                                    :src="initalPhotoUrl"
+                                    src="@/assets/anonymous.jpg"
                                     alt="John">
                                 </v-avatar>
                             </v-btn>
@@ -133,10 +133,7 @@ export default {
         return this.$store.getters.attendance.filter((data) =>{
           return data.freetalkId === this.$route.params.id
         })
-      },
-    initalPhotoUrl(){
-         return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
-       },
+      }
    }
 }
 </script>

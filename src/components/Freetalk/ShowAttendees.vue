@@ -17,7 +17,7 @@
                                     alt="John">
                                     <img
                                     v-else
-                                    :src="initalPhotoUrl"
+                                    src="@/assets/anonymous.jpg"
                                     alt="John">
                                 </v-avatar>
                                 <v-avatar size="40" class="hidden-sm-and-up">
@@ -27,7 +27,7 @@
                                     alt="John">
                                     <img
                                     v-else
-                                    :src="initalPhotoUrl"
+                                    src="@/assets/anonymous.jpg"
                                     alt="John">
                                 </v-avatar>
                             </v-btn>
@@ -65,10 +65,7 @@
       },
       showThreeAttendees(){
         return this.filterAttendance.slice(0, 3)
-      },
-      initalPhotoUrl(){
-         return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
-       },
+      }
     }
   }
 </script>

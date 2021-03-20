@@ -191,25 +191,32 @@ export default new Vuex.Store({
 //ユーザー情報の更新
     updateProfile({commit,getters}, payload){
       const user = getters.user
-      firebase.database().ref("/users/" + user.id)
-       .set(payload)
-         commit("setLoginUser",{
-          id: payload.id,
-          photoURL: payload.photoURL,
-          displayName: payload.displayName,
-          introduction: payload.introduction,
-          registeredFreetalks: [],
-          fbKeys: {},
-          //コメント機能
-          comments: [],
-          //リプライ機能
-          replys: [],
-          //フォロー機能（データ取り出し）
-          following: [],
-          followingKeys: {},
-          followers: [],
-          followersKeys: {}
-       })
+      const currentUser = firebase.auth().currentUser
+      currentUser.updateProfile({
+        photoURL: payload.image,
+        displayName: payload.displayName
+      })
+       .then(()=>{
+        firebase.database().ref("/users/" + user.id)
+        .set(payload)
+          commit("setLoginUser",{
+           id: payload.id,
+           photoURL: payload.photoURL,
+           displayName: payload.displayName,
+           introduction: payload.introduction,
+           registeredFreetalks: [],
+           fbKeys: {},
+           //コメント機能
+           comments: [],
+           //リプライ機能
+           replys: [],
+           //フォロー機能（データ取り出し）
+           following: [],
+           followingKeys: {},
+           followers: [],
+           followersKeys: {}
+        })
+      })
     },
 //ユーザー情報の取り出し
     fetchUserData({commit, getters}){

@@ -25,33 +25,33 @@
                     <v-container>
                         <v-layout class="text-center">
                             <v-flex class="hidden-xs-only">
-                                <v-avatar v-if="loggedinUserInfo" size="180">
+                                <v-avatar v-if="photoURL" size="180">
                                     <img
-                                    :src="loggedinUserInfo.photoURL"
+                                    :src="photoURL"
                                     alt="John">
                                 </v-avatar>
                                 <v-avatar v-else size="180">
                                   <img
-                                    :src="initalPhotoUrl"
+                                    src="@/assets/anonymous.jpg"
                                     alt="John">
                                 </v-avatar>
                             </v-flex>
                             <v-flex class="hidden-sm-and-up">
-                                <v-avatar v-if="loggedinUserInfo" size="100">
+                                <v-avatar v-if="photoURL" size="100">
                                     <img
-                                    :src="loggedinUserInfo.photoURL"
+                                    :src="photoURL"
                                     alt="John">
                                 </v-avatar>
                                 <v-avatar v-else size="100">
                                   <img
-                                    :src="initalPhotoUrl"
+                                    src="@/assets/anonymous.jpg"
                                     alt="John">
                                 </v-avatar>
                             </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-1 mb-10>
                             <v-flex >
-                                <h3 v-if="loggedinUserInfo">{{ loggedinUserInfo.displayName }}</h3>
+                                <h3 v-if="userName">{{ userName }}</h3>
                             </v-flex>
                         </v-layout>
                          <v-layout mr-15>
@@ -124,14 +124,17 @@
       })
     },
     computed: {
+       photoURL(){
+         return this.$store.getters.user ? this.$store.getters.user.photoURL : null
+       },
+       userName(){
+         return this.$store.getters.user ? this.$store.getters.user.displayName : null
+       },
        followers(){//valueからlength取れないので、computedで取得
          return this.loggedinUserInfo ? this.$store.getters.user.followers : null
        },
        comments(){//valueからlength取れないので、computedで取得
          return this.loggedinUserInfo ? this.$store.getters.user.comments : null
-       },
-       initalPhotoUrl(){
-         return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
        }
     }
   }

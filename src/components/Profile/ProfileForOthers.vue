@@ -13,7 +13,7 @@
                                 </v-avatar>
                                 <v-avatar v-else size="180">
                                     <img
-                                    :src="initalPhotoUrl"
+                                    src="@/assets/anonymous.jpg"
                                     alt="John">
                                 </v-avatar>
                             </v-flex>
@@ -25,7 +25,7 @@
                                 </v-avatar>
                                 <v-avatar v-else size="100">
                                     <img
-                                    :src="initalPhotoUrl"
+                                    src="@/assets/anonymous.jpg"
                                     alt="John">
                                 </v-avatar>
                             </v-flex>
@@ -116,10 +116,7 @@
         },
         introduction(){
           return this.otherUser ? this.$store.getters.otherUser.introduction : ""
-        },
-       initalPhotoUrl(){
-          return "https://cdn.icon-icons.com/icons2/1997/PNG/512/account_avatar_people_profile_user_icon_123297.png"
-       }
+        }
     }
   }
 </script>
