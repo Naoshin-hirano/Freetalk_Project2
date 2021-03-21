@@ -130,7 +130,6 @@
 </template>
 
 <script>
-// import firebase from "firebase"
 export default {
   data(){
       return{
@@ -157,18 +156,6 @@ export default {
     }
   },
   methods: {
-  //   signInAnonymously(){
-  //     firebase.auth().signInAnonymously()
-  //     .then(() => {
-  //       // Signed in..
-  //       console.log("匿名ログイン成功")
-  //     })
-  //     .catch((error) => {
-  //       console.log("匿名ログイン失敗")
-  //       console.log(error)
-  //       // ...
-  // })
-    // },
     loginWithGestUser(){
       this.$store.dispatch("loginWithGestUser", {email: "guest@example.com", password: "guests"})
     },

@@ -1,6 +1,9 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import firebase from "firebase"
+import firebase from "firebase/app"
+import 'firebase/auth'
+import 'firebase/storage'
+import 'firebase/database'
 
 Vue.use(Vuex)
 
