@@ -11,7 +11,7 @@
                     </v-container>
               </v-flex>
           </v-layout>
-          <v-layout wrap v-for="member in filterAttendance" :key="member.userName" mb-1>
+          <v-layout wrap v-for="member in filterAttendance" :key="member.uid" mb-1>
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card class="grey lighten-3">
                   <v-container>
@@ -30,7 +30,7 @@
                                         alt="John">
                                         <img
                                         v-else
-                                        :src="initalPhotoUrl"
+                                        src="@/assets/anonymous.jpg"
                                         alt="John">
                                     </v-avatar>
                                 </v-btn>
@@ -47,15 +47,15 @@
                                         alt="John">
                                         <img
                                         v-else
-                                        :src="initalPhotoUrl"
+                                        src="@/assets/anonymous.jpg"
                                         alt="John">
                                     </v-avatar>
                                 </v-btn>
                         </v-flex>
                         <v-flex xs5 sm5 md4>
-                              <h3 class="pt-4 hidden-xs-only">{{ member.userName }}</h3>
+                              <h3 class="pt-4 hidden-xs-only">{{ member.userName ? member.userName : "名無し" }}</h3>
                               <p class="hidden-xs-only">{{ member.datetime | date}}</p>
-                              <h3 class="pt-0 hidden-sm-and-up font-weight-bold body-2">{{ member.userName }}</h3>
+                              <h3 class="pt-0 hidden-sm-and-up font-weight-bold body-2">{{ member.userName ? member.userName : "名無し" }}</h3>
                               <p class="hidden-sm-and-up caption mb-0">{{ member.datetime | date}}</p>
                         </v-flex>
                     </v-layout>

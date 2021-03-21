@@ -89,7 +89,7 @@
                             </v-btn>
                           <v-card-text>
                               <p>{{ comment.datetime | date }}</p>
-                              <h4>{{ comment.name }}</h4>
+                              <h4>{{ comment.name ? comment.name : "名無し" }}</h4>
                           </v-card-text>
                           <v-spacer></v-spacer>
                       </v-card-actions>
@@ -121,7 +121,7 @@
     components: { deleteComment, replyBtn, showReplyList },
     data(){
       return {
-         id: location.href.split("/"),
+         paramsId: location.href.split("/"),
          commentDialog: false,
          input: '',
          time: new Date(),
@@ -130,7 +130,7 @@
       }
     },
     created(){
-      this.$store.dispatch("fetchOtherUserData", this.id[this.id.length - 1])
+      this.$store.dispatch("fetchOtherUserData", this.$route.params.id)
     },
     computed: {
       //プロフィールユーザ
@@ -178,7 +178,7 @@
     doSend() {
       if (this.input.length >= 0) {
         const commentData = {
-          roomUserId: this.id[this.id.length - 1],
+          roomUserId: this.paramsId[this.paramsId.length - 1],
           createrId: this.user.id,
           message: this.input,
           name: this.userName,

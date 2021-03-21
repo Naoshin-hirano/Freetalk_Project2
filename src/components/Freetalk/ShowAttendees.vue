@@ -34,9 +34,13 @@
                         </v-flex>
                     </v-layout>
                     <v-layout class="text-center">
-                        <v-flex>
+                        <v-flex v-if="member.userName">
                             <h4 class="hidden-xs-only">{{ member.userName }}</h4>
                             <span class="hidden-sm-and-up caption">{{ member.userName }}</span>
+                        </v-flex>
+                        <v-flex v-else>
+                            <h4 class="hidden-xs-only">名無し</h4>
+                            <span class="hidden-sm-and-up caption">名無し</span>
                         </v-flex>
                     </v-layout>
                 </v-card>

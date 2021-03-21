@@ -10,13 +10,10 @@ import UserRegisteredInfo from '../components/User/UserRegisteredInfo.vue'
 import Profile from '../components/Profile/Profile.vue'
 import ProfileForOthers from '../components/Profile/ProfileForOthers.vue'
 import Comment from '../components/Profile/Comment.vue'
-import Reply from '../components/Profile/ReplyToComment.vue'
-import DeleteComment from '../components/Profile/DeleteComment.vue'
 import Attendance from '../components/Freetalk/Attendance.vue'
 
 
 Vue.use(VueRouter)
-
   const routes = [
   {
     path: '/',
@@ -78,16 +75,6 @@ Vue.use(VueRouter)
     path: '/comment/:userId',
     name: 'Comment',
     component: Comment
-  },
-  {
-    path: '/comment/reply/:commentId',
-    name: 'Reply',
-    component: Reply
-  },
-  {
-    path: '/comment/reply/delete/:commentId',
-    name: 'DeleteComment',
-    component: DeleteComment
   }
 ]
 

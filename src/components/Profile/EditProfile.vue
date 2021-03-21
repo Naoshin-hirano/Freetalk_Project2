@@ -75,7 +75,7 @@
     data () {
       return {
         editDialog: false,
-        userName: this.$store.getters.userName,
+        userName: this.$store.getters.userName ? this.$store.getters.userName : "名無し",
         photoURL: this.$store.getters.photoURL,
         introduction: this.$store.getters.introduction,
         imageName: "",

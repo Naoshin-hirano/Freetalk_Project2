@@ -32,7 +32,8 @@
                         </v-layout>
                         <v-layout class="text-center" mt-1 mb-10>
                             <v-flex >
-                                <h3>{{ nameForRoomUser }}</h3>
+                                <h3 v-if="nameForRoomUser">{{ nameForRoomUser }}</h3>
+                                <h3 v-else>名無し</h3>
                             </v-flex>
                         </v-layout>
                          <v-layout>
