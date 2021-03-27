@@ -1,27 +1,15 @@
 <template>
     <v-container mt-5>
-         <v-layout v-if="error">
-            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-                <app-alert @dismissed="onDismissed" :text="error.message"></app-alert><!-- textはAlert内での呼び名 -->
-            </v-flex>
-        </v-layout>
         <v-layout>
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card>
                     <v-card-text>
-                        <v-container><!-- これないとくくりの中で中央寄せにならない -->
+                        <v-container>
                             <h1 class="mb-5">ログイン画面</h1>
                             <div class="mb-5">
                                 <router-link text class="blue--text" to="/signup" tag="span" style="cursor: pointer">新規登録はこちら</router-link>
                             </div>
                             <v-divider class="mb-5"></v-divider>
-                            <!-- <v-layout>
-                                <v-flex>
-                                    <v-btn @click="signInAnonymously" x-large dark style="width:100%;" >
-                                        匿名としてログイン
-                                    </v-btn>
-                                </v-flex>
-                            </v-layout> -->
                              <v-layout>
                                 <v-flex>
                                     <v-btn @click="loginWithGestUser" x-large dark color="pink darken-1" style="width:100%;" >
@@ -151,9 +139,6 @@ export default {
     user(){
       return this.$store.getters.user
     },
-    error(){
-      return this.$store.getters.error
-    },
     loading(){
        return this.$store.getters.loading
      }
@@ -177,10 +162,6 @@ export default {
   },
     loginWithFacebook(){
       this.$store.dispatch("loginWithFacebook")
-    },
-    onDismissed(){
-      console.log("Dismissed Alert !")
-      this.$store.dispatch("clearError")
     }
   }
 }
