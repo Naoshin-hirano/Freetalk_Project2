@@ -130,7 +130,7 @@
       }
     },
     created(){
-      this.$store.dispatch("fetchOtherUserData", this.$route.params.id)
+      this.$store.dispatch("fetchOtherUserData", this.paramsId[this.paramsId.length - 1])
     },
     computed: {
       //プロフィールユーザ
@@ -178,7 +178,7 @@
     doSend() {
       if (this.input.length >= 0) {
         const commentData = {
-          roomUserId: this.paramsId[this.paramsId.length - 1],
+          roomUserId: this.otherUser.id,
           createrId: this.user.id,
           message: this.input,
           name: this.userName,

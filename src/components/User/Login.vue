@@ -39,7 +39,8 @@
                                       id="email"
                                       v-model="email"
                                       type="email"
-                                      required></v-text-field>
+                                      required
+                                      :rules="emailRules"></v-text-field>
                                   </v-flex>
                                 </v-layout>
                                 <v-layout>
@@ -50,7 +51,8 @@
                                       id="password"
                                       v-model="password"
                                       type="password"
-                                      required></v-text-field>
+                                      required
+                                      :rules="passwordRules"></v-text-field>
                                   </v-flex>
                                 </v-layout>
                                 <v-layout class="mb-2">
@@ -134,7 +136,15 @@ export default {
   data(){
       return{
       email: "",
-      password: ""
+      emailRules: [
+          v => !!v || 'メールアドレスは必須項目です',
+          v => /.+@.+\..+/.test(v) || '有効なメールアドレスではありません'
+      ],
+      password: "",
+      passwordRules: [
+          v => !!v || 'パスワードは必須項目です',
+          v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
+      ]
     }
   },
   computed: {

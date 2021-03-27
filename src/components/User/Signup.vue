@@ -24,7 +24,8 @@
                                       id="email"
                                       v-model="email"
                                       type="email"
-                                      required></v-text-field>
+                                      required
+                                      :rules="emailRules"></v-text-field>
                                   </v-flex>
                                 </v-layout>
                                 <v-layout>
@@ -35,7 +36,8 @@
                                       id="password"
                                       v-model="password"
                                       type="password"
-                                      required></v-text-field>
+                                      required
+                                      :rules="passwordRules"></v-text-field>
                                   </v-flex>
                                 </v-layout>
                                 <v-layout>
@@ -47,7 +49,7 @@
                                       v-model="confirmPassword"
                                       type="confirmPassword"
                                       required
-                                      :rules="[comparePassword]"></v-text-field>
+                                      :rules="confirmPasswordRules"></v-text-field>
                                   </v-flex>
                                 </v-layout>
                                 <v-layout>
@@ -71,14 +73,23 @@ export default {
   data(){
       return{
       email: "",
+      emailRules: [
+          v => !!v || 'メールアドレスは必須項目です',
+          v => /.+@.+\..+/.test(v) || '有効なメールアドレスではありません'
+      ],
       password: "",
-      confirmPassword: ""
+      passwordRules: [
+          v => !!v || 'パスワードは必須項目です',
+          v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
+      ],
+      confirmPassword: "",
+      confirmPasswordRules: [
+          v => !!v || 'パスワードは必須項目です',
+          v => v !== this.password ? "変更後のパスワード（再入力）が一致しません" : true
+      ],
     }
   },
   computed: {
-    comparePassword(){
-      return this.password !== this.confirmPassword ? "Password do no match" : ""
-    },
     user(){
       return this.$store.getters.user
     },
