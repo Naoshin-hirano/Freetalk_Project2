@@ -18,7 +18,9 @@
                                 </v-flex>
                             </v-layout>
                              <v-divider class="mb-5"></v-divider>
-                            <form @submit.prevent="onSigninWithEmail">
+                            <v-form 
+                            @submit.prevent="onSigninWithEmail"
+                            v-model="validForEmail">
                                 <v-layout>
                                   <v-flex xs12>
                                       <v-text-field
@@ -45,13 +47,16 @@
                                 </v-layout>
                                 <v-layout class="mb-2">
                                     <v-flex>
-                                        <v-btn type="submit" style="width:100%;">
+                                        <v-btn
+                                        type="submit" 
+                                        style="width:100%;"
+                                        :disabled="!validForEmail">
                                             <v-icon left>mdi-email</v-icon>
                                             メールでログイン
                                         </v-btn>
                                     </v-flex>
                                 </v-layout>
-                            </form>
+                            </v-form>
                         </v-container>
                         <v-divider class="mb-2"></v-divider>
                         <v-container>
@@ -123,6 +128,7 @@
 export default {
   data(){
       return{
+      validForEmail: true,
       email: "",
       emailRules: [
           v => !!v || 'メールアドレスは必須項目です',

@@ -10,7 +10,9 @@
                                 <router-link text class="blue--text" to="/login" tag="span" style="cursor: pointer">ログインはこちら</router-link>
                             </div>
                             <v-divider class="mb-5"></v-divider>
-                            <form @submit.prevent="onSignup">
+                            <v-form 
+                            @submit.prevent="onSignup"
+                            v-model="validForPassword">
                                 <v-layout>
                                   <v-flex xs12>
                                       <v-text-field
@@ -49,12 +51,18 @@
                                 </v-layout>
                                 <v-layout>
                                     <v-flex class="mt-3">
-                                        <v-btn x-large type="submit" dark color="pink darken-1" style="width:100%;">
+                                        <v-btn
+                                        x-large
+                                        type="submit"  
+                                        style="width:100%;"
+                                        :disabled="!validForPassword"
+                                        color="pink darken-1"
+                                        class="white--text">
                                             続ける
                                         </v-btn>
                                     </v-flex>
                                 </v-layout>
-                            </form>
+                            </v-form>
                         </v-container>
                     </v-card-text>
                 </v-card>
@@ -67,6 +75,7 @@
 export default {
   data(){
       return{
+      validForPassword: true,
       email: "",
       emailRules: [
           v => !!v || 'メールアドレスは必須項目です',
