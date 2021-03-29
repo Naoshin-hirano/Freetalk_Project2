@@ -96,7 +96,7 @@
                                                     text-align: center;
                                                     width: 100%;
                                                     margin-bottom:12px;">
-                                                <v-icon left>mdi-google</v-icon>
+                                                <img class="google-icon" style="width :23px; margin-right :5px;" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
                                                 Googleでログイン
                                             </v-btn>
                                         </v-card-actions>
