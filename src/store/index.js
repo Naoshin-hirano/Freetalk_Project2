@@ -886,6 +886,9 @@ export default new Vuex.Store({
          console.log(error)
        })
     },
+    clearError({commit}){
+      commit("clearError")
+    }
   },
   getters: {
     loadedFreeTalks (state){
