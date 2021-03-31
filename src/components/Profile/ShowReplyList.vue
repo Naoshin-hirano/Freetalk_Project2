@@ -34,7 +34,7 @@
                             <p>{{ reply.message }}</p>
                         </v-card-text>
                         <v-card-actions>
-                            <deleteReply :commentId="commentId" :replyId="reply.replyId"/>
+                            <deleteReply v-show="reply.createrId === userId" :commentId="commentId" :replyId="reply.replyId"/>
                         </v-card-actions>
                     </v-layout>
                 </v-card>
@@ -60,6 +60,9 @@
       //プロフィールユーザ
       otherUser(){
        return this.$store.getters.otherUser
+     },
+     userId(){
+       return this.$store.getters.user.id
      },
       replys(){
         const replys = this.$store.getters.otherUser.replys

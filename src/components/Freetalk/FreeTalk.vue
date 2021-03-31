@@ -45,14 +45,14 @@
                         <v-spacer></v-spacer>
                         <v-spacer></v-spacer>
                         <v-layout mb-7>
-                            <v-flex >
+                            <v-flex v-if="freetalk">
+                                 <deleteFreeTalk v-show="freetalk.createrId === userId" :freetalk="freetalk" width="500"/>
+                            </v-flex>
+                            <v-flex v-if="freetalk">
+                                <editFreeTalk v-show="freetalk.createrId === userId" :freetalk="freetalk"/>
+                            </v-flex>
+                            <v-flex>
                                 <likesBtn v-show="freetalk" :freetalk="freetalk"/>
-                            </v-flex>
-                            <v-flex>
-                                 <deleteFreeTalk v-if="freetalk" :freetalk="freetalk" width="500"/>
-                            </v-flex>
-                            <v-flex>
-                                <editFreeTalk v-if="freetalk" :freetalk="freetalk"/>
                             </v-flex>
                         </v-layout>
                     </v-card-title>
@@ -72,14 +72,14 @@
                         <p v-if="freetalk" class="primary--text mb-0">{{ freetalk.date | date }} - {{ freetalk.location}}</p>
                         <p v-if="freetalk" class="mt-0">Language: {{ freetalk.language }}</p>
                         <v-chip-group column class="ml-3">
-                           <div class="mr-10">
+                           <div v-if="freetalk" class="mr-10">
                                <editDate
-                                v-if="freetalk"
+                                v-show="freetalk.createrId === userId"
                                 :freetalk="freetalk"/>
                             </div>
-                            <div class="ml-5">
+                            <div v-if="freetalk" class="ml-5">
                                 <editTime
-                                v-if="freetalk"
+                                v-show="freetalk.createrId === userId"
                                 :freetalk="freetalk"/>
                             </div>
                         </v-chip-group>
@@ -128,6 +128,9 @@ export default {
    computed: {
      freetalk(){
       return this.id ? this.$store.getters.loadedFreeTalk(this.id) : null
+     },
+     userId(){
+      return this.$store.getters.user ? this.$store.getters.user.id : null
      },
     filterAttendance(){
         return this.$store.getters.attendance.filter((data) =>{

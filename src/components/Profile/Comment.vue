@@ -100,7 +100,7 @@
                             <h3>{{ comment.message}}</h3>
                       </v-card-text>
                       <v-card-actions>
-                            <deleteComment :commentId="comment.commentId"/>
+                            <deleteComment v-show="comment.createrId === user.id" :commentId="comment.commentId"/>
                             <replyBtn :commentId="comment.commentId"/>
                       </v-card-actions>
                   </v-layout>
