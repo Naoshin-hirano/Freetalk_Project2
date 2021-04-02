@@ -11,39 +11,6 @@ export default {
     favs: []
   },
   mutations: {
-//ユーザーフォロー機能の投稿・削除
-    following(state, payload){//payload.id:paramsID
-      const id = payload.id
-      if(state.user.following.findIndex(user => user.id === id)>=0){
-        return
-      }
-      state.user.following.push(id)
-      state.user.followingKeys[id] = payload.followingKey
-    },
-    deleteFollowing(state, payload){//paramsId(他ユーザ)
-      const following = state.user.following
-      following.splice(following.findIndex(uid => uid === payload), 1)
-      Reflect.deleteProperty(state.user.followingKeys, payload)
-      console.log("following削除")
-    },
-    followers(state, payload){//payload.id:getters.user.id
-      const id = payload.id
-      if(state.otherUser.followers.findIndex(user => user.id === id)>=0){
-        return
-      }
-      state.otherUser.followers.push(id)
-      state.otherUser.followerKeys[id] = payload.followerKey
-    },
-    deleteFollowers(state, payload){//uid(他ユーザ)
-      const followers = state.otherUser.followers
-      followers.splice(followers.findIndex(uid => uid === payload), 1)
-      Reflect.deleteProperty(state.otherUser.followerKeys, payload)
-      console.log("followers削除")
-    },
-    //他ユーザーアカウントを参照
-    setLoginOtherUser(state, payload){
-      state.otherUser = payload
-    },
 //いいね機能の投稿・削除・取り出し
     createFavs(state, payload){
       const id = payload.freetalkId
