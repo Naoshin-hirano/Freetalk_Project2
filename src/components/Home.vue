@@ -1,6 +1,6 @@
 <template>
     <v-container class="container">
-       <v-layout mt-5 row wrap v-if="$store.state.user">
+       <v-layout mt-5 row wrap v-if="user">
            <v-flex>
                <v-btn x-large to="/freetalks" class="mb-3" width="300" dark color="pink darken-1">FREETALKを検索してみる</v-btn>
            </v-flex>
