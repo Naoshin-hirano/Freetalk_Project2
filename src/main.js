@@ -7,7 +7,7 @@ import DateFilter from './filters/date.js'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import i18n from './i18n'
-import Comment from './components/Profile/Comment.vue'
+import Comment from './components/User/Comment.vue'
 import AppAlert from './components/Shared/Alert.vue'
 import Paginate from 'vuejs-paginate'
 

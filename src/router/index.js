@@ -7,9 +7,9 @@ import FreeTalk from '../components/Freetalk/FreeTalk.vue'
 import Login from '../components/User/Login.vue'
 import Signup from '../components/User/Signup.vue'
 import UserRegisteredInfo from '../components/User/UserRegisteredInfo.vue'
-import Profile from '../components/Profile/Profile.vue'
-import ProfileForOthers from '../components/Profile/ProfileForOthers.vue'
-import Comment from '../components/Profile/Comment.vue'
+import Profile from '../components/User/Profile.vue'
+import ProfileForOthers from '../components/User/ProfileForOthers.vue'
+import Comment from '../components/User/Comment.vue'
 import Attendance from '../components/Freetalk/Attendance.vue'
 
 

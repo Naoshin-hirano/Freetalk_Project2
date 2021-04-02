@@ -99,8 +99,8 @@
 
 
 <script>
-  import myTabs from '../Profile/MyTabs.vue'
-  import editProfile from '../Profile/EditProfile.vue'
+  import myTabs from '../User/MyTabs.vue'
+  import editProfile from '../User/EditProfile.vue'
   export default {
     components: { myTabs, editProfile },
     data () {

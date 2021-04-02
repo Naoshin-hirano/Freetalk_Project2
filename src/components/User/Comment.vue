@@ -114,9 +114,9 @@
 </template>
 
 <script>
-  import deleteComment from '../Profile/DeleteComment.vue'
-  import replyBtn from '../Profile/ReplyToComment.vue'
-  import showReplyList from '../Profile/ShowReplyList.vue'
+  import deleteComment from '../User/DeleteComment.vue'
+  import replyBtn from '../User/ReplyToComment.vue'
+  import showReplyList from '../User/ShowReplyList.vue'
   export default {
     components: { deleteComment, replyBtn, showReplyList },
     data(){

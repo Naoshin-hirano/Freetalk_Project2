@@ -44,7 +44,7 @@
 </template>
 
 <script>
-  import deleteReply from '../Profile/DeleteReply.vue'
+  import deleteReply from '../User/DeleteReply.vue'
   export default {
     components: { deleteReply },
     props: ["commentId"],

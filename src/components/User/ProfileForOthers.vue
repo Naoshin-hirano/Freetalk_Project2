@@ -88,7 +88,7 @@
 
 
 <script>
-  import tabsForOthers from '../Profile/TabsForOthers.vue'
+  import tabsForOthers from '../User/TabsForOthers.vue'
   import followUser from '../User/FollowUser.vue'
   export default {
     components: { tabsForOthers, followUser },
