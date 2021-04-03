@@ -5,14 +5,12 @@
               <v-overlay v-if="loading">
                   <v-progress-circular
                       indeterminate
-                      color="purple"
-                      :width="7"
-                      :size="70"
+                      size="70"
                   ></v-progress-circular>
                 </v-overlay>
             </v-flex>
         </v-layout>
-        <v-layout v-if="!loading">
+        <v-layout>
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card>
                     <v-card-actions>

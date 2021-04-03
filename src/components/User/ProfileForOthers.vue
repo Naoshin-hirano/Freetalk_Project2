@@ -4,7 +4,7 @@
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card>
                     <v-container>
-                        <v-layout class="text-center">
+                        <v-layout class="text-center" v-show="!loading">
                             <v-flex class="hidden-xs-only">
                                 <v-avatar v-if="imageForRoomUser" size="180">
                                     <img
@@ -29,6 +29,15 @@
                                     alt="John">
                                 </v-avatar>
                             </v-flex>
+                        </v-layout>
+                        <v-layout class="text-center" v-show="loading">
+                          <v-flex>
+                              <v-progress-circular
+                                color="purple"
+                                indeterminate
+                                size="64"
+                              ></v-progress-circular>
+                          </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-1 mb-10>
                             <v-flex >
@@ -117,7 +126,10 @@
         },
         introduction(){
           return this.otherUser ? this.$store.getters.otherUser.introduction : ""
+        },
+        loading(){
+          return this.$store.getters.loading
         }
-    }
+     }
   }
 </script>

@@ -206,6 +206,7 @@ export default {
     },
 //自分が見ているユーザー情報の取り出し
     fetchOtherUserData({commit}, userParamsId){
+      commit("setLoading", true)
       firebase.database().ref("/users/" + userParamsId).once("value")
        .then(data =>{
          const userData = data.val()
@@ -279,6 +280,7 @@ export default {
            followerKeys: followerKey
          }
          commit("setLoginOtherUser", updateUser)
+         commit("setLoading", false)
        })
     },
 //ゲストユーザーログイン

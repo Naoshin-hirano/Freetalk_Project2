@@ -240,6 +240,7 @@ export default {
     },
 //Attendanceの投稿・削除・取り出し
     registerAttendance({commit}, payload){//payload:user.id,id
+      commit("setLoading", true)
       const attendData = {
         uid: payload.uid,
         userName: payload.userName,
@@ -258,15 +259,18 @@ export default {
           ...attendData,
           attendKey: attendKey
          })
+         commit("setLoading", false)
        })
        .catch(error =>{
          console.log(error)
        })
     },
     removeAttendance({commit}, payload){
+      commit("setLoading", true)
       firebase.database().ref("/freetalks/" + payload.freetalkId).child("/attendance/" + payload.attendKey).remove()
        .then(() =>{
          commit("removeAttendance", payload)
+         commit("setLoading", false)
        })
        .catch(error =>{
          console.log(error)

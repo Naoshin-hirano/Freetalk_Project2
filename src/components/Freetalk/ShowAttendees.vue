@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-layout row wrap>
-            <v-flex xs4 sm3 md3 v-for="member in showThreeAttendees" :key="member.userName">
+            <v-flex v-show="!loading" xs4 sm3 md3 v-for="member in showThreeAttendees" :key="member.userName">
                 <v-card class="grey lighten-3 ma-2" width="70%" height="150">
                     <v-layout class="text-center">
                         <v-flex>
@@ -45,6 +45,13 @@
                     </v-layout>
                 </v-card>
             </v-flex>
+            <v-flex class="text-center" v-show="loading" xs4 sm3 md3>
+                <v-progress-circular
+                color="purple"
+                indeterminate
+                size="64"
+                ></v-progress-circular>
+            </v-flex>
         </v-layout>
         <v-layout row wrap v-show="!filterAttendance.length">
             <v-flex xs8 sm8 md8>
@@ -69,7 +76,10 @@
       },
       showThreeAttendees(){
         return this.filterAttendance.slice(0, 3)
-      }
+      },
+       loading(){
+          return this.$store.getters.loading
+       }
     }
   }
 </script>

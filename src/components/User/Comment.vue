@@ -1,7 +1,17 @@
 <template>
     <v-container>
+      <v-layout class="text-center">
+          <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+                <v-progress-circular
+                  v-show="loading"
+                  color="purple"
+                  indeterminate
+                  size="64"
+                ></v-progress-circular>
+            </v-flex>
+      </v-layout>
         <v-layout class="text-center">
-            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex v-show="!loading" xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-avatar size="150" class="hidden-xs-only">
                   <img
                   v-if="imageForRoomUser"
@@ -22,6 +32,14 @@
                   src="@/assets/anonymous.jpg"
                   alt="John">
                 </v-avatar>
+            </v-flex>
+            <v-flex v-show="loading" xs12 sm10 md8 offset-sm1 offset-md2>
+               <v-progress-circular
+                  v-show="loading"
+                  color="purple"
+                  indeterminate
+                  size="64"
+                ></v-progress-circular>
             </v-flex>
         </v-layout>
         <v-layout wrap class="text-center">
@@ -68,7 +86,7 @@
           </v-flex>
         </v-layout>
         <v-layout row wrap v-for="comment in getLists" :key="comment.commentId" mb-3>
-            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex v-show="!loading" xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card>
                   <v-layout>
                       <v-card-actions>
@@ -105,6 +123,13 @@
                       </v-card-actions>
                   </v-layout>
                 </v-card>
+            </v-flex>
+            <v-flex class="text-center" v-show="loading" xs12 sm10 md8 offset-sm1 offset-md2>
+               <v-progress-circular
+                  color="purple"
+                  indeterminate
+                  size="64"
+                ></v-progress-circular>
             </v-flex>
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                <showReplyList :commentId="comment.commentId"/>
@@ -164,6 +189,9 @@
      photoURL(){
        return this.$store.getters.photoURL
      },
+     loading(){
+       return this.$store.getters.loading
+    },
     submittableDateTime(){
       const date = new Date()
       const str = date.getFullYear()
