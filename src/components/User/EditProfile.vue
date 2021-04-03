@@ -71,6 +71,7 @@
   </v-row>
 </template>
 <script>
+  import firebase from "firebase"
   export default {
     data () {
       return {
@@ -106,13 +107,12 @@
         }
       },
       onSaveProfile(){
-        this.$store.dispatch("updateProfile",{
-          id: this.$store.getters.user.id,
+        firebase.database().ref("/users/" + this.$store.getters.user.id).update({
           displayName: this.userName,
           photoURL: this.photoURL,
-          image: this.imageFile,
           introduction: this.introduction
         })
+        this.$store.dispatch("fetchUserData")
         this.editDialog = false
       },
       close(){

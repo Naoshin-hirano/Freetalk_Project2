@@ -122,38 +122,9 @@ export default {
          console.log(error)
        })
     },
-//ユーザー情報の更新
-    updateProfile({commit,getters}, payload){
-      const user = getters.user
-      const currentUser = firebase.auth().currentUser
-      currentUser.updateProfile({
-        photoURL: payload.image,
-        displayName: payload.displayName
-      })
-       .then(()=>{
-        firebase.database().ref("/users/" + user.id)
-        .set(payload)
-          commit("setLoginUser",{
-           id: payload.id,
-           photoURL: payload.photoURL,
-           displayName: payload.displayName,
-           introduction: payload.introduction,
-           registeredFreetalks: [],
-           fbKeys: {},
-           //コメント機能
-           comments: [],
-           //リプライ機能
-           replys: [],
-           //フォロー機能（データ取り出し）
-           following: [],
-           followingKeys: {},
-           followers: [],
-           followersKeys: {}
-        })
-      })
-    },
 //ユーザー情報の取り出し
     fetchUserData({commit, getters}){
+      commit("setLoading", true)
       firebase.database().ref("/users/" + getters.user.id).once("value")
       .then(data =>{
         const userData = data.val()
@@ -227,6 +198,7 @@ export default {
           followerKeys: followerKey
         }
         commit("setLoginUser", updateUser)
+        commit("setLoading", false)
        })
         .catch(error=>{
           console.log(error)
@@ -292,7 +264,6 @@ export default {
           }
         }
         
-
          const updateUser = {
            id: userData.id,
            photoURL: userData.photoURL,
