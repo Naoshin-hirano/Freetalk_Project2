@@ -14,17 +14,16 @@
         </v-carousel>
       </template>
       <v-card>
-         <v-container class="indigo accent-3 text-right" dark height="30">
-              <v-icon
-              color="orange darken-2"
-              @click="dialog = false">mdi-close-circle</v-icon>
+         <v-container class="text-right mb-0 pb-0">
+           <v-icon
+              @click="dialog = false">mdi-close-circle
+           </v-icon>
          </v-container>
-         <v-container class="text-center">
-             <v-layout>
+         <v-container class="text-center mt-0 pt-0">
+             <v-layout class="mb-3">
                 <v-card-title class="hidden-xs-only">ログインするとFREETALK詳細を見れます</v-card-title>
                 <v-card-text class="hidden-sm-and-up">ログインするとFREETALK詳細を見れます</v-card-text>
              </v-layout>
-             <v-divider></v-divider>
               <v-layout>
                   <v-flex>
                       <v-btn @click="loginWithGestUser" large color="lime" style="width:100%;" >

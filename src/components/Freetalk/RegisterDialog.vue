@@ -65,8 +65,8 @@
                         class="green--text darken-1"
                         text
                         @click="onAgree">
-                        <h3 class="hidden-xs-only">参加する</h3>
-                        <span class="hidden-sm-and-up">参加する</span>
+                        <h3 class="hidden-xs-only">はい</h3>
+                        <span class="hidden-sm-and-up">はい</span>
                         </v-btn>
                  </v-card-actions>
              </v-layout>

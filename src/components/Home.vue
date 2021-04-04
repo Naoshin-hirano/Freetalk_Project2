@@ -1,5 +1,16 @@
 <template>
-    <v-container class="container">
+    <div>
+    <v-container
+    class="pt-0 pl-0 pr-0 mt-10"
+    v-show="!user">
+        <v-layout row>
+           <v-flex>
+                 <h3 class="hidden-xs-only">FREETALK！は、ボランティアの語学研修を開催するためのアプリです！</h3>
+                 <h4 class="hidden-sm-and-up ml-2">FREETALK！は<br>ボランティアの語学研修を開催するためのアプリです！</h4>
+           </v-flex>
+       </v-layout>
+    </v-container>
+    <v-container>
        <v-layout mt-5 row wrap v-if="user">
            <v-flex>
                <v-btn x-large to="/freetalks" class="mb-3" width="300" dark color="pink darken-1">FREETALKを検索してみる</v-btn>
@@ -24,7 +35,7 @@
                 ></v-progress-circular>
             </v-flex>
         </v-layout>
-       <v-layout row wrap mt-5  v-if="!loading">
+       <v-layout row wrap mt-5 v-if="!loading">
            <v-flex>
                <v-card max-width="1000" class="mx-auto">
                    <v-carousel v-show="user">
@@ -40,15 +51,8 @@
                 </v-card>
            </v-flex>
        </v-layout>
-       <v-layout row wrap mt-3>
-           <v-flex style="text">
-               <v-card max-width="1000" class="mx-auto pt-5 pb-5">
-                 <h2 class="hidden-xs-only">FreeTalk みんなで無料語学研修を投稿・メンバー募集・開催しよう！</h2>
-                 <h5 class="hidden-sm-and-up ">FreeTalk is ...  みんなで無料語学研修を投稿・メンバー募集・開催しよう！</h5>
-               </v-card>
-           </v-flex>
-       </v-layout>
     </v-container>
+    </div>
 </template>
 
 <script>
