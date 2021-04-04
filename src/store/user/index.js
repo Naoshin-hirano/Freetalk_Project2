@@ -354,10 +354,10 @@ export default {
       commit("deleteLoginUser")
     },
 //facebookログイン
-    loginWithFacebook(){
-      const provider = new firebase.auth.FacebookAuthProvider()
-      firebase.auth().signInWithRedirect(provider)
-    },
+    // loginWithFacebook(){
+    //   const provider = new firebase.auth.FacebookAuthProvider()
+    //   firebase.auth().signInWithRedirect(provider)
+    // },
 //メールアドレスでユーザーアカウント登録
     signUserUp({commit}, payload){
       commit("clearError")

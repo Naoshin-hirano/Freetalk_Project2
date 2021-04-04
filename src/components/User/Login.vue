@@ -67,7 +67,7 @@
                         <v-container>
                             <v-layout>
                                 <v-card style="background: #CCCCFF; width:100%;">
-                                    <v-flex>
+                                    <!-- <v-flex>
                                         <v-card-actions>
                                             <v-btn @click="loginWithFacebook"
                                                 style="
@@ -91,8 +91,8 @@
                                                 ></div>
                                             </v-btn>
                                         </v-card-actions>
-                                    </v-flex>
-                                    <v-flex>
+                                    </v-flex> -->
+                                    <v-flex class="mt-3">
                                         <v-card-actions>
                                             <v-btn
                                                 @click="loginWithGoogle"
@@ -174,9 +174,9 @@ export default {
     loginWithGoogle(){
       this.$store.dispatch("loginWithGoogle")
   },
-    loginWithFacebook(){
-      this.$store.dispatch("loginWithFacebook")
-    },
+    // loginWithFacebook(){
+    //   this.$store.dispatch("loginWithFacebook")
+    // },
     onDismissed(){
       console.log("Dismissed Alert !")
       this.$store.dispatch("clearError")
