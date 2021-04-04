@@ -12,22 +12,25 @@
       <v-card>
          <v-container>
              <v-layout row wrap>
-                <v-card-title>このコメントを削除しますか?</v-card-title>
+                <v-card-title class="hidden-xs-only">このコメントを削除しますか?</v-card-title>
+                <v-card-text class="hidden-sm-and-up">このコメントを削除しますか?</v-card-text>
              </v-layout>
              <v-divider></v-divider>
              <v-layout row wrap>
                  <v-card-actions>
                         <v-btn
-                        class="cyan--text darken-1"
+                        class="red--text darken-1"
                         text
                         @click="registerDialog = false">
-                        <h3>キャンセル</h3>
+                        <h3 class="hidden-xs-only">キャンセル</h3>
+                        <span class="hidden-sm-and-up">キャンセル</span>
                         </v-btn>
                         <v-btn
-                        class="cyan--text darken-1"
+                        class="green--text darken-1"
                         text
                         >
-                        <h3 @click="deleteReply">削除</h3>
+                        <h3 @click="deleteReply" class="hidden-xs-only">削除</h3>
+                        <span @click="deleteReply" class="hidden-sm-and-up">削除</span>
                         </v-btn>
                  </v-card-actions>
              </v-layout>

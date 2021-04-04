@@ -115,7 +115,7 @@
                   </v-layout>
                   <v-layout>
                       <v-card-text>
-                            <h3>{{ comment.message}}</h3>
+                      {{ comment.message}}
                       </v-card-text>
                       <v-card-actions>
                             <deleteComment v-show="comment.createrId === user.id" :commentId="comment.commentId"/>

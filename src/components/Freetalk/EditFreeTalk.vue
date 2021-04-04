@@ -43,8 +43,14 @@
              <v-layout>
                  <v-flex>
                      <v-card-actions>
-                         <v-btn @click="editDialog=false" text class="blue--text darken-1">閉じる</v-btn>
-                         <v-btn @click="onSaveChanges" text class="blue--text darken-1">変更</v-btn>
+                         <v-btn @click="editDialog=false" text class="red--text darken-1">
+                           <h3 class="hidden-xs-only">閉じる</h3>
+                           <span class="hidden-sm-and-up">閉じる</span>
+                         </v-btn>
+                         <v-btn @click="onSaveChanges" text class="green--text darken-1">
+                          <h3 class="hidden-xs-only">変更</h3>
+                          <span class="hidden-sm-and-up">変更</span>
+                         </v-btn>
                      </v-card-actions>
                  </v-flex>
              </v-layout>

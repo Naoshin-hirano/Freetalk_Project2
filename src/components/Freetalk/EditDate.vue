@@ -21,19 +21,19 @@
              <v-layout row wrap>
                  <v-card-text>
                     <v-date-picker 
-                    color="cyan darken-1" 
+                    color="blue darken-1" 
                     v-model="editableDate"
                     elevation="15"
                     style="width :100%">
                     <template>
                         <v-btn
-                        class="cyan--text darken-1"
+                        class="red--text darken-1"
                         text
-                        @click.native="editDialog = false">Close</v-btn>
+                        @click.native="editDialog = false">閉じる</v-btn>
                         <v-btn
-                        class="cyan--text darken-1"
+                        class="green--text darken-1"
                         text
-                        @click.native="onSaveChanges">Save</v-btn>
+                        @click.native="onSaveChanges">保存する</v-btn>
                     </template>
                     </v-date-picker>
                  </v-card-text>

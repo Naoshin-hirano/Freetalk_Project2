@@ -21,20 +21,20 @@
              <v-layout row wrap>
                  <v-card-text>
                     <v-time-picker 
-                    color="cyan darken-1" 
+                    color="blue darken-1" 
                     v-model="editableTime" 
                     style="..." 
                     actions 
                     format="24hr">
-                        <template >
+                        <template>
                             <v-btn
-                            class="cyan--text darken-1"
+                            class="red--text darken-1"
                             text
-                            @click.native="editDialog = false">Close</v-btn>
+                            @click.native="editDialog = false">閉じる</v-btn>
                             <v-btn
-                            class="cyan--text darken-1"
+                            class="green--text darken-1"
                             text
-                            @click.native="onSaveChanges">Save</v-btn>
+                            @click.native="onSaveChanges">保存</v-btn>
                         </template>
                     </v-time-picker>
                  </v-card-text>

@@ -28,16 +28,18 @@
              <v-layout row wrap>
                  <v-card-actions>
                         <v-btn
-                        class="cyan--text darken-1"
+                        class="red--text darken-1"
                         text
                         @click="registerDialog = false">
-                        <h3>閉じる</h3>
+                        <h3 class="hidden-xs-only">閉じる</h3>
+                        <span class="hidden-sm-and-up">閉じる</span>
                         </v-btn>
                         <v-btn
-                        class="cyan--text darken-1"
+                        class="green--text darken-1"
                         text
                         >
-                        <h3 @click="replyToComment">返信する</h3>
+                        <h3 @click="replyToComment" class="hidden-xs-only">返信する</h3>
+                        <span @click="replyToComment" class="hidden-sm-and-up">返信する</span>
                         </v-btn>
                  </v-card-actions>
              </v-layout>

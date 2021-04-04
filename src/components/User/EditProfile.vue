@@ -60,8 +60,12 @@
              <v-layout>
                  <v-flex>
                      <v-card-actions>
-                         <v-btn @click="close" text class="blue--text darken-1">閉じる</v-btn>
-                         <v-btn @click="onSaveProfile" text class="blue--text darken-1">保存する</v-btn>
+                         <v-btn @click="close" text class="red--text darken-1">
+                           閉じる
+                         </v-btn>
+                         <v-btn @click="onSaveProfile" text class="green--text darken-1">
+                           保存する
+                        　</v-btn>
                      </v-card-actions>
                  </v-flex>
              </v-layout>
