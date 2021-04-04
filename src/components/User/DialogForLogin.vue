@@ -13,20 +13,25 @@
             </v-carousel-item>
         </v-carousel>
       </template>
-      <v-card class="text-center">
-         <v-container>
+      <v-card>
+         <v-container class="indigo accent-3 text-right" dark height="30">
+              <v-icon
+              color="orange darken-2"
+              @click="dialog = false">mdi-close-circle</v-icon>
+         </v-container>
+         <v-container class="text-center">
              <v-layout>
                 <v-card-title class="hidden-xs-only">ログインするとFREETALK詳細を見れます</v-card-title>
                 <v-card-text class="hidden-sm-and-up">ログインするとFREETALK詳細を見れます</v-card-text>
              </v-layout>
              <v-divider></v-divider>
-                <v-btn
-                class="cyan--text darken-1 text-center"
-                text
-                @click="dialog = false">
-                <h3 class="hidden-xs-only">閉じる</h3>
-                <span class="hidden-sm-and-up">閉じる</span>
-                </v-btn>
+              <v-layout>
+                  <v-flex>
+                      <v-btn @click="loginWithGestUser" large color="lime" style="width:100%;" >
+                          ゲストユーザーとしてログイン
+                      </v-btn>
+                  </v-flex>
+              </v-layout>
          </v-container>
       </v-card>
     </v-dialog>
@@ -39,6 +44,11 @@
     data(){
       return {
         dialog: false
+      }
+    },
+    methods: {
+      loginWithGestUser(){
+        this.$store.dispatch("loginWithGestUser", {email: "guest@example.com", password: "guests"})
       }
     }
   }
