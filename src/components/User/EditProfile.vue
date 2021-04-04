@@ -65,7 +65,7 @@
                          </v-btn>
                          <v-btn @click="onSaveProfile" text class="green--text darken-1">
                            保存する
-                        　</v-btn>
+                         </v-btn>
                      </v-card-actions>
                  </v-flex>
              </v-layout>

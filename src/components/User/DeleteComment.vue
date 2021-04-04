@@ -28,9 +28,10 @@
                         <v-btn
                         class="green--text darken-1"
                         text
+                        @click="deleteComment"
                         >
-                        <h3 @click="deleteComment" class="hidden-xs-only">削除</h3>
-                        <span @click="deleteComment" class="hidden-sm-and-up">削除</span>
+                        <h3 class="hidden-xs-only">削除</h3>
+                        <span class="hidden-sm-and-up">削除</span>
                         </v-btn>
                  </v-card-actions>
              </v-layout>
