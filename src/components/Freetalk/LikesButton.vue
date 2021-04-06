@@ -24,7 +24,7 @@
 <script>
 export default{
   props: ["freetalk"],
-    computed: {
+  computed: {
       user(){
         return this.$store.getters.user
       },
@@ -33,16 +33,6 @@ export default{
           return fav.freetalkId === this.freetalk.id 
           && fav.uid === this.user.id
         })>= 0
-      },
-      getFavs(){
-        const favs = this.$store.getters.favs
-        return favs.filter((fav) =>{
-          return fav.freetalkId.match(this.freetalk.id)
-          && fav.uid.match(this.user.id)
-        })
-      },
-      getKey(){
-        return this.getFavs.map(obj =>obj.favKey)
       },
       counter(){
         const favs = this.$store.getters.favs
@@ -62,7 +52,6 @@ export default{
         this.$store.dispatch("deleteFavs",{
           uid: this.user.id,
           freetalkId: this.freetalk.id,
-          favKey: this.getKey
         })
       }
     }

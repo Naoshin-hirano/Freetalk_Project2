@@ -19,12 +19,14 @@ export default {
         return
       }
       state.favs.push(payload)
+      console.log("お気に入り登録")
     },
     deleteFavs(state, payload){//payload={freetalkId + favKey}
       const fav = state.favs.findIndex(fav =>{
-        return fav.favKey === payload.favKey
+        return fav.freetalkId === payload.freetalkId && fav.uid === payload.uid
       })
       state.favs.splice(fav, 1)
+      console.log("お気に入り解除")
     },
     setLoadedFavs(state, payload){
       state.favs = payload
@@ -174,31 +176,21 @@ export default {
        })
     },
 //いいね機能の投稿・削除・取り出し
-    createFavs({commit}, payload){//payload={uid + freetalkId}
-    const favData = {
-      uid: payload.uid,
-      freetalkId: payload.freetalkId
-    }
-    let favKey
-    firebase.database().ref("/freetalks/" + payload.freetalkId).child("/favs/").push(favData)
-    .then((data) =>{
-      favKey = data.key
-      return firebase.database().ref("/freetalks/" + payload.freetalkId).child("/favs/" + favKey).update({favKey: data.key})
-    })
-    .then(() =>{
-      commit("createFavs", {
-        ...favData,
-        favKey: favKey
+    createFavs({commit}, payload ){//payload={uid + freetalkId}
+    // let favKey
+      firebase.database().ref("/freetalks/" + payload.freetalkId).child("/favs/").update({[payload.uid]: payload.freetalkId})
+      commit("createFavs", { 
+        freetalkId: payload.freetalkId, 
+        uid: payload.uid 
       })
-    })
-    .catch(error =>{
-      console.log(error)
-    })
     },
     deleteFavs({commit}, payload){//payload={uid + favKey + freetalkId}
-    firebase.database().ref("/freetalks/" + payload.freetalkId).child("/favs/" + payload.favKey).remove()
+    firebase.database().ref("/freetalks/" + payload.freetalkId).child("/favs/" + payload.uid).remove()
     .then(() =>{
-      commit("deleteFavs", payload)
+      commit("deleteFavs", {
+        freetalkId: payload.freetalkId,
+        fbKey: payload.uid
+      })
     })
     .catch(error =>{
       console.log(error)
@@ -207,8 +199,8 @@ export default {
     loadedFav({commit}){
       firebase.database().ref("freetalks").once("value")
       .then((data) =>{
-        const freetalks = []
-        const favs = []
+        let freetalks = []
+        let favs = []
         const obj = data.val()
         for(let key in obj){
           freetalks.push({
@@ -226,9 +218,8 @@ export default {
           const obj2 = obj[key].favs
           for(let key2 in obj2){
             favs.push({
-              uid: obj2[key2].uid,
-              freetalkId: obj2[key2].freetalkId,
-              favKey: obj2[key2].favKey
+              uid: key2,
+              freetalkId: obj2[key2]
             })
           }
         }
@@ -268,13 +259,10 @@ export default {
     removeAttendance({commit}, payload){
       commit("setLoading", true)
       firebase.database().ref("/freetalks/" + payload.freetalkId).child("/attendance/" + payload.attendKey).remove()
-       .then(() =>{
-         commit("removeAttendance", payload)
+         commit("removeAttendance", {
+           key: payload.attendKey
+         })
          commit("setLoading", false)
-       })
-       .catch(error =>{
-         console.log(error)
-       })
     },
     loadedAttendance({commit}){
       commit("setLoading", true)
