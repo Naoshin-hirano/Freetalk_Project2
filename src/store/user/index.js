@@ -42,20 +42,6 @@ export default {
     setLoginOtherUser(state, payload){
       state.otherUser = payload
     },
-//参加ボタンのtrue/false
-    registerUserForFreetalk(state, payload){//payload{id: payload, fbKey: data.key}
-      const id = payload.id
-      if(state.user.registeredFreetalks.findIndex(freetalk => freetalk.id === id)>=0){
-        return
-      }
-      state.user.registeredFreetalks.push(id)
-      state.user.fbKeys[id] = payload.fbKey
-    },
-    unregisterUserFromFreetalk(state, payload){//freetalkId
-      const registeredFreetalks = state.user.registeredFreetalks
-      registeredFreetalks.splice(registeredFreetalks.findIndex(freetalk=> freetalk.id === payload), 1)
-      Reflect.deleteProperty(state.user.fbKeys, payload)
-    },
 //コメント機能の投稿・削除・取り出し
     createComment(state, payload){
       state.otherUser.comments.push(payload)
@@ -95,47 +81,14 @@ export default {
     }
   },
   actions: {
-//参加ボタンのtrue/false
-     registerUserForFreetalk({commit,getters}, payload){//payload:freetalkId
-      const user = getters.user
-      firebase.database().ref("/users/" + user.id).child("/registrations/")
-       .push(payload)
-       .then(data=>{
-         commit("registerUserForFreetalk", {id: payload, fbKey: data.key})
-       })
-       .catch(error=>{
-         console.log(error)
-       })
-    },
-    unregisterUserFromFreetalk({commit, getters}, payload){//payload:freetalkId
-      const user = getters.user
-      if(!user.fbKeys){
-        return 
-      }
-      const fbKey = user.fbKeys[payload]
-      firebase.database().ref("/users/" + user.id + "/registrations/").child(fbKey)
-       .remove()
-       .then(()=>{
-         commit("unregisterUserFromFreetalk", payload)
-       })
-       .catch(error=>{
-         console.log(error)
-       })
-    },
+
 //ユーザー情報の取り出し
     fetchUserData({commit, getters}){
       commit("setLoading", true)
       firebase.database().ref("/users/" + getters.user.id).once("value")
       .then(data =>{
         const userData = data.val()
-        //参加登録のデータ
-        const dataPairs = data.val().registrations
-        let registeredFreetalks = []
-        let swappedPairs = {}
-        for(let key in dataPairs){
-         registeredFreetalks.push(dataPairs[key])
-         swappedPairs[dataPairs[key]] = key
-       }
+
         //フォローのデータ
         const followingPairs = data.val().following
         let registeredFollowing = []
@@ -188,8 +141,6 @@ export default {
           photoURL: userData.photoURL,
           displayName: userData.displayName,
           introduction: userData.introduction,
-          registeredFreetalks: registeredFreetalks,
-          fbKeys: swappedPairs,
           comments: comments,
           replys: replys,
           following: registeredFollowing,
@@ -210,14 +161,7 @@ export default {
       firebase.database().ref("/users/" + userParamsId).once("value")
        .then(data =>{
          const userData = data.val()
-         //参加登録のデータ
-         const dataPairs = data.val().registrations
-         let registeredFreetalks = []
-         let swappedPairs = {}
-         for(let key in dataPairs){
-          registeredFreetalks.push(dataPairs[key])
-          swappedPairs[dataPairs[key]] = key
-        }
+
          //フォローのデータ
          const followingPairs = data.val().following
          let registeredFollowing = []
@@ -270,8 +214,6 @@ export default {
            photoURL: userData.photoURL,
            displayName: userData.displayName,
            introduction: userData.introduction,
-           registeredFreetalks: registeredFreetalks,
-           fbKeys: swappedPairs,
            comments: comments,
            replys: replys,
            following: registeredFollowing,
@@ -291,12 +233,10 @@ export default {
           user => {
             const guestUser = {
             id: user.uid,
-            registeredFreetalks: [],
-            fbKeys: {},
             //コメント機能
             comments: [],
-              //リプライ機能
-              replys: [],
+            //リプライ機能
+            replys: [],
             //フォロー機能（データ取り出し）
             following: [],
             followingKeys: {},
@@ -336,8 +276,6 @@ export default {
         photoURL: payload.photoURL,
         displayName: payload.displayName,
         introduction: payload.introduction,
-        registeredFreetalks: [],
-        fbKeys: {},
         //コメント機能
         comments: [],
          //リプライ機能
@@ -366,8 +304,6 @@ export default {
          user => {
           const newUser = {
             id: user.uid,
-            registeredFreetalks: [],
-            fbKeys: {},
             //コメント機能
             comments: [],
              //リプライ機能
@@ -394,8 +330,6 @@ export default {
          user => {
            const newUser = {
             id: user.uid,
-            registeredFreetalks: [],
-            fbKeys: {},
             //コメント機能
             comments: [],
              //リプライ機能

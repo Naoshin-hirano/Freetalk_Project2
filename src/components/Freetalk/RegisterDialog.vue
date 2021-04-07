@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on, attrs }">
         <div class="hidden-xs-only">
             <v-btn
-            v-if="!userIsRegistered"
+            v-if="!attend_status"
             dark color="pink darken-1"
             v-bind="attrs"
             v-on="on">
@@ -22,7 +22,7 @@
         </div>
         <div class="hidden-sm-and-up">
             <v-btn
-            v-if="!userIsRegistered"
+            v-if="!attend_status"
             dark color="pink darken-1"
             v-bind="attrs"
             v-on="on"
@@ -44,11 +44,11 @@
       <v-card>
          <v-container>
              <v-layout class="hidden-xs-only">
-                <v-card-title v-if="userIsRegistered">このFREETALKの参加を解除しますか?</v-card-title>
+                <v-card-title v-if="attend_status">このFREETALKの参加を解除しますか?</v-card-title>
                 <v-card-title v-else>このFREETALKに参加しますか?</v-card-title>
              </v-layout>
              <v-layout class="hidden-sm-and-up">
-                <v-card-text v-if="userIsRegistered">このFREETALKの参加を解除しますか?</v-card-text>
+                <v-card-text v-if="attend_status">このFREETALKの参加を解除しますか?</v-card-text>
                 <v-card-text v-else>このFREETALKに参加しますか?</v-card-text>
              </v-layout>
              <v-divider></v-divider>
@@ -85,20 +85,20 @@
       }
     },
     computed: {
-      userIsRegistered(){
-        return this.$store.getters.user.registeredFreetalks.findIndex(freetalkId=>{
-            return freetalkId === this.freetalkId
-        }) >= 0
-      },
+      // attend_status(){
+      //   return this.$store.getters.user.registeredFreetalks.findIndex(freetalkId=>{
+      //       return freetalkId === this.freetalkId
+      //   }) >= 0
+      // },
       submittableDateTime(){
-      const date = new Date()
-      const str = date.getFullYear()
-      + '/' + ('0' + (date.getMonth() + 1)).slice(-2)
-      + '/' + ('0' + date.getDate()).slice(-2)
-      + ' ' + ('0' + date.getHours()).slice(-2)
-      + ':' + ('0' + date.getMinutes()).slice(-2)
-      return str
-      },
+        const date = new Date()
+        const str = date.getFullYear()
+        + '/' + ('0' + (date.getMonth() + 1)).slice(-2)
+        + '/' + ('0' + date.getDate()).slice(-2)
+        + ' ' + ('0' + date.getHours()).slice(-2)
+        + ':' + ('0' + date.getMinutes()).slice(-2)
+         return str
+       },
       user(){
          return this.$store.getters.user
        },
@@ -108,8 +108,12 @@
        photoURL(){
          return this.$store.getters.photoURL
        },
-       attendance(){
-         return this.$store.state.attendance.attendanceId
+       //attendanceからこのfreetalkIdとuidが一致するものを探す
+       attend_status(){
+        return this.$store.getters.attendance.findIndex(attend =>{
+          return attend.freetalkId === this.freetalkId 
+          && attend.uid === this.user.id
+        })>= 0
        },
        getAttendance(){
         const attendance = this.$store.getters.attendance
@@ -131,8 +135,8 @@
           freetalkId: this.freetalkId,
           datetime: this.submittableDateTime
         }
-        if(this.userIsRegistered){
-          this.$store.dispatch("unregisterUserFromFreetalk", this.freetalkId)
+        if(this.attend_status){
+          // this.$store.dispatch("unregisterUserFromFreetalk", this.freetalkId)
           this.$store.dispatch("removeAttendance", {
             uid : this.user.id,
             userName: this.userName,
@@ -141,9 +145,10 @@
             datetime: this.submittableDateTime,
             attendKey: this.getKey
           })
+          console.log(this.getKey)
           this.registerDialog=false
         }else{
-          this.$store.dispatch("registerUserForFreetalk", this.freetalkId)
+          // this.$store.dispatch("registerUserForFreetalk", this.freetalkId)
           this.$store.dispatch("registerAttendance", userData)
           this.registerDialog=false
         }

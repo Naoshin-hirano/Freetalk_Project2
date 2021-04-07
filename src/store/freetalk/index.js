@@ -64,7 +64,7 @@ export default {
     },
     removeAttendance(state, payload){
       const attend= state.attendance.findIndex(attend =>{
-        return attend.attendKey === payload.attendKey
+        return attend.attendKey === payload.key
       })
       state.attendance.splice(attend, 1)
     },
@@ -194,7 +194,7 @@ export default {
     })
     .catch(error =>{
       console.log(error)
-    })
+      })
     },
     loadedFav({commit}){
       firebase.database().ref("freetalks").once("value")
@@ -237,18 +237,19 @@ export default {
         userName: payload.userName,
         photoURL: payload.photoURL,
         freetalkId: payload.freetalkId,
-        datetime: payload.datetime
+        datetime: payload.datetime,
+        attendKey:""
       }
-      let attendKey
+      let key
       firebase.database().ref("/freetalks/" + payload.freetalkId).child("attendance").push(attendData)
        .then((data) =>{
-         attendKey = data.key
-         return firebase.database().ref("/freetalks/" + payload.freetalkId).child("/attendance/" + attendKey).update({attendKey: data.key})
+         key = data.key
+         firebase.database().ref("/freetalks/" + payload.freetalkId).child("/attendance/" + key).update({attendKey: key})
        })
        .then(() =>{
         commit("registerAttendance", {
           ...attendData,
-          attendKey: attendKey
+          attendKey: key
          })
          commit("setLoading", false)
        })
@@ -259,17 +260,22 @@ export default {
     removeAttendance({commit}, payload){
       commit("setLoading", true)
       firebase.database().ref("/freetalks/" + payload.freetalkId).child("/attendance/" + payload.attendKey).remove()
-         commit("removeAttendance", {
-           key: payload.attendKey
-         })
-         commit("setLoading", false)
+       .then(()=>{
+        commit("removeAttendance", {
+          key: payload.attendKey
+        })
+        commit("setLoading", false)
+       })
+       .catch(error =>{
+        console.log(error)
+      })
     },
     loadedAttendance({commit}){
       commit("setLoading", true)
       firebase.database().ref("freetalks").once("value")
        .then((data) =>{
          const freetalks = []
-         const atteddance = []
+         const attendance = []
          const obj = data.val()
          for(let key in obj){
            freetalks.push({
@@ -287,16 +293,17 @@ export default {
            })
            const obj2 = obj[key].attendance
            for(let key2 in obj2){
-            atteddance.push({
+            attendance.push({
               uid: obj2[key2].uid,
               userName: obj2[key2].userName,
               photoURL: obj2[key2].photoURL,
               freetalkId: obj2[key2].freetalkId,
-              datetime: obj2[key2].datetime
+              datetime: obj2[key2].datetime,
+              attendKey: obj2[key2].attendKey
             })
            }
          }
-         commit("setAttendance", atteddance)
+         commit("setAttendance", attendance)
          commit("setLoading", false)
        })
        .catch((error)=>{

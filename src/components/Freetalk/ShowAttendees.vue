@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-layout row wrap>
-            <v-flex v-show="!loading" xs4 sm3 md3 v-for="member in showThreeAttendees" :key="member.userName">
+            <v-flex v-show="!loading" xs4 sm3 md3 v-for="member in showThreeAttendees" :key="member.attendKey">
                 <v-card class="grey lighten-3 ma-2" width="70%" height="150">
                     <v-layout class="text-center">
                         <v-flex>
