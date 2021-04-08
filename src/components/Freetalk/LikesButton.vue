@@ -39,7 +39,7 @@ export default{
         return favs.filter((fav) =>{
           return fav.freetalkId.match(this.freetalk.id)
         })
-      },
+      }
     },
     methods: {
       favorite(){

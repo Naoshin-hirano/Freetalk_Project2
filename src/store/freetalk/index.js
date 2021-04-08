@@ -192,7 +192,7 @@ export default {
     .then(() =>{
       commit("deleteFavs", {
         freetalkId: payload.freetalkId,
-        fbKey: payload.uid
+        uid: payload.uid
       })
     })
     .catch(error =>{
@@ -225,6 +225,7 @@ export default {
             })
           }
         }
+        console.log(favs)
         commit("setLoadedFavs", favs)
       })
     },
