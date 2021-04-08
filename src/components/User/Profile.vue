@@ -118,6 +118,12 @@
         editDialog: false,
       }
     },
+    //プロフィール画面にくる度に各タブのリストが更新される
+    created(){
+      this.$store.dispatch('loadedFreeTalks')
+      this.$store.dispatch('loadedAttendance')
+      this.$store.dispatch("loadedFav")
+    },
     computed: {
        currentUser(){
          return this.$store.getters.user

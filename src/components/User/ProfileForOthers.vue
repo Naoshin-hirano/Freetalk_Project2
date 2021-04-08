@@ -110,6 +110,9 @@
     },
     created(){
         this.$store.dispatch("fetchOtherUserData", this.url[this.url.length - 1])
+        this.$store.dispatch('loadedFreeTalks')
+        this.$store.dispatch('loadedAttendance')
+        this.$store.dispatch("loadedFav")
     },
     computed: {
        otherUser(){
