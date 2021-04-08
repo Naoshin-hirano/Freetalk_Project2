@@ -15,7 +15,7 @@ export default {
     createFavs(state, payload){
       const id = payload.freetalkId
       const uid = payload.uid
-      if(state.favs.findIndex(fav => fav.freetalkId === id && fav.uid === uid)>=0){
+      if(state.favs.findIndex(fav => fav.freetalkId === id && fav.uid === uid)){
         return
       }
       state.favs.push(payload)
@@ -60,6 +60,9 @@ export default {
     },
 //Attendanceの投稿・削除・取り出し
     registerAttendance(state, payload){
+      if(state.attendance.findIndex(attend =>{return attend.attendKey === payload.key})){
+        return 
+      }
       state.attendance.push(payload)
     },
     removeAttendance(state, payload){
@@ -197,8 +200,7 @@ export default {
       })
     },
     loadedFav({commit}){
-      firebase.database().ref("freetalks").once("value")
-      .then((data) =>{
+      firebase.database().ref("freetalks").on("value", data =>{
         let freetalks = []
         let favs = []
         const obj = data.val()
@@ -224,9 +226,6 @@ export default {
           }
         }
         commit("setLoadedFavs", favs)
-      })
-      .catch((error)=>{
-        console.log(error)
       })
     },
 //Attendanceの投稿・削除・取り出し
@@ -272,9 +271,8 @@ export default {
     },
     loadedAttendance({commit}){
       commit("setLoading", true)
-      firebase.database().ref("freetalks").once("value")
-       .then((data) =>{
-         const freetalks = []
+      firebase.database().ref("freetalks").on('value', (data)=>{
+        const freetalks = []
          const attendance = []
          const obj = data.val()
          for(let key in obj){
@@ -305,11 +303,7 @@ export default {
          }
          commit("setAttendance", attendance)
          commit("setLoading", false)
-       })
-       .catch((error)=>{
-         commit("setLoading", false)
-         console.log(error)
-       })
+      })
     }
   },
   getters: {

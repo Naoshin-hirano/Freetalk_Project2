@@ -11,7 +11,7 @@
                     </v-container>
               </v-flex>
           </v-layout>
-          <v-layout wrap v-for="member in filterAttendance" :key="member.uid" mb-1>
+          <v-layout wrap v-for="member in filterAttendance" :key="member.attendKey" mb-1>
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card class="grey lighten-3">
                   <v-container>
@@ -87,6 +87,7 @@
 <script>
   export default {
     computed: {
+      //出席者を今見ているFREETALKの出席者にフィルタリング
       filterAttendance(){
         return this.$store.getters.attendance.filter((data) =>{
           return data.freetalkId === this.$route.params.id
