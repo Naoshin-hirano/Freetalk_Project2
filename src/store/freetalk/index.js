@@ -15,7 +15,7 @@ export default {
     createFavs(state, payload){
       const id = payload.freetalkId
       const uid = payload.uid
-      if(state.favs.findIndex(fav => fav.freetalkId === id && fav.uid === uid)){
+      if(state.favs.find(fav => fav.freetalkId === id && fav.uid === uid)){
         return
       }
       state.favs.push(payload)
