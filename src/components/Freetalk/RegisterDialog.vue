@@ -85,11 +85,6 @@
       }
     },
     computed: {
-      // attend_status(){
-      //   return this.$store.getters.user.registeredFreetalks.findIndex(freetalkId=>{
-      //       return freetalkId === this.freetalkId
-      //   }) >= 0
-      // },
       submittableDateTime(){
         const date = new Date()
         const str = date.getFullYear()
@@ -108,7 +103,6 @@
        photoURL(){
          return this.$store.getters.photoURL
        },
-       //attendanceからこのfreetalkIdとuidが一致するものを探す
        attend_status(){
         return this.$store.getters.attendance.findIndex(attend =>{
           return attend.freetalkId === this.freetalkId 
@@ -136,7 +130,6 @@
           datetime: this.submittableDateTime
         }
         if(this.attend_status){
-          // this.$store.dispatch("unregisterUserFromFreetalk", this.freetalkId)
           this.$store.dispatch("removeAttendance", {
             uid : this.user.id,
             userName: this.userName,
@@ -145,10 +138,10 @@
             datetime: this.submittableDateTime,
             attendKey: this.getKey
           })
+          console.log("key")
           console.log(this.getKey)
           this.registerDialog=false
         }else{
-          // this.$store.dispatch("registerUserForFreetalk", this.freetalkId)
           this.$store.dispatch("registerAttendance", userData)
           this.registerDialog=false
         }

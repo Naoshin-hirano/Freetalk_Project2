@@ -60,16 +60,20 @@ export default {
     },
 //Attendanceの投稿・削除・取り出し
     registerAttendance(state, payload){
-      if(state.attendance.findIndex(attend =>{return attend.attendKey === payload.key})){
-        return 
+      const id = payload.freetalkId
+      const uid = payload.uid
+      if(state.attendance.find(attend => attend.freetalkId === id && attend.uid === uid)){
+        return
       }
+      console.log(payload)
       state.attendance.push(payload)
     },
     removeAttendance(state, payload){
-      const attend= state.attendance.findIndex(attend =>{
-        return attend.attendKey === payload.key
+      const attendance = state.attendance.findIndex(attend =>{
+        return attend.freetalkId === payload.freetalkId && attend.uid === payload.uid
       })
-      state.attendance.splice(attend, 1)
+      console.log(payload)
+      state.attendance.splice(attendance, 1)
     },
     setAttendance(state, payload){
       state.attendance = payload
@@ -225,7 +229,6 @@ export default {
             })
           }
         }
-        console.log(favs)
         commit("setLoadedFavs", favs)
       })
     },
@@ -262,7 +265,9 @@ export default {
       firebase.database().ref("/freetalks/" + payload.freetalkId).child("/attendance/" + payload.attendKey).remove()
        .then(()=>{
         commit("removeAttendance", {
-          key: payload.attendKey
+          attendKey: payload.attendKey,
+          freetalkId: payload.freetalkId,
+          uid: payload.uid
         })
         commit("setLoading", false)
        })
@@ -272,7 +277,7 @@ export default {
     },
     loadedAttendance({commit}){
       commit("setLoading", true)
-      firebase.database().ref("freetalks").on('value', (data)=>{
+      firebase.database().ref("freetalks").on('value', data=>{
         const freetalks = []
          const attendance = []
          const obj = data.val()

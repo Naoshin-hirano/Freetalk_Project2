@@ -125,6 +125,9 @@ import registerDialog from '../Freetalk/RegisterDialog.vue'
 export default {
    components: { likesBtn, deleteFreeTalk, editFreeTalk, editDate, editTime, showAttendees, registerDialog },
    props: ["id"],
+   beforeUpdate(){
+      this.$store.dispatch('loadedAttendance')
+   },
    computed: {
      freetalk(){
       return this.id ? this.$store.getters.loadedFreeTalk(this.id) : null
