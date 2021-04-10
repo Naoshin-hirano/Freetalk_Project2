@@ -24,6 +24,9 @@
 <script>
 export default{
   props: ["freetalk"],
+  beforeUpdate(){
+      this.$store.dispatch("loadedFav")
+   },
   computed: {
       //ユーザー情報
       user(){
