@@ -78,13 +78,15 @@
 
 <script>
   export default {
-    props: ["freetalkId"],//id
+    props: ["freetalkId"],
     data(){
       return {
+        //ダイアロク
         registerDialog: false
       }
     },
     computed: {
+      //参加登録した日付
       submittableDateTime(){
         const date = new Date()
         const str = date.getFullYear()
@@ -94,21 +96,26 @@
         + ':' + ('0' + date.getMinutes()).slice(-2)
          return str
        },
+      //ユーザー情報
       user(){
          return this.$store.getters.user
        },
+       //ユーザーの名前
        userName(){
          return this.$store.getters.userName
        },
+       //ユーザーのアイコン
        photoURL(){
          return this.$store.getters.photoURL
        },
+       //出席しているかのtrue/false
        attend_status(){
         return this.$store.getters.attendance.findIndex(attend =>{
           return attend.freetalkId === this.freetalkId 
           && attend.uid === this.user.id
         })>= 0
        },
+       //自分の出席登録情報を取得
        getAttendance(){
         const attendance = this.$store.getters.attendance
         return attendance.filter((attend) =>{
@@ -116,11 +123,13 @@
           && attend.uid.match(this.user.id)
         })
       },
+      //自分の出席登録情報のキーを取得
       getKey(){
         return this.getAttendance.map(obj =>obj.attendKey)
       },
     },
     methods: {
+      //出席＆欠席登録
       onAgree(){
         const userData = {
           uid : this.user.id,

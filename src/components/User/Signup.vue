@@ -80,18 +80,21 @@
 export default {
   data(){
       return{
+      //メール・パスワード・パスワード確認のバリデーションがOKならボタン押せる
       validForPassword: true,
+      //メール・パスワード・パスワード確認の入力フォーム
       email: "",
+      password: "",
+      confirmPassword: "",
+       //メール・パスワード・パスワード確認のバリデーション
       emailRules: [
           v => !!v || 'メールアドレスは必須項目です',
           v => /.+@.+\..+/.test(v) || '有効なメールアドレスではありません'
       ],
-      password: "",
       passwordRules: [
           v => !!v || 'パスワードは必須項目です',
           v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
       ],
-      confirmPassword: "",
       confirmPasswordRules: [
           v => !!v || 'パスワードは必須項目です',
           v => v !== this.password ? "変更後のパスワード（再入力）が一致しません" : true
@@ -99,24 +102,29 @@ export default {
     }
   },
   computed: {
+    //ログインユーザー情報
     user(){
       return this.$store.getters.user
     },
+    //入力エラー表示
     error(){
       return this.$store.getters.error
     }
   },
+  //signup成功したらホーム画面へ
   watch: {
-    user(value){//signup成功したらホーム画面へ
+    user(value){
       if(value !== null && value !== undefined){
         this.$route.push("/")
       }
     }
   },
   methods: {
+    //入力したメールアドレスとパスワードでログインする
     onSignup(){  
       this.$store.dispatch("signUserUp", {email: this.email, password: this.password})
     },
+    //入力エラー表示の削除
     onDismissed(){
       console.log("Dismissed Alert !")
       this.$store.dispatch("clearError")

@@ -60,17 +60,21 @@ import dialogForLogin from './User/DialogForLogin.vue'
 export default {
   components: { dialogForLogin },
   computed:{
+    //ログインユーザー情報を取得
     user(){
       return this.$store.getters.user
     },
+    //投稿されているFREETALK情報を取得
     freetalks(){
       return this.$store.getters.featuredFreeTalk
     },
+    //ローディング
     loading(){
        return this.$store.getters.loading
      }
   },
   methods: {
+    //カルーセルの画像のFREETALK画面に移動
     loadFreeTalk(id){
         this.$router.push("/freetalks/" + id)
     }

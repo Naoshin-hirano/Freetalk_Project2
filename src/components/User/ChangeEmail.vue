@@ -114,19 +114,21 @@ export default {
     }
   },
   computed: {
+      //現在のログインユーザーがゲストユーザーであるか
       gestUser(){
           return firebase.auth().currentUser ? firebase.auth().currentUser.uid === "mKSpW1jBFHgmKYjPGBpz8OenXvE3" : null
       }
   },
   methods: {
       onReAuth(){
+       //ユーザー再認証
        const user = firebase.auth().currentUser
        const credential = firebase.auth.EmailAuthProvider.credential(user.email, this.reAuth)
         user.reauthenticateWithCredential(credential)
          .then(()=> {
          console.log("再認証完了")
-        // User re-authenticated.
         })
+        //メールアドレス更新
          .then(() =>{
             const user = firebase.auth().currentUser
             user.updateEmail(this.email).then(()=> {
@@ -138,7 +140,6 @@ export default {
          })
          .catch((error)=> {
             console.log(error)
-            // An error happened.
         })
       }
     }

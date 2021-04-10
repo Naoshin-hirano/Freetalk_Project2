@@ -50,14 +50,18 @@
     props: ["freetalk"],
     data(){
       return {
+        //編集前の時間の初期値
         editableTime: null,
+        //編集画面のダイアログ
         editDialog: false
       }
     },
+    //編集前の時間
     created(){
       this.editableTime = new Date(this.freetalk.date)
       },
     methods: {
+      //編集した時間に変更更新
       onSaveChanges(){
         const newDate = new Date(this.freetalk.date)
         const hours = this.editableTime.match(/^(\d+)/)[1]

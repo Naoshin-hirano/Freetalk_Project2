@@ -46,6 +46,7 @@
       }
     },
     methods: {
+      //ゲストユーザーでログイン
       loginWithGestUser(){
         this.$store.dispatch("loginWithGestUser", {email: "guest@example.com", password: "guests"})
       }

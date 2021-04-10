@@ -115,31 +115,38 @@
     components: { myTabs, editProfile },
     data () {
       return {
+        //ダイアログ
         editDialog: false,
       }
     },
-    //プロフィール画面にくる度に各タブのリストが更新される
+    //プロフィール画面に遷移する度に各タブのリストが更新される
     created(){
       this.$store.dispatch('loadedFreeTalks')
       this.$store.dispatch('loadedAttendance')
       this.$store.dispatch("loadedFav")
     },
     computed: {
+       //ログインユーザーの取得
        currentUser(){
          return this.$store.getters.user
        },
+       //ログインユーザーのアイコン
        photoURL(){
          return this.$store.getters.user ? this.$store.getters.user.photoURL : null
        },
+       //ログインユーザーの名前
        userName(){
          return this.$store.getters.user ? this.$store.getters.user.displayName : null
        },
-       followers(){//valueからlength取れないので、computedで取得
+       //ログインユーザーのフォロワー
+       followers(){
          return this.currentUser ? this.currentUser.followers : null
        },
-       comments(){//valueからlength取れないので、computedで取得
+       //ログインユーザーのコメント
+       comments(){
          return this.currentUser ? this.currentUser.comments : null
        },
+       //ローディング
        loading(){
        return this.$store.getters.loading
       }

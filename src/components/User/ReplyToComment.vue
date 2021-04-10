@@ -54,27 +54,33 @@
     props: ["commentId"],//commentId
     data(){
       return {
+        //ダイアログ
         registerDialog: false,
+        //URLを取得
         id: location.href.split("/"),
         input: '',
+        //現在の時間を取得
         time: new Date()
       }
     },
     computed: {
-      //プロフィールユーザ
+      //画面上のユーザー情報取得
       otherUser(){
        return this.$store.getters.otherUser
      },
-      //自分のユーザー
+      //ログインユーザー情報取得
       user(){
           return this.$store.getters.user
       },
+      //ログインユーザーの名前
       userName(){
         return this.$store.getters.userName
       },
+      //ログインユーザーのアイコン
       photoURL(){
         return this.$store.getters.photoURL
       },
+      //リプライする日時
       submittableDateTime(){
         const date = new Date()
         const str = date.getFullYear()
@@ -86,6 +92,7 @@
         }
    },
     methods: {
+      //コメントのリプライする
       replyToComment(){
         if(this.input.length >= 0){
           const replyData = {

@@ -146,52 +146,67 @@
     components: { deleteComment, replyBtn, showReplyList },
     data(){
       return {
+        //URLのParamsId
          paramsId: location.href.split("/"),
+         //コメント機能のダイアログ
          commentDialog: false,
          input: '',
+         //コメント投稿する時間の初期値
          time: new Date(),
+         //1画面に表示する投稿数
          parPage:3,
+         //現在何ページ目か
          currentPage:1
       }
     },
+    //画面上のユーザー情報を取り出し
     created(){
       this.$store.dispatch("fetchOtherUserData", this.paramsId[this.paramsId.length - 1])
     },
     computed: {
-      //プロフィールユーザ
-      otherUser(){
+     //ルームユーザー情報
+     otherUser(){
        return this.$store.getters.otherUser
      },
+     //ルームユーザーのコメント
      comments(){
        return this.otherUser ? this.$store.getters.otherUser.comments : ""
      },
+     //ルームユーザーの名前
      nameForRoomUser(){
        return this.otherUser ? this.$store.getters.otherUser.displayName : ""
      },
+     //ルームユーザーのアイコン
      imageForRoomUser(){
        return this.otherUser ? this.$store.getters.otherUser.photoURL : "" 
      },
+     //ページネーション
      getLists(){
        let current = this.currentPage * this.parPage//freetalkの合計数
        let start = current - this.parPage//1ページ目の３つのfreetalkが最初
        return this.comments.slice(start, current)//現存する全てのfreetalkを取り出す
      },
+     //ページネーションのページ数を取得
      getPageCount(){
        return Math.ceil(this.comments.length / this.parPage)
      },
-     //自分のユーザー
+     //ログインユーザー情報
      user(){
         return this.$store.getters.user
      },
+     //ログインユーザーの名前
      userName(){
        return this.$store.getters.userName
      },
+     //ログインユーザーのアイコン
      photoURL(){
        return this.$store.getters.photoURL
      },
+     //ローディング
      loading(){
        return this.$store.getters.loading
     },
+    //コメント投稿の日時
     submittableDateTime(){
       const date = new Date()
       const str = date.getFullYear()
@@ -203,6 +218,7 @@
       }
    },
    methods: {
+    //コメント投稿
     doSend() {
       if (this.input.length >= 0) {
         const commentData = {

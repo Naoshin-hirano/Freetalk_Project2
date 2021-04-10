@@ -134,12 +134,14 @@ export default {
   data(){
       return{
       validForEmail: true,
+      //メールとパスワードの入力
       email: "",
+      password: "",
+      //メールとパスワードのバリデーション
       emailRules: [
           v => !!v || 'メールアドレスは必須項目です',
           v => /.+@.+\..+/.test(v) || '有効なメールアドレスではありません'
       ],
-      password: "",
       passwordRules: [
           v => !!v || 'パスワードは必須項目です',
           v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
@@ -147,36 +149,44 @@ export default {
     }
   },
   computed: {
+    //ログインユーザーの取得
     user(){
       return this.$store.getters.user
     },
+    //入力エラーの表示
     error(){
       return this.$store.getters.error
     },
+    //ローディング
     loading(){
        return this.$store.getters.loading
      }
   },
   watch: {
-    user(value){//signin成功したらホーム画面へ
+    //signin成功したらホーム画面へ
+    user(value){
       if(value !== null && value !== undefined){
         this.$route.push("/")
       }
     }
   },
   methods: {
+    //ゲストユーザーのログイン
     loginWithGestUser(){
       this.$store.dispatch("loginWithGestUser", {email: "guest@example.com", password: "guests"})
     },
+    //メールとパスワードでのログイン
     onSigninWithEmail(){  
       this.$store.dispatch("signUserInWithEmail", {email: this.email, password: this.password})
     },
+    //グーグルアカウントでのログイン
     loginWithGoogle(){
       this.$store.dispatch("loginWithGoogle")
   },
     // loginWithFacebook(){
     //   this.$store.dispatch("loginWithFacebook")
     // },
+    //入力エラー画面を削除する
     onDismissed(){
       console.log("Dismissed Alert !")
       this.$store.dispatch("clearError")

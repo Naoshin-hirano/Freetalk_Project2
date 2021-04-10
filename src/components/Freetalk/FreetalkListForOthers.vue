@@ -66,22 +66,19 @@
 
 <script>
 export default {
-  data(){
-    return {
-       search: "",
-    }
-  },
   computed:{
+    //画面上のユーザー情報取得
     otherUser(){
       return this.$store.getters.otherUser
     },
-    //あなたのいいねを取得
+    //あなたの投稿を取得
     loadedFreetalk(){
       let loadedFreeTalks = this.$store.getters.loadedFreeTalks
       return this.otherUser ? loadedFreeTalks.filter((talk)=>{
         return talk.createrId.match(this.otherUser.id)
          }) : ""
       },
+    //ローディング
     loading(){
        return this.$store.getters.loading
      }

@@ -103,33 +103,42 @@
     components: { tabsForOthers, followUser },
     data () {
       return {
+        //ダイアログ
         editDialog: false,
-        url: location.href.split("/"),
-        loggedinUserInfo: null
+        //URLを取得
+        url: location.href.split("/")
       }
     },
     created(){
+        //画面上のユーザー情報取得
         this.$store.dispatch("fetchOtherUserData", this.url[this.url.length - 1])
+        //プロフィール画面に遷移する度に各タブのリストが更新される
         this.$store.dispatch('loadedFreeTalks')
         this.$store.dispatch('loadedAttendance')
         this.$store.dispatch("loadedFav")
     },
     computed: {
+       //画面上のユーザー情報を取得
        otherUser(){
          return this.$store.getters.otherUser
         },
+        //画面上のユーザーのコメント
         comments(){
           return this.otherUser ? this.$store.getters.otherUser.comments : ""
         },
+        //画面上のユーザーの名前
         nameForRoomUser(){
           return this.otherUser ? this.$store.getters.otherUser.displayName : ""
         },
+        //画面上のユーザーのアイコン
         imageForRoomUser(){
           return this.otherUser ? this.$store.getters.otherUser.photoURL : "" 
         },
+        //画面上のユーザーの自己紹介
         introduction(){
           return this.otherUser ? this.$store.getters.otherUser.introduction : ""
         },
+        //ローディング
         loading(){
           return this.$store.getters.loading
         }

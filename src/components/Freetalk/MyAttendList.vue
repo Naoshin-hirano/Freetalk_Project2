@@ -66,22 +66,19 @@
 
 <script>
 export default {
-  data(){
-    return {
-       search: "",
-    }
-  },
   computed:{
+    //ユーザー情報を取得
     user(){
       return this.$store.getters.user
     },
-    //あなたのいいねを取得
+    //出席登録者の情報を取得
     attendance(){
       let attendance = this.$store.getters.attendance
       return attendance.filter((attend)=>{
         return attend.uid.match(this.user.id)
          })
       },
+    //ユーザーの出席登録しているFREETALKを取得
     loadedFreetalk(){
       let attendanceArray = this.attendance
       let freetalks = []
@@ -97,6 +94,7 @@ export default {
       })
       return freetalks
     },
+    //ローディング
     loading(){
        return this.$store.getters.loading
      }

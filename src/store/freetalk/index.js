@@ -5,7 +5,9 @@ import 'firebase/database'
 
 export default {
   state: {
+    //投稿されたFREETALK
     loadedFreeTalks:[],
+    //出席者登録機能
     attendance: [],
     //いいね機能
     favs: []
@@ -21,7 +23,7 @@ export default {
       state.favs.push(payload)
       console.log("お気に入り登録")
     },
-    deleteFavs(state, payload){//payload={freetalkId + favKey}
+    deleteFavs(state, payload){
       const fav = state.favs.findIndex(fav =>{
         return fav.freetalkId === payload.freetalkId && fav.uid === payload.uid
       })
@@ -35,7 +37,7 @@ export default {
     createTalk(state, payload){
       state.loadedFreeTalks.push(payload)
     },
-    deleteTalk(state, payload){//payload=id
+    deleteTalk(state, payload){
       const freetalk = state.loadedFreeTalks.findIndex(freetalk =>{
         return freetalk.id === payload.id
       })
@@ -126,7 +128,7 @@ export default {
          console.log(error)
        })
     },
-    deleteTalk({getters,commit}, payload){//payload=freetalk
+    deleteTalk({getters,commit}, payload){
       if(getters.user.id){
        firebase.database().ref("freetalks").child(payload.id).remove()
         .then(()=>{
@@ -183,15 +185,14 @@ export default {
        })
     },
 //いいね機能の投稿・削除・取り出し
-    createFavs({commit}, payload ){//payload={uid + freetalkId}
-    // let favKey
+    createFavs({commit}, payload ){
       firebase.database().ref("/freetalks/" + payload.freetalkId).child("/favs/").update({[payload.uid]: payload.freetalkId})
       commit("createFavs", { 
         freetalkId: payload.freetalkId, 
         uid: payload.uid 
       })
     },
-    deleteFavs({commit}, payload){//payload={uid + favKey + freetalkId}
+    deleteFavs({commit}, payload){
     firebase.database().ref("/freetalks/" + payload.freetalkId).child("/favs/" + payload.uid).remove()
     .then(() =>{
       commit("deleteFavs", {
@@ -232,8 +233,8 @@ export default {
         commit("setLoadedFavs", favs)
       })
     },
-//Attendanceの投稿・削除・取り出し
-    registerAttendance({commit}, payload){//payload:user.id,id
+//出席機能の投稿・削除・取り出し
+    registerAttendance({commit}, payload){
       commit("setLoading", true)
       const attendData = {
         uid: payload.uid,
@@ -313,14 +314,17 @@ export default {
     }
   },
   getters: {
+    //FREETALKを日付順に並べる
     loadedFreeTalks (state){
       return state.loadedFreeTalks.sort((freetalkA, freetalkB)=>{
         return freetalkA.date > freetalkB.date
       })
     },
+    //日付順にしたものを５つに絞る
     featuredFreeTalk(getters){
-      return getters.loadedFreeTalks.slice(0, 5)//日付順にしたものを５つに絞る
+      return getters.loadedFreeTalks.slice(0, 5)
     },
+    //投稿されたFREETALKから遷移したFREETALKを抽出
     loadedFreeTalk(state){
       return (freetalkId)=>{
         return state.loadedFreeTalks.find((freetalk)=>{
@@ -328,9 +332,11 @@ export default {
         })
       }
     },
+   //お気に入りのデータ
    favs(state){
      return state.favs
    },
+   //出席者のデータ
     attendance(state){
      return state.attendance
     }

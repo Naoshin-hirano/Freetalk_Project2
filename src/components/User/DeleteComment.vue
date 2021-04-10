@@ -43,13 +43,15 @@
 
 <script>
   export default {
-    props: ["commentId"],//commentId
+    props: ["commentId"],
     data(){
       return {
+        //ダイアログ
         registerDialog: false
       }
     },
     methods: {
+      //コメント削除
       deleteComment(){
         this.$store.dispatch("deleteComment", this.commentId)
         this.registerDialog = false

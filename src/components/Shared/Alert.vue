@@ -8,6 +8,7 @@
 export default {
     props: ["text"],
     methods: {
+        //アラート画面を閉じるのmethodsを親要素へ送る
         onClose(){
           this.$emit("dismissed")
         }

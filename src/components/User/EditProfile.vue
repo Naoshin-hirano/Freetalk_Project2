@@ -82,18 +82,25 @@
   export default {
     data () {
       return {
+        //ダイアログ
         editDialog: false,
+        //ログインユーザーの名前
         userName: this.$store.getters.userName ? this.$store.getters.userName : "名無し",
+        //ログインユーザーのアイコン
         photoURL: this.$store.getters.photoURL,
+        //ログインユーザーの自己紹介
         introduction: this.$store.getters.introduction,
+        //画像アップロード
         imageName: "",
         imageFile: ""
       }
     },
     methods: {
+      //アップロードしたい画像をimgフォルダから選ぶ
       pickFile(){
         this.$refs.image.click()
       },
+      //画像がstorageに保存＋URL画像が画面に表示
       onFilePicked(e){
         const files = e.target.files
         if(files[0] !== undefined){
@@ -113,6 +120,7 @@
           this.photoURL = ""
         }
       },
+      //プロフィール情報を更新
       onSaveProfile(){
         firebase.database().ref("/users/" + this.$store.getters.user.id).update({
           displayName: this.userName,
@@ -122,6 +130,7 @@
         this.$store.dispatch("fetchUserData")
         this.editDialog = false
       },
+      //プロフィール更新画面を閉じる
       close(){
         this.editDialog = false
         this.imageName = ""

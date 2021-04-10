@@ -69,14 +69,17 @@
 <script>
   export default {
     computed: {
+      //いま見ているFREETALKの出席者情報を取得
       filterAttendance(){
         return this.$store.getters.attendance.filter((data) =>{
           return data.freetalkId === this.$route.params.id
         })
       },
+      //いま見ているFREETALKの出席者情報の中から３名を表示
       showThreeAttendees(){
         return this.filterAttendance.slice(0, 3)
       },
+      //ローディング
        loading(){
           return this.$store.getters.loading
        }

@@ -42,17 +42,21 @@
 
 <script>
   export default {
-    props: ["commentId","replyId"],//commentId
+    props: ["commentId","replyId"],
     data(){
       return {
+        //ダイアログ
         registerDialog: false,
+        //params取得
         id: location.href.split("/")
       }
     },
+    //ルームユーザー情報取得
     created(){
       this.$store.dispatch("fetchOtherUserData", this.id[this.id.length - 1])
     },
     methods: {
+      //返信削除
       deleteReply(){
         this.$store.dispatch("deleteReply", {
           commentId: this.commentId,

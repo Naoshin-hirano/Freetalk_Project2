@@ -5,12 +5,14 @@ import 'firebase/database'
 
 export default {
   state: {
+    //ログインユーザー情報
     user: null,
+    //画面上のユーザー情報
     otherUser: null
   },
   mutations: {
 //ユーザーフォロー機能の投稿・削除
-    following(state, payload){//payload.id:paramsID
+    following(state, payload){
       const id = payload.id
       if(state.user.following.findIndex(user => user.id === id)>=0){
         return
@@ -18,13 +20,13 @@ export default {
       state.user.following.push(id)
       state.user.followingKeys[id] = payload.followingKey
     },
-    deleteFollowing(state, payload){//paramsId(他ユーザ)
+    deleteFollowing(state, payload){
       const following = state.user.following
       following.splice(following.findIndex(uid => uid === payload), 1)
       Reflect.deleteProperty(state.user.followingKeys, payload)
       console.log("following削除")
     },
-    followers(state, payload){//payload.id:getters.user.id
+    followers(state, payload){
       const id = payload.id
       if(state.otherUser.followers.findIndex(user => user.id === id)>=0){
         return
@@ -32,13 +34,13 @@ export default {
       state.otherUser.followers.push(id)
       state.otherUser.followerKeys[id] = payload.followerKey
     },
-    deleteFollowers(state, payload){//uid(他ユーザ)
+    deleteFollowers(state, payload){
       const followers = state.otherUser.followers
       followers.splice(followers.findIndex(uid => uid === payload), 1)
       Reflect.deleteProperty(state.otherUser.followerKeys, payload)
       console.log("followers削除")
     },
-    //他ユーザーアカウントを参照
+//他ユーザーアカウントを参照
     setLoginOtherUser(state, payload){
       state.otherUser = payload
     },
@@ -46,7 +48,7 @@ export default {
     createComment(state, payload){
       state.otherUser.comments.push(payload)
     },
-    deleteComment(state, payload){//payload=commentId
+    deleteComment(state, payload){
       const comment = state.otherUser.comments.findIndex(comment =>{
         return comment.commentId === payload
       })
@@ -58,7 +60,7 @@ export default {
     },
     deleteReply(state, payload){
       const reply = state.otherUser.replys.findIndex(reply =>{
-        return reply.replyId === payload//replyId
+        return reply.replyId === payload
       })
       state.otherUser.replys.splice(reply, 1)
     },
@@ -135,7 +137,7 @@ export default {
             })
           }
         }
-
+        //ユーザー情報をオブジェクトにしてmutationへ渡す
         const updateUser = {
           id: userData.id,
           photoURL: userData.photoURL,
@@ -155,7 +157,7 @@ export default {
           console.log(error)
         })
     },
-//自分が見ているユーザー情報の取り出し
+//画面上のユーザー情報の取り出し
     fetchOtherUserData({commit}, userParamsId){
       commit("setLoading", true)
       firebase.database().ref("/users/" + userParamsId).once("value")
@@ -208,7 +210,7 @@ export default {
             })
           }
         }
-        
+        //画面上のユーザー情報をオブジェクトにしてmutationへ渡す
          const updateUser = {
            id: userData.id,
            photoURL: userData.photoURL,
@@ -251,24 +253,14 @@ export default {
             console.log(error)
           })
     },
-//googleログイン・ログアウト
+//googleログイン
     loginWithGoogle({commit}){
       commit("setLoading", true)
       const google_auth_provider = new firebase.auth.GoogleAuthProvider()
       firebase.auth().signInWithRedirect(google_auth_provider)
       commit("setLoading", false)
     },
-    logout({commit}){
-      firebase.auth().signOut()
-      .then(() =>{
-        commit("deleteLoginUser")
-        console.log("signOut成功")
-      })
-      .catch(error =>{
-        console.log(error)
-      })
-   },
-//googleユーザーセット・削除
+//ログインユーザーのセット・削除
     setLoginUser({commit}, payload){
       commit("setLoading", true)
       commit("setLoginUser", {
@@ -291,12 +283,22 @@ export default {
     deleteLoginUser({commit}){
       commit("deleteLoginUser")
     },
+    logout({commit}){
+        firebase.auth().signOut()
+        .then(() =>{
+          commit("deleteLoginUser")
+          console.log("signOut成功")
+        })
+        .catch(error =>{
+          console.log(error)
+        })
+     },
 //facebookログイン
     // loginWithFacebook(){
     //   const provider = new firebase.auth.FacebookAuthProvider()
     //   firebase.auth().signInWithRedirect(provider)
     // },
-//メールアドレスでユーザーアカウント登録
+//メールアドレスとパスワードでユーザーアカウント登録
     signUserUp({commit}, payload){
       commit("clearError")
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
@@ -322,7 +324,7 @@ export default {
            console.log(error)
          })
     },
-//メールアドレスでログイン
+//メールアドレスとパスワードでログイン
    signUserInWithEmail({commit}, payload){
       commit("clearError")
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
@@ -362,7 +364,7 @@ export default {
       })
      },
 //ユーザーフォロー機能の投稿・削除
-    getFollowing({commit, getters}, payload){//params.id(クリックされる)
+    getFollowing({commit, getters}, payload){
       firebase.database().ref("/users/" + getters.user.id).child("/following/").push(payload)
       .then(data =>{
         commit("following", {id: payload, followingKey: data.key})
@@ -371,7 +373,7 @@ export default {
         console.log(error)
       })
     },
-    deleteFollowing({commit, getters}, payload){//params.id(クリックされる)
+    deleteFollowing({commit, getters}, payload){
       const user = getters.user
       if(!user.followingKeys){
         return 
@@ -386,6 +388,7 @@ export default {
         console.log(error)
       })
     },
+//フォロワーの投稿・削除
     getFollowers({commit, getters}, payload){
       firebase.database().ref("/users/" + payload).child("/followers/").push(getters.user.id)
       .then(data =>{
@@ -447,8 +450,8 @@ export default {
          console.log(error)
        })
      },
-//リプライ機能の投稿・削除・取り出し
-    createReply({commit}, payload){//commentId
+//コメントに対するリプライ機能の投稿・削除・取り出し
+    createReply({commit}, payload){
       const replyData = {
         commentId: payload.commentId,
         roomUserId: payload.roomUserId,
@@ -485,18 +488,23 @@ export default {
     }
   },
   getters: {
+    //ログインユーザー情報
     user(state){
       return state.user
     },
+    //画面上のユーザー情報
     otherUser(state){
       return state.otherUser
     },
+    //ログインユーザーの名前
     userName(state){
       return state.user ? state.user.displayName : ""
     },
+    //ログインユーザーのアイコン
     photoURL(state){
       return state.user ? state.user.photoURL : ""
     },
+    //ログインユーザーの自己紹介
     introduction(state){
       return state.user ? state.user.introduction : ""
     }

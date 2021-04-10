@@ -125,16 +125,20 @@ import registerDialog from '../Freetalk/RegisterDialog.vue'
 export default {
    components: { likesBtn, deleteFreeTalk, editFreeTalk, editDate, editTime, showAttendees, registerDialog },
    props: ["id"],
+   //データ変更後もリアルタイムで更新
    beforeUpdate(){
       this.$store.dispatch('loadedAttendance')
    },
    computed: {
+     //いまの画面のFREETALKを取得
      freetalk(){
       return this.id ? this.$store.getters.loadedFreeTalk(this.id) : null
      },
+     //ログインユーザーの情報を取得
      userId(){
       return this.$store.getters.user ? this.$store.getters.user.id : null
      },
+     //いまの画面のFREETALKに登録している参加者を取得
     filterAttendance(){
         return this.$store.getters.attendance.filter((data) =>{
           return data.freetalkId === this.$route.params.id

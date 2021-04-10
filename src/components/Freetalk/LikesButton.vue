@@ -25,15 +25,18 @@
 export default{
   props: ["freetalk"],
   computed: {
+      //ユーザー情報
       user(){
         return this.$store.getters.user
       },
+      //お気に入りのtrue/false
       fav_status(){
         return this.$store.getters.favs.findIndex(fav =>{
           return fav.freetalkId === this.freetalk.id 
           && fav.uid === this.user.id
         })>= 0
       },
+      //お気に入りのカウンター
       counter(){
         const favs = this.$store.getters.favs
         return favs.filter((fav) =>{
@@ -42,12 +45,14 @@ export default{
       }
     },
     methods: {
+      //お気に入り登録
       favorite(){
         this.$store.dispatch("createFavs", {
           uid: this.user.id,
           freetalkId: this.freetalk.id
         })
       },
+      //お気に入り解除
       unfavorite(){
         this.$store.dispatch("deleteFavs",{
           uid: this.user.id,

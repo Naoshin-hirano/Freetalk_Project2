@@ -80,10 +80,14 @@ import 'firebase/auth'
 export default {
   data(){
     return{
+      //入力フォーム
       password: "",
       reAuth: "",
+      //バリデーションがOKならボタン押せる
       validForReAuth: true,
+      //ダイアログ
       registerDialog: false,
+      //再認証のバリデーション
       rulesForReauth: [
         v => !!v || '現在のパスワードは必須項目です',
         v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
@@ -91,19 +95,21 @@ export default {
     }
   },
 computed: {
+     //現在のログインユーザーがゲストユーザー
     gestUser(){
         return firebase.auth().currentUser ? firebase.auth().currentUser.uid === "mKSpW1jBFHgmKYjPGBpz8OenXvE3" : null
     }
  },
  methods: {
+     //再認証機能
     onReAuth(){
        const user = firebase.auth().currentUser
        const credential = firebase.auth.EmailAuthProvider.credential(user.email, this.reAuth)
         user.reauthenticateWithCredential(credential)
          .then(()=> {
          console.log("再認証完了")
-        // User re-authenticated.
         })
+        //現在のアカウント削除
          .then(() =>{ 
           this.$store.dispatch("deleteUserAccount")
           this.registerDialog = false
@@ -111,7 +117,6 @@ computed: {
          })
          .catch((error)=> {
             console.log(error)
-            // An error happened.
         })
       }
     }

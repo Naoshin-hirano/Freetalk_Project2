@@ -46,10 +46,12 @@
     props: ["freetalk"],
     data(){
       return {
+      //削除してよいかのダイアログ
         deleteDialog: false
       }
     },
     methods: {
+      //FREETALKを削除
       deleteConfirm(){
          this.$store.dispatch("deleteTalk", this.freetalk)
          this.$router.push({name: 'Home'})

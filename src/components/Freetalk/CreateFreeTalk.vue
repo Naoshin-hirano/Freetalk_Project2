@@ -148,6 +148,7 @@ export default {
       }
     },
     computed: {
+      //入力フォームのバリデーション
       formIsValid(){
        return this.language !== "" &&
         this.title !== "" &&
@@ -155,14 +156,17 @@ export default {
         this.imageUrl !== "" && 
         this.description !== ""
     },
+      //投稿した日付
       submittableDateTime(){
         const date = new Date(this.date)
-        if(typeof this.time === "string"){//数字の表示の仕方
+        if(typeof this.time === "string"){
+        //数字の表示の仕方
         const hours = this.time.match(/^(\d+)/)[1]
         const minutes = this.time.match(/:(\d+)/)[1]
         date.setHours(hours)
         date.setMinutes(minutes)
-        }else{//何の数字を表示するか
+        }else{
+        //何の数字を表示するか
         date.setHours(this.time.getHours())
         date.setMinutes(this.time.getMinutes())
         }
@@ -170,10 +174,11 @@ export default {
      }
   },
   methods: {
-      //画像アップロード機能
+    //アップロードしたい画像をimgフォルダから選ぶ
     onPickFile(){
       this.$refs.fileInput.click()
     },
+    //画像がstorageに保存＋URL画像が画面に表示
     onFilePicked (event) {
         const files = event.target.files
         let filename = files[0].name
@@ -187,7 +192,8 @@ export default {
         fileReader.readAsDataURL(files[0])
         this.image = files[0]
      },
-    onCreateTalk(){//submit押した時のmethods
+    //FREETALKを投稿
+    onCreateTalk(){
         if(!this.formIsValid){
            return
         }
@@ -199,7 +205,7 @@ export default {
         description: this.description,
         date: this.submittableDateTime
       }
-      this.$store.dispatch("createTalk", talkData)//awaite
+      this.$store.dispatch("createTalk", talkData)
       this.$router.push({name: 'FreeTalks'})
     }
   }

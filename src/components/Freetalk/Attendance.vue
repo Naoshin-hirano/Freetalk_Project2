@@ -87,7 +87,7 @@
 <script>
   export default {
     computed: {
-      //出席者を今見ているFREETALKの出席者にフィルタリング
+      //出席者が今見ているFREETALKの出席者にフィルタリング
       filterAttendance(){
         return this.$store.getters.attendance.filter((data) =>{
           return data.freetalkId === this.$route.params.id

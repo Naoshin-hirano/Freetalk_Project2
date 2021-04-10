@@ -65,12 +65,15 @@
     props: ["freetalk"],
     data () {
       return {
+        //編集画面のダイアログ
         editDialog: false,
+        //編集情報の初期値
         editedTitle: this.freetalk.title,
         editedDescription: this.freetalk.description
       }
     },
     methods: {
+      //編集した情報に変更更新
       onSaveChanges(){
         if(this.editedTitle.trim() === "" || this.editedDescription.trim() === ""){
           return

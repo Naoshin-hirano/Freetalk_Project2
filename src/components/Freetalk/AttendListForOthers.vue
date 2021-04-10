@@ -66,22 +66,19 @@
 
 <script>
 export default {
-  data(){
-    return {
-       search: "",
-    }
-  },
   computed:{
+    //画面上のユーザー情報を取得
     otherUser(){
       return this.$store.getters.otherUser
     },
-    //あなたのいいねを取得
+    //全ての出席者の中から画面上のユーザーの出席者情報を取得
     attendance(){
       let attendance = this.$store.getters.attendance
       return attendance.filter((attend)=>{
         return attend.uid.match(this.otherUser.id)
          })
       },
+    //FREETALKSの中から、画面上のユーザーが出席登録している投稿へフィルター
     loadedFreetalk(){
       let attendanceArray = this.attendance
       let freetalks = []
@@ -97,6 +94,7 @@ export default {
       }) : ""
       return freetalks
     },
+    //ローディング
     loading(){
        return this.$store.getters.loading
      }

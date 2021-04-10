@@ -49,14 +49,18 @@
     props: ["freetalk"],
     data(){
       return {
+        //編集前の時間の初期値
         editableDate: undefined,
+        //編集画面のダイアログ
         editDialog: false
       }
     },
+    //編集前の日付
     created(){
          this.editableDate = new Date(this.freetalk.date).toISOString().substr(0, 10)
       },
     methods: {
+      //編集した日付に変更更新
       onSaveChanges(){
         const newDate = new Date(this.freetalk.date)
         const newDay = new Date(this.editableDate).getUTCDate()

@@ -108,20 +108,26 @@ import 'firebase/auth'
 export default {
   data(){
       return{
+      //パスワードの入力フォーム初期値
       password: "",
+      confirmPassword: "",
+      //再認証の入力フォーム初期値
       reAuth: "",
+      
       validForPass: true,
       validForReAuth: true,
       registerDialog: false,
+      //パスワードのバリデーション
       passwordRules: [
           v => !!v || 'パスワードは必須項目です',
           v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
       ],
-      confirmPassword: "",
+      //パスワード確認のバリデーション
       confirmPasswordRules: [
           v => !!v || 'パスワードは必須項目です',
           v => v !== this.password ? "変更後のパスワード（再入力）が一致しません" : true
       ],
+      //再認証のバリデーション
       rulesForReauth: [
           v => !!v || '現在のパスワードは必須項目です',
           v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
@@ -129,19 +135,21 @@ export default {
     }
   },
   computed: {
+      //現在のログインユーザーがゲストユーザー
       gestUser(){
           return firebase.auth().currentUser ? firebase.auth().currentUser.uid === "mKSpW1jBFHgmKYjPGBpz8OenXvE3" : null
       }
   },
   methods: {
       onReAuth(){
+       //再認証機能
        const user = firebase.auth().currentUser
        const credential = firebase.auth.EmailAuthProvider.credential(user.email, this.reAuth)
         user.reauthenticateWithCredential(credential)
          .then(()=> {
          console.log("再認証完了")
-        // User re-authenticated.
         })
+        //パスワード更新
          .then(() =>{
             const user = firebase.auth().currentUser
             user.updatePassword(this.password).then(()=> {
@@ -153,7 +161,6 @@ export default {
          })
          .catch((error)=> {
             console.log(error)
-            // An error happened.
         })
       }
     }

@@ -66,22 +66,19 @@
 
 <script>
 export default {
-  data(){
-    return {
-       search: "",
-    }
-  },
   computed:{
+    //画面上のユーザー情報を取得
     otherUser(){
       return this.$store.getters.otherUser
     },
-    //あなたのいいねを取得
+    //画面上のユーザーのお気に入りを取得
     myfavs(){
       let favs = this.$store.getters.favs
       return this.otherUser ? favs.filter((fav)=>{
         return fav.uid.match(this.otherUser.id)
          }) : ""
       },
+    //ユーザーのお気に入りのFREETALKを取得
     loadedFreetalk(){
       let favsArray = this.myfavs
       let freetalks = []
@@ -97,6 +94,7 @@ export default {
       }) : ""
       return freetalks
     },
+    //ローティング
     loading(){
        return this.$store.getters.loading
      }

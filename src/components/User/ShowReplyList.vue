@@ -50,21 +50,25 @@
     props: ["commentId"],
     data(){
       return {
+         //URLを取得
          id: location.href.split("/")
       }
     },
     created(){
+      //ルームユーザー情報を取り出し
       this.$store.dispatch("fetchOtherUserData", this.id[this.id.length - 1])
     },
     computed: {
-      //プロフィールユーザ
+      //ルームユーザー情報を取得
       otherUser(){
        return this.$store.getters.otherUser
      },
+     //ログインユーザーのユーザーID
      userId(){
        return this.$store.getters.user.id
      },
-      replys(){
+     //ルームユーザーのルーム内にあるリプライ
+     replys(){
         const replys = this.$store.getters.otherUser.replys
         return replys.filter((reply) =>{
             return reply.commentId.match(this.commentId)
