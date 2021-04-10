@@ -19,12 +19,13 @@ export default {
       }
       state.user.following.push(id)
       state.user.followingKeys[id] = payload.followingKey
+      console.log("ユーザーフォロー追加")
     },
     deleteFollowing(state, payload){
       const following = state.user.following
       following.splice(following.findIndex(uid => uid === payload), 1)
       Reflect.deleteProperty(state.user.followingKeys, payload)
-      console.log("following削除")
+      console.log("ユーザーフォロー削除")
     },
     followers(state, payload){
       const id = payload.id
@@ -33,12 +34,13 @@ export default {
       }
       state.otherUser.followers.push(id)
       state.otherUser.followerKeys[id] = payload.followerKey
+      console.log("ユーザーフォロワー追加")
     },
     deleteFollowers(state, payload){
       const followers = state.otherUser.followers
       followers.splice(followers.findIndex(uid => uid === payload), 1)
       Reflect.deleteProperty(state.otherUser.followerKeys, payload)
-      console.log("followers削除")
+      console.log("ユーザーフォロワー削除")
     },
 //他ユーザーアカウントを参照
     setLoginOtherUser(state, payload){
@@ -47,22 +49,26 @@ export default {
 //コメント機能の投稿・削除・取り出し
     createComment(state, payload){
       state.otherUser.comments.push(payload)
+      console.log("コメントを追加")
     },
     deleteComment(state, payload){
       const comment = state.otherUser.comments.findIndex(comment =>{
         return comment.commentId === payload
       })
       state.otherUser.comments.splice(comment, 1)
+      console.log("コメントを削除")
     },
 //リプライ機能の投稿・削除・取り出し
     createReply(state, payload){
       state.otherUser.replys.push(payload)
+      console.log("コメントへの返信を追加")
     },
     deleteReply(state, payload){
       const reply = state.otherUser.replys.findIndex(reply =>{
         return reply.replyId === payload
       })
       state.otherUser.replys.splice(reply, 1)
+      console.log("コメントへの返信を削除")
     },
 //ユーザーアカウントをログイン・ログアウト
     setLoginUser(state, payload){

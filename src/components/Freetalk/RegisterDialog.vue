@@ -147,8 +147,6 @@
             datetime: this.submittableDateTime,
             attendKey: this.getKey
           })
-          console.log("key")
-          console.log(this.getKey)
           this.registerDialog=false
         }else{
           this.$store.dispatch("registerAttendance", userData)

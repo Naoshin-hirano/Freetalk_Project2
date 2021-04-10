@@ -15,11 +15,6 @@ export default {
   mutations: {
 //いいね機能の投稿・削除・取り出し
     createFavs(state, payload){
-      const id = payload.freetalkId
-      const uid = payload.uid
-      if(state.favs.find(fav => fav.freetalkId === id && fav.uid === uid)){
-        return
-      }
       state.favs.push(payload)
       console.log("お気に入り登録")
     },
@@ -36,12 +31,14 @@ export default {
 //Freetalkの投稿・削除・取り出し・編集
     createTalk(state, payload){
       state.loadedFreeTalks.push(payload)
+      console.log("FREETALKを投稿しました")
     },
     deleteTalk(state, payload){
       const freetalk = state.loadedFreeTalks.findIndex(freetalk =>{
         return freetalk.id === payload.id
       })
       state.loadedFreeTalks.splice(freetalk, 1)
+      console.log("FREETALKを削除しました")
     },
     setLoadedFreetalks(state, payload){
       state.loadedFreeTalks = payload
@@ -59,23 +56,19 @@ export default {
       if(payload.date){
         freetalk.date = payload.date
       }
+      console.log("FREETALKを更新しました")
     },
 //Attendanceの投稿・削除・取り出し
     registerAttendance(state, payload){
-      const id = payload.freetalkId
-      const uid = payload.uid
-      if(state.attendance.find(attend => attend.freetalkId === id && attend.uid === uid)){
-        return
-      }
-      console.log(payload)
       state.attendance.push(payload)
+      console.log("出席登録を完了")
     },
     removeAttendance(state, payload){
       const attendance = state.attendance.findIndex(attend =>{
         return attend.freetalkId === payload.freetalkId && attend.uid === payload.uid
       })
-      console.log(payload)
       state.attendance.splice(attendance, 1)
+      console.log("出席登録を解除")
     },
     setAttendance(state, payload){
       state.attendance = payload
@@ -233,7 +226,7 @@ export default {
         commit("setLoadedFavs", favs)
       })
     },
-//出席機能の投稿・削除・取り出し
+//Attendanceの投稿・削除・取り出し
     registerAttendance({commit}, payload){
       commit("setLoading", true)
       const attendData = {
