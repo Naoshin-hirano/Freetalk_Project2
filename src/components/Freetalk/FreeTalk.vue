@@ -30,7 +30,7 @@
                                     alt="John">
                                 </v-avatar>
                             </v-btn>
-                            <span class="title ml-2 pb-0">開催者: {{ freetalk.createrName }}</span>
+                            <span v-if="freetalk" class="title ml-2 pb-0">開催者: {{ freetalk.createrName }}</span>
                         </v-flex>
                          <v-flex class="ml-3 hidden-sm-and-up">
                             <v-btn
@@ -51,10 +51,10 @@
                                     alt="John">
                                 </v-avatar>
                             </v-btn>
-                            <span class="body-1 ml-5">開催者: <span class="subtitle-2">{{ freetalk.createrName }}</span></span>
+                            <span v-if="freetalk" class="body-1 ml-5">開催者: <span class="subtitle-2">{{ freetalk.createrName }}</span></span>
                         </v-flex>
-                        <div class="hidden-xs-only ml-5">
-                            <v-layout>
+                        <div>
+                            <v-layout v-if="freetalk">
                                 <v-flex >
                                     <deleteFreeTalk v-show="freetalk.createrId === userId" :freetalk="freetalk" width="400"/>
                                 </v-flex>
@@ -68,7 +68,7 @@
                         </div>
                     </v-layout>
                     <div class="hidden-sm-and-up">
-                            <v-layout>
+                            <v-layout v-if="freetalk">
                                 <v-flex class="ml-15 pl-11">
                                     <deleteFreeTalk v-show="freetalk.createrId === userId" :freetalk="freetalk" width="400"/>
                                 </v-flex>

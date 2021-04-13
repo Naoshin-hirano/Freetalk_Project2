@@ -15,7 +15,12 @@ export default {
   mutations: {
 //いいね機能の投稿・削除・取り出し
     createFavs(state, payload){
-      state.favs.push(payload)
+      const fav = state.favs.findIndex(fav =>{
+        return fav.freetalkId === payload.freetalkId && fav.uid === payload.uid
+      })
+      if(fav){
+        state.favs.push(payload)
+      }
       console.log("お気に入り登録")
     },
     deleteFavs(state, payload){
@@ -60,7 +65,12 @@ export default {
     },
 //Attendanceの投稿・削除・取り出し
     registerAttendance(state, payload){
-      state.attendance.push(payload)
+      const thisAttend = state.attendance.findIndex(attend =>{
+        return attend.freetalkId === payload.freetalkId && attend.uid === payload.uid
+      })
+      if(thisAttend){
+        state.attendance.push(payload)
+      }
       console.log("出席登録を完了")
     },
     removeAttendance(state, payload){
@@ -215,7 +225,9 @@ export default {
             date: obj[key].date,
             createrId: obj[key].createrId,
             photoURL: obj[key].photoURL,
-            favs: obj[key].favs
+            favs: obj[key].favs,
+            attendance: obj[key].attendance,
+            createrName: obj[key].createrName
           })
           const obj2 = obj[key].favs
           for(let key2 in obj2){
@@ -289,7 +301,8 @@ export default {
              createrId: obj[key].createrId,
              photoURL: obj[key].photoURL,
              favs: obj[key].favs,
-             attendance: obj[key].attendance
+             attendance: obj[key].attendance,
+             createrName: obj[key].createrName
            })
            const obj2 = obj[key].attendance
            for(let key2 in obj2){
