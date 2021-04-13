@@ -60,13 +60,6 @@
                     >
                     </v-textarea>
                     <v-btn 
-                    @click="$router.go(-1)" 
-                    text 
-                    class="blue--text darken-1">
-                      <v-icon >mdi-chevron-left</v-icon>
-                      戻る
-                    </v-btn>
-                    <v-btn 
                     class="mr-5 blue--text darken-1"
                     type="submit"
                     text>
@@ -88,33 +81,30 @@
         <v-layout row wrap v-for="comment in getLists" :key="comment.commentId" mb-3>
             <v-flex v-show="!loading" xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card>
-                  <v-layout>
-                      <v-card-actions>
-                           <v-btn
-                            class="ml-3"
-                            fab accent
-                            :to="'/profileforothers/' + comment.createrId">
-                                <v-avatar size="70">
-                                    <img
-                                    v-if="comment.image"
-                                    :src="comment.image"
-                                    alt="John">
-                                    <img
-                                    v-else
-                                    src="@/assets/anonymous.jpg"
-                                    alt="John">
-                                </v-avatar>
-                            </v-btn>
-                          <v-card-text>
-                              <p>{{ comment.datetime | date }}</p>
-                              <h4>{{ comment.name ? comment.name : "名無し" }}</h4>
-                          </v-card-text>
-                          <v-spacer></v-spacer>
-                      </v-card-actions>
-                      <v-spacer></v-spacer>
-                  </v-layout>
-                  <v-layout>
+                  <v-card-actions>
+                      <v-btn
+                        width="40"
+                        class="ml-3"
+                        fab accent
+                        :to="'/profileforothers/' + comment.createrId">
+                            <v-avatar size="55">
+                                <img
+                                v-if="comment.image"
+                                :src="comment.image"
+                                alt="John">
+                                <img
+                                v-else
+                                src="@/assets/anonymous.jpg"
+                                alt="John">
+                            </v-avatar>
+                        </v-btn>
                       <v-card-text>
+                          <p class="mb-0">{{ comment.datetime | date }}</p>
+                          <h4>{{ comment.name ? comment.name : "名無し" }}</h4>
+                      </v-card-text>
+                  </v-card-actions>
+                  <v-layout>
+                      <v-card-text class="pt-0">
                       {{ comment.message}}
                       </v-card-text>
                       <v-card-actions>

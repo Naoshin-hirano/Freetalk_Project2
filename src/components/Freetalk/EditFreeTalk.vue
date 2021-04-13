@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center" >
+  <v-row justify="center">
     <v-dialog v-model="editDialog" persistent width="800px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn

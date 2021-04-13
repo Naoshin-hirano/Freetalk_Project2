@@ -2,18 +2,14 @@
   <v-container >
       <v-layout mb-5>
           <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-               <v-card>
-                    <v-card-title>
-                        <v-text-field
-                            prepend-inner-icon="mdi-magnify"
-                            label="言語・タイトル・年月日で検索する"
-                            single-line
-                            hide-details
-                            v-model="search"
-                            color="indigo accent-3">
-                        </v-text-field>
-                    </v-card-title>
-                </v-card>
+                <v-text-field
+                    prepend-inner-icon="mdi-magnify"
+                    label="言語・タイトル・年月日で検索する"
+                    single-line
+                    hide-details
+                    v-model="search"
+                    color="indigo accent-3">
+                </v-text-field>
                 <v-pagination
                       v-model="currentPage"
                       :length="getPageCount"
@@ -25,7 +21,8 @@
       </v-layout>
      <v-layout v-for="freetalk in getLists" :key="freetalk.index" mb-3>
          <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
-             <v-card>
+            <v-hover v-slot="{ hover }">
+             <v-card :to="'/freetalks/' + freetalk.id" :class="{ 'on-hover': hover }" :elevation="hover ? 12 : 2">
                  <v-container fluid>
                      <v-layout>
                          <v-flex v-if="loading" class="text-center" >
@@ -49,34 +46,21 @@
                             ></v-img>
                          </v-flex>
                          <v-flex xs8 sm8 md8>
-                             <v-card-text class="hidden-xs-only">
-                                    <h3 >【{{ freetalk.language }}】{{ freetalk.title }}</h3>
-                                    <p>{{ freetalk.date | date }}</p>
+                             <v-card-text class="hidden-xs-only pt-0">
+                                    <p class="mb-0 subtitle-1">{{ freetalk.date | date }}</p>
+                                    <h2 class="mb-2">{{ freetalk.title }}</h2>
+                                    <p class="subtitle-1">言語：{{ freetalk.language }}</p>
                             </v-card-text>
-                            <v-card-text class="hidden-sm-and-up">
-                                    <h4>【{{ freetalk.language }}】{{ freetalk.title }}</h4>
+                            <v-card-text class="hidden-sm-and-up pt-0 pb-0">
                                     <p class="caption mb-0">{{ freetalk.date | date }}</p>
+                                    <h3>{{ freetalk.title }}</h3>
+                                     <p class="caption mb-0">言語：{{ freetalk.language }}</p>
                             </v-card-text>
-                            <v-card-actions class="pb-0 pt-0">
-                                 <v-btn :to="'/freetalks/' + freetalk.id" 
-                                        text
-                                        color="blue"
-                                        class="hidden-xs-only">
-                                     <v-icon left>mdi-arrow-right</v-icon>
-                                     詳細を見る
-                                 </v-btn>
-                                 <v-btn :to="'/freetalks/' + freetalk.id" 
-                                        text
-                                        color="blue"
-                                        class="hidden-sm-and-up">
-                                     <v-icon left>mdi-arrow-right</v-icon>
-                                     <span class="caption">詳細を見る</span>
-                                 </v-btn>
-                             </v-card-actions>
                          </v-flex>
                      </v-layout>
                  </v-container>
              </v-card>
+          </v-hover>
          </v-flex>
      </v-layout>
      <v-layout>

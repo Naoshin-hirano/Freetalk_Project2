@@ -84,6 +84,7 @@ export default {
         description: payload.description,
         date: payload.date.toISOString(),
         createrId: getters.user.id,
+        createrName: getters.user.displayName,
         photoURL: getters.photoURL,
         favs: {},
         id:""
@@ -145,6 +146,7 @@ export default {
              location: obj[key].location,
              date: obj[key].date,
              createrId: obj[key].createrId,
+             createrName: obj[key].createrName,
              photoURL: obj[key].photoURL,
              favs: obj[key].favs,
              attendance: obj[key].attendance

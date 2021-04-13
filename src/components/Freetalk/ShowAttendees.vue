@@ -2,7 +2,7 @@
     <v-container>
         <v-layout row wrap>
             <v-flex v-show="!loading" xs4 sm3 md3 v-for="member in showThreeAttendees" :key="member.attendKey">
-                <v-card class="grey lighten-3 ma-2" width="70%" height="150">
+                <v-card class="grey lighten-3 ma-2" width="80%" height="150">
                     <v-layout class="text-center">
                         <v-flex>
                             <v-btn
@@ -20,7 +20,7 @@
                                     src="@/assets/anonymous.jpg"
                                     alt="John">
                                 </v-avatar>
-                                <v-avatar size="40" class="hidden-sm-and-up">
+                                <v-avatar size="60" class="hidden-sm-and-up">
                                     <img
                                     v-if="member.photoURL"
                                     :src="member.photoURL"

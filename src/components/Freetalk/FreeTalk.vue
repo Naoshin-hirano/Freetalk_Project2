@@ -3,27 +3,19 @@
         <v-layout xs12 sm10 md8>
             <v-flex>
                 <v-card max-width="1000" class="mx-auto">
-                    <v-card-title class="pt-5">
-                        <div class="hidden-xs-only ml-10">
+                    <v-layout class="pb-0 ml-5 pt-2">
+                        <p v-if="freetalk" class="subtitle-1 mb-0">{{ freetalk.date | date }}</p>
+                    </v-layout>
+                    <v-layout>
+                        <v-flex>
+                            <h1 class="hidden-xs-only ml-5">{{ freetalk ? freetalk.title : "" }}</h1>
+                            <h3 class="ml-5 hidden-sm-and-up">{{ freetalk ? freetalk.title : "" }}</h3>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout class="mt-2 mb-4">
+                        <v-flex class="hidden-xs-only ml-5">
                             <v-btn
-                            v-if="freetalk"
-                            height="70px"
-                            fab accent
-                            :to="'/profileforothers/' + freetalk.createrId">
-                                <v-avatar size="85">
-                                    <img
-                                    v-if="freetalk.photoURL"
-                                    :src="freetalk.photoURL"
-                                    alt="John">
-                                    <img
-                                    v-else
-                                    src="@/assets/anonymous.jpg"
-                                    alt="John">
-                                </v-avatar>
-                            </v-btn>
-                        </div>
-                        <div class="hidden-sm-and-up mb-3">
-                            <v-btn
+                            class="hidden-xs-only"
                             v-if="freetalk"
                             fab accent
                             :to="'/profileforothers/' + freetalk.createrId">
@@ -38,24 +30,56 @@
                                     alt="John">
                                 </v-avatar>
                             </v-btn>
+                            <span class="title ml-2 pb-0">開催者: {{ freetalk.createrName }}</span>
+                        </v-flex>
+                         <v-flex class="ml-3 hidden-sm-and-up">
+                            <v-btn
+                            width="20"
+                            height="20"
+                            class="ml-3"
+                            v-if="freetalk"
+                            fab accent
+                            :to="'/profileforothers/' + freetalk.createrId">
+                                <v-avatar size="40">
+                                    <img
+                                    v-if="freetalk.photoURL"
+                                    :src="freetalk.photoURL"
+                                    alt="John">
+                                    <img
+                                    v-else
+                                    src="@/assets/anonymous.jpg"
+                                    alt="John">
+                                </v-avatar>
+                            </v-btn>
+                            <span class="body-1 ml-5">開催者: <span class="subtitle-2">{{ freetalk.createrName }}</span></span>
+                        </v-flex>
+                        <div class="hidden-xs-only ml-5">
+                            <v-layout>
+                                <v-flex >
+                                    <deleteFreeTalk v-show="freetalk.createrId === userId" :freetalk="freetalk" width="400"/>
+                                </v-flex>
+                                <v-flex class="ml-15">
+                                    <editFreeTalk v-show="freetalk.createrId === userId" :freetalk="freetalk"/>
+                                </v-flex>
+                                <v-flex class="text-right mr-2 ml-6">
+                                    <likesBtn v-show="freetalk" :freetalk="freetalk"/>
+                                </v-flex>
+                            </v-layout>
                         </div>
-                        <h3 class="ml-15 hidden-xs-only">{{ freetalk ? freetalk.title : "" }}</h3>
-                        <h5 class="ml-3 hidden-sm-and-up">{{ freetalk ? freetalk.title : "" }}</h5>
-                        <v-spacer></v-spacer>
-                        <v-spacer></v-spacer>
-                        <v-spacer></v-spacer>
-                        <v-layout mb-7>
-                            <v-flex v-if="freetalk">
-                                 <deleteFreeTalk v-show="freetalk.createrId === userId" :freetalk="freetalk" width="500"/>
-                            </v-flex>
-                            <v-flex v-if="freetalk">
-                                <editFreeTalk v-show="freetalk.createrId === userId" :freetalk="freetalk"/>
-                            </v-flex>
-                            <v-flex>
-                                <likesBtn v-show="freetalk" :freetalk="freetalk"/>
-                            </v-flex>
-                        </v-layout>
-                    </v-card-title>
+                    </v-layout>
+                    <div class="hidden-sm-and-up">
+                            <v-layout>
+                                <v-flex class="ml-15 pl-11">
+                                    <deleteFreeTalk v-show="freetalk.createrId === userId" :freetalk="freetalk" width="400"/>
+                                </v-flex>
+                                <v-flex class="ml-3">
+                                    <editFreeTalk v-show="freetalk.createrId === userId" :freetalk="freetalk"/>
+                                </v-flex>
+                                <v-flex class="text-right">
+                                    <likesBtn v-show="freetalk" :freetalk="freetalk"/>
+                                </v-flex>
+                            </v-layout>
+                        </div>
                     <v-img
                      v-if="freetalk"
                      :src="freetalk.imageUrl"
@@ -69,8 +93,11 @@
                      class="hidden-sm-and-up"
                     ></v-img>
                     <v-card-text>
-                        <p v-if="freetalk" class="primary--text mb-0">{{ freetalk.date | date }} - {{ freetalk.location}}</p>
-                        <p v-if="freetalk" class="mt-0">Language: {{ freetalk.language }}</p>
+                        <p v-if="freetalk" class="mb-0">開催日時： <span class="primary--text">{{ freetalk.date | date }} -</span></p>
+                        <p v-if="freetalk" class="mb-0">開催場所： <span class="primary--text">{{ freetalk.location}}</span></p>
+                        <p v-if="freetalk" class="mb-0">言語： <span class="primary--text">{{ freetalk.language }}</span></p>
+                    </v-card-text>
+                    <v-layout mb-7>
                         <v-chip-group column class="ml-3">
                            <div v-if="freetalk" class="mr-10">
                                <editDate
@@ -83,12 +110,19 @@
                                 :freetalk="freetalk"/>
                             </div>
                         </v-chip-group>
-                        <div v-if="freetalk" class="mt-5 mb-5">{{ freetalk.description }}</div>
+                    </v-layout>
+                        
+                    <v-layout>
+                        <h3 class="ml-5 hidden-xs-only">詳細</h3>
+                        <h5 class="hidden-sm-and-up ml-4">詳細</h5>
+                    </v-layout>
+                    <v-card-text>
+                        <div v-if="freetalk" class="mb-5 ml-1">{{ freetalk.description }}</div>
                     </v-card-text>
                     <v-layout>
                         <v-flex xs3 sm3 md3>
                             <h3 class="ml-5 hidden-xs-only">出席者Pick Up</h3>
-                            <p class="ml-2 hidden-sm-and-up caption">出席者PickUp</p>
+                            <h5 class="ml-4 hidden-sm-and-up">出席者PickUp</h5>
                         </v-flex>
                         <v-flex xs3 sm3 md3 v-show="filterAttendance.length">
                              <v-btn
@@ -102,11 +136,14 @@
                                <p class="hidden-sm-and-up caption" v-if="filterAttendance">全出席者({{ filterAttendance.length }})を見る</p>
                             </v-btn>
                         </v-flex>
+                        <v-flex class="hidden-sm-and-up">
+                            <registerDialog class="ml-16" v-if="freetalk" :freetalkId="freetalk.id"/>
+                        </v-flex>
                     </v-layout>
                     <v-card-actions>
                         <showAttendees class="pb-0"/>
                         <v-spacer></v-spacer>
-                        <registerDialog class="mr-2 mt-10" v-if="freetalk" :freetalkId="freetalk.id"/>
+                        <registerDialog class="mr-2 mt-10 hidden-xs-only" v-if="freetalk" :freetalkId="freetalk.id"/>
                     </v-card-actions>
                 </v-card>
             </v-flex>

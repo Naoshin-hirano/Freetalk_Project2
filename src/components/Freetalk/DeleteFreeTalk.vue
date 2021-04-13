@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="ml-15">
     <v-dialog persistent width="380" v-model="deleteDialog">
       <template v-slot:activator="{ on, attrs }">
         <v-btn fab accent

@@ -5,7 +5,7 @@
         text
         v-if="!fav_status"
         @click.prevent="favorite">
-         <v-icon class="hidden-xs-only ml-4" large color="pink darken-1">mdi-heart-outline</v-icon>
+         <v-icon class="hidden-xs-only" large color="pink darken-1">mdi-heart-outline</v-icon>
          <v-icon class="hidden-sm-and-up"  color="pink darken-1">mdi-heart-outline</v-icon>
          {{ counter.length }}
         </v-btn>
@@ -14,7 +14,7 @@
         text
         v-else
         @click.prevent="unfavorite">
-         <v-icon class="hidden-xs-only ml-4" large color="pink darken-1">mdi-cards-heart</v-icon>
+         <v-icon class="hidden-xs-only" large color="pink darken-1">mdi-cards-heart</v-icon>
          <v-icon class="hidden-sm-and-up" color="pink darken-1">mdi-cards-heart</v-icon>
          {{ counter.length }}
         </v-btn>

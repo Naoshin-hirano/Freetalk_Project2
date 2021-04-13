@@ -3,10 +3,10 @@
         <v-layout v-for="reply in replys" :key="reply.replyId" reverse wrap mb-3>
             <v-flex xs10 sm12 md10 offset-sm1 offset-md2>
                 <v-card>
-                      <v-card-title class="grey pb-0 pt-4">
-                          <v-icon class="white--text mb-5">mdi-reply</v-icon>
-                          <p class="white--text">返信コメント</p>
-                      </v-card-title>
+                      <v-card-actions class="grey pt-2">
+                          <v-icon class="white--text mb-1">mdi-reply</v-icon>
+                          <p class="white--text body-1 mb-0">返信コメント</p>
+                      </v-card-actions>
                       <v-card-actions class="pb-0 pt-0">
                            <v-btn
                            text
@@ -31,7 +31,7 @@
                       </v-card-actions>
                     <v-layout>
                         <v-card-text class="pt-0">
-                            <p>{{ reply.message }}</p>
+                            {{ reply.message }}
                         </v-card-text>
                         <v-card-actions>
                             <deleteReply v-show="reply.createrId === userId" :commentId="commentId" :replyId="reply.replyId"/>
