@@ -53,3 +53,20 @@
     }
   }
 </script>
+
+<style scoped>
+   .title{
+     position: absolute;
+     text-align: center;
+     left: 0;
+     right: 0;
+     margin: auto;
+     bottom: 50px;
+     background-color:rgba(0, 0, 0, 0.5);
+     color:white;
+     font-size: 2rem;
+   }
+   .container{
+       text-align: center;
+   }
+</style>
