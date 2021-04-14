@@ -15,13 +15,13 @@ export default {
   mutations: {
 //いいね機能の投稿・削除・取り出し
     createFavs(state, payload){
-      const fav = state.favs.findIndex(fav =>{
-        return fav.freetalkId === payload.freetalkId && fav.uid === payload.uid
-      })
-      if(fav){
-        state.favs.push(payload)
+      const id = payload.freetalkId
+      const uid = payload.uid
+      if(state.favs.findIndex(fav =>fav.freetalkId === id && fav.uid === uid)>=0){
+        return
       }
       console.log("お気に入り登録")
+      state.favs.push(payload)
     },
     deleteFavs(state, payload){
       const fav = state.favs.findIndex(fav =>{
