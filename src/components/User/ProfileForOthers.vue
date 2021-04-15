@@ -114,8 +114,6 @@
         this.$store.dispatch("fetchOtherUserData", this.url[this.url.length - 1])
         //プロフィール画面に遷移する度に各タブのリストが更新される
         this.$store.dispatch('loadedFreeTalks')
-        this.$store.dispatch('loadedAttendance')
-        this.$store.dispatch("loadedFav")
     },
     computed: {
        //画面上のユーザー情報を取得

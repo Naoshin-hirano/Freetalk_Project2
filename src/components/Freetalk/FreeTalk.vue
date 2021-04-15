@@ -168,10 +168,6 @@ import registerDialog from '../Freetalk/RegisterDialog.vue'
 export default {
    components: { likesBtn, deleteFreeTalk, editFreeTalk, editDate, editTime, showAttendees, registerDialog },
    props: ["id"],
-   //データ変更後もリアルタイムで更新
-   beforeUpdate(){
-      this.$store.dispatch('loadedAttendance')
-   },
    computed: {
      //いまの画面のFREETALKを取得
      freetalk(){

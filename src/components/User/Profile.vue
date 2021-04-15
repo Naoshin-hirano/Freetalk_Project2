@@ -122,8 +122,6 @@
     //プロフィール画面に遷移する度に各タブのリストが更新される
     created(){
       this.$store.dispatch('loadedFreeTalks')
-      this.$store.dispatch('loadedAttendance')
-      this.$store.dispatch("loadedFav")
     },
     computed: {
        //ログインユーザーの取得
