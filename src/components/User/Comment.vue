@@ -1,7 +1,7 @@
 <template>
     <v-container>
       <v-layout class="text-center">
-          <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+          <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-progress-circular
                   v-show="loading"
                   color="purple"
@@ -11,7 +11,7 @@
             </v-flex>
       </v-layout>
         <v-layout class="text-center">
-            <v-flex v-show="!loading" xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex v-show="!loading" xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-avatar size="150" class="hidden-xs-only">
                   <img
                   v-if="imageForRoomUser"
@@ -33,7 +33,7 @@
                   alt="John">
                 </v-avatar>
             </v-flex>
-            <v-flex v-show="loading" xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex v-show="loading" xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                <v-progress-circular
                   v-show="loading"
                   color="purple"
@@ -43,24 +43,25 @@
             </v-flex>
         </v-layout>
         <v-layout wrap class="text-center">
-            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <h3>{{ nameForRoomUser }}</h3>
             </v-flex>
         </v-layout>
         <v-layout row wrap mb-5>
-            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
               <v-card class="pl-3 pr-3 pb-3">
-                <form @submit.prevent="doSend" >
+                <form @submit.prevent="doSend">
                     <v-textarea
+                    rows="4"
                     name="input"
                     id="input"
                     v-model="input"
                     required
-                    label="コメントを入力"
+                    label="このユーザーの評判やリクエストを送ろう"
                     >
                     </v-textarea>
-                    <v-btn 
-                    class="mr-5 blue--text darken-1"
+                    <v-btn
+                    class="mr-5 blue--text darken-1 pl-0"
                     type="submit"
                     text>
                     投稿する</v-btn>
@@ -69,7 +70,7 @@
             </v-flex>
         </v-layout>
         <v-layout>
-            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-pagination
                       v-model="currentPage"
                       :length="getPageCount"
@@ -79,7 +80,7 @@
           </v-flex>
         </v-layout>
         <v-layout row wrap v-for="comment in getLists" :key="comment.commentId" mb-3>
-            <v-flex v-show="!loading" xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex v-show="!loading" xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-card>
                   <v-card-actions>
                       <v-btn
@@ -114,14 +115,14 @@
                   </v-layout>
                 </v-card>
             </v-flex>
-            <v-flex class="text-center" v-show="loading" xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex class="text-center" v-show="loading" xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                <v-progress-circular
                   color="purple"
                   indeterminate
                   size="64"
                 ></v-progress-circular>
             </v-flex>
-            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                <showReplyList :commentId="comment.commentId"/>
             </v-flex>
         </v-layout>

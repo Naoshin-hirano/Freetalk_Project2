@@ -1,15 +1,15 @@
 <template>
     <v-container>
         <v-layout>
-            <v-flex xs12 sm12 md10 offset-sm0 offset-md1>
+            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-card>
                     <v-layout>
-                        <v-flex xs12 sm6 offset-sm3 mb-4>
+                        <v-flex xs12 sm10 offset-sm1 mb-4>
                             <h2 class="mt-5 ml-3">FREETALK を投稿</h2>
                         </v-flex>
                     </v-layout>
                     <v-layout>
-                        <v-flex xs12 sm6 offset-sm3>
+                        <v-flex xs12 sm10 offset-sm1>
                             <form @submit.prevent="onCreateTalk">
                                 <v-layout>
                                     <v-flex>

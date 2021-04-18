@@ -20,7 +20,7 @@
                                     src="@/assets/anonymous.jpg"
                                     alt="John">
                                 </v-avatar>
-                                <v-avatar size="40" class="hidden-sm-and-up">
+                                <v-avatar size="55" class="hidden-sm-and-up">
                                     <img
                                     v-if="member.photoURL"
                                     :src="member.photoURL"

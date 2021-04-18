@@ -1,7 +1,7 @@
 <template>
     <v-container mt-5>
         <v-layout>
-            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-card>
                     <v-card-text>
                         <v-container>

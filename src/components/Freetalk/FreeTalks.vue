@@ -1,7 +1,7 @@
 <template>
   <v-container >
       <v-layout mb-5>
-          <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+          <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-text-field
                     prepend-inner-icon="mdi-magnify"
                     label="言語・タイトル・年月日で検索する"
@@ -20,7 +20,7 @@
           </v-flex>
       </v-layout>
      <v-layout v-for="freetalk in getLists" :key="freetalk.index" mb-3>
-         <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+         <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
             <v-hover v-slot="{ hover }">
              <v-card :to="'/freetalks/' + freetalk.id" :class="{ 'on-hover': hover }" :elevation="hover ? 12 : 2">
                  <v-container fluid>
@@ -64,7 +64,7 @@
          </v-flex>
      </v-layout>
      <v-layout>
-          <v-flex xs12 sm10 md8 offset-sm1 offset-md2 mt-5>
+          <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3 mt-5>
               <v-pagination
                     v-model="currentPage"
                     :length="getPageCount"

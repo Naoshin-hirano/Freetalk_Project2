@@ -65,12 +65,7 @@ export default {
     },
 //Attendanceの投稿・削除・取り出し
     registerAttendance(state, payload){
-      const thisAttend = state.attendance.findIndex(attend =>{
-        return attend.freetalkId === payload.freetalkId && attend.uid === payload.uid
-      })
-      if(thisAttend){
-        state.attendance.push(payload)
-      }
+      state.attendance.push(payload)
       console.log("出席登録を完了")
     },
     removeAttendance(state, payload){
@@ -148,6 +143,7 @@ export default {
          const favs = []
          const attendance = []
          const obj = data.val()
+         //freetalksのループ
          for(let key in obj){
            freetalks.push({
              id: key,
@@ -163,14 +159,16 @@ export default {
              favs: obj[key].favs,
              attendance: obj[key].attendance
            })
+           //お気に入りのループ
            const obj2 = obj[key].favs
-           const obj3 = obj[key].attendance
            for(let key2 in obj2){
              favs.push({
                uid: key2,
                freetalkId: obj2[key2]
              })
            }
+           //出席登録のループ
+           const obj3 = obj[key].attendance
            for(let key3 in obj3){
             attendance.push({
               uid: obj3[key3].uid,
@@ -211,57 +209,8 @@ export default {
          console.log(error)
        })
     },
-// //１つのFREEALKのデータ取り出し
-//     loadedFreeTalk({commit}, payload){
-//       commit("setLoading", true)
-//       firebase.database().ref("/freetalks/" + payload.id).on("child_added", data =>{
-//         let freetalks = []
-//         let favs = []
-//         let attendance = []
-//         const obj = data.val()
-//         for(let key in obj){
-//           freetalks.push({
-//             id: key,
-//             language: obj[key].language,
-//             title: obj[key].title,
-//             description: obj[key].description,
-//             imageUrl: obj[key].imageUrl,
-//             location: obj[key].location,
-//             date: obj[key].date,
-//             createrId: obj[key].createrId,
-//             photoURL: obj[key].photoURL,
-//             favs: obj[key].favs,
-//             attendance: obj[key].attendance,
-//             createrName: obj[key].createrName
-//           })
-//           const obj2 = obj[key].favs
-//           const obj2 = obj[key].attendance
-//           for(let key2 in obj2){
-//             favs.push({
-//               uid: key2,
-//               freetalkId: obj2[key2]
-//             })
-//           }
-//            for(let key2 in obj2){
-//             attendance.push({
-//               uid: obj2[key2].uid,
-//               userName: obj2[key2].userName,
-//               photoURL: obj2[key2].photoURL,
-//               freetalkId: obj2[key2].freetalkId,
-//               datetime: obj2[key2].datetime,
-//               attendKey: obj2[key2].attendKey
-//             })
-//            }
-//         }
-//         commit("setLoadedFavs", favs)
-//         commit("setAttendance", attendance)
-//       })
-//        .catch((error)=>{
-//          commit("setLoading", false)
-//          console.log(error)
-//        })
-//     },
-//いいね機能の投稿・削除・取り出し
+
+//いいね機能の投稿・削除
     createFavs({commit}, payload ){
       firebase.database().ref("/freetalks/" + payload.freetalkId).child("/favs/").update({[payload.uid]: payload.freetalkId})
       commit("createFavs", { 
@@ -281,38 +230,7 @@ export default {
       console.log(error)
       })
     },
-    // loadedFav({commit}){
-    //   firebase.database().ref("freetalks").on("value", data =>{
-    //     let freetalks = []
-    //     let favs = []
-    //     const obj = data.val()
-    //     for(let key in obj){
-    //       freetalks.push({
-    //         id: key,
-    //         language: obj[key].language,
-    //         title: obj[key].title,
-    //         description: obj[key].description,
-    //         imageUrl: obj[key].imageUrl,
-    //         location: obj[key].location,
-    //         date: obj[key].date,
-    //         createrId: obj[key].createrId,
-    //         photoURL: obj[key].photoURL,
-    //         favs: obj[key].favs,
-    //         attendance: obj[key].attendance,
-    //         createrName: obj[key].createrName
-    //       })
-    //       const obj2 = obj[key].favs
-    //       for(let key2 in obj2){
-    //         favs.push({
-    //           uid: key2,
-    //           freetalkId: obj2[key2]
-    //         })
-    //       }
-    //     }
-    //     commit("setLoadedFavs", favs)
-    //   })
-    // },
-//Attendanceの投稿・削除・取り出し
+//Attendanceの投稿・削除
     registerAttendance({commit}, payload){
       commit("setLoading", true)
       const attendData = {
@@ -331,8 +249,7 @@ export default {
        })
        .then(() =>{
         commit("registerAttendance", {
-          ...attendData,
-          attendKey: key
+          ...attendData
          })
          commit("setLoading", false)
        })
@@ -354,44 +271,7 @@ export default {
        .catch(error =>{
         console.log(error)
       })
-    },
-    // loadedAttendance({commit}){
-    //   commit("setLoading", true)
-    //   firebase.database().ref("freetalks").on('value', data=>{
-    //     const freetalks = []
-    //      const attendance = []
-    //      const obj = data.val()
-    //      for(let key in obj){
-    //        freetalks.push({
-    //          id: key,
-    //          language: obj[key].language,
-    //          title: obj[key].title,
-    //          description: obj[key].description,
-    //          imageUrl: obj[key].imageUrl,
-    //          location: obj[key].location,
-    //          date: obj[key].date,
-    //          createrId: obj[key].createrId,
-    //          photoURL: obj[key].photoURL,
-    //          favs: obj[key].favs,
-    //          attendance: obj[key].attendance,
-    //          createrName: obj[key].createrName
-    //        })
-    //        const obj2 = obj[key].attendance
-    //        for(let key2 in obj2){
-    //         attendance.push({
-    //           uid: obj2[key2].uid,
-    //           userName: obj2[key2].userName,
-    //           photoURL: obj2[key2].photoURL,
-    //           freetalkId: obj2[key2].freetalkId,
-    //           datetime: obj2[key2].datetime,
-    //           attendKey: obj2[key2].attendKey
-    //         })
-    //        }
-    //      }
-    //      commit("setAttendance", attendance)
-    //      commit("setLoading", false)
-    //   })
-    // }
+    }
   },
   getters: {
     //FREETALKを日付順に並べる

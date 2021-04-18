@@ -6,7 +6,7 @@
        </v-flex>
     </v-layout>
      <v-layout v-for="freetalk in loadedFreetalk" :key="freetalk.index" mb-3>
-         <v-flex xs12 sm10 md10 offset-sm1 offset-md1>
+         <v-flex xs12 sm12 md12>
             <v-hover v-slot="{ hover }">
              <v-card :to="'/freetalks/' + freetalk.id" :class="{ 'on-hover': hover }" :elevation="hover ? 12 : 2">
                  <v-container fluid>

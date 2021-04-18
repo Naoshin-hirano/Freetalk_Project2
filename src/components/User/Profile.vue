@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-layout class="text-center">
-            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
               <v-overlay v-if="loading">
                   <v-progress-circular
                       indeterminate
@@ -11,7 +11,7 @@
             </v-flex>
         </v-layout>
         <v-layout>
-            <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-card>
                     <v-card-actions>
                       <v-spacer></v-spacer>
@@ -71,14 +71,14 @@
                                     v-if="currentUser"
                                     :to="'/comment/' + currentUser.id">
                                   <v-icon class="hidden-xs-only" left color="green">mdi-comment-multiple-outline</v-icon>
-                                  <v-icon class="hidden-sm-and-up" small color="green">mdi-comment-multiple-outline</v-icon>
+                                  <v-icon class="hidden-sm-and-up" color="green">mdi-comment-multiple-outline</v-icon>
                                   <span class="hidden-xs-only" v-if="currentUser">{{ currentUser ? comments.length : 0 }} コメントを見る</span>
                                   <span class="hidden-sm-and-up font-weight-bold caption" v-if="currentUser">{{ currentUser ? comments.length : 0 }} コメントを見る</span>
                               </v-btn>
                             </v-flex>
                             <v-flex xs12 sm10 md8 offset-xs2 offset-sm3 offset-md3 class="mt-1 ml-0">
                                 <v-icon class="hidden-xs-only" left color="orange darken-2">mdi-star</v-icon>
-                                <v-icon class="hidden-sm-and-up" small color="orange darken-2">mdi-star</v-icon>
+                                <v-icon class="hidden-sm-and-up" color="orange darken-2">mdi-star</v-icon>
                                 <span class="hidden-xs-only" v-if="currentUser">{{ currentUser ? followers.length : 0 }} 人から高評価</span>
                                 <span class="hidden-sm-and-up caption" v-if="currentUser">{{ currentUser ? followers.length : 0 }} 人から高評価</span>
                             </v-flex>

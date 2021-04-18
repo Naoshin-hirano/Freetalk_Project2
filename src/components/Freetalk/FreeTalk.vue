@@ -133,7 +133,7 @@
                                <v-icon class="hidden-xs-only" large color="blue">mdi-chevron-left</v-icon>
                                <v-icon class="hidden-sm-and-up mb-3" color="blue">mdi-chevron-left</v-icon>
                                <h3 class="hidden-xs-only" v-if="filterAttendance">全出席者({{ filterAttendance.length }})を見る</h3>
-                               <p class="hidden-sm-and-up caption" v-if="filterAttendance">全出席者({{ filterAttendance.length }})を見る</p>
+                               <p class="hidden-sm-and-up subtitle-2" v-if="filterAttendance">全出席者({{ filterAttendance.length }})を見る</p>
                             </v-btn>
                         </v-flex>
                         <v-spacer></v-spacer>

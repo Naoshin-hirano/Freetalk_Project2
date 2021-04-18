@@ -28,16 +28,17 @@
             v-on="on"
             width="85">
             <v-icon small>mdi-account-plus</v-icon>
-            <span class="caption">参加する</span>
+            <span class="subtitle-2">参加する</span>
             </v-btn>
             <v-btn
             v-else
             dark color="cyan darken-1"
+            class="mr-2"
             v-bind="attrs"
             v-on="on"
-            width="100">
+            width="115">
             <v-icon small>mdi-account-minus</v-icon>
-            <span class="caption">参加を解除</span>
+            <span class="subtitle-2">参加を解除</span>
             </v-btn>
         </div>
       </template>
