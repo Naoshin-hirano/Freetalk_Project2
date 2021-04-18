@@ -44,7 +44,7 @@
         </v-layout>
         <v-layout wrap class="text-center">
             <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
-                <h3>{{ nameForRoomUser }}</h3>
+                <h3 class="mb-5">{{ nameForRoomUser }}</h3>
             </v-flex>
         </v-layout>
         <v-layout row wrap mb-5>

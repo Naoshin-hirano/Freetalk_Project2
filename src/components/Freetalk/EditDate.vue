@@ -73,6 +73,7 @@
           id: this.freetalk.id,
           date: newDate
         })
+        this.editDialog = false
       }
     }
   }
