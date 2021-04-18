@@ -26,14 +26,14 @@
         @click.prevent="unFollow"
         class="hidden-xs-only">
          <v-icon large color="orange darken-2">mdi-star</v-icon>
-          <span>{{ followers ? followers.length : 0 }} 高評価を解除する</span>
+          <span>{{ followers ? followers.length : 0 }} 高評価を解除</span>
         </v-btn>
         <v-btn
         fab accent
         text
         v-if="highly_rated"
         @click.prevent="unFollow"
-        class="hidden-sm-and-up caption">
+        class="hidden-sm-and-up body-2">
          <v-icon color="orange darken-2">mdi-star</v-icon>
           <span>{{ followers ? followers.length : 0 }} 高評価を解除</span>
         </v-btn>

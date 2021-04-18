@@ -45,18 +45,18 @@
                                 <h3 v-else>名無し</h3>
                             </v-flex>
                         </v-layout>
-                         <v-layout>
-                            <v-flex xs12 sm10 md8 offset-xs2 offset-sm3 offset-md3>
+                         <v-layout mr-12>
+                            <v-flex xs12 sm10 md8 offset-xs3 offset-sm3 offset-md3>
                               <v-btn icon
-                                    class="mt-3 ml-5"
+                                    class="mt-3 ml-2"
                                     :to="'/comment/' + this.url[this.url.length - 1]">
                                   <v-icon color="green" class="hidden-xs-only" large left>mdi-comment-multiple-outline</v-icon>
                                   <v-icon color="green" class="hidden-sm-and-up">mdi-comment-multiple-outline</v-icon>
                                   <span class="hidden-xs-only">{{ otherUser ? comments.length : 0 }} コメントを見る</span>
-                                  <span class="hidden-sm-and-up caption">{{ otherUser ? comments.length : 0 }} コメントを見る</span>
+                                  <span class="hidden-sm-and-up body-2">{{ otherUser ? comments.length : 0 }} コメントを見る</span>
                               </v-btn>
                             </v-flex>
-                            <v-flex xs12 sm10 md8 offset-sm3 offset-md3> 
+                            <v-flex xs12 sm10 md8 offset-xs3 offset-sm3 offset-md3> 
                                 <followUser/>
                             </v-flex>
                         </v-layout>
@@ -69,7 +69,7 @@
                                    </v-card-text>
                                 </v-card>
                                  <v-card class="grey lighten-3 ma-2 hidden-sm-and-up">
-                                    <h5>自己紹介</h5>
+                                    <h4>自己紹介</h4>
                                    <v-card-text>
                                      <span class="caption">{{ introduction }}</span>
                                    </v-card-text>
