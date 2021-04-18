@@ -14,7 +14,7 @@
         text
         v-if="!highly_rated"
         @click.prevent="follow"
-        class="hidden-sm-and-up caption">
+        class="hidden-sm-and-up body-2">
          <v-icon color="orange darken-2">mdi-star-outline</v-icon>
          <span>{{ followers ? followers.length : 0 }} 高評価する</span>
         </v-btn>
