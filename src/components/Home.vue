@@ -11,6 +11,11 @@
        </v-layout>
     </v-container>
     <v-container>
+        <v-layout mt-3 row wrap class="text-center">
+           <v-flex>
+              <v-btn large to="/Overview" dark width="300" color="blue darken-1">FREETALKってなに？</v-btn> 
+           </v-flex>
+       </v-layout>
        <v-layout mt-5 row wrap v-if="user">
            <v-flex>
                <v-btn large to="/freetalks" class="mb-3" width="300" dark color="pink darken-1">FREETALKを検索してみる</v-btn>
@@ -38,7 +43,7 @@
        <v-layout row wrap mt-5 v-if="!loading">
            <v-flex>
                <v-card max-width="1000" class="mx-auto">
-                   <v-carousel v-show="user">
+                   <v-carousel v-show="user"> 
                         <v-carousel-item
                         v-for="freetalk in freetalks"
                         :key="freetalk.id"

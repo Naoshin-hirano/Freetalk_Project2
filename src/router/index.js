@@ -11,6 +11,7 @@ import Profile from '../components/User/Profile.vue'
 import ProfileForOthers from '../components/User/ProfileForOthers.vue'
 import Comment from '../components/User/Comment.vue'
 import Attendance from '../components/Freetalk/Attendance.vue'
+import Overview from '../components/Overview.vue'
 
 
 Vue.use(VueRouter)
@@ -30,6 +31,11 @@ Vue.use(VueRouter)
     path: '/freetalks',
     name: 'FreeTalks',
     component: FreeTalks
+  },
+  {
+    path: '/overview/',
+    name: 'Overview',
+    component: Overview
   },
   {
     path: '/freetalks/:id',
