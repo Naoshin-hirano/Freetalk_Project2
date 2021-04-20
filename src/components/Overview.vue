@@ -26,12 +26,12 @@
                 <h3 class="mt-10">■英会話教室に参加してみよう！</h3>
                 <p class="mt-5">詳細画面下部の「参加する」ボタンからその英会話教室へ参加登録ができます。左側の「出席者PickUp」に参加予定者一覧が表示されています。</p>
                 <img src="@/assets/gif2.gif" class="hidden-xs-only" alt="" width="70%">
-                <img src="@/assets/gif1.gif" class="hidden-sm-and-up" alt="" width="100%">
+                <img src="@/assets/gif2.gif" class="hidden-sm-and-up" alt="" width="100%">
                 <h3 class="mt-10">■ユーザー情報を確認しよう！</h3>
                 <p class="mt-5">参加者や開催者などのユーザーアイコンをクリックすることで、ユーザープロフィール画面へ遷移できます。そのユーザーへ高評価できたり、コメントを投稿できます。<br>
                 ユーザーの評価数や寄せられているコメント内容を確認することで、そのFREETALKへ参加する判断材料にしていただければと思います。</p>
                 <img src="@/assets/gif3.gif" class="hidden-xs-only" alt="" width="70%">
-                <img src="@/assets/gif1.gif" class="hidden-sm-and-up" alt="" width="100%">
+                <img src="@/assets/gif3.gif" class="hidden-sm-and-up" alt="" width="100%">
             </v-flex>
         </v-layout>
         <v-layout class="mt-15">
