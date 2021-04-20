@@ -10,7 +10,7 @@
                 <v-card>
                     <v-card-text>
                         <v-container>
-                            <h1 class="mb-5">新規登録</h1>
+                            <h2 class="mb-5">新規登録</h2>
                             <div class="mb-5">
                                 <router-link text class="blue--text" to="/login" tag="span" style="cursor: pointer">ログインはこちら</router-link>
                             </div>
@@ -57,7 +57,7 @@
                                 <v-layout>
                                     <v-flex class="mt-3">
                                         <v-btn
-                                        x-large
+                                        large
                                         type="submit"  
                                         style="width:100%;"
                                         :disabled="!validForPassword"

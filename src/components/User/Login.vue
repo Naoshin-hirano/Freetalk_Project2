@@ -10,14 +10,14 @@
                 <v-card>
                     <v-card-text>
                         <v-container>
-                            <h1 class="mb-5">ログイン画面</h1>
+                            <h2 class="mb-5">ログイン画面</h2>
                             <div class="mb-5">
                                 <router-link text class="blue--text" to="/signup" tag="span" style="cursor: pointer">新規登録はこちら</router-link>
                             </div>
                             <v-divider class="mb-5"></v-divider>
                              <v-layout>
                                 <v-flex>
-                                    <v-btn @click="loginWithGestUser" x-large dark color="pink darken-1" style="width:100%;" >
+                                    <v-btn @click="loginWithGestUser" large dark color="pink darken-1" style="width:100%;" >
                                         ゲストユーザーとしてログイン
                                     </v-btn>
                                 </v-flex>

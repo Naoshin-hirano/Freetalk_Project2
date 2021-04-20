@@ -33,7 +33,7 @@ Vue.use(VueRouter)
     component: FreeTalks
   },
   {
-    path: '/overview/',
+    path: '/overview',
     name: 'Overview',
     component: Overview
   },

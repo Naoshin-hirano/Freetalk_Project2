@@ -9,18 +9,8 @@
       <v-card-title class="indigo accent-3" dark>
         <strong class="subheading">FREE TALK !</strong>
         <v-spacer></v-spacer>
-        <v-btn
-          v-for="icon in icons"
-          :key="icon"
-          class="mx-4"
-          dark
-          icon>
-          <v-icon class="hidden-xs-only" size="24px">
-            {{ icon }}
-          </v-icon>
-          <v-icon class="hidden-sm-and-up" size="15px">
-            {{ icon }}
-          </v-icon>
+        <v-btn to="/overview" text>
+          <h3>FREE TALK ! の使い方</h3>
         </v-btn>
       </v-card-title>
       <v-card-text class="indigo accent-3 text-center" dark>
@@ -29,15 +19,3 @@
     </v-card>
   </v-footer>
 </template>
-
-<script>
-  export default {
-    data: () => ({
-      icons: [
-        'mdi-facebook',
-        'mdi-twitter',
-        'mdi-instagram',
-      ],
-    }),
-  }
-</script>
