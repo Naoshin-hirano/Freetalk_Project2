@@ -32,7 +32,7 @@
                 ユーザーの評価数や寄せられているコメント内容を確認することで、そのFREETALKへ参加する判断材料にしていただければと思います。</p>
                 <img src="@/assets/gif3.gif" class="hidden-xs-only" alt="" width="70%">
                 <img src="@/assets/gif3.gif" class="hidden-sm-and-up" alt="" width="100%">
-            </v-flex>
+            </v-flex> 
         </v-layout>
         <v-layout class="mt-15">
             <v-flex xs12 sm11 md10 offset-sm1 offset-md1>
@@ -56,7 +56,8 @@
                     <li>ユーザーフォロー</li>
                     <li>ページネーション</li>
                     <li>リアルタイム検索</li>
-                    <li>コメント投稿とそのレスポンス</li>
+                    <li>コメント投稿／返信投稿</li>
+                    <li>レスポンシブデザイン</li>
                 </ul>
             </v-flex>
         </v-layout>
@@ -76,6 +77,19 @@
                     <li>Authentication（Googleアカウント）</li>
                     <li>Realtime Database</li>
                     <li>Strage</li>
+                </ul>
+            </v-flex>
+        </v-layout>
+        <v-layout class="mt-15">
+            <v-flex xs12 sm11 md10 offset-sm1 offset-md1>
+                <h1>5.作成理由</h1>
+                <v-divider></v-divider>
+                <ul class="mt-10">
+                    <li>オーストラリアへの語学留学中に、Facebookで外国人の友人をシャアハウスに集めて英語でのディベートをしていた経験から、それをアプリを使って日本中の人々でやれば効果的にみんなの英会話力上達に繋がるのではと考えたため。
+                    </li>
+                    <li class="mt-5">
+                        語学研修企業であるベルリッツに入社し、なぜそこまで高額なレッスン費用になるか調査した結果、主に”講師の質”が要因となっており、英語初学者にそこまでの高質な講師は不要なのではないかと思ったため。
+                    </li>
                 </ul>
             </v-flex>
         </v-layout>

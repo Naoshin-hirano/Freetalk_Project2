@@ -9,8 +9,8 @@
       <v-card-title class="indigo accent-3" dark>
         <strong class="subheading">FREE TALK !</strong>
         <v-spacer></v-spacer>
-        <v-btn to="/overview" text>
-          <h3>FREE TALK ! の使い方</h3>
+        <v-btn to="/overview" text class="pr-0">
+          <h3>FREE TALK ってなに？</h3>
         </v-btn>
       </v-card-title>
       <v-card-text class="indigo accent-3 text-center" dark>
