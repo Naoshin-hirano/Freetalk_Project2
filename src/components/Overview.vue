@@ -84,7 +84,7 @@
             <v-flex xs12 sm11 md10 offset-sm1 offset-md1>
                 <h1>5.作成理由</h1>
                 <v-divider></v-divider>
-                <ul class="mt-10">
+                <ul id="reason" class="mt-10">
                     <li>オーストラリアへの語学留学中に、Facebookで外国人の友人をシャアハウスに集めて英語でのディベートをしていた経験から、それをアプリを使って日本中の人々でやれば効果的にみんなの英会話力上達に繋がるのではと考えたため。
                     </li>
                     <li class="mt-5">
@@ -108,5 +108,8 @@ ul li{
     font-size: 108%;
     font-weight: bold;
     margin-bottom: 0.6%;
+}
+#reason li{
+    font-weight: normal;
 }
 </style>
