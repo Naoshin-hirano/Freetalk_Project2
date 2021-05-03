@@ -1,10 +1,10 @@
 <template>
     <v-container>
         <v-layout>
-            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
+            <v-flex>
                 <v-card>
                     <v-container>
-                        <v-layout class="text-center" v-show="!loading">
+                        <v-layout class="text-center" v-if="!loading">
                             <v-flex class="hidden-xs-only">
                                 <v-avatar v-if="imageForRoomUser" size="180">
                                     <img
@@ -30,13 +30,14 @@
                                 </v-avatar>
                             </v-flex>
                         </v-layout>
-                        <v-layout class="text-center" v-show="loading">
+                        <v-layout class="text-center" v-else>
                           <v-flex>
-                              <v-progress-circular
+                             <v-avatar size="100">
+                                <v-progress-circular
                                 color="purple"
-                                indeterminate
-                                size="64"
-                              ></v-progress-circular>
+                                indeterminate>
+                                </v-progress-circular>
+                             </v-avatar>
                           </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-1 mb-10>
@@ -92,6 +93,16 @@
                 <tabsForOthers/>
             </v-flex>
         </v-layout>
+       <v-layout class="text-center">
+          <v-flex>
+              <v-overlay v-show="loading">
+                <v-progress-circular
+                  indeterminate
+                  size="64">
+                </v-progress-circular>
+              </v-overlay>
+          </v-flex>
+       </v-layout>
     </v-container>
 </template>
 
