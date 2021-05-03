@@ -1,7 +1,17 @@
 <template>
     <v-container>
+        <v-layout class="text-center">
+          <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
+              <v-overlay v-show="loading">
+                <v-progress-circular
+                  indeterminate
+                  size="64">
+                </v-progress-circular>
+              </v-overlay>
+          </v-flex>
+       </v-layout>
         <v-layout>
-            <v-flex>
+            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3> 
                 <v-card>
                     <v-container>
                         <v-layout class="text-center" v-if="!loading">
@@ -34,9 +44,9 @@
                           <v-flex>
                              <v-avatar size="100">
                                 <v-progress-circular
-                                color="purple"
-                                indeterminate>
-                                </v-progress-circular>
+                              color="purple"
+                              indeterminate>
+                              </v-progress-circular>
                              </v-avatar>
                           </v-flex>
                         </v-layout>
@@ -77,32 +87,11 @@
                                 </v-card>
                             </v-flex>
                         </v-layout>
-                        <v-layout>
-                            <v-flex>
-                                <v-btn 
-                                @click="$router.go(-1)" 
-                                text 
-                                class="blue--text darken-1">
-                                    <v-icon >mdi-chevron-left</v-icon>
-                                    戻る
-                                </v-btn>
-                            </v-flex>
-                        </v-layout>
                     </v-container>
                 </v-card>
                 <tabsForOthers/>
             </v-flex>
         </v-layout>
-       <v-layout class="text-center">
-          <v-flex>
-              <v-overlay v-show="loading">
-                <v-progress-circular
-                  indeterminate
-                  size="64">
-                </v-progress-circular>
-              </v-overlay>
-          </v-flex>
-       </v-layout>
     </v-container>
 </template>
 

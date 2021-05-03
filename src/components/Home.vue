@@ -27,9 +27,10 @@
               <v-btn large to="/Overview" dark width="300" color="blue darken-1">FREETALKってなに？</v-btn> 
            </v-flex>
        </v-layout>
-        <v-layout class="text-center">
+        <v-layout>
             <v-flex xs5 sm4 md3>
                 <v-progress-circular
+                    class="text-center"
                     indeterminate
                     color="purple"
                     :width="7"
