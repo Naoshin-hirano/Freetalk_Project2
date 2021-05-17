@@ -159,20 +159,14 @@ export default {
     }
   },
   methods: {
+    //ログアウトメソッド
     logout(){
       this.$store.dispatch("logout")
     },
+    //言語切替メソッド
     changeLangu(a){
-      console.log("aのデータきてる？")
-      console.log(a)
       this.$i18n.locale = a
     }
   }
 };
 </script>
-
-<style lang="css" scoped>
-.v-select__selections {
-     width: 10px
-}
-</style>

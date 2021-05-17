@@ -93,13 +93,14 @@ export default {
 //ユーザー情報の取り出し
     fetchUserData({commit, getters}){
       commit("setLoading", true)
-      const uid = getters.user ? getters.user.id : null  
+      // const uid = getters.user ? getters.user.id : null
+      const uid = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null
       firebase.database().ref("/users/" + uid).once("value")
       .then(data =>{
-        const userData = data.val()
+        const userData = uid ? data.val() : null
 
         //フォローのデータ
-        const followingPairs = data.val().following
+        const followingPairs = uid ? data.val().following : null
         let registeredFollowing = []
         let followingKey = {}
         for(let key in followingPairs){
@@ -107,7 +108,7 @@ export default {
           followingKey[followingPairs[key]] = key
         }
         //フォロワーのデータ
-        const followerPairs = data.val().followers
+        const followerPairs = uid ? data.val().followers : null
         let registeredFollowers = []
         let followerKey = {}
         for(let key in followerPairs){
@@ -115,7 +116,7 @@ export default {
           followerKey[followerPairs[key]] = key
         }
         //コメントのデータ
-        const commentsObj = data.val().comments
+        const commentsObj = uid ? data.val().comments : null
         let comments = []
         let replys = []
         for(let key in commentsObj){
@@ -130,7 +131,7 @@ export default {
             replys: commentsObj[key].replys
           })
           //リプライデータ
-          const obj2 = commentsObj[key].replys
+          const obj2 = uid ? commentsObj[key].replys : null
           for(let key2 in obj2){
             replys.push({
               replyId: obj2[key2].replyId,
@@ -146,10 +147,10 @@ export default {
         }
         //ユーザー情報をオブジェクトにしてmutationへ渡す
         const updateUser = {
-          id: userData.id,
-          photoURL: userData.photoURL,
-          displayName: userData.displayName,
-          introduction: userData.introduction,
+          id: userData ? userData.id : null,
+          photoURL: userData ? userData.photoURL : null,
+          displayName: userData ? userData.displayName : null,
+          introduction: userData ? userData.introduction : null,
           comments: comments,
           replys: replys,
           following: registeredFollowing,
@@ -300,11 +301,6 @@ export default {
           console.log(error)
         })
      },
-//facebookログイン
-    // loginWithFacebook(){
-    //   const provider = new firebase.auth.FacebookAuthProvider()
-    //   firebase.auth().signInWithRedirect(provider)
-    // },
 //メールアドレスとパスワードでユーザーアカウント登録
     signUserUp({commit}, payload){
       commit("clearError")

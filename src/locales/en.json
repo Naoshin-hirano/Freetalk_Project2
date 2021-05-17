@@ -28,53 +28,44 @@
   "detail": "Detail",
   "some_members": "Members",
   "all_attendees": "All Members",
-  
   "register": "Register",
   "unregister": "Unregister",
   "register_dialog": "Really register this FREETALK?",
   "unregister_dialog": "Really unregister this FREETALK?",
   "yes": "Yes",
-
   "delete_freetalk": "Really want to delete this FREETALK?",
   "delete": "Delete",
   "edit_freetalk": "Edit FREETALK",
-
   "edit_profile": "Edit Profile",
   "user_name": "User Name",
   "chose_icon": "Pickup Your Icon",
   "close": "Close",
   "save": "Save",
-
   "edit_date": "Edit Date",
   "edit_time": "Edit Time",
-
   "registration_info": "Registration Info",
   "mail_address": "Email Address",
   "change": "Change",
-  "change_for_guest": "Cannot be changed as it is a Guest User）",
+  "change_for_guest": "Cannot be changed as it is a Guest User",
   "password": "Password",
   "password_after_change": "Password After Change",
   "password_after_change_reenter": "Password After Change（Re-Enter)",
   "reauthentication": "Reauthentication",
   "current_password": "Current Password",
   "delete_account": "Delete This Account",
-
   "post_your_comment": "Post this user's reputation and request",
   "send": "Send",
   "reply": "Reply",
   "reply_comment": "Reply Comment",
   "delete_comment": "Really delete this comment?",
-
   "login": "User Login",
   "logout": "Logout",
   "new_registration": "New Registration",
   "guest_user": "Login as Gust User",
   "mail_login": "Login by Email and Password",
   "google_login": "Login by Google",
-
   "signup": "Sign Up",
   "continue": "Continue",
-
   "about": "About FREETALK",
   "beginning": "FREETALK is a service that allows people who do not normally have the opportunity to communicate in English to gather and have an English conversation to develop their communication skills in English for free.",
   "how_to_help": "If you have any of the following problems with learning English, please refer to how to use it and use it to improve your English conversation skills.",
@@ -83,7 +74,6 @@
   "target3": "Foreigners who want to make Japanese friends by teaching English",
   "target4": "Teacher apprentices who want to gain experience as an English teacher",
   "guest_user_link": "You can easily log in without registering as a guest user, so please try from there first.",
-
   "usage": "Basic Usage",
   "theme_of_usage1": "Let's create an English conversation class!",
   "theme_of_usage2": "Let's join the English conversation class!",
@@ -91,8 +81,4 @@
   "explanation1": "You can create your English conversation class in the form by selecting「FREETALKS」from the menu. Members are being recruited at the time of posting.",
   "explanation2": "You can join the English conversation class by clicking the button「Register」. Members is displayed in「Members」.",
   "explanation3": "You can move to the user profile by clicking the user icon of the members or organizer. You can give Follow to the user and post comments. By checking the number of user Follower and the comments, you can use it as a info for deciding to join FREE TALK."
-
-
-
-
 }

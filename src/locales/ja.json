@@ -28,26 +28,21 @@
   "detail": "詳細",
   "some_members": "出席者PickUP",
   "all_attendees": "全出席者リスト",
-
   "register": "参加する",
   "unregister": "参加を解除",
   "register_dialog": "このFREETALKに参加しますか?",
   "unregister_dialog": "このFREETALKの参加を解除しますか?",
   "yes": "はい",
-
   "delete_freetalk": "本当にこのFeetalkを削除しますか？",
   "delete": "削除",
   "edit_freetalk": "FREETALK を編集",
-
   "edit_profile": "プロフィールの編集",
   "user_name": "ユーザーネーム",
   "chose_icon": "イメージを選ぶ",
   "close": "閉じる",
   "save": "保存",
-
   "edit_date": "日付を編集",
   "edit_time": "時間を編集",
-
   "registration_info": "登録情報",
   "mail_address": "メールアドレス",
   "change": "変更",
@@ -58,23 +53,19 @@
   "reauthentication": "再認証",
   "current_password": "現在のパスワード",
   "delete_account": "アカウントを削除する",
-
   "post_your_comment": "このユーザーの評判とリクエストを送ろう",
   "send": "投稿する",
   "reply": "返信",
   "reply_comment": "返信コメント",
   "delete_comment": "このコメントを削除しますか？",
-
   "login": "ログイン画面",
   "logout": "ログアウト",
   "new_registration": "新規登録はこちら",
   "guest_user": "ゲストユーザーとしてログイン",
   "mail_login": "メールでログイン",
   "google_login": "GOOGLEでログイン",
-
   "signup": "新規登録",
   "continue": "続ける",
-
   "about": "FREETALKについて",
   "beginning": "FREETALKは、普段から英語でコミュニケーションする機会がない人たち同士が集まって英会話をすることで、英語でのコミュニケーション力を無料で養おうというサービスです。",
   "how_to_help": "英語学習について以下お悩みを抱いたことがある方はぜひ使用方法を参考の上、英会話力向上に役立ててください。",
@@ -83,7 +74,6 @@
   "target3": "英語を教えることで日本人の友人を作りたい外国人の方",
   "target4": "英語の先生として経験を積みたい先生見習いの方",
   "guest_user_link": "ゲストユーザーとして登録なしでご気軽にログインができますので、まずはそちらからお試しください。",
-
   "usage": "基本的な使い方",
   "theme_of_usage1": "英会話教室を投稿してみよう！",
   "theme_of_usage2": "英会話教室に参加してみよう！",
@@ -91,5 +81,4 @@
   "explanation1": "メニューの「FREETALKを投稿」にてお好みの英会話教室の情報をフォームに入力し、投稿できます。投稿した時点でメンバー募集が行われております。",
   "explanation2": "詳細画面下部の「参加する」ボタンからその英会話教室へ参加登録ができます。左側の「出席者PickUp」に参加予定者一覧が表示されています。",
   "explanation3": "参加者や開催者などのユーザーアイコンをクリックすることで、ユーザープロフィール画面へ遷移できます。そのユーザーへ高評価できたり、コメントを投稿できます。<br>ユーザーの評価数や寄せられているコメント内容を確認することで、そのFREETALKへ参加する判断材料にしていただければと思います。"
-
   }
