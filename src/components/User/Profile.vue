@@ -61,7 +61,7 @@
                         <v-layout class="text-center" mt-1 mb-10>
                             <v-flex >
                                 <h3 v-if="userName">{{ userName }}</h3>
-                                <h3 v-else>名無し</h3>
+                                <h3 v-else>{{$t('anonymous')}} </h3>
                             </v-flex>
                         </v-layout>
                          <v-layout mr-12>
@@ -72,27 +72,27 @@
                                     :to="'/comment/' + currentUser.id">
                                   <v-icon class="hidden-xs-only" left color="green">mdi-comment-multiple-outline</v-icon>
                                   <v-icon class="hidden-sm-and-up" color="green">mdi-comment-multiple-outline</v-icon>
-                                  <span class="hidden-xs-only" v-if="currentUser">{{ currentUser ? comments.length : 0 }} コメントを見る</span>
-                                  <span class="hidden-sm-and-up font-weight-bold body-2" v-if="currentUser">{{ currentUser ? comments.length : 0 }} コメントを見る</span>
+                                  <span class="hidden-xs-only body-1" v-if="currentUser">{{ currentUser ? comments.length : 0 }} {{$t('comment_for_user')}} </span>
+                                  <span class="hidden-sm-and-up font-weight-bold body-2" v-if="currentUser">{{ currentUser ? comments.length : 0 }} {{$t('comment_for_user')}} </span>
                               </v-btn>
                             </v-flex>
                             <v-flex xs12 sm10 md8 offset-xs3 offset-sm3 offset-md3 class="mt-1 ml-0">
                                 <v-icon class="hidden-xs-only" left color="orange darken-2">mdi-star</v-icon>
                                 <v-icon class="hidden-sm-and-up" color="orange darken-2">mdi-star</v-icon>
-                                <span class="hidden-xs-only" v-if="currentUser">{{ currentUser ? followers.length : 0 }} 人から高評価</span>
-                                <span class="hidden-sm-and-up body-2" v-if="currentUser">{{ currentUser ? followers.length : 0 }} <span>人から高評価</span></span>
+                                <span class="hidden-xs-only" v-if="currentUser">{{ currentUser ? followers.length : 0 }} {{$t('follower')}} </span>
+                                <span class="hidden-sm-and-up body-2" v-if="currentUser">{{ currentUser ? followers.length : 0 }} <span>{{$t('follower')}} </span></span>
                             </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-12>
                             <v-flex>
                                 <v-card class="grey lighten-3 ma-2 hidden-xs-only">
-                                    <h3>自己紹介</h3>
+                                    <h3>{{$t('introduction')}} </h3>
                                    <v-card-text>
                                      <h3 v-if="currentUser">{{ currentUser.introduction }}</h3>
                                    </v-card-text>
                                 </v-card>
                                 <v-card class="grey lighten-3 ma-2 hidden-sm-and-up">
-                                    <h4>自己紹介</h4>
+                                    <h4>{{$t('introduction')}} </h4>
                                    <v-card-text>
                                      <span class="caption" v-if="currentUser">{{ currentUser.introduction }}</span>
                                    </v-card-text>
@@ -116,11 +116,13 @@
     data () {
       return {
         //ダイアログ
-        editDialog: false,
+        editDialog: false
       }
     },
-    //プロフィール画面に遷移する度に各タブのリストが更新される
     created(){
+      //画面上のユーザー情報取得
+      this.$store.dispatch("fetchUserData")
+      //プロフィール画面に遷移する度に各タブのリストが更新される
       this.$store.dispatch('loadedFreeTalks')
     },
     computed: {

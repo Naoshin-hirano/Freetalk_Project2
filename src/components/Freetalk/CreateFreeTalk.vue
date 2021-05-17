@@ -5,7 +5,7 @@
                 <v-card>
                     <v-layout>
                         <v-flex xs12 sm10 offset-sm1 mb-4>
-                            <h2 class="mt-5 ml-3">FREETALK を投稿</h2>
+                            <h2 class="mt-5 ml-3">{{$t('post_freetalk')}}</h2>
                         </v-flex>
                     </v-layout>
                     <v-layout>
@@ -15,7 +15,7 @@
                                     <v-flex>
                                         <v-select
                                             class="ml-3 mr-3"
-                                            label="言語"
+                                            :label="$t('language')"
                                             name="language"
                                             id="language"
                                             v-model="language"
@@ -29,7 +29,7 @@
                                 <v-layout>
                                     <v-flex>
                                         <v-text-field
-                                            label="タイトル"
+                                            :label="$t('name_of_freetalk')"
                                             name="title"
                                             id="title"
                                             v-model="title"
@@ -41,7 +41,7 @@
                                 <v-layout>
                                     <v-flex>
                                         <v-text-field
-                                            label="開催場所"
+                                            :label="$t('location')"
                                             name="location"
                                             id="location"
                                             v-model="location"
@@ -54,7 +54,7 @@
                                     <v-flex>
                                         <v-btn
                                         raised class="white--text indigo accent-3 ml-6 mr-3" 
-                                        @click="onPickFile">画像アップロード</v-btn>
+                                        @click="onPickFile">{{$t('image_upload')}}</v-btn>
                                         <input type="file" 
                                                 style="display: none" 
                                                 ref="fileInput"
@@ -70,7 +70,7 @@
                                 <v-layout>
                                     <v-flex>
                                         <v-textarea
-                                            label="説明・概要"
+                                            :label="$t('description')"
                                             name="description"
                                             id="description"
                                             v-model="description"
@@ -81,7 +81,7 @@
                                 </v-layout>
                                     <v-layout mb-3>
                                     <v-flex xs10 sm12 offset-xs2 offset-sm1>
-                                        <h2>開催日時を指定</h2>
+                                        <h2>{{$t('date_time')}}</h2>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout mb-4>
@@ -111,7 +111,7 @@
                                             height="50" 
                                             dark 
                                             color="red darken-2"
-                                            type="submit">Create Freetalk               
+                                            type="submit">{{$t('create_freetalk')}}              
                                         </v-btn>
                                         <v-alert
                                         v-show="!formIsValid"
@@ -119,7 +119,7 @@
                                         outlined
                                         type="error"
                                         >
-                                        <p>全項目を入力してください</p>
+                                        <p>{{$t('enter_all')}}</p>
                                         </v-alert>
                                     </v-flex>
                                 </v-layout>

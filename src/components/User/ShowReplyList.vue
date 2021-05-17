@@ -5,7 +5,7 @@
                 <v-card>
                       <v-card-actions class="grey pt-2">
                           <v-icon class="white--text mb-1">mdi-reply</v-icon>
-                          <p class="white--text body-1 mb-0">返信コメント</p>
+                          <p class="white--text body-1 mb-0">{{$t('reply_comment')}}</p>
                       </v-card-actions>
                       <v-card-actions class="pb-0 pt-0">
                            <v-btn
@@ -25,7 +25,7 @@
                                 </v-avatar>
                             </v-btn>
                           <v-card-text>
-                              <p class="mb-0">{{ reply.datetime | date}}</p>
+                              <p class="mb-0">{{ reply.datetime | date }}</p>
                               <h4>{{ reply.name }}</h4>
                           </v-card-text>
                       </v-card-actions>

@@ -21,13 +21,13 @@
          </v-container>
          <v-container class="text-center mt-0 pt-0">
              <v-layout class="mb-3">
-                <v-card-title class="hidden-xs-only">ログインするとFREETALK詳細を見れます</v-card-title>
-                <v-card-text class="hidden-sm-and-up">ログインするとFREETALK詳細を見れます</v-card-text>
+                <v-card-title class="hidden-xs-only">{{$t('login_and_check')}} </v-card-title>
+                <v-card-text class="hidden-sm-and-up">{{$t('login_and_check')}} </v-card-text>
              </v-layout>
               <v-layout>
                   <v-flex>
                       <v-btn @click="loginWithGestUser" large color="lime" style="width:100%;" >
-                          ゲストユーザーとしてログイン
+                          {{$t('guest_user')}} 
                       </v-btn>
                   </v-flex>
               </v-layout>

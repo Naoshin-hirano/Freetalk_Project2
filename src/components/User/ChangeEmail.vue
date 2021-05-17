@@ -1,13 +1,13 @@
 <template>
     <v-container>
-        <p class="mb-5"><v-icon>mdi-email-edit</v-icon>メールアドレス</p>
+        <p class="mb-5"><v-icon>mdi-email-edit</v-icon>{{$t('mail_address')}}</p>
         <v-form
         v-model="validForEmail">
             <v-layout>
                 <v-flex xs12>
                     <v-text-field
                     name="email"
-                    label="メールアドレス"
+                    :label="$t('mail_address')"
                     id="email"
                     v-model="email"
                     type="email"
@@ -29,14 +29,14 @@
                                 style="width:100%;"
                                 :disabled="!validForEmail"
                                 >
-                                変更
+                                {{$t('change')}}
                                 </v-btn>
                                 <v-btn
                                 v-show="gestUser"
                                 class="white--text"
                                 color="grey darken-1"
                                 style="width:100%;">
-                                変更(ゲストユーザーのため変更不可)
+                                {{$t('change_for_guest')}}
                                 </v-btn>
                             </template>
                             <v-card>
@@ -46,7 +46,7 @@
                                     v-model="validForReAuth">
                                     <v-layout>
                                         <v-flex>
-                                            <v-card-title class="pt-0">再認証</v-card-title>
+                                            <v-card-title class="pt-0">{{$t('reauthentication')}}</v-card-title>
                                         </v-flex>
                                         <v-flex class="text-right">
                                             <v-btn 
@@ -60,7 +60,7 @@
                                         <v-flex>
                                             <v-text-field
                                             name="reAuth"
-                                            label="現在のパスワード"
+                                            :label="$t('current_password')"
                                             id="reAuth"
                                             v-model="reAuth"
                                             type="password"
@@ -77,7 +77,7 @@
                                                 style="width:100%;"
                                                 :disabled="!validForReAuth"
                                                 type="submit">
-                                                再認証
+                                                {{$t('reauthentication')}}
                                             </v-btn>
                                         </v-flex>
                                     </v-layout>
@@ -104,16 +104,48 @@ export default {
       validForReAuth: true,
       registerDialog: false,
       emailRules: [
-          v => !!v || 'メールアドレスは必須項目です',
-          v => /.+@.+\..+/.test(v) || '有効なメールアドレスではありません'
+          v => !!v || this.emailRequire,
+          v => /.+@.+\..+/.test(v) || this.notValidEmail
       ],
       rulesForReauth: [
-          v => !!v || '現在のパスワードは必須項目です',
-          v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
+          v => !!v || this.passRequire,
+          v => (v && v.length >= 6) || this.passNeed6words
          ]
     }
   },
   computed: {
+    //メールアドレスは必須項目（バリデーション）
+    emailRequire(){
+      if(this.$i18n.locale === 'ja'){
+        return 'メールアドレスは必須項目です'
+      }else if(this.$i18n.locale === 'en'){
+        return 'Email is a required field'
+      }
+    },
+    //有効なメールアドレスではありません（バリデーション）
+    notValidEmail(){
+      if(this.$i18n.locale === 'ja'){
+        return '有効なメールアドレスではありません'
+      }else if(this.$i18n.locale === 'en'){
+        return 'Not a valid email address'
+      }
+    },
+    //パスワードは必須項目です（バリデーション）
+    passRequire(){
+      if(this.$i18n.locale === 'ja'){
+        return 'パスワードは必須項目です'
+      }else if(this.$i18n.locale === 'en'){
+        return 'Passwore is a required field'
+      }
+    },
+    //変更後のパスワードは６文字以上です（バリデーション）
+    passNeed6words(){
+      if(this.$i18n.locale === 'ja'){
+        return '変更後のパスワードは６文字以上です'
+      }else if(this.$i18n.locale === 'en'){
+        return 'The changed password must be at least 6 characters'
+      }
+    },
       //現在のログインユーザーがゲストユーザーであるか
       gestUser(){
           return firebase.auth().currentUser ? firebase.auth().currentUser.uid === "mKSpW1jBFHgmKYjPGBpz8OenXvE3" : null

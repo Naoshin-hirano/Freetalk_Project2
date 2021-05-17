@@ -5,26 +5,26 @@
     v-show="!user">
         <v-layout row>
            <v-flex>
-                 <h3 class="hidden-xs-only">FREETALK！は、無料の英会話教室を開催するためのアプリです！</h3>
-                 <h4 class="hidden-sm-and-up ml-2">FREETALK！は<br>無料の英会話教室を開催するためのアプリです！</h4>
+                 <h3 class="hidden-xs-only">{{$t('title_message')}}</h3>
+                 <h4 class="hidden-sm-and-up ml-2">FREETALK！は<br>{{$t('title_message')}}</h4>
            </v-flex>
        </v-layout>
     </v-container>
     <v-container>
        <v-layout mt-5 row wrap v-if="user">
            <v-flex>
-               <v-btn large to="/freetalks" class="mb-3" width="300" dark color="pink darken-1">FREETALKを検索してみる</v-btn>
+               <v-btn large to="/freetalks" class="mb-3" width="300" dark color="pink darken-1">{{$t('check_freetalk')}}</v-btn>
            </v-flex>
            <v-flex>
-               <v-btn large to="/freetalk/new" width="300" dark color="pink darken-1">FREETALKを投稿してみる</v-btn>
+               <v-btn large to="/freetalk/new" width="300" dark color="pink darken-1">{{$t('post_freetalk')}}</v-btn>
            </v-flex>
        </v-layout>
        <v-layout mt-5 row wrap v-else>
            <v-flex>
-              <v-btn large to="/login" class="mb-3" dark color="pink darken-1">ログインしてFREETALKを楽しもう！</v-btn> 
+              <v-btn large to="/login" class="mb-3" dark color="pink darken-1">{{$t('enjoy_freetalk')}}</v-btn> 
            </v-flex>
            <v-flex>
-              <v-btn large to="/Overview" dark width="300" color="blue darken-1">FREETALKってなに？</v-btn> 
+              <v-btn large to="/Overview" dark width="300" color="blue darken-1">{{$t('whats_freetalk')}}</v-btn> 
            </v-flex>
        </v-layout>
         <v-layout>

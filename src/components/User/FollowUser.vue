@@ -7,7 +7,7 @@
         @click.prevent="follow"
         class="hidden-xs-only">
          <v-icon left large color="orange darken-2">mdi-star-outline</v-icon>
-         <span>{{ followers ? followers.length : 0 }} 高評価する</span>
+         <span>{{ followers ? followers.length : 0 }} {{$t('follow')}} </span>
         </v-btn>
         <v-btn
         fab accent
@@ -16,7 +16,7 @@
         @click.prevent="follow"
         class="hidden-sm-and-up body-2">
          <v-icon color="orange darken-2">mdi-star-outline</v-icon>
-         <span>{{ followers ? followers.length : 0 }} 高評価する</span>
+         <span>{{ followers ? followers.length : 0 }} {{$t('follow')}} </span>
         </v-btn>
 
         <v-btn
@@ -26,7 +26,7 @@
         @click.prevent="unFollow"
         class="hidden-xs-only">
          <v-icon large color="orange darken-2">mdi-star</v-icon>
-          <span>{{ followers ? followers.length : 0 }} 高評価を解除</span>
+          <span>{{ followers ? followers.length : 0 }} {{$t('unfollow')}} </span>
         </v-btn>
         <v-btn
         fab accent
@@ -35,7 +35,7 @@
         @click.prevent="unFollow"
         class="hidden-sm-and-up body-2">
          <v-icon color="orange darken-2">mdi-star</v-icon>
-          <span>{{ followers ? followers.length : 0 }} 高評価を解除</span>
+          <span>{{ followers ? followers.length : 0 }} {{$t('unfollow')}} </span>
         </v-btn>
     </div>
 </template>

@@ -7,7 +7,7 @@
         class="mr-3 ml-3"
         v-bind="attrs"
         v-on="on">
-         返信
+         {{$t('reply')}}
         </v-btn>
       </template>
       <v-card>
@@ -21,7 +21,7 @@
                         required
                         clearable
                         clear-icon="mdi-close-circle"
-                        label="コメント内容"
+                        :label="$t('comment_for_user')"
                       ></v-textarea>
                   </v-card-text>
              </v-layout>
@@ -31,15 +31,15 @@
                         class="red--text darken-1"
                         text
                         @click="registerDialog = false">
-                        <h3 class="hidden-xs-only">閉じる</h3>
-                        <span class="hidden-sm-and-up">閉じる</span>
+                        <h3 class="hidden-xs-only">{{$t('close')}}</h3>
+                        <span class="hidden-sm-and-up">{{$t('close')}}</span>
                         </v-btn>
                         <v-btn
                         class="green--text darken-1"
                         text
                         >
-                        <h3 @click="replyToComment" class="hidden-xs-only">返信する</h3>
-                        <span @click="replyToComment" class="hidden-sm-and-up">返信する</span>
+                        <h3 @click="replyToComment" class="hidden-xs-only">{{$t('reply')}}</h3>
+                        <span @click="replyToComment" class="hidden-sm-and-up">{{$t('reply')}}</span>
                         </v-btn>
                  </v-card-actions>
              </v-layout>

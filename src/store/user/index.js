@@ -93,7 +93,8 @@ export default {
 //ユーザー情報の取り出し
     fetchUserData({commit, getters}){
       commit("setLoading", true)
-      firebase.database().ref("/users/" + getters.user.id).once("value")
+      const uid = getters.user ? getters.user.id : null  
+      firebase.database().ref("/users/" + uid).once("value")
       .then(data =>{
         const userData = data.val()
 

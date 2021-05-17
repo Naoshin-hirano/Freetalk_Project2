@@ -5,8 +5,8 @@
               <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                     <v-container>
                         <v-layout wrap>
-                            <h3 class="hidden-xs-only">出席者リスト</h3>
-                            <h5 class="hidden-sm-and-up pl-3">出席者リスト</h5>
+                            <h3 class="hidden-xs-only">{{$t('all_attendees')}}</h3>
+                            <h5 class="hidden-sm-and-up pl-3">{{$t('all_attendees')}}</h5>
                         </v-layout>
                     </v-container>
               </v-flex>

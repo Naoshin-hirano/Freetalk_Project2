@@ -57,14 +57,14 @@
                     id="input"
                     v-model="input"
                     required
-                    label="このユーザーの評判やリクエストを送ろう"
+                    :label="$t('post_your_comment')"
                     >
                     </v-textarea>
                     <v-btn
                     class="mr-5 blue--text darken-1 pl-0"
                     type="submit"
                     text>
-                    投稿する</v-btn>
+                    {{$t('send')}}</v-btn>
                 </form>
               </v-card>
             </v-flex>
@@ -99,9 +99,9 @@
                                 alt="John">
                             </v-avatar>
                         </v-btn>
-                      <v-card-text>
+                      <v-card-text>{{$t('')}}
                           <p class="mb-0">{{ comment.datetime | date }}</p>
-                          <h4>{{ comment.name ? comment.name : "名無し" }}</h4>
+                          <h4>{{ comment.name ? comment.name : $t('anonymous') }}</h4>
                       </v-card-text>
                   </v-card-actions>
                   <v-layout>

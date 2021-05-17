@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <p class="mb-5"><v-icon>mdi-account-key</v-icon>パスワード</p>
+        <p class="mb-5"><v-icon>mdi-account-key</v-icon>{{$t('password')}}</p>
         <v-form 
         @submit.prevent="changePassword"
         v-model="validForPass"
@@ -9,7 +9,7 @@
             <v-flex xs12>
                 <v-text-field
                 name="password"
-                label="変更後のパスワード"
+                :label="$t('password_after_change')"
                 id="password"
                 v-model="password"
                 type="password"
@@ -17,7 +17,7 @@
                 :rules="passwordRules"></v-text-field>
                 <v-text-field
                 name="confirmPassword"
-                label="変更後のパスワード(再入力)"
+                :label="$t('password_after_change_reenter')"
                 id="confirmPassword"
                 v-model="confirmPassword"
                 type="confirmPassword"
@@ -39,14 +39,14 @@
                                 style="width:100%;"
                                 :disabled="!validForPass"
                                 :password="password">
-                                変更
+                                {{$t('change')}}
                             </v-btn>
                             <v-btn
                                 v-show="gestUser"
                                 class="white--text"
                                 color="grey darken-1"
                                 style="width:100%;">
-                                変更(ゲストユーザーのため変更不可)
+                                {{$t('change_for_guest')}}
                                 </v-btn>
                         </template>
                         <v-card>
@@ -56,7 +56,7 @@
                                 v-model="validForReAuth">
                                     <v-layout>
                                         <v-flex>
-                                            <v-card-title class="pt-0">再認証</v-card-title>
+                                            <v-card-title class="pt-0"></v-card-title>
                                         </v-flex>
                                         <v-flex class="text-right">
                                             <v-btn 
@@ -70,7 +70,7 @@
                                         <v-flex>
                                             <v-text-field
                                             name="reAuth"
-                                            label="現在のパスワード"
+                                            :label="$t('current_password')"
                                             id="reAuth"
                                             v-model="reAuth"
                                             type="password"
@@ -87,7 +87,7 @@
                                                 style="width:100%;"
                                                 :disabled="!validForReAuth"
                                                 type="submit">
-                                                再認証
+                                                {{$t('reauthentication')}}
                                             </v-btn>
                                         </v-flex>
                                     </v-layout>
@@ -119,22 +119,46 @@ export default {
       registerDialog: false,
       //パスワードのバリデーション
       passwordRules: [
-          v => !!v || 'パスワードは必須項目です',
-          v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
+          v => !!v || this.passRequire,
+          v => (v && v.length >= 6) || this.passNeed6words
       ],
       //パスワード確認のバリデーション
       confirmPasswordRules: [
-          v => !!v || 'パスワードは必須項目です',
-          v => v !== this.password ? "変更後のパスワード（再入力）が一致しません" : true
+          v => !!v || this.passRequire,
+          v => v !== this.password ? this.passNotMatch : true
       ],
       //再認証のバリデーション
       rulesForReauth: [
-          v => !!v || '現在のパスワードは必須項目です',
-          v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
+          v => !!v || this.passRequire,
+          v => (v && v.length >= 6) || this.passNeed6words
          ]
     }
   },
   computed: {
+    //パスワードは必須項目です（バリデーション）
+    passRequire(){
+      if(this.$i18n.locale === 'ja'){
+        return 'パスワードは必須項目です'
+      }else if(this.$i18n.locale === 'en'){
+        return 'Passwore is a required field'
+      }
+    },
+    //変更後のパスワードは６文字以上です（バリデーション）
+    passNeed6words(){
+      if(this.$i18n.locale === 'ja'){
+        return '変更後のパスワードは６文字以上です'
+      }else if(this.$i18n.locale === 'en'){
+        return 'The changed password must be at least 6 characters'
+      }
+    },
+    //変更後のパスワードが一致しません（バリデーション）
+    passNotMatch(){
+      if(this.$i18n.locale === 'ja'){
+        return '変更後のパスワード（再入力）は一致しません'
+      }else if(this.$i18n.locale === 'en'){
+        return 'The changed password does not match'
+      }
+    },
       //現在のログインユーザーがゲストユーザー
       gestUser(){
           return firebase.auth().currentUser ? firebase.auth().currentUser.uid === "mKSpW1jBFHgmKYjPGBpz8OenXvE3" : null

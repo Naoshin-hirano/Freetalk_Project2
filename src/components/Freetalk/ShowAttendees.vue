@@ -39,8 +39,8 @@
                             <span class="hidden-sm-and-up caption">{{ member.userName }}</span>
                         </v-flex>
                         <v-flex v-else>
-                            <h4 class="hidden-xs-only">名無し</h4>
-                            <span class="hidden-sm-and-up caption">名無し</span>
+                            <h4 class="hidden-xs-only">{{$t('anonymous')}}</h4>
+                            <span class="hidden-sm-and-up caption">{{$t('anonymous')}}</span>
                         </v-flex>
                     </v-layout>
                 </v-card>
@@ -56,10 +56,10 @@
         <v-layout row wrap v-show="!filterAttendance.length">
             <v-flex xs8 sm8 md8>
                 <v-card class="grey lighten-3 ma-2 hidden-xs-only">
-                    <v-card-text>出席者はいません</v-card-text>
+                    <v-card-text>{{$t('no_members')}}</v-card-text>
                 </v-card>
                 <v-card class="grey lighten-3 pl-9 hidden-sm-and-up caption">
-                    <p class="mb-0">出席者はいません</p>
+                    <p class="mb-0">{{$t('no_members')}}</p>
                 </v-card>
             </v-flex>
         </v-layout>

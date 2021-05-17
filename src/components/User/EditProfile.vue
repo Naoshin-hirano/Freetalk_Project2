@@ -14,7 +14,7 @@
          <v-container>
              <v-layout row wrap>
                  <v-flex xs12>
-                     <v-card-title>プロフィールの編集</v-card-title>
+                     <v-card-title>{{$t('edit_profile')}}</v-card-title>
                  </v-flex>
              </v-layout>
              <v-divider></v-divider>
@@ -23,14 +23,14 @@
                      <v-card-text>
                         <v-text-field
                             name="userName"
-                            label="ユーザーネーム"
+                            :label="$t('user_name')"
                             id="userName"
                             v-model="userName"
                             required>
                         </v-text-field>
                         <v-textarea
                             name="introduction"
-                            label="自己紹介"
+                            :label="$t('introduction')"
                             id="introduction"
                             v-model="introduction"
                             required>
@@ -38,7 +38,7 @@
                      </v-card-text>
                      <v-card-text>
                          <v-text-field
-                            label="イメージを選ぶ"
+                            :label="$t('chose_icon')"
                             @click="pickFile"
                             v-model="imageName"
                             >
@@ -61,10 +61,10 @@
                  <v-flex>
                      <v-card-actions>
                          <v-btn @click="close" text class="red--text darken-1">
-                           閉じる
+                           {{$t('close')}} 
                          </v-btn>
                          <v-btn @click="onSaveProfile" text class="green--text darken-1">
-                           保存する
+                           {{$t('save')}} 
                          </v-btn>
                      </v-card-actions>
                  </v-flex>
@@ -85,7 +85,7 @@
         //ダイアログ
         editDialog: false,
         //ログインユーザーの名前
-        userName: this.$store.getters.userName ? this.$store.getters.userName : "名無し",
+        userName: this.$store.getters.userName ? this.$store.getters.userName : $t('anonymous'),
         //ログインユーザーのアイコン
         photoURL: this.$store.getters.photoURL,
         //ログインユーザーの自己紹介

@@ -10,7 +10,7 @@
         <strong class="subheading">FREE TALK !</strong>
         <v-spacer></v-spacer>
         <v-btn to="/overview" text class="pr-0">
-          <h3>FREE TALK ってなに？</h3>
+          <h3>{{$t('whats_freetalk')}}</h3>
         </v-btn>
       </v-card-title>
       <v-card-text class="indigo accent-3 text-center" dark>

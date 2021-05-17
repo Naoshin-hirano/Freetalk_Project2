@@ -14,7 +14,7 @@
          <v-container>
              <v-layout row wrap>
                  <v-flex xs12>
-                     <v-card-title>時間を編集</v-card-title>
+                     <v-card-title>{{$t('edit_time')}}</v-card-title>
                  </v-flex> 
              </v-layout>
              <v-divider></v-divider>
@@ -30,11 +30,11 @@
                             <v-btn
                             class="red--text darken-1"
                             text
-                            @click.native="editDialog = false">閉じる</v-btn>
+                            @click.native="editDialog = false">{{$t('close')}}</v-btn>
                             <v-btn
                             class="green--text darken-1"
                             text
-                            @click.native="onSaveChanges">保存</v-btn>
+                            @click.native="onSaveChanges">{{$t('save')}}</v-btn>
                         </template>
                     </v-time-picker>
                  </v-card-text>

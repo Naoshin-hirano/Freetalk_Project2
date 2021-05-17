@@ -1,6 +1,6 @@
 <template>
     <v-container>
-           <p class="mb-5"><v-icon>mdi-account-remove</v-icon>アカウントを削除する</p>
+           <p class="mb-5"><v-icon>mdi-account-remove</v-icon>{{$t('delete_account')}}</p>
             <v-layout>
                 <v-flex>
                     <v-row>
@@ -12,14 +12,14 @@
                                 v-on="on"
                                 color="error"
                                 style="width:100%;">
-                                削除
+                                {{$t('delete')}}   
                             </v-btn>
                              <v-btn
                                 v-show="gestUser"
                                 class="white--text"
                                 color="grey darken-1"
                                 style="width:100%;">
-                                変更(ゲストユーザーのため変更不可)
+                                {{$t('change_for_guest')}}   
                                 </v-btn>
                         </template>
                         <v-card>
@@ -29,7 +29,7 @@
                                 v-model="validForReAuth">
                                     <v-layout>
                                         <v-flex>
-                                            <v-card-title class="pt-0">再認証</v-card-title>
+                                            <v-card-title class="pt-0">{{$t('reauthentication')}}</v-card-title>
                                         </v-flex>
                                         <v-flex class="text-right">
                                             <v-btn 
@@ -43,7 +43,7 @@
                                         <v-flex>
                                             <v-text-field
                                             name="reAuth"
-                                            label="現在のパスワード"
+                                            :label="$t('current_password')"
                                             id="reAuth"
                                             v-model="reAuth"
                                             type="password"
@@ -60,7 +60,7 @@
                                                 style="width:100%;"
                                                 :disabled="!validForReAuth"
                                                 @click="onReAuth">
-                                                再認証
+                                                {{$t('reauthentication')}}
                                             </v-btn>
                                         </v-flex>
                                     </v-layout>
@@ -89,13 +89,29 @@ export default {
       registerDialog: false,
       //再認証のバリデーション
       rulesForReauth: [
-        v => !!v || '現在のパスワードは必須項目です',
-        v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
+        v => !!v || this.passRequire,
+        v => (v && v.length >= 6) || this.passNeed6words
       ]
     }
   },
 computed: {
-     //現在のログインユーザーがゲストユーザー
+    //パスワードは必須項目です（バリデーション）
+    passRequire(){
+      if(this.$i18n.locale === 'ja'){
+        return 'パスワードは必須項目です'
+      }else if(this.$i18n.locale === 'en'){
+        return 'Passwore is a required field'
+      }
+    },
+    //変更後のパスワードは６文字以上です（バリデーション）
+    passNeed6words(){
+      if(this.$i18n.locale === 'ja'){
+        return '変更後のパスワードは６文字以上です'
+      }else if(this.$i18n.locale === 'en'){
+        return 'The changed password must be at least 6 characters'
+      }
+    },
+    //現在のログインユーザーがゲストユーザー
     gestUser(){
         return firebase.auth().currentUser ? firebase.auth().currentUser.uid === "mKSpW1jBFHgmKYjPGBpz8OenXvE3" : null
     }

@@ -10,15 +10,15 @@
                 <v-card>
                     <v-card-text>
                         <v-container>
-                            <h2 class="mb-5">ログイン画面</h2>
+                            <h2 class="mb-5">{{$t('login')}} </h2>
                             <div class="mb-5">
-                                <router-link text class="blue--text" to="/signup" tag="span" style="cursor: pointer">新規登録はこちら</router-link>
+                                <router-link text class="blue--text" to="/signup" tag="span" style="cursor: pointer">{{$t('new_registration')}}</router-link>
                             </div>
                             <v-divider class="mb-5"></v-divider>
                              <v-layout>
                                 <v-flex>
                                     <v-btn @click="loginWithGestUser" large dark color="pink darken-1" style="width:100%;" >
-                                        ゲストユーザーとしてログイン
+                                        {{$t('guest_user')}} 
                                     </v-btn>
                                 </v-flex>
                             </v-layout>
@@ -57,7 +57,7 @@
                                         style="width:100%;"
                                         :disabled="!validForEmail">
                                             <v-icon left>mdi-email</v-icon>
-                                            メールでログイン
+                                            {{$t('mail_login')}} 
                                         </v-btn>
                                     </v-flex>
                                 </v-layout>
@@ -67,31 +67,6 @@
                         <v-container>
                             <v-layout>
                                 <v-card style="background: #CCCCFF; width:100%;">
-                                    <!-- <v-flex>
-                                        <v-card-actions>
-                                            <v-btn @click="loginWithFacebook"
-                                                style="
-                                                    cursor:pointer;
-                                                    background: #4267b2;
-                                                    border-radius: 5px;
-                                                    color: white;
-                                                    height: 40px;
-                                                    line-height:40px;
-                                                    text-align: center;
-                                                    width: 100%;
-                                                    margin-top:12px;">
-                                                        <v-icon left>mdi-facebook</v-icon>
-                                                Facebookでログイン
-                                                <div
-                                                class="fb-login-button"
-                                                data-max-rows="1"
-                                                data-size="large"
-                                                data-button-type="continue_with"
-                                                data-use-continue-as="true"
-                                                ></div>
-                                            </v-btn>
-                                        </v-card-actions>
-                                    </v-flex> -->
                                     <v-flex class="mt-3">
                                         <v-card-actions>
                                             <v-btn
@@ -107,7 +82,7 @@
                                                     width: 100%;
                                                     margin-bottom:12px;">
                                                 <img class="google-icon" style="width :23px; margin-right :5px;" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
-                                                Googleでログイン
+                                                {{$t('google_login')}} 
                                             </v-btn>
                                         </v-card-actions>
                                     </v-flex>
@@ -139,16 +114,48 @@ export default {
       password: "",
       //メールとパスワードのバリデーション
       emailRules: [
-          v => !!v || 'メールアドレスは必須項目です',
-          v => /.+@.+\..+/.test(v) || '有効なメールアドレスではありません'
+          v => !!v || this.emailRequire,
+          v => /.+@.+\..+/.test(v) || this.notValidEmail
       ],
       passwordRules: [
-          v => !!v || 'パスワードは必須項目です',
-          v => (v && v.length >= 6) || '変更後のパスワードは６文字以上必要です'
+          v => !!v || this.passRequire,
+          v => (v && v.length >= 6) || this.passNeed6words
       ]
     }
   },
   computed: {
+    //メールアドレスは必須項目（バリデーション）
+    emailRequire(){
+      if(this.$i18n.locale === 'ja'){
+        return 'メールアドレスは必須項目です'
+      }else if(this.$i18n.locale === 'en'){
+        return 'Email is a required field'
+      }
+    },
+    //有効なメールアドレスではありません（バリデーション）
+    notValidEmail(){
+      if(this.$i18n.locale === 'ja'){
+        return '有効なメールアドレスではありません'
+      }else if(this.$i18n.locale === 'en'){
+        return 'Not a valid email address'
+      }
+    },
+    //パスワードは必須項目です（バリデーション）
+    passRequire(){
+      if(this.$i18n.locale === 'ja'){
+        return 'パスワードは必須項目です'
+      }else if(this.$i18n.locale === 'en'){
+        return 'Passwore is a required field'
+      }
+    },
+    //変更後のパスワードは６文字以上です（バリデーション）
+    passNeed6words(){
+      if(this.$i18n.locale === 'ja'){
+        return '変更後のパスワードは６文字以上です'
+      }else if(this.$i18n.locale === 'en'){
+        return 'The changed password must be at least 6 characters'
+      }
+    },
     //ログインユーザーの取得
     user(){
       return this.$store.getters.user
@@ -183,9 +190,6 @@ export default {
     loginWithGoogle(){
       this.$store.dispatch("loginWithGoogle")
   },
-    // loginWithFacebook(){
-    //   this.$store.dispatch("loginWithFacebook")
-    // },
     //入力エラー画面を削除する
     onDismissed(){
       console.log("Dismissed Alert !")

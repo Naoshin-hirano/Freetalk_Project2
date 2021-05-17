@@ -15,7 +15,7 @@
          <v-container>
              <v-layout row wrap>
                  <v-flex xs12>
-                     <v-card-title>FREETALK を編集</v-card-title>
+                     <v-card-title>{{$t('edit_freetalk')}}</v-card-title>
                  </v-flex>
              </v-layout>
              <v-divider></v-divider>
@@ -24,14 +24,14 @@
                      <v-card-text>
                         <v-text-field
                             name="title"
-                            label="タイトル・言語"
+                            :label="$t('name_of_freetalk')"
                             id="title"
                             v-model="editedTitle"
                             required>
                         </v-text-field>
                         <v-textarea
                             name="description"
-                            label="説明・概要"
+                            :label="$t('description')"
                             id="description"
                             v-model="editedDescription"
                             required>
@@ -44,12 +44,12 @@
                  <v-flex>
                      <v-card-actions>
                          <v-btn @click="editDialog=false" text class="red--text darken-1">
-                           <h3 class="hidden-xs-only">閉じる</h3>
-                           <span class="hidden-sm-and-up">閉じる</span>
+                           <h3 class="hidden-xs-only">{{$t('close')}}</h3>
+                           <span class="hidden-sm-and-up">{{$t('close')}}</span>
                          </v-btn>
                          <v-btn @click="onSaveChanges" text class="green--text darken-1">
-                          <h3 class="hidden-xs-only">変更</h3>
-                          <span class="hidden-sm-and-up">変更</span>
+                          <h3 class="hidden-xs-only">{{$t('change')}}</h3>
+                          <span class="hidden-sm-and-up">{{$t('change')}}</span>
                          </v-btn>
                      </v-card-actions>
                  </v-flex>

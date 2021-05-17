@@ -9,7 +9,7 @@
             v-bind="attrs"
             v-on="on">
             <v-icon>mdi-account-plus</v-icon>
-            参加する
+            {{$t('register')}} 
             </v-btn>
             <v-btn
             v-else
@@ -17,7 +17,7 @@
             v-bind="attrs"
             v-on="on">
             <v-icon>mdi-account-minus</v-icon>
-            参加を解除
+            {{$t('unregister')}} 
             </v-btn>
         </div>
         <div class="hidden-sm-and-up">
@@ -28,7 +28,7 @@
             v-on="on"
             width="85">
             <v-icon small>mdi-account-plus</v-icon>
-            <span class="subtitle-2">参加する</span>
+            <span class="subtitle-2">{{$t('register')}} </span>
             </v-btn>
             <v-btn
             v-else
@@ -38,7 +38,7 @@
             v-on="on"
             width="115">
             <v-icon small>mdi-account-minus</v-icon>
-            <span class="subtitle-2">参加を解除</span>
+            <span class="subtitle-2">{{$t('unregister')}}</span>
             </v-btn>
         </div>
       </template>

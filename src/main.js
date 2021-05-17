@@ -43,7 +43,5 @@ new Vue({
       }
     }),
     this.$store.dispatch('loadedFreeTalks')
-    // this.$store.dispatch('loadedAttendance')
-    // this.$store.dispatch("loadedFav")
   }
 }).$mount('#app')

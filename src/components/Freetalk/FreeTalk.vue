@@ -30,7 +30,7 @@
                                     alt="John">
                                 </v-avatar>
                             </v-btn>
-                            <span v-if="freetalk" class="title ml-2 pb-0">開催者: {{ freetalk.createrName }}</span>
+                            <span v-if="freetalk" class="title ml-2 pb-0">{{$t('organizer')}} : {{ freetalk.createrName }}</span>
                         </v-flex>
                          <v-flex class="ml-3 hidden-sm-and-up">
                             <v-btn
@@ -51,7 +51,7 @@
                                     alt="John">
                                 </v-avatar>
                             </v-btn>
-                            <span v-if="freetalk" class="body-1 ml-5">開催者: <span class="subtitle-2">{{ freetalk.createrName }}</span></span>
+                            <span v-if="freetalk" class="body-1 ml-5">{{$t('organizer')}} : <span class="subtitle-2">{{ freetalk.createrName }}</span></span>
                         </v-flex>
                         <div class="hidden-xs-only ml-5">
                             <v-layout v-if="freetalk">
@@ -93,9 +93,9 @@
                      class="hidden-sm-and-up"
                     ></v-img>
                     <v-card-text>
-                        <p v-if="freetalk" class="mb-0">開催日時： <span class="primary--text">{{ freetalk.date | date }} -</span></p>
-                        <p v-if="freetalk" class="mb-0">開催場所： <span class="primary--text">{{ freetalk.location}}</span></p>
-                        <p v-if="freetalk" class="mb-0">言語： <span class="primary--text">{{ freetalk.language }}</span></p>
+                        <p v-if="freetalk" class="mb-0">{{$t('date_time')}} ： <span class="primary--text">{{ freetalk.date | date }} -</span></p>
+                        <p v-if="freetalk" class="mb-0">{{$t('location')}} ： <span class="primary--text">{{ freetalk.location}}</span></p>
+                        <p v-if="freetalk" class="mb-0">{{$t('language')}} ： <span class="primary--text">{{ freetalk.language }}</span></p>
                     </v-card-text>
                     <v-layout mb-7>
                         <v-chip-group column class="ml-3">
@@ -113,16 +113,16 @@
                     </v-layout>
                         
                     <v-layout>
-                        <h3 class="ml-5 hidden-xs-only">詳細</h3>
-                        <h3 class="hidden-sm-and-up ml-4">詳細</h3>
+                        <h3 class="ml-5 hidden-xs-only">{{$t('detail')}} </h3>
+                        <h3 class="hidden-sm-and-up ml-4">{{$t('detail')}} </h3>
                     </v-layout>
                     <v-card-text>
                         <div v-if="freetalk" class="mb-5 ml-1">{{ freetalk.description }}</div>
                     </v-card-text>
                     <v-layout>
                         <v-flex xs3 sm3 md3>
-                            <h3 class="ml-5 hidden-xs-only">出席者Pick Up</h3>
-                            <h3 class="ml-4 hidden-sm-and-up">出席者PickUp</h3>
+                            <h3 class="ml-5 hidden-xs-only">{{$t('some_members')}}</h3>
+                            <h3 class="ml-4 hidden-sm-and-up">{{$t('some_members')}}</h3>
                         </v-flex>
                         <v-flex xs3 sm3 md3 v-show="filterAttendance.length">
                              <v-btn
@@ -132,8 +132,8 @@
                             class="blue--text">
                                <v-icon class="hidden-xs-only" large color="blue">mdi-chevron-left</v-icon>
                                <v-icon class="hidden-sm-and-up mb-3" color="blue">mdi-chevron-left</v-icon>
-                               <h3 class="hidden-xs-only" v-if="filterAttendance">全出席者({{ filterAttendance.length }})を見る</h3>
-                               <p class="hidden-sm-and-up subtitle-2" v-if="filterAttendance">全出席者({{ filterAttendance.length }})を見る</p>
+                               <h3 class="hidden-xs-only" v-if="filterAttendance">({{ filterAttendance.length }}){{$t('all_attendees')}}</h3>
+                               <p class="hidden-sm-and-up subtitle-2" v-if="filterAttendance">({{ filterAttendance.length }}){{$t('all_attendees')}}</p>
                             </v-btn>
                         </v-flex>
                         <v-spacer></v-spacer>

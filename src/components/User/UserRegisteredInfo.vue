@@ -5,7 +5,7 @@
                 <v-card>
                     <v-card-text>
                         <v-container>
-                            <h2 class="text-center mb-5">登録情報</h2>
+                            <h2 class="text-center mb-5">{{$t('registration_info')}}</h2>
                             <changeEmail/>
                             <v-divider class="mt-10 mb-9"></v-divider>
                             <changePassword/>

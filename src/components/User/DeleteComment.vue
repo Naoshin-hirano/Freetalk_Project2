@@ -12,8 +12,8 @@
       <v-card>
          <v-container>
              <v-layout row wrap>
-                <v-card-title class="hidden-xs-only">このコメントと返信を削除しますか?</v-card-title>
-                <v-card-text class="hidden-sm-and-up">このコメントと返信を削除しますか?</v-card-text>
+                <v-card-title class="hidden-xs-only">{{$t('delete_comment')}}</v-card-title>
+                <v-card-text class="hidden-sm-and-up">{{$t('delete_comment')}}</v-card-text>
              </v-layout>
              <v-divider></v-divider>
              <v-layout row wrap>
@@ -22,16 +22,16 @@
                         class="red--text darken-1"
                         text
                         @click="registerDialog = false">
-                        <h3 class="hidden-xs-only">キャンセル</h3>
-                        <span class="hidden-sm-and-up">キャンセル</span>
+                        <h3 class="hidden-xs-only">{{$t('close')}}</h3>
+                        <span class="hidden-sm-and-up">{{$t('close')}}</span>
                         </v-btn>
                         <v-btn
                         class="green--text darken-1"
                         text
                         @click="deleteComment"
                         >
-                        <h3 class="hidden-xs-only">削除</h3>
-                        <span class="hidden-sm-and-up">削除</span>
+                        <h3 class="hidden-xs-only">{{$t('delete')}}</h3>
+                        <span class="hidden-sm-and-up">{{$t('delete')}}</span>
                         </v-btn>
                  </v-card-actions>
              </v-layout>

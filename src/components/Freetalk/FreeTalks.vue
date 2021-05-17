@@ -4,7 +4,7 @@
           <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-text-field
                     prepend-inner-icon="mdi-magnify"
-                    label="言語・タイトル・年月日で検索する"
+                    :label="$t('search')"
                     single-line
                     hide-details
                     v-model="search"
@@ -49,12 +49,12 @@
                              <v-card-text class="hidden-xs-only pt-0">
                                     <p class="mb-0 subtitle-1">{{ freetalk.date | date }}</p>
                                     <h2 class="mb-2">{{ freetalk.title }}</h2>
-                                    <p class="subtitle-1">言語：{{ freetalk.language }}</p>
+                                    <p class="subtitle-1">{{$t('language')}}：{{ freetalk.language }}</p>
                             </v-card-text>
                             <v-card-text class="hidden-sm-and-up pt-0 pb-0">
                                     <p class="caption mb-0">{{ freetalk.date | date }}</p>
                                     <h3>{{ freetalk.title }}</h3>
-                                     <p class="caption mb-0">言語：{{ freetalk.language }}</p>
+                                     <p class="caption mb-0">{{$t('language')}}：{{ freetalk.language }}</p>
                             </v-card-text>
                          </v-flex>
                      </v-layout>

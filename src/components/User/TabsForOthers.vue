@@ -13,19 +13,19 @@
           icons-and-text>
           <v-tab>
                 <div>
-                    <h4 class="mt-1">いいね</h4>
+                    <h4 class="mt-1"></h4>{{$t('like')}} 
                 </div>
                 <v-icon>mdi-cards-heart</v-icon>
           </v-tab>
           <v-tab>
               <div>
-                  <h4 class="mt-1">出席登録</h4>
+                  <h4 class="mt-1">{{$t('registration')}} </h4>
               </div>
               <v-icon>mdi-account-plus</v-icon>
           </v-tab>
           <v-tab>
               <div>
-                   <h4 class="mt-1">My投稿</h4>
+                   <h4 class="mt-1">{{$t('your_post')}} </h4>
               </div>
               <v-icon>mdi-google-maps</v-icon>
           </v-tab>
