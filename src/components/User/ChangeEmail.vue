@@ -12,7 +12,7 @@
                     v-model="email"
                     type="email"
                     required
-                    :rules="emailRules"></v-text-field>
+                    :rules="this.$i18n.locale === 'ja' ? emailRules : emailEnRules"></v-text-field>
                 </v-flex>
             </v-layout>
             <v-layout>
@@ -65,7 +65,7 @@
                                             v-model="reAuth"
                                             type="password"
                                             required
-                                            :rules="rulesForReauth">
+                                            :rules="this.$i18n.locale === 'ja' ? rulesForReauth : enRulesForReauth">
                                             </v-text-field>
                                         </v-flex>
                                     </v-layout>
@@ -103,49 +103,29 @@ export default {
       validForEmail: true,
       validForReAuth: true,
       registerDialog: false,
+      //メールのバリデーション
       emailRules: [
-          v => !!v || this.emailRequire,
-          v => /.+@.+\..+/.test(v) || this.notValidEmail
+          v => !!v ||'メールアドレスは必須項目です',
+          v => /.+@.+\..+/.test(v) || '有効なメールアドレスではありません'
       ],
+      //メールのバリデーション（英語版）
+      emailEnRules: [
+          v => !!v || 'Email is a required field',
+          v => /.+@.+\..+/.test(v) || 'Not a valid email address'
+      ],
+      //再認証のバリデーション
       rulesForReauth: [
-          v => !!v || this.passRequire,
-          v => (v && v.length >= 6) || this.passNeed6words
-         ]
+          v => !!v || 'パスワードは必須項目です',
+          v => (v && v.length >= 6) || '変更後のパスワードは６文字以上です'
+      ],
+      //再認証のバリデーション（英語版）
+      enRulesForReauth: [
+          v => !!v || 'Password is a required field',
+          v => (v && v.length >= 6) || 'Password must be at least 6 characters'
+      ]
     }
   },
   computed: {
-    //メールアドレスは必須項目（バリデーション）
-    emailRequire(){
-      if(this.$i18n.locale === 'ja'){
-        return 'メールアドレスは必須項目です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'Email is a required field'
-      }
-    },
-    //有効なメールアドレスではありません（バリデーション）
-    notValidEmail(){
-      if(this.$i18n.locale === 'ja'){
-        return '有効なメールアドレスではありません'
-      }else if(this.$i18n.locale === 'en'){
-        return 'Not a valid email address'
-      }
-    },
-    //パスワードは必須項目です（バリデーション）
-    passRequire(){
-      if(this.$i18n.locale === 'ja'){
-        return 'パスワードは必須項目です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'Passwore is a required field'
-      }
-    },
-    //変更後のパスワードは６文字以上です（バリデーション）
-    passNeed6words(){
-      if(this.$i18n.locale === 'ja'){
-        return '変更後のパスワードは６文字以上です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'The changed password must be at least 6 characters'
-      }
-    },
       //現在のログインユーザーがゲストユーザーであるか
       gestUser(){
           return firebase.auth().currentUser ? firebase.auth().currentUser.uid === "mKSpW1jBFHgmKYjPGBpz8OenXvE3" : null

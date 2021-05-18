@@ -48,7 +48,7 @@
                                             v-model="reAuth"
                                             type="password"
                                             required
-                                            :rules="rulesForReauth">
+                                            :rules="this.$i18n.locale === 'ja' ? rulesForReauth : enRulesForReauth">
                                             </v-text-field>
                                         </v-flex>
                                     </v-layout>
@@ -89,28 +89,17 @@ export default {
       registerDialog: false,
       //再認証のバリデーション
       rulesForReauth: [
-        v => !!v || this.passRequire,
-        v => (v && v.length >= 6) || this.passNeed6words
+        v => !!v || 'パスワードは必須項目です',
+        v => (v && v.length >= 6) || 'パスワードは６文字以上です'
+      ],
+      //再認証のバリデーション（英語版）
+      enRulesForReauth: [
+        v => !!v || 'Passwore is a required field',
+        v => (v && v.length >= 6) || 'The password must be at least 6 characters'
       ]
     }
   },
 computed: {
-    //パスワードは必須項目です（バリデーション）
-    passRequire(){
-      if(this.$i18n.locale === 'ja'){
-        return 'パスワードは必須項目です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'Passwore is a required field'
-      }
-    },
-    //変更後のパスワードは６文字以上です（バリデーション）
-    passNeed6words(){
-      if(this.$i18n.locale === 'ja'){
-        return '変更後のパスワードは６文字以上です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'The changed password must be at least 6 characters'
-      }
-    },
     //現在のログインユーザーがゲストユーザー
     gestUser(){
         return firebase.auth().currentUser ? firebase.auth().currentUser.uid === "mKSpW1jBFHgmKYjPGBpz8OenXvE3" : null

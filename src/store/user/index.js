@@ -91,9 +91,8 @@ export default {
   actions: {
 
 //ユーザー情報の取り出し
-    fetchUserData({commit, getters}){
+    fetchUserData({commit}){
       commit("setLoading", true)
-      // const uid = getters.user ? getters.user.id : null
       const uid = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null
       firebase.database().ref("/users/" + uid).once("value")
       .then(data =>{

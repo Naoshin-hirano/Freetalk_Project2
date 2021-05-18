@@ -26,7 +26,7 @@
             dark color="pink darken-1"
             v-bind="attrs"
             v-on="on"
-            width="85">
+            width="95">
             <v-icon small>mdi-account-plus</v-icon>
             <span class="subtitle-2">{{$t('register')}} </span>
             </v-btn>
@@ -36,9 +36,9 @@
             class="mr-2"
             v-bind="attrs"
             v-on="on"
-            width="115">
+            width="100">
             <v-icon small>mdi-account-minus</v-icon>
-            <span class="subtitle-2">{{$t('unregister')}}</span>
+            <span class="caption">{{$t('unregister')}}</span>
             </v-btn>
         </div>
       </template>

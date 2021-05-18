@@ -14,7 +14,7 @@
                 v-model="password"
                 type="password"
                 required
-                :rules="passwordRules"></v-text-field>
+                :rules="this.$i18n.locale === 'ja' ? passwordRules : passwordEnRules"></v-text-field>
                 <v-text-field
                 name="confirmPassword"
                 :label="$t('password_after_change_reenter')"
@@ -22,7 +22,7 @@
                 v-model="confirmPassword"
                 type="confirmPassword"
                 required
-                :rules="confirmPasswordRules"></v-text-field>
+                :rules="this.$i18n.locale === 'ja' ? confirmPasswordRules : confirmPasswordEnRules"></v-text-field>
             </v-flex>
             </v-layout>
             <v-layout>
@@ -75,7 +75,7 @@
                                             v-model="reAuth"
                                             type="password"
                                             required
-                                            :rules="rulesForReauth">
+                                            :rules="this.$i18n.locale === 'ja' ? rulesForReauth : enRulesForReauth">
                                             </v-text-field>
                                         </v-flex>
                                     </v-layout>
@@ -119,46 +119,37 @@ export default {
       registerDialog: false,
       //パスワードのバリデーション
       passwordRules: [
-          v => !!v || this.passRequire,
-          v => (v && v.length >= 6) || this.passNeed6words
+          v => !!v || 'パスワードは必須項目です',
+          v => (v && v.length >= 6) || '変更後のパスワードは６文字以上です'
+      ],
+       //パスワードのバリデーション（英語版）
+      passwordEnRules: [
+          v => !!v || 'Password is a required field',
+          v => (v && v.length >= 6) || 'Password must be at least 6 characters'
       ],
       //パスワード確認のバリデーション
       confirmPasswordRules: [
-          v => !!v || this.passRequire,
-          v => v !== this.password ? this.passNotMatch : true
+          v => !!v || '変更後のパスワード（再入力）は必須項目です',
+          v => v !== this.password ? '変更後のパスワード（再入力）は一致しません' : true
+      ],
+       //パスワード確認のバリデーション（英語版）
+      confirmPasswordEnRules: [
+          v => !!v || 'The changed password is a required field',
+          v => v !== this.password ? 'The changed password must be at least 6 characters' : true
       ],
       //再認証のバリデーション
       rulesForReauth: [
-          v => !!v || this.passRequire,
-          v => (v && v.length >= 6) || this.passNeed6words
+          v => !!v || 'パスワードは必須項目です',
+          v => (v && v.length >= 6) || 'パスワードは６文字以上です'
+         ],
+      //再認証のバリデーション（英語版）
+      enRulesForReauth: [
+          v => !!v || 'Password is a required field',
+          v => (v && v.length >= 6) || 'Password must be at least 6 characters'
          ]
     }
   },
   computed: {
-    //パスワードは必須項目です（バリデーション）
-    passRequire(){
-      if(this.$i18n.locale === 'ja'){
-        return 'パスワードは必須項目です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'Passwore is a required field'
-      }
-    },
-    //変更後のパスワードは６文字以上です（バリデーション）
-    passNeed6words(){
-      if(this.$i18n.locale === 'ja'){
-        return '変更後のパスワードは６文字以上です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'The changed password must be at least 6 characters'
-      }
-    },
-    //変更後のパスワードが一致しません（バリデーション）
-    passNotMatch(){
-      if(this.$i18n.locale === 'ja'){
-        return '変更後のパスワード（再入力）は一致しません'
-      }else if(this.$i18n.locale === 'en'){
-        return 'The changed password does not match'
-      }
-    },
       //現在のログインユーザーがゲストユーザー
       gestUser(){
           return firebase.auth().currentUser ? firebase.auth().currentUser.uid === "mKSpW1jBFHgmKYjPGBpz8OenXvE3" : null

@@ -122,7 +122,7 @@
                     <v-layout>
                         <v-flex xs3 sm3 md3>
                             <h3 class="ml-5 hidden-xs-only">{{$t('some_members')}}</h3>
-                            <h3 class="ml-4 hidden-sm-and-up">{{$t('some_members')}}</h3>
+                            <h4 class="ml-4 hidden-sm-and-up">{{$t('some_members')}}</h4>
                         </v-flex>
                         <v-flex xs3 sm3 md3 v-show="filterAttendance.length">
                              <v-btn
@@ -133,7 +133,7 @@
                                <v-icon class="hidden-xs-only" large color="blue">mdi-chevron-left</v-icon>
                                <v-icon class="hidden-sm-and-up mb-3" color="blue">mdi-chevron-left</v-icon>
                                <h3 class="hidden-xs-only" v-if="filterAttendance">({{ filterAttendance.length }}){{$t('all_attendees')}}</h3>
-                               <p class="hidden-sm-and-up subtitle-2" v-if="filterAttendance">({{ filterAttendance.length }}){{$t('all_attendees')}}</p>
+                               <p class="hidden-sm-and-up caption" v-if="filterAttendance">({{ filterAttendance.length }}){{$t('all_attendees')}}</p>
                             </v-btn>
                         </v-flex>
                         <v-spacer></v-spacer>

@@ -27,7 +27,7 @@
                                       v-model="email"
                                       type="email"
                                       required
-                                      :rules="emailRules"></v-text-field>
+                                      :rules="this.$i18n.locale === 'ja' ? emailRules : emailEnRules"></v-text-field>
                                   </v-flex>
                                 </v-layout>
                                 <v-layout>
@@ -39,7 +39,7 @@
                                       v-model="password"
                                       type="password"
                                       required
-                                      :rules="passwordRules"></v-text-field>
+                                      :rules="this.$i18n.locale === 'ja' ? passwordRules : passwordEnRules"></v-text-field>
                                   </v-flex>
                                 </v-layout>
                                 <v-layout>
@@ -51,7 +51,7 @@
                                       v-model="confirmPassword"
                                       type="confirmPassword"
                                       required
-                                      :rules="confirmPasswordRules"></v-text-field>
+                                      :rules="this.$i18n.locale === 'ja' ? confirmPasswordRules : confirmPasswordEnRules"></v-text-field>
                                   </v-flex>
                                 </v-layout>
                                 <v-layout>
@@ -86,62 +86,40 @@ export default {
       email: "",
       password: "",
       confirmPassword: "",
-       //メール・パスワード・パスワード確認のバリデーション
+  //メール・パスワード・パスワード確認のバリデーション
+      //メール
       emailRules: [
-          v => !!v || this.emailRequire,
-          v => /.+@.+\..+/.test(v) || this.notValidEmail
+          v => !!v || "メールアドレスは必須項目です",
+          v => /.+@.+\..+/.test(v) || '有効なメールアドレスではありません'
       ],
+      //メール（英語版）
+      emailEnRules: [
+          v => !!v || "Mail address is requeired",
+          v => /.+@.+\..+/.test(v) || 'Not a valid Email address'
+      ],
+      //パスワード
       passwordRules: [
-          v => !!v || this.passRequire,
-          v => (v && v.length >= 6) || this.passNeed6words
+          v => !!v || 'パスワードは必須項目です',
+          v => (v && v.length >= 6) || 'パスワードは６文字以上です'
       ],
+      //パスワード（英語版）
+      passwordEnRules: [
+          v => !!v || 'Password is a required field',
+          v => (v && v.length >= 6) || 'The password must be at least 6 characters'
+      ],
+      //パスワード確認
       confirmPasswordRules: [
-          v => !!v || this.passRequire,
-          v => v !== this.password ? this.passNotMatch : true
+          v => !!v || 'パスワードは必須項目です',
+          v => v !== this.password ? 'パスワード（再入力）は一致しません' : true
+      ],
+      //パスワード確認（英語版）
+      confirmPasswordEnRules: [
+          v => !!v || 'Password is a required field',
+          v => v !== this.password ? 'The password does not match' : true
       ],
     }
   },
   computed: {
-    //メールアドレスは必須項目（バリデーション）
-    emailRequire(){
-      if(this.$i18n.locale === 'ja'){
-        return 'メールアドレスは必須項目です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'Email is a required field'
-      }
-    },
-    //有効なメールアドレスではありません（バリデーション）
-    notValidEmail(){
-      if(this.$i18n.locale === 'ja'){
-        return '有効なメールアドレスではありません'
-      }else if(this.$i18n.locale === 'en'){
-        return 'Not a valid email address'
-      }
-    },
-    //パスワードは必須項目です（バリデーション）
-    passRequire(){
-      if(this.$i18n.locale === 'ja'){
-        return 'パスワードは必須項目です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'Passwore is a required field'
-      }
-    },
-    //変更後のパスワードは６文字以上です（バリデーション）
-    passNeed6words(){
-      if(this.$i18n.locale === 'ja'){
-        return '変更後のパスワードは６文字以上です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'The changed password must be at least 6 characters'
-      }
-    },
-    //変更後のパスワードが一致しません（バリデーション）
-    passNotMatch(){
-      if(this.$i18n.locale === 'ja'){
-        return '変更後のパスワード（再入力）は一致しません'
-      }else if(this.$i18n.locale === 'en'){
-        return 'The changed password does not match'
-      }
-    },
     //ログインユーザー情報
     user(){
       return this.$store.getters.user

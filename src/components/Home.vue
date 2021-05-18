@@ -6,7 +6,7 @@
         <v-layout row>
            <v-flex>
                  <h3 class="hidden-xs-only">{{$t('title_message')}}</h3>
-                 <h4 class="hidden-sm-and-up ml-2">FREETALK！は<br>{{$t('title_message')}}</h4>
+                 <h4 class="hidden-sm-and-up ml-2">{{$t('title_message')}}</h4>
            </v-flex>
        </v-layout>
     </v-container>

@@ -35,7 +35,7 @@
                                       v-model="email"
                                       type="email"
                                       required
-                                      :rules="emailRules"></v-text-field>
+                                      :rules="this.$i18n.locale === 'ja' ? emailRules : emailEnRules"></v-text-field>
                                   </v-flex>
                                 </v-layout>
                                 <v-layout>
@@ -47,7 +47,7 @@
                                       v-model="password"
                                       type="password"
                                       required
-                                      :rules="passwordRules"></v-text-field>
+                                      :rules="this.$i18n.locale === 'ja' ? passwordRules : passwordEnRules"></v-text-field>
                                   </v-flex>
                                 </v-layout>
                                 <v-layout class="mb-2">
@@ -112,50 +112,30 @@ export default {
       //メールとパスワードの入力
       email: "",
       password: "",
-      //メールとパスワードのバリデーション
+  //メールとパスワードのバリデーション
+      //メール
       emailRules: [
-          v => !!v || this.emailRequire,
-          v => /.+@.+\..+/.test(v) || this.notValidEmail
+          v => !!v || 'メールアドレスは必須項目です',
+          v => /.+@.+\..+/.test(v) || '有効なメールアドレスではありません'
       ],
+      //メール（英語版）
+      emailEnRules: [
+          v => !!v || 'Email is a required field',
+          v => /.+@.+\..+/.test(v) || 'Not a valid email address'
+      ],
+      //パスワード
       passwordRules: [
-          v => !!v || this.passRequire,
-          v => (v && v.length >= 6) || this.passNeed6words
+          v => !!v || 'パスワードは必須項目です',
+          v => (v && v.length >= 6) || 'パスワードは６文字以上です'
+      ],
+      //パスワード（英語版）
+      passwordEnRules: [
+          v => !!v || 'Passwore is a required field',
+          v => (v && v.length >= 6) || 'The password must be at least 6 characters'
       ]
     }
   },
   computed: {
-    //メールアドレスは必須項目（バリデーション）
-    emailRequire(){
-      if(this.$i18n.locale === 'ja'){
-        return 'メールアドレスは必須項目です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'Email is a required field'
-      }
-    },
-    //有効なメールアドレスではありません（バリデーション）
-    notValidEmail(){
-      if(this.$i18n.locale === 'ja'){
-        return '有効なメールアドレスではありません'
-      }else if(this.$i18n.locale === 'en'){
-        return 'Not a valid email address'
-      }
-    },
-    //パスワードは必須項目です（バリデーション）
-    passRequire(){
-      if(this.$i18n.locale === 'ja'){
-        return 'パスワードは必須項目です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'Passwore is a required field'
-      }
-    },
-    //変更後のパスワードは６文字以上です（バリデーション）
-    passNeed6words(){
-      if(this.$i18n.locale === 'ja'){
-        return '変更後のパスワードは６文字以上です'
-      }else if(this.$i18n.locale === 'en'){
-        return 'The changed password must be at least 6 characters'
-      }
-    },
     //ログインユーザーの取得
     user(){
       return this.$store.getters.user

@@ -85,7 +85,7 @@
         //ダイアログ
         editDialog: false,
         //ログインユーザーの名前
-        userName: this.$store.getters.userName ? this.$store.getters.userName : this.anonymous,
+        userName: this.$store.getters.userName ? this.$store.getters.userName : this.$i18n.locale === 'ja' ? "名無し" : "Anonymous",
         //ログインユーザーのアイコン
         photoURL: this.$store.getters.photoURL,
         //ログインユーザーの自己紹介
@@ -93,16 +93,6 @@
         //画像アップロード
         imageName: "",
         imageFile: ""
-      }
-    },
-    computed: {
-      //匿名の多言語
-    　anonymous(){
-        if(this.$i18n.locale === 'ja'){
-          return "名無し"
-        }else if(this.$i18n.locale = 'en'){
-          return "Anonymous"
-        }
       }
     },
     methods: {

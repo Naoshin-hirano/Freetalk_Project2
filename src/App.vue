@@ -100,14 +100,14 @@ export default {
   computed: {
     menuItems(){
      let menuItems = [
-       {icon: "mdi-login", title: this.titleForLogin, link:"/login"},
-       {icon: "mdi-account-check", title: this.titleForSignup, link:"/signup"},
+       {icon: "mdi-login", title: this.$i18n.locale === 'ja' ? "ログイン" : "Login", link:"/login"},
+       {icon: "mdi-account-check", title: this.$i18n.locale === 'ja' ? "新規登録" : "Sign Up", link:"/signup"},
      ]
      if(this.userIsAuthenticated){
        menuItems = [
        {icon: "mdi-account-multiple", title: "FREETALKS", link:"/freetalks"},
-       {icon: "mdi-google-maps", title: this.titleForCreate, link:"/freetalk/new"},
-       {icon: "mdi-home", title: this.titleForMypage, link:"/profile/" + this.user.id}
+       {icon: "mdi-google-maps", title: this.$i18n.locale === 'ja' ? "投稿する" : "Create", link:"/freetalk/new"},
+       {icon: "mdi-home", title: this.$i18n.locale === 'ja' ? "マイページ" : "My Page", link:"/profile/" + this.user.id}
         ]
       }
       return menuItems
@@ -115,38 +115,6 @@ export default {
     //ユーザーのログインステータス
     userIsAuthenticated(){
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-    },
-    //バータイトル「FREETALKを投稿」
-    titleForCreate(){
-      if(this.$i18n.locale === 'ja'){
-        return "投稿する"
-      }else if(this.$i18n.locale = 'en'){
-        return "Create"
-      }
-    },
-    //バータイトル「マイベージ」
-    titleForMypage(){
-      if(this.$i18n.locale === 'ja'){
-        return "マイページ"
-      }else if(this.$i18n.locale = 'en'){
-        return "My Page"
-      }
-    },
-    //バータイトル「ログイン」
-    titleForLogin(){
-      if(this.$i18n.locale === 'ja'){
-        return "ログイン"
-      }else if(this.$i18n.locale = 'en'){
-        return "Login"
-      }
-    },
-    //バータイトル「登録する」
-    titleForSignup(){
-      if(this.$i18n.locale === 'ja'){
-        return "新規登録"
-      }else if(this.$i18n.locale = 'en'){
-        return "Sign Up"
-      }
     },
     userName(){
       return this.$store.getters.userName
