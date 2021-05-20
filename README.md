@@ -1,30 +1,9 @@
-# app1
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-アプリURL
-https://freetalk1.web.app/
-
-Qiita URL
-https://qiita.com/Naoshin-hirano/private
+| 使用箇所 | 使用技術名 |
+|:---|:---|
+|フロント|Vue.js／Vuetify|
+|データベース|Firebase Realtime Database|
+|ユーザーアカウント管理|Firebase Authentication|
+|アップロードした画像の格納先|Firebase Strage|
+|デプロイ先・独自ドメインの接続|Firebase Hosting|
+|開発環境|VueCLI|
+|ソース管理|Git／GitHub|
