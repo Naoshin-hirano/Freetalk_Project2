@@ -11,12 +11,12 @@ FREETALKは、普段から英語でコミュニケーションする機会がな
 ![89E901EF-24A4-4728-9FE8-56D6BA31F753](https://user-images.githubusercontent.com/59371503/119029834-1d49f400-b9e4-11eb-9361-aad038654984.gif)
 
 
-###◆レスポンシブデザイン
+<h4>◆レスポンシブデザイン</h4>
 スマホにも対応したUI設計です。<br>
 ![Videotogif (12).gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/906732/99e8748f-c393-b02b-36c0-af9ff277a192.gif)
 
 
-###◆多言語対応
+<h4>◆多言語対応</h4>
 日本語/英語に切替可能です。
 ![59A5C111-9849-422C-A113-F1704819EFDC.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/906732/0abfd553-fa3f-15ac-6541-bbad62398ab1.gif)
 
