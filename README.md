@@ -12,7 +12,7 @@ FREETALKは、普段から英語でコミュニケーションする機会がな
 
 
 ###◆レスポンシブデザイン
-スマホにも対応したUI設計です。
+スマホにも対応したUI設計です。<br>
 ![Videotogif (12).gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/906732/99e8748f-c393-b02b-36c0-af9ff277a192.gif)
 
 
