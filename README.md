@@ -8,7 +8,7 @@ FREETALKは、普段から英語でコミュニケーションする機会がな
 
 <h4>◆トップページ</h4>
 
-89E901EF-24A4-4728-9FE8-56D6BA31F753.gif
+![89E901EF-24A4-4728-9FE8-56D6BA31F753.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/906732/7d3ea720-9170-edbe-32b5-596fe1e1c9a8.gif)
 
 ###◆レスポンシブデザイン
 スマホにも対応したUI設計です。<br>
