@@ -2,7 +2,7 @@
   <v-container >
     <v-layout v-show="!loadedFreetalk.length">
        <v-flex class="text-center">
-         <p>いいね済みの投稿はありません</p>
+         <p>{{$t('no_like_post')}}</p>
        </v-flex>
     </v-layout>
      <v-layout v-for="freetalk in loadedFreetalk" :key="freetalk.index" mb-3>

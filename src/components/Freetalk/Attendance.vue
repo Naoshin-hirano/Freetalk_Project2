@@ -73,7 +73,7 @@
                                 text 
                                 class="blue--text darken-1">
                                   <v-icon large>mdi-chevron-left</v-icon>
-                                  戻る
+                                  {{$t('back')}}
                                 </v-btn>
                               </v-card-actions>
                         </v-layout>

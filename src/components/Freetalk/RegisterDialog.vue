@@ -45,12 +45,12 @@
       <v-card>
          <v-container>
              <v-layout class="hidden-xs-only">
-                <v-card-title v-if="attend_status">このFREETALKの参加を解除しますか?</v-card-title>
-                <v-card-title v-else>このFREETALKに参加しますか?</v-card-title>
+                <v-card-title v-if="attend_status">{{$t('unregister_dialog')}}</v-card-title>
+                <v-card-title v-else>{{$t('register_dialog')}}</v-card-title>
              </v-layout>
              <v-layout class="hidden-sm-and-up">
-                <v-card-text v-if="attend_status">このFREETALKの参加を解除しますか?</v-card-text>
-                <v-card-text v-else>このFREETALKに参加しますか?</v-card-text>
+                <v-card-text v-if="attend_status">{{$t('unregister_dialog')}}</v-card-text>
+                <v-card-text v-else>{{$t('register_dialog')}}</v-card-text>
              </v-layout>
              <v-divider></v-divider>
              <v-layout>
@@ -59,15 +59,15 @@
                         class="red--text darken-1"
                         text
                         @click="registerDialog = false">
-                        <h3 class="hidden-xs-only">キャンセル</h3>
-                        <span class="hidden-sm-and-up">キャンセル</span>
+                        <h3 class="hidden-xs-only">{{$t('close')}}</h3>
+                        <span class="hidden-sm-and-up">{{$t('close')}}</span>
                         </v-btn>
                         <v-btn
                         class="green--text darken-1"
                         text
                         @click="onAgree">
-                        <h3 class="hidden-xs-only">はい</h3>
-                        <span class="hidden-sm-and-up">はい</span>
+                        <h3 class="hidden-xs-only">{{$t('yes')}}</h3>
+                        <span class="hidden-sm-and-up">{{$t('yes')}}</span>
                         </v-btn>
                  </v-card-actions>
              </v-layout>
