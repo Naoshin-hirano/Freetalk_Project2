@@ -1,37 +1,37 @@
-<h1>ポートフォリオ紹介</h2>
+<h1>ポートフォリオ紹介</h1>
 
-###◆タイトル「FREETALK」
-URL: https://freetalk1.web.app/
+<h3>タイトル「FREETALK」</h3>
+URL: https://freetalk1.web.app/<br>
 [GitHubリポジトリ](https://github.com/Naoshin-hirano/Freetalk_Project2)
 
 
-###◆トップページ
+<h3>トップページ</h3>
 
 ![89E901EF-24A4-4728-9FE8-56D6BA31F753.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/906732/7d3ea720-9170-edbe-32b5-596fe1e1c9a8.gif)
 
 
-###◆レスポンシブデザイン
-スマホにも対応したUI設計です。
+<h3>レスポンシブデザイン</h3>
+スマホにも対応したUI設計です。<br>
 ![Videotogif (12).gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/906732/99e8748f-c393-b02b-36c0-af9ff277a192.gif)
 
 
-###◆多言語対応
-日本語/英語に切替可能です。
+<h3>多言語対応</h3>
+日本語/英語に切替可能です。<br>
 ![59A5C111-9849-422C-A113-F1704819EFDC.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/906732/0abfd553-fa3f-15ac-6541-bbad62398ab1.gif)
 
 
-#3.概要
+<h1>概要</h1>
 
 FREETALKは、普段から英語でコミュニケーションする機会がない人たち同士が集まって英会話をすることで、英語でのコミュニケーション力を"無料"で養おうというサービスです。
 自分だけの英会話教室を投稿したり、メンバーを募集したり、ユーザーに高評価をつけたりなどの機能を実装しております。
 
-#4.開発背景
+<h3>開発背景</h3>
 
 ●　オーストラリアへの語学留学中に、Facebookで外国人の友人を集めて英語でのディベートをしていた経験から、それをアプリを使って世界中の人々でやれば効果的にみんなの英会話力上達に繋がるのではと考えたため。
 
 ●　現職の語学研修企業でなぜそこまで高額なレッスン費用になるか調査した結果、主に”講師の質”が要因となっており、英語初学者にとって高質な講師から教わるよりもとりあえず英語で喋る機会を多く作ることが大事なのではと思ったため。
 
-#5.使用技術
+<h3>使用技術</h3>
 
 | 使用箇所 | 使用技術名 |
 |:---|:---|
@@ -43,17 +43,17 @@ FREETALKは、普段から英語でコミュニケーションする機会がな
 |開発環境|VueCLI|
 |ソース管理|Git／GitHub|
 
-#6.全体構成図
+<h3>全体構成図</h3>
 システム全体の構成は以下の通り、Firebaseによるサーバレスアーキテクチャとなっております。
 
 ![全体構成.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/906732/cd21ea1d-a7e2-c7a9-b8e5-55c950a5bd60.png)
 
-#7.ER図
+<h3>ER図</h3>
 一貫性のあるテーブル名称とシンプルな構造を意識しました。
 
 ![ER図(blue).png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/906732/1ac16ec8-c1b1-2c66-7645-2ee122588691.png)
 
-#7.実装機能
+<h1>実装機能</h1>
 
 | 実装機能 | 説明 |
 |:---|:---|
