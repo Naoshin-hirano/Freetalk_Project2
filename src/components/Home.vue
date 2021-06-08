@@ -28,7 +28,7 @@
            </v-flex>
        </v-layout>
         <v-layout>
-            <v-flex xs5 sm4 md3>
+            <v-flex>
                 <v-progress-circular
                     class="text-center"
                     indeterminate
