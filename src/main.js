@@ -42,6 +42,7 @@ new Vue({
         this.$store.dispatch("deleteLoginUser")
       }
     }),
+    this.$i18n.locale = 'ja'
     this.$store.dispatch('loadedFreeTalks')
   }
 }).$mount('#app')
