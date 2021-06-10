@@ -1,7 +1,7 @@
 {
-  "title_message": "FREETALK is for holding Free Language Lesson !!",
+  "title_message": "Post your language class and recruit students!",
   "login_and_check": "You can see FREETALK by logging in",
-  "enjoy_freetalk": "Let's login and enjoy FREETALK !",
+  "enjoy_freetalk": "login and enjoy FREETALK",
   "whats_freetalk": "About",
   "check_freetalk": "Check and Join FREETALK",
   "post_freetalk": "Create Your FREETALK",
@@ -70,7 +70,7 @@
   "logout": "Logout",
   "new_registration": "New Registration",
   "guest_user": "Login as Guest User",
-  "mail_login": "Login by Email and Password",
+  "mail_login": "Login by Email",
   "google_login": "Login by Google",
   "signup": "Sign Up",
   "continue": "Continue",

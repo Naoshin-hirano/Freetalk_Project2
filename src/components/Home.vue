@@ -1,8 +1,7 @@
 <template>
     <div>
     <v-container
-    class="pt-0 pl-0 pr-0 mt-10"
-    v-show="!user">
+    class="pt-0 pl-0 pr-0 mt-10">
         <v-layout row>
            <v-flex>
                  <h3 class="hidden-xs-only">{{$t('title_message')}}</h3>
@@ -21,7 +20,7 @@
        </v-layout>
        <v-layout mt-5 row wrap v-else>
            <v-flex>
-              <v-btn large to="/login" class="mb-3" dark color="pink darken-1">{{$t('enjoy_freetalk')}}</v-btn> 
+              <v-btn large to="/login" class="mb-3" width="300" dark color="pink darken-1">{{$t('enjoy_freetalk')}}</v-btn> 
            </v-flex>
            <v-flex>
               <v-btn large to="/Overview" dark width="300" color="blue darken-1">{{$t('whats_freetalk')}}</v-btn> 
