@@ -11,15 +11,7 @@
              <v-card :to="'/freetalks/' + freetalk.id" :class="{ 'on-hover': hover }" :elevation="hover ? 12 : 2">
                  <v-container fluid>
                      <v-layout>
-                         <v-flex v-if="loading" class="text-center" >
-                             <v-progress-circular
-                                indeterminate
-                                color="purple"
-                                :width="4"
-                                :size="40"
-                            ></v-progress-circular>
-                         </v-flex>
-                         <v-flex v-if="!loading" xs4 sm4 md3 >
+                         <v-flex xs4 sm4 md3 >
                              <v-img
                                 class="hidden-xs-only"
                                 height="130"

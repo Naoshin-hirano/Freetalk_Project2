@@ -47,16 +47,6 @@
                                 </v-avatar>
                             </v-flex>
                         </v-layout>
-                        <v-layout class="text-center" v-else>
-                          <v-flex>
-                             <v-avatar size="100">
-                                <v-progress-circular
-                              color="purple"
-                              indeterminate>
-                              </v-progress-circular>
-                             </v-avatar>
-                          </v-flex>
-                        </v-layout>
                         <v-layout class="text-center" mt-1 mb-10>
                             <v-flex >
                                 <h3 v-if="nameForRoomUser">{{ nameForRoomUser }}</h3>

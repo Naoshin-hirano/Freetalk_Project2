@@ -1,17 +1,8 @@
 <template>
     <v-container>
-      <v-layout class="text-center">
-          <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
-                <v-progress-circular
-                  v-show="loading"
-                  color="purple"
-                  indeterminate
-                  size="64"
-                ></v-progress-circular>
-            </v-flex>
-      </v-layout>
-        <v-layout class="text-center">
-            <v-flex v-show="!loading" xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
+        <div>
+         <v-layout class="text-center">
+            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-avatar size="150" class="hidden-xs-only">
                   <img
                   v-if="imageForRoomUser"
@@ -32,14 +23,6 @@
                   src="@/assets/anonymous.jpg"
                   alt="John">
                 </v-avatar>
-            </v-flex>
-            <v-flex v-show="loading" xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
-               <v-progress-circular
-                  v-show="loading"
-                  color="purple"
-                  indeterminate
-                  size="64"
-                ></v-progress-circular>
             </v-flex>
         </v-layout>
         <v-layout wrap class="text-center">
@@ -70,7 +53,7 @@
             </v-flex>
         </v-layout>
         <v-layout row wrap v-for="comment in getLists" :key="comment.commentId" mb-3>
-            <v-flex v-show="!loading" xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
+            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-card>
                   <v-card-actions>
                       <v-btn
@@ -105,13 +88,6 @@
                   </v-layout>
                 </v-card>
             </v-flex>
-            <v-flex class="text-center" v-show="loading" xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
-               <v-progress-circular
-                  color="purple"
-                  indeterminate
-                  size="64"
-                ></v-progress-circular>
-            </v-flex>
             <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                <showReplyList :commentId="comment.commentId"/>
             </v-flex>
@@ -126,6 +102,19 @@
                 </v-pagination>
           </v-flex>
         </v-layout>
+        </div>
+        <div v-show="loading">
+          <v-layout>
+          <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
+              <v-overlay>
+                <v-progress-circular
+                  indeterminate
+                  size="64"
+                ></v-progress-circular>
+              </v-overlay>
+            </v-flex>
+            </v-layout>
+        </div>
     </v-container>
 </template>
 
