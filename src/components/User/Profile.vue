@@ -64,23 +64,26 @@
                                 <h3 v-else>{{$t('anonymous')}} </h3>
                             </v-flex>
                         </v-layout>
-                         <v-layout mr-12>
-                            <v-flex xs12 sm10 md8 offset-xs3 offset-sm3 offset-md3>
+                         <v-layout class="text-center">
+                            <v-flex>
                               <v-btn icon
-                                    class="ml-4"
                                     v-if="currentUser"
                                     :to="'/comment/' + currentUser.id">
                                   <v-icon class="hidden-xs-only" left color="green">mdi-comment-multiple-outline</v-icon>
-                                  <v-icon class="hidden-sm-and-up" color="green">mdi-comment-multiple-outline</v-icon>
-                                  <span class="hidden-xs-only body-1" v-if="currentUser">{{ currentUser ? comments.length : 0 }} {{$t('comment_for_user')}} </span>
-                                  <span class="hidden-sm-and-up font-weight-bold body-2" v-if="currentUser">{{ currentUser ? comments.length : 0 }} {{$t('comment_for_user')}} </span>
+                                  <v-icon class="hidden-sm-and-up mr-1" color="green">mdi-comment-multiple-outline</v-icon>
+                                  <span class="hidden-xs-only body-1" v-if="currentUser"><strong>{{ currentUser ? comments.length : 0 }}</strong> {{$t('comment_for_user')}} </span>
+                                  <span class="hidden-sm-and-up body-2 ml-1" v-if="currentUser"><strong>{{ currentUser ? comments.length : 0 }}</strong> <span class="ml-1">{{$t('comment_for_user')}}</span> </span>
                               </v-btn>
                             </v-flex>
-                            <v-flex xs12 sm10 md8 offset-xs3 offset-sm3 offset-md3 class="mt-1 ml-0">
-                                <v-icon class="hidden-xs-only" left color="orange darken-2">mdi-star</v-icon>
-                                <v-icon class="hidden-sm-and-up" color="orange darken-2">mdi-star</v-icon>
-                                <span class="hidden-xs-only" v-if="currentUser">{{ currentUser ? followers.length : 0 }} {{$t('follower')}} </span>
-                                <span class="hidden-sm-and-up body-2" v-if="currentUser">{{ currentUser ? followers.length : 0 }} <span>{{$t('follower')}} </span></span>
+                        </v-layout>
+                        <v-layout class="text-center mt-5">
+                          <v-flex>
+                              <span class="hidden-xs-only" v-if="currentUser"><strong>{{ currentUser ? following.length : 0 }}</strong><span class="ml-2">{{$t('follow')}}</span></span>
+                              <span class="hidden-sm-and-up body-2" v-if="currentUser"><strong>{{ currentUser ? following.length : 0 }}</strong><span class="ml-1">{{$t('follow')}} </span></span>
+                          </v-flex>
+                          <v-flex>
+                              <span class="hidden-xs-only" v-if="currentUser"><strong>{{ currentUser ? followers.length : 0 }}</strong> <span class="ml-2"></span>{{$t('follower')}} </span>
+                              <span class="hidden-sm-and-up body-2" v-if="currentUser"><strong>{{ currentUser ? followers.length : 0 }}</strong> <span class="ml-1">{{$t('follower')}} </span></span>
                             </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-12>
@@ -137,6 +140,10 @@
        //ログインユーザーの名前
        userName(){
          return this.$store.getters.user ? this.$store.getters.user.displayName : null
+       },
+       //ログインユーザーのフォロー
+       following(){
+         return this.currentUser ? this.currentUser.following : null
        },
        //ログインユーザーのフォロワー
        followers(){

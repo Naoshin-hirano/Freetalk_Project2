@@ -14,6 +14,13 @@
             <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3> 
                 <v-card>
                     <v-container>
+                        <v-layout
+                         v-show="this.user.id !== this.currentUser.id"
+                         class="text-right mb-2">
+                          <v-flex>
+                             <followButton/>
+                          </v-flex>
+                        </v-layout>
                         <v-layout class="text-center" v-if="!loading">
                             <v-flex class="hidden-xs-only">
                                 <v-avatar v-if="imageForRoomUser" size="180">
@@ -56,19 +63,26 @@
                                 <h3 v-else>{{$t('anonymous')}} </h3>
                             </v-flex>
                         </v-layout>
-                         <v-layout mr-12>
-                            <v-flex xs12 sm10 md8 offset-xs3 offset-sm3 offset-md3>
+                        <v-layout class="text-center">
+                            <v-flex>
                               <v-btn icon
-                                    class="mt-3 ml-2"
-                                    :to="'/comment/' + this.url[this.url.length - 1]">
-                                  <v-icon color="green" class="hidden-xs-only" large left>mdi-comment-multiple-outline</v-icon>
-                                  <v-icon color="green" class="hidden-sm-and-up">mdi-comment-multiple-outline</v-icon>
-                                  <span class="hidden-xs-only">{{ otherUser ? comments.length : 0 }} {{$t('comment_for_user')}} </span>
-                                  <span class="hidden-sm-and-up body-2">{{ otherUser ? comments.length : 0 }} {{$t('comment_for_user')}} </span>
+                                    v-if="currentUser"
+                                    :to="'/comment/' + currentUser.id">
+                                  <v-icon class="hidden-xs-only" left color="green">mdi-comment-multiple-outline</v-icon>
+                                  <v-icon class="hidden-sm-and-up mr-1" color="green">mdi-comment-multiple-outline</v-icon>
+                                  <span class="hidden-xs-only body-1" v-if="currentUser"><strong>{{ currentUser ? comments.length : 0 }}</strong> {{$t('comment_for_user')}} </span>
+                                  <span class="hidden-sm-and-up font-weight-bold body-2 ml-1" v-if="currentUser"><strong>{{ currentUser ? comments.length : 0 }}</strong> <span class="ml-1">{{$t('comment_for_user')}}</span> </span>
                               </v-btn>
                             </v-flex>
-                            <v-flex xs12 sm10 md8 offset-xs3 offset-sm3 offset-md3> 
-                                <followUser/>
+                        </v-layout>
+                        <v-layout class="text-center mt-5">
+                          <v-flex>
+                              <span class="hidden-xs-only" v-if="currentUser"><strong>{{ currentUser ? following.length : 0 }}</strong> <span class="ml-2">{{$t('follow')}}</span></span>
+                              <span class="hidden-sm-and-up body-2" v-if="currentUser"><strong>{{ currentUser ? following.length : 0 }}</strong> <span class="ml-1">{{$t('follow')}} </span></span>
+                          </v-flex>
+                          <v-flex>
+                              <span class="hidden-xs-only" v-if="currentUser"><strong>{{ currentUser ? followers.length : 0 }}</strong> <span class="ml-2"></span>{{$t('follower')}} </span>
+                              <span class="hidden-sm-and-up body-2" v-if="currentUser"><strong>{{ currentUser ? followers.length : 0 }}</strong> <span class="ml-1">{{$t('follower')}} </span></span>
                             </v-flex>
                         </v-layout>
                         <v-layout class="text-center" mt-12>
@@ -98,9 +112,9 @@
 
 <script>
   import tabsForOthers from '../User/TabsForOthers.vue'
-  import followUser from '../User/FollowUser.vue'
+  import followButton from '../User/FollowButton.vue'
   export default {
-    components: { tabsForOthers, followUser },
+    components: { tabsForOthers , followButton },
     data () {
       return {
         //ダイアログ
@@ -116,25 +130,37 @@
         this.$store.dispatch('loadedFreeTalks')
     },
     computed: {
+      //ログインアカウントユーザー
+       user(){
+         return this.$store.getters.user
+       },
        //画面上のユーザー情報を取得
-       otherUser(){
+       currentUser(){
          return this.$store.getters.otherUser
         },
         //画面上のユーザーのコメント
         comments(){
-          return this.otherUser ? this.$store.getters.otherUser.comments : ""
+          return this.currentUser ? this.$store.getters.otherUser.comments : ""
         },
         //画面上のユーザーの名前
         nameForRoomUser(){
-          return this.otherUser ? this.$store.getters.otherUser.displayName : ""
+          return this.currentUser ? this.$store.getters.otherUser.displayName : ""
         },
+        //ログインユーザーのフォロー
+       following(){
+         return this.currentUser ? this.$store.getters.otherUser.following : null
+       },
+       //ログインユーザーのフォロワー
+       followers(){
+         return this.currentUser ? this.$store.getters.otherUser.followers : null
+       },
         //画面上のユーザーのアイコン
         imageForRoomUser(){
-          return this.otherUser ? this.$store.getters.otherUser.photoURL : "" 
+          return this.currentUser ? this.$store.getters.otherUser.photoURL : "" 
         },
         //画面上のユーザーの自己紹介
         introduction(){
-          return this.otherUser ? this.$store.getters.otherUser.introduction : ""
+          return this.currentUser ? this.$store.getters.otherUser.introduction : ""
         },
         //ローディング
         loading(){
