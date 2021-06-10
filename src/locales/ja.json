@@ -55,6 +55,7 @@
   "change": "変更",
   "change_for_guest": "変更(ゲストユーザーのため変更不可)",
   "password": "パスワード",
+  "password_confirm": "パスワード確認",
   "password_after_change": "変更後のパスワード",
   "password_after_change_reenter": "変更後のパスワード(再入力)",
   "reauthentication": "再認証",

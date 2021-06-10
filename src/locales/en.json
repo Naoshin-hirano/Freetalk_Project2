@@ -56,6 +56,7 @@
   "change": "Change",
   "change_for_guest": "Guest User cannot change",
   "password": "Password",
+  "password_confirm": "Confirm Password",
   "password_after_change": "Password After Change",
   "password_after_change_reenter": "Password After Change（Re-Enter)",
   "reauthentication": "Reauthentication",

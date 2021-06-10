@@ -30,7 +30,7 @@
                                   <v-flex xs12>
                                       <v-text-field
                                       name="email"
-                                      label="Mail"
+                                      :label="$t('mail_address')"
                                       id="email"
                                       v-model="email"
                                       type="email"
@@ -42,7 +42,7 @@
                                   <v-flex xs12>
                                       <v-text-field
                                       name="password"
-                                      label="Password"
+                                      :label="$t('password')"
                                       id="password"
                                       v-model="password"
                                       type="password"
