@@ -15,7 +15,7 @@
                 <v-card>
                     <v-container>
                         <v-layout
-                         v-show="this.user.id !== this.currentUser.id"
+                         v-show="this.user || this.currentUser ? this.user.id !== this.currentUser.id : null"
                          class="text-right mb-2">
                           <v-flex>
                              <followButton/>
