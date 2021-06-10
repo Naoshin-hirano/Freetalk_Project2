@@ -69,16 +69,6 @@
               </v-card>
             </v-flex>
         </v-layout>
-        <v-layout>
-            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
-                <v-pagination
-                      v-model="currentPage"
-                      :length="getPageCount"
-                      dark color="indigo accent-3"
-                      class="mb-3">
-                </v-pagination>
-          </v-flex>
-        </v-layout>
         <v-layout row wrap v-for="comment in getLists" :key="comment.commentId" mb-3>
             <v-flex v-show="!loading" xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-card>
@@ -125,6 +115,16 @@
             <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                <showReplyList :commentId="comment.commentId"/>
             </v-flex>
+        </v-layout>
+        <v-layout>
+          <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
+                <v-pagination
+                      v-model="currentPage"
+                      :length="getPageCount"
+                      dark color="indigo accent-3"
+                      class="mb-3">
+                </v-pagination>
+          </v-flex>
         </v-layout>
     </v-container>
 </template>

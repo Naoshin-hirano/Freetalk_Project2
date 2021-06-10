@@ -10,13 +10,6 @@
                     v-model="search"
                     color="indigo accent-3">
                 </v-text-field>
-                <v-pagination
-                      v-model="currentPage"
-                      :length="getPageCount"
-                      dark color="indigo accent-3"
-                      class="mt-4"
-                      >
-                </v-pagination>
           </v-flex>
       </v-layout>
      <v-layout v-for="freetalk in getLists" :key="freetalk.index" mb-3>
