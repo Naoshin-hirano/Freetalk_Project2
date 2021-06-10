@@ -130,6 +130,7 @@ export default {
     //ログアウトメソッド
     logout(){
       this.$store.dispatch("logout")
+      this.drawer = false
     },
     //言語切替メソッド
     changeLangu(a){
