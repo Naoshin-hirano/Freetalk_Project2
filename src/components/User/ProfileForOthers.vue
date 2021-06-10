@@ -15,9 +15,9 @@
                 <v-card>
                     <v-container>
                         <v-layout
-                         v-if="this.user || this.currentUser"
+                         v-if="currentUser"
                          class="text-right mb-2">
-                          <v-flex v-show="this.user.id !== this.currentUser.id">
+                          <v-flex v-show="uid !== currentUser.id">
                              <followButton/>
                           </v-flex>
                         </v-layout>
@@ -131,8 +131,8 @@
     },
     computed: {
       //ログインアカウントユーザー
-       user(){
-         return this.$store.getters.user
+       uid(){
+         return this.$store.getters.user ? this.$store.getters.user.id : ""
        },
        //画面上のユーザー情報を取得
        currentUser(){
