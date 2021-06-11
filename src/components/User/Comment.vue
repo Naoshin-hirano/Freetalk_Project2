@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <div>
+        <div v-show="!loading">
          <v-layout class="text-center">
             <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-avatar size="150" class="hidden-xs-only">
@@ -105,14 +105,13 @@
         </div>
         <div v-show="loading">
           <v-layout>
-          <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
-              <v-overlay>
-                <v-progress-circular
-                  indeterminate
-                  size="64"
-                ></v-progress-circular>
-              </v-overlay>
-            </v-flex>
+            <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
+                <v-skeleton-loader
+                      class="mx-auto"
+                      max-width="700"
+                      type="card"
+              ></v-skeleton-loader>
+              </v-flex>
             </v-layout>
         </div>
     </v-container>

@@ -1,16 +1,16 @@
 <template>
     <v-container>
-        <v-layout class="text-center">
+        <v-layout>
           <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
-              <v-overlay v-show="loading">
-                <v-progress-circular
-                  indeterminate
-                  size="64">
-                </v-progress-circular>
-              </v-overlay>
+              <v-skeleton-loader
+                    v-if="loading"
+                    class="mx-auto"
+                    max-width="700"
+                    type="card"
+             ></v-skeleton-loader>
           </v-flex>
        </v-layout>
-        <v-layout>
+        <v-layout v-if="!loading">
             <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3> 
                 <v-card>
                     <v-container>

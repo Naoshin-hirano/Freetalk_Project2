@@ -2,15 +2,15 @@
     <v-container>
         <v-layout class="text-center">
             <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
-              <v-overlay v-if="loading">
-                  <v-progress-circular
-                      indeterminate
-                      size="70"
-                  ></v-progress-circular>
-                </v-overlay>
+                  <v-skeleton-loader
+                    v-if="loading"
+                    class="mx-auto"
+                    max-width="700"
+                    type="card"
+                  ></v-skeleton-loader>
             </v-flex>
         </v-layout>
-        <v-layout>
+        <v-layout v-if="!loading">
             <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
                 <v-card>
                     <v-card-actions>
@@ -104,7 +104,7 @@
                         </v-layout>
                     </v-container>
                 </v-card>
-                <myTabs/>
+                <myTabs v-if="!loading"/>
             </v-flex>
         </v-layout>
     </v-container>
