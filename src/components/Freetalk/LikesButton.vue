@@ -9,8 +9,7 @@
          class="hidden-xs-only"
          large 
          color="pink darken-1"
-         v-if="!fav_status"
-        @click.prevent="favorite">mdi-heart-outline</v-icon>
+         v-if="!fav_status">mdi-heart-outline</v-icon>
          <v-icon class="hidden-sm-and-up"  color="pink darken-1">mdi-heart-outline</v-icon>
          {{ counter.length }}
         </v-btn>
