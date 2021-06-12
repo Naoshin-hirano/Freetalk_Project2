@@ -4,8 +4,8 @@
     class="pt-0 pl-0 pr-0 mt-10">
         <v-layout row>
            <v-flex>
-                 <h3 class="hidden-xs-only">{{$t('title_message')}}</h3>
-                 <h4 class="hidden-sm-and-up ml-2">{{$t('title_message')}}</h4>
+                 <h2 class="hidden-xs-only">{{$t('title_message')}}</h2>
+                 <h3 class="hidden-sm-and-up ml-2">{{$t('title_message')}}</h3>
            </v-flex>
        </v-layout>
     </v-container>
