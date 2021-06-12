@@ -2,13 +2,18 @@
   <v-container >
       <v-layout mb-5>
           <v-flex xs12 sm8 md8 lg6 offset-sm2 offset-md2 offset-lg3>
+                <v-checkbox
+                  v-model="checkbox"
+                  :label="$t('norrow_down')"
+                ></v-checkbox>
                 <v-text-field
                     prepend-inner-icon="mdi-magnify"
                     :label="$t('search')"
                     single-line
                     hide-details
                     v-model="search"
-                    color="indigo accent-3">
+                    color="indigo accent-3"
+                    class="pt-0">
                 </v-text-field>
           </v-flex>
       </v-layout>
@@ -79,13 +84,31 @@ export default {
        //１ページに表示するFREETALKの数
        parPage:3,
        //現在いるページの初期値
-       currentPage:1
+       currentPage:1,
+       //ユーザーフォローチェックされてるか
+       checkbox: false,
     }
   },
   computed:{
+    //フォローユーザーのみ表示している投稿
+    checkFollowList(){
+      let following = this.$store.getters.user.following
+      let freetalks = []
+      this.$store.getters.loadedFreeTalks.forEach(element =>{
+        function checkUserId(arr, id){
+          return arr.some(function(value){
+            return id === value
+          })
+        }
+        if(checkUserId(following, element.createrId)){
+          freetalks.push(element)
+        }
+      })
+      return freetalks
+    },
     //FREETALKのリアルタイム検索
     freetalks(){
-      const talks = this.$store.getters.loadedFreeTalks
+      const talks = this.checkbox ? this.checkFollowList : this.$store.getters.loadedFreeTalks
       return talks.filter((talk)=>{
         return talk.title.match(this.search) || talk.date.match(this.search) || talk.language.match(this.search)
       })
