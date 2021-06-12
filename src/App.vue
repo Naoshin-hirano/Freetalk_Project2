@@ -32,9 +32,9 @@
         <v-select
               :items="items"
               label="Language"
-              item-text="mark"
-              v-model="items.mark"
-              @change="changeLangu(`${items.mark}`)"
+              item-text="langu"
+              v-model="items.langu"
+              @change="changeLangu(`${items.langu}`)"
               class="mt-5 mr-5 ml-5"
               height="30"
               dense
@@ -68,9 +68,9 @@
             <v-select
               :items="items"
               label="Language"
-              item-text="mark"
-              v-model="items.mark"
-              @change="changeLangu(`${items.mark}`)"
+              item-text="langu"
+              v-model="items.langu"
+              @change="changeLangu(`${items.langu}`)"
               class="mt-5 ml-5"
               height="30"
               dense
@@ -134,7 +134,11 @@ export default {
     },
     //言語切替メソッド
     changeLangu(a){
-      this.$i18n.locale = a
+      if(a === "Japanese"){
+        this.$i18n.locale = "ja"
+      }else{
+        this.$i18n.locale = "en"
+      }
     }
   }
 };
