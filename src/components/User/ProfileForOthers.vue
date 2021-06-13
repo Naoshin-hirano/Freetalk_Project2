@@ -51,6 +51,10 @@
                             <v-flex >
                                 <h3 v-if="nameForRoomUser">{{ nameForRoomUser }}</h3>
                                 <h3 v-else>{{$t('anonymous')}} </h3>
+                                <span v-show="yourFollower" class="hidden-xs-only blue-grey lighten-4 pr-3 pl-3 pt-1 pb-1 rounded">フォローされています</span>
+                                <span v-show="yourFollower" class="hidden-sm-and-up blue-grey lighten-4 pr-3 pl-3 pt-1 pb-1 rounded caption">フォローされています</span>
+                                <span v-show="uid === currentUser.id" class="hidden-xs-only blue-grey lighten-4 pr-3 pl-3 pt-1 pb-1 rounded">あなたのアカウントです</span>
+                                <span v-show="uid === currentUser.id" class="hidden-sm-and-up blue-grey lighten-4 pr-3 pl-3 pt-1 pb-1 rounded caption">あなたのアカウントです</span>
                             </v-flex>
                         </v-layout>
                         <v-layout class="text-center">
@@ -114,6 +118,8 @@
       }
     },
     created(){
+        console.log("follower")
+        console.log(this.followers)
         //画面上のユーザー情報取得
         this.$store.dispatch("fetchOtherUserData", this.url[this.url.length - 1])
         //プロフィール画面に遷移する度に各タブのリストが更新される
@@ -151,6 +157,12 @@
         //画面上のユーザーの自己紹介
         introduction(){
           return this.currentUser ? this.$store.getters.otherUser.introduction : ""
+        },
+        //
+        yourFollower(){
+          return this.currentUser.following.find(id =>{
+            return id === this.uid
+          })
         },
         //ローディング
         loading(){
