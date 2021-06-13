@@ -118,8 +118,6 @@
       }
     },
     created(){
-        console.log("follower")
-        console.log(this.followers)
         //画面上のユーザー情報取得
         this.$store.dispatch("fetchOtherUserData", this.url[this.url.length - 1])
         //プロフィール画面に遷移する度に各タブのリストが更新される
