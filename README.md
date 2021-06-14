@@ -39,13 +39,17 @@ FREETALKは、普段から外国語でコミュニケーションする機会が
 
 <h2>■SNS機能を使ってユーザーと交流しよう！</h2>
 
-・　お気に入りな語学研修にいいねができます。
+・　お気に入りな語学研修にいいねができます。<br>
 ![580BFDB5-5D80-44DB-8B93-F66C747EBCD3](https://user-images.githubusercontent.com/59371503/121946119-8f1d1f80-cd8f-11eb-92de-a7d2d9288ae5.gif)
 
-・　好きな語学研修を投稿するユーザーをフォローできます。
+
+
+・　好きな語学研修を投稿するユーザーをフォローできます。<br>
 ![DA94A3ED-BFB4-4D0F-8C9D-AED8D40EBB6F](https://user-images.githubusercontent.com/59371503/121946156-9b08e180-cd8f-11eb-9f6c-416fd3f963ef.gif)
 
-・　ユーザーへ掲示板形式のメッセージを投稿できます。
+
+
+・　ユーザーへ掲示板形式のメッセージを投稿できます。<br>
 ![28E964FC-AA70-4EB4-AF9A-7759A39D9ADB](https://user-images.githubusercontent.com/59371503/121946166-9e9c6880-cd8f-11eb-81dc-78cabf7bf8eb.gif)
 
 
