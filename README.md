@@ -91,7 +91,7 @@ Meetup(https://www.meetup.com/ja-JP/)
 
 <h1>6.ER図</h1>
 できるだけ浅い階層のデータベース設計を心掛けました。
-FirebaseのRealtime Databaseは、データ取り出し時に親から子ノードまで全データを取得するため、思いもよらぬ無駄なデータ転送やパフォーマンス低下を招くことがあるためです。
+FirebaseのRealtime Databaseは、データ取り出し時に親から子ノードまで全データを取得するため、データの階層が深いと思いもよらぬ無駄なデータ転送やパフォーマンス低下を招くことがあるためです。
 
 ![ER図(blue).png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/906732/1ac16ec8-c1b1-2c66-7645-2ee122588691.png)
 
